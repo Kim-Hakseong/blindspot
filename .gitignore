@@ -26,3 +26,9 @@ PROMPT_ralph.md
 LOG.md
 SUBMISSION.md
 Design.md
+
+# Datasets and models are fetched, not redistributed (see DATASETS.md).
+# Only manifests and fetch scripts are committed.
+val/**/images/
+models/*.onnx
+.cache/
