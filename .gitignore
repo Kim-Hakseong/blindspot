@@ -1,0 +1,28 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# CDK
+infra/cdk.out/
+node_modules/
+.next/
+
+# Local run artifacts (bench/out is committed — it is the source of every number)
+runs/
+*.local.json
+.DS_Store
+
+# Internal planning documents — never enter history.
+# The shippable, neutral version of the engineering rules is docs/engineering-rules.md.
+PRD.md
+CLAUDE.md
+PROMPT_ralph.md
+LOG.md
+SUBMISSION.md
+Design.md
