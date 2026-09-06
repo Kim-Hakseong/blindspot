@@ -1,0 +1,115 @@
+# Results
+
+Every figure here is cited to a file under `bench/out/` and verified by
+`uv run python tools/check_doc_numbers.py`. Nothing is quoted that has no
+generating command.
+
+## Setup
+
+| | |
+|---|---|
+| Validation set | `road100` — 100 frames, 984 labelled objects, COCO val2017 under CC BY 2.0 / CC BY-SA 2.0 |
+| Pipeline under test | YOLOX-S (Apache-2.0, OpenCV model zoo) via `cv::dnn` |
+| Undegraded baseline | mAP@50 = 0.6111 <!--bench:efficiency.baseline.mAP50--> |
+| Failure criterion | mAP@50 below 0.3666 <!--bench:efficiency.criterion.threshold_map50--> , i.e. 60% of the pipeline's own baseline |
+| Seed | 20260906 |
+
+The baseline is consistent with YOLOX-S's published COCO performance, which is
+the main external check available on the metric implementation.
+
+```bash
+uv run python bench/grid_baseline.py --axis motion_blur.exposure_ms --steps 20
+uv run python bench/boundary_efficiency.py --levels 5 9 17 33
+```
+
+## Where this pipeline fails
+
+Boundaries located by exhaustive grid at 33 steps. Each is an **interval**, not
+a point: its width is the residual uncertainty the probe budget bought.
+
+| Axis | Boundary | Physical meaning |
+|---|---|---|
+| Motion blur (exposure) | 12.50 <!--bench:efficiency.axes[0].levels[3].grid.lower--> – 13.75 <!--bench:efficiency.axes[0].levels[3].grid.upper--> ms | At 60 deg/s and 900 px focal length, a PSF around 12 px long |
+| Illuminance | 12.98 <!--bench:efficiency.axes[1].levels[3].grid.lower--> – 25.47 <!--bench:efficiency.axes[1].levels[3].grid.upper--> lux | Deep dusk / poorly lit interior |
+| Fog (extinction β) | 0.06 <!--bench:efficiency.axes[2].levels[3].grid.lower--> – 0.0638 <!--bench:efficiency.axes[2].levels[3].grid.upper--> 1/m | Meteorological visibility around 62 m |
+| JPEG quality | 7.97 <!--bench:efficiency.axes[3].levels[3].grid.lower--> – 10.94 <!--bench:efficiency.axes[3].levels[3].grid.upper--> q | Aggressive recompression |
+
+These are properties of *this pipeline on this validation set*, not of YOLOX in
+general. That is the point of the tool: the numbers are meant to be regenerated
+for your pipeline and your data.
+
+## Probe savings against an exhaustive grid
+
+Savings is reported as a curve because the two strategies scale differently. To
+halve the uncertainty in a boundary's position, a grid must double its probe
+count while bisection needs one more probe. A single savings figure quoted
+without its precision target is an arbitrary point on this curve.
+
+| Grid | Probes (grid) | Probes (verified bisection) | Savings |
+|---|---|---|---|
+| 5 | 5 | 5 | 1.00× <!--bench:efficiency.summary.by_grid_level.5.mean_savings_verified--> |
+| 9 | 9 | 6 | 1.50× <!--bench:efficiency.summary.by_grid_level.9.mean_savings_verified--> |
+| 17 | 17 | 7 | 2.43× <!--bench:efficiency.summary.by_grid_level.17.mean_savings_verified--> |
+| 33 | 33 | 8 | 4.12× <!--bench:efficiency.summary.by_grid_level.33.mean_savings_verified--> |
+
+Cheap bisection, which skips the monotonicity check, reaches
+4.71× <!--bench:efficiency.summary.by_grid_level.33.mean_savings_cheap--> at the
+same precision. It is the blinder method and both are reported.
+
+**At coarse precision active search saves nothing.** At 5 grid points it costs
+the same 5 probes for no benefit. It only pays when a precise boundary is
+wanted, which is the honest statement of when this technique is worth using.
+
+### What was actually measured
+
+The ratio 33/8 is arithmetic and would be the same on any axis. The empirical
+content is this: on **all four axes**, verified bisection returned the *same
+boundary interval as the exhaustive grid, with zero error*, using 8 probes
+instead of 33.
+
+| Axis | Boundary error vs grid | Savings valid |
+|---|---|---|
+| `motion_blur.exposure_ms` | 0 <!--bench:efficiency.axes[0].levels[3].bisection_verified.boundary_error--> | yes |
+| `low_light.illuminance_lux` | 0 <!--bench:efficiency.axes[1].levels[3].bisection_verified.boundary_error--> | yes |
+| `fog.beta_per_m` | 0 <!--bench:efficiency.axes[2].levels[3].bisection_verified.boundary_error--> | yes |
+| `jpeg.quality` | 0 <!--bench:efficiency.axes[3].levels[3].bisection_verified.boundary_error--> | yes |
+
+A search that used fewer probes but found a *different* boundary would have
+saved nothing, so savings is only reported as valid when the located boundary
+lands within one grid cell of the grid's.
+
+## Known limitations
+
+1. **Synthetic degradation is not real degradation.** This is the central
+   limitation and it is not yet quantified. A sim-to-real gap measurement
+   against a real low-light, hand-shake and recompression capture set is
+   **not measured**. Until it is, boundaries here predict where a pipeline
+   fails under *modelled* conditions.
+
+2. **Bisection assumes monotonicity.** Verified mode scans before refining and
+   reports `NOT_MONOTONE` rather than guessing, but a failure band narrower
+   than the scan spacing can still be missed. Cheap mode misses interior bands
+   entirely — this is pinned by a test, not merely documented.
+
+3. **One axis at a time.** These are 1-D searches. Interactions — blur *and*
+   low light together — are not explored. Joint condition space is the obvious
+   next step and is not implemented.
+
+4. **Fog depth is approximated.** Depth is a linear ramp increasing towards the
+   top of frame, the standard ground-plane camera assumption. Scenes violating
+   it get mis-graded fog.
+
+5. **Coverage is inferred from image statistics, not capture metadata.** A
+   scene that is intrinsically low-contrast reads as foggier than it was shot.
+   EXIF or a capture log would be better and is not yet used.
+
+6. **`mtf50_cy_px` is a proxy**, not an ISO 12233 measurement. It is comparable
+   between degradations of one scene, not across scenes.
+
+7. **No H.264 CRF axis.** OpenCV 5's `VideoWriter` exposes no rate control in
+   this build, so an honest CRF unit is unreachable through OpenCV alone. See
+   [`degradation-axes.md`](degradation-axes.md) for the evidence.
+
+8. **Single pipeline measured.** Model independence is a property of the
+   adapter interface, but only YOLOX-S has actually been run. Claims of model
+   independence are therefore structural, not yet demonstrated.
