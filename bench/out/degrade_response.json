@@ -1,0 +1,2278 @@
+{
+  "environment": {
+    "opencv": "5.0.0",
+    "numpy": "2.2.6",
+    "python": "3.12.13",
+    "machine": "arm64"
+  },
+  "seed": 20260906,
+  "scene_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2",
+  "baseline_measurements": {
+    "laplacian_var": 2314.91264,
+    "rms_contrast": 64.193779,
+    "snr_db": 34.750122,
+    "blockiness": 0.813944,
+    "mtf50_cy_px": 0.026328,
+    "mean_level": 121.833466
+  },
+  "axes": [
+    {
+      "degradation": "defocus",
+      "axis": "subject_distance_m",
+      "unit": "m",
+      "range": [
+        0.6,
+        6.0
+      ],
+      "expect": [
+        "laplacian_var",
+        "increasing"
+      ],
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.6,
+          "measured": {
+            "laplacian_var": 8.162277,
+            "rms_contrast": 55.622948,
+            "snr_db": 52.803642,
+            "blockiness": 1.06346,
+            "mtf50_cy_px": 0.025379,
+            "mean_level": 121.789185
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 11.011497,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 22.022994,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "2f80676d94f62d959a41e090970965401342b11e95f1e128703cfd022aafa34e"
+        },
+        {
+          "value": 1.275,
+          "measured": {
+            "laplacian_var": 64.51947,
+            "rms_contrast": 59.529701,
+            "snr_db": 50.198174,
+            "blockiness": 0.925703,
+            "mtf50_cy_px": 0.026093,
+            "mean_level": 121.812729
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 5.001583,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 10.003167,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "84ed5ab6c55781c7da7a42af34b83eb2cde40868768a758d8921d05ab470334f"
+        },
+        {
+          "value": 1.9500000000000002,
+          "measured": {
+            "laplacian_var": 200.37735,
+            "rms_contrast": 61.308918,
+            "snr_db": 47.932087,
+            "blockiness": 0.890147,
+            "mtf50_cy_px": 0.026233,
+            "mean_level": 121.817688
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 3.152379,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 6.304759,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "cf7a50f4f9d1933e9445e39181453a124ada02273df84946845e1b518a158f43"
+        },
+        {
+          "value": 2.6250000000000004,
+          "measured": {
+            "laplacian_var": 289.056208,
+            "rms_contrast": 61.710766,
+            "snr_db": 46.466503,
+            "blockiness": 0.841244,
+            "mtf50_cy_px": 0.026263,
+            "mean_level": 121.826157
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 2.254194,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 4.508389,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "13098d0806d122c6e2f3a1d48e5ca6e2b44672ee327385160823ba228283b087"
+        },
+        {
+          "value": 3.3000000000000003,
+          "measured": {
+            "laplacian_var": 790.942375,
+            "rms_contrast": 62.606216,
+            "snr_db": 41.157829,
+            "blockiness": 0.818545,
+            "mtf50_cy_px": 0.026296,
+            "mean_level": 121.828568
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.723449,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 3.446898,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "654a63bcdad36975a17c99627216817f3022b3e43d977dff040d023046630bb3"
+        },
+        {
+          "value": 3.975,
+          "measured": {
+            "laplacian_var": 1183.728582,
+            "rms_contrast": 63.080269,
+            "snr_db": 38.213779,
+            "blockiness": 0.812357,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.839188
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.372957,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 2.745913,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "1817ca083bb4d6d42b1efb4b8011757743cffab9e8901c02da199ab94fcf17a4"
+        },
+        {
+          "value": 4.65,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.12422,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 2.24844,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 5.325,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 0.938543,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 1.877087,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 6.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 0.794644,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 1.589288,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        }
+      ]
+    },
+    {
+      "degradation": "defocus",
+      "axis": "aperture_f_number",
+      "unit": "f-number",
+      "range": [
+        1.4,
+        8.0
+      ],
+      "expect": [
+        "laplacian_var",
+        "increasing"
+      ],
+      "stochastic": false,
+      "points": [
+        {
+          "value": 1.4,
+          "measured": {
+            "laplacian_var": 41.42627,
+            "rms_contrast": 58.857506,
+            "snr_db": 51.770485,
+            "blockiness": 0.94395,
+            "mtf50_cy_px": 0.026059,
+            "mean_level": 121.797928
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 5.785864,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 11.571728,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "718364c4643d37cd28bd261dccdf9eae0b42274bfddb191d59892136a7d68b6b"
+        },
+        {
+          "value": 2.2249999999999996,
+          "measured": {
+            "laplacian_var": 135.698867,
+            "rms_contrast": 60.72477,
+            "snr_db": 49.256622,
+            "blockiness": 0.897181,
+            "mtf50_cy_px": 0.026199,
+            "mean_level": 121.817902
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 3.640544,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 7.281087,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "1400ac5a39f977601eb88d8878b7ecaf40bb26b7c8ce85c97afe78ad1c13e733"
+        },
+        {
+          "value": 3.05,
+          "measured": {
+            "laplacian_var": 217.459333,
+            "rms_contrast": 61.461891,
+            "snr_db": 46.982925,
+            "blockiness": 0.866329,
+            "mtf50_cy_px": 0.026249,
+            "mean_level": 121.824203
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 2.655806,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 5.311613,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "f37d9b8df46133c79b264dd94728711aa3a106f227c27a033c8c3eb7569ac237"
+        },
+        {
+          "value": 3.8749999999999996,
+          "measured": {
+            "laplacian_var": 413.177761,
+            "rms_contrast": 61.99131,
+            "snr_db": 44.747375,
+            "blockiness": 0.829322,
+            "mtf50_cy_px": 0.026266,
+            "mean_level": 121.829926
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 2.090377,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 4.180753,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "a41fcac20ab386191d4559520ceeb3fc9006ba694436897a398670e32abe8487"
+        },
+        {
+          "value": 4.699999999999999,
+          "measured": {
+            "laplacian_var": 790.942375,
+            "rms_contrast": 62.606216,
+            "snr_db": 41.157829,
+            "blockiness": 0.818545,
+            "mtf50_cy_px": 0.026296,
+            "mean_level": 121.828568
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.723449,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 3.446898,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "654a63bcdad36975a17c99627216817f3022b3e43d977dff040d023046630bb3"
+        },
+        {
+          "value": 5.525,
+          "measured": {
+            "laplacian_var": 790.942375,
+            "rms_contrast": 62.606216,
+            "snr_db": 41.157829,
+            "blockiness": 0.818545,
+            "mtf50_cy_px": 0.026296,
+            "mean_level": 121.828568
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.466101,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 2.932203,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "654a63bcdad36975a17c99627216817f3022b3e43d977dff040d023046630bb3"
+        },
+        {
+          "value": 6.35,
+          "measured": {
+            "laplacian_var": 1183.728582,
+            "rms_contrast": 63.080269,
+            "snr_db": 38.213779,
+            "blockiness": 0.812357,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.839188
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.275624,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 2.551247,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "1817ca083bb4d6d42b1efb4b8011757743cffab9e8901c02da199ab94fcf17a4"
+        },
+        {
+          "value": 7.174999999999999,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.128949,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 2.257898,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 8.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "coc_diameter_px": {
+              "value": 1.012526,
+              "unit": "px"
+            },
+            "coc_diameter_um": {
+              "value": 2.025052,
+              "unit": "um"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        }
+      ]
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "unit": "1/m",
+      "range": [
+        0.0,
+        0.12
+      ],
+      "expect": [
+        "rms_contrast",
+        "decreasing"
+      ],
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 1.0,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 1.0,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 0.015,
+          "measured": {
+            "laplacian_var": 816.19824,
+            "rms_contrast": 42.402676,
+            "snr_db": 41.769173,
+            "blockiness": 0.84017,
+            "mtf50_cy_px": 0.007542,
+            "mean_level": 169.102921
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.927743,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.301194,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 260.8,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "5c0779063677bd00ddfff336c9d4db83bbf99e21bd24419f3dd1666bea3303f4"
+        },
+        {
+          "value": 0.03,
+          "measured": {
+            "laplacian_var": 406.399947,
+            "rms_contrast": 35.230606,
+            "snr_db": 46.753067,
+            "blockiness": 0.858861,
+            "mtf50_cy_px": 0.006253,
+            "mean_level": 192.266068
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.860708,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.090718,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 130.4,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "9ffaac7c9e41f051336f956a305dfb1197a9ff55db4cda36e15d017a7732f7cb"
+        },
+        {
+          "value": 0.045,
+          "measured": {
+            "laplacian_var": 246.154062,
+            "rms_contrast": 30.36021,
+            "snr_db": 50.560322,
+            "blockiness": 0.865611,
+            "mtf50_cy_px": 0.005547,
+            "mean_level": 204.409286
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.798516,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.027324,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 86.933333,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "535a47c1981254260fd1b75706c7d1f65db1f90c95f8ae8a88b72080f0b2c682"
+        },
+        {
+          "value": 0.06,
+          "measured": {
+            "laplacian_var": 165.544786,
+            "rms_contrast": 26.272911,
+            "snr_db": 53.570667,
+            "blockiness": 0.858698,
+            "mtf50_cy_px": 0.005056,
+            "mean_level": 211.418991
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.740818,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.00823,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 65.2,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "007ac63587315a6c0705cbd7b4d3e8a7701f0ec54609dea8c0d2268b23589f25"
+        },
+        {
+          "value": 0.075,
+          "measured": {
+            "laplacian_var": 117.527353,
+            "rms_contrast": 22.813395,
+            "snr_db": 56.080536,
+            "blockiness": 0.849915,
+            "mtf50_cy_px": 0.004717,
+            "mean_level": 215.80014
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.687289,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.002479,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 52.16,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "bba4e8e3d56fad662b1e87942a6d2dd8abb042106780441953a76ef0d6bbab7f"
+        },
+        {
+          "value": 0.09,
+          "measured": {
+            "laplacian_var": 86.528681,
+            "rms_contrast": 19.913843,
+            "snr_db": 58.27496,
+            "blockiness": 0.836036,
+            "mtf50_cy_px": 0.004463,
+            "mean_level": 218.75444
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.637628,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.000747,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 43.466667,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "0115245b0115e4918aad3778c65d14416b7d8a82a181c25ef9bbf6da0f10c040"
+        },
+        {
+          "value": 0.105,
+          "measured": {
+            "laplacian_var": 65.427144,
+            "rms_contrast": 17.455734,
+            "snr_db": 60.276978,
+            "blockiness": 0.823792,
+            "mtf50_cy_px": 0.004273,
+            "mean_level": 220.819183
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.591555,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 0.000225,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 37.257143,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "4e434ff3999f0ce037d4051eafcc67fea457e71296c0c7642b93d88add760e96"
+        },
+        {
+          "value": 0.12,
+          "measured": {
+            "laplacian_var": 50.034107,
+            "rms_contrast": 15.371514,
+            "snr_db": 61.951195,
+            "blockiness": 0.813487,
+            "mtf50_cy_px": 0.004111,
+            "mean_level": 222.333405
+          },
+          "derived": {
+            "transmission_near": {
+              "value": 0.548812,
+              "unit": "dimensionless"
+            },
+            "transmission_far": {
+              "value": 6.8e-05,
+              "unit": "dimensionless"
+            },
+            "meteorological_visibility_m": {
+              "value": 32.6,
+              "unit": "m"
+            }
+          },
+          "output_sha256": "89e414ab67dfc9cc74636e3b878bd99ee860df1183d40faf3b62c649e2c5cc14"
+        }
+      ]
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "unit": "jpeg-q",
+      "range": [
+        5.0,
+        100.0
+      ],
+      "expect": [
+        "blockiness",
+        "decreasing"
+      ],
+      "stochastic": false,
+      "points": [
+        {
+          "value": 5.0,
+          "measured": {
+            "laplacian_var": 1020.361144,
+            "rms_contrast": 63.193192,
+            "snr_db": 38.510445,
+            "blockiness": 2.256462,
+            "mtf50_cy_px": 0.028416,
+            "mean_level": 121.438339
+          },
+          "derived": {},
+          "output_sha256": "86236b0bd58d62c457191588dafa3b3597cf11b0a85a14d6573235977779c395"
+        },
+        {
+          "value": 16.875,
+          "measured": {
+            "laplacian_var": 1214.817917,
+            "rms_contrast": 63.326527,
+            "snr_db": 36.618698,
+            "blockiness": 1.24631,
+            "mtf50_cy_px": 0.026326,
+            "mean_level": 121.835358
+          },
+          "derived": {},
+          "output_sha256": "56653013125410bf999bdb10940de23d82d6a8c743c6955008e08db4bb871b24"
+        },
+        {
+          "value": 28.75,
+          "measured": {
+            "laplacian_var": 1926.085646,
+            "rms_contrast": 63.515495,
+            "snr_db": 33.09956,
+            "blockiness": 1.190325,
+            "mtf50_cy_px": 0.02672,
+            "mean_level": 121.940155
+          },
+          "derived": {},
+          "output_sha256": "262ef109088ab0bf43c1d1742e5893cbd2cc3f700f81789e23a1b0d964b56eff"
+        },
+        {
+          "value": 40.625,
+          "measured": {
+            "laplacian_var": 2130.077969,
+            "rms_contrast": 63.843071,
+            "snr_db": 32.447815,
+            "blockiness": 1.097426,
+            "mtf50_cy_px": 0.026493,
+            "mean_level": 121.846909
+          },
+          "derived": {},
+          "output_sha256": "27ce7d9d09b49609327d32200406d1c1ed41b3ca9d29ab03aa21e2809cddc815"
+        },
+        {
+          "value": 52.5,
+          "measured": {
+            "laplacian_var": 2294.923492,
+            "rms_contrast": 63.928192,
+            "snr_db": 32.227242,
+            "blockiness": 0.975652,
+            "mtf50_cy_px": 0.02643,
+            "mean_level": 121.869598
+          },
+          "derived": {},
+          "output_sha256": "1d252a41f9f894eeadb38482ead8019205409048383c47ef5db687b227e0c5ea"
+        },
+        {
+          "value": 64.375,
+          "measured": {
+            "laplacian_var": 2260.978183,
+            "rms_contrast": 63.965286,
+            "snr_db": 32.399521,
+            "blockiness": 0.960122,
+            "mtf50_cy_px": 0.026135,
+            "mean_level": 121.885117
+          },
+          "derived": {},
+          "output_sha256": "669cd64f2812ddb7a71d9a7ca0580378973bb970c316c3c43f056274d6268dd7"
+        },
+        {
+          "value": 76.25,
+          "measured": {
+            "laplacian_var": 2222.26845,
+            "rms_contrast": 63.921452,
+            "snr_db": 32.653858,
+            "blockiness": 0.913875,
+            "mtf50_cy_px": 0.026361,
+            "mean_level": 121.867493
+          },
+          "derived": {},
+          "output_sha256": "1869ec805ba22d9dc26439e8d6a9f191a144906eefef79f77c6ac173426015fe"
+        },
+        {
+          "value": 88.125,
+          "measured": {
+            "laplacian_var": 2342.58771,
+            "rms_contrast": 64.0541,
+            "snr_db": 30.648888,
+            "blockiness": 0.826825,
+            "mtf50_cy_px": 0.026365,
+            "mean_level": 121.85556
+          },
+          "derived": {},
+          "output_sha256": "36f4c5e56a2929db4c054cef82fa6b565363bdcbde0378a76320ada6832cf258"
+        },
+        {
+          "value": 100.0,
+          "measured": {
+            "laplacian_var": 2318.974865,
+            "rms_contrast": 64.187065,
+            "snr_db": 34.163967,
+            "blockiness": 0.813209,
+            "mtf50_cy_px": 0.026351,
+            "mean_level": 121.837219
+          },
+          "derived": {},
+          "output_sha256": "54d92b55858ecbe281351d3760a66fe8ac1fc129a0504770af1db0172cf8944c"
+        }
+      ]
+    },
+    {
+      "degradation": "lens_distortion",
+      "axis": "k1",
+      "unit": "dimensionless",
+      "range": [
+        0.0,
+        0.4
+      ],
+      "expect": null,
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 1523.779234,
+            "rms_contrast": 63.592007,
+            "snr_db": 37.180031,
+            "blockiness": 0.832156,
+            "mtf50_cy_px": 0.026409,
+            "mean_level": 121.845825
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 2.036468,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "db27cdf6ea2bbfeed045c02b1aca355b7c8a45d180495a745d209da4c84b2aaf"
+        },
+        {
+          "value": 0.05,
+          "measured": {
+            "laplacian_var": 1244.176359,
+            "rms_contrast": 63.76054,
+            "snr_db": 38.163994,
+            "blockiness": 1.02238,
+            "mtf50_cy_px": 0.026534,
+            "mean_level": 121.835632
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 6.109403,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "3aefc426cd9497fb71667372f49115e8dc88d7eddba4994aa6c37d7728a1b83e"
+        },
+        {
+          "value": 0.1,
+          "measured": {
+            "laplacian_var": 1203.628399,
+            "rms_contrast": 64.040939,
+            "snr_db": 38.070564,
+            "blockiness": 1.04891,
+            "mtf50_cy_px": 0.026626,
+            "mean_level": 121.815735
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 10.182338,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "31e6d63fc6ed23e4d96016ab1122cf454dcaf9c3e69c4d1a326f9de36edbcfea"
+        },
+        {
+          "value": 0.15000000000000002,
+          "measured": {
+            "laplacian_var": 1243.3868,
+            "rms_contrast": 64.381302,
+            "snr_db": 37.690052,
+            "blockiness": 1.04304,
+            "mtf50_cy_px": 0.026352,
+            "mean_level": 121.690323
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 14.255273,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "e1919afccbd4560f6fd8478711a86506875ed35d71a7b0df5f075c651d5c8475"
+        },
+        {
+          "value": 0.2,
+          "measured": {
+            "laplacian_var": 1338.294893,
+            "rms_contrast": 64.603256,
+            "snr_db": 37.119347,
+            "blockiness": 0.909242,
+            "mtf50_cy_px": 0.025817,
+            "mean_level": 121.459305
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 18.328208,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "1c065a1dd2df014687661c3807d1714d81871a74006a5fb88cadab3031395f52"
+        },
+        {
+          "value": 0.25,
+          "measured": {
+            "laplacian_var": 1403.44906,
+            "rms_contrast": 64.789238,
+            "snr_db": 36.671177,
+            "blockiness": 0.877805,
+            "mtf50_cy_px": 0.025454,
+            "mean_level": 121.255066
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 22.401143,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "e2680d2007a77aa6d5e7c38e5702eaad6022d38ccf471753a2ad5a7eb4e3d60d"
+        },
+        {
+          "value": 0.30000000000000004,
+          "measured": {
+            "laplacian_var": 1447.944384,
+            "rms_contrast": 65.006584,
+            "snr_db": 36.030869,
+            "blockiness": 0.894852,
+            "mtf50_cy_px": 0.025099,
+            "mean_level": 121.062286
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 26.474078,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "767430474eb87c76b4638be323c18226264c3218783a8be75130e67203ca94aa"
+        },
+        {
+          "value": 0.35000000000000003,
+          "measured": {
+            "laplacian_var": 1478.560432,
+            "rms_contrast": 65.063019,
+            "snr_db": 35.540512,
+            "blockiness": 1.022621,
+            "mtf50_cy_px": 0.024801,
+            "mean_level": 120.849152
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 30.547013,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "10ab3b41649bc0efa189cc53f0e4a47c79807d809de5b2346347702b1b854934"
+        },
+        {
+          "value": 0.4,
+          "measured": {
+            "laplacian_var": 1504.340451,
+            "rms_contrast": 65.225693,
+            "snr_db": 35.131653,
+            "blockiness": 0.939824,
+            "mtf50_cy_px": 0.024614,
+            "mean_level": 120.672256
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 34.619948,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "5b81acbbbe8a8a7e8681e977ad3a788dee6e0209f732baf3e55b078683b6d444"
+        }
+      ]
+    },
+    {
+      "degradation": "lens_distortion",
+      "axis": "k2",
+      "unit": "dimensionless",
+      "range": [
+        0.0,
+        0.1
+      ],
+      "expect": null,
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 1290.013025,
+            "rms_contrast": 64.540474,
+            "snr_db": 37.456306,
+            "blockiness": 0.961701,
+            "mtf50_cy_px": 0.025988,
+            "mean_level": 121.529984
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 16.29174,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "00c9340ef2ac436ca28421698d659d019f5cdb065de4ce4098d6bb25b80b5919"
+        },
+        {
+          "value": 0.0125,
+          "measured": {
+            "laplacian_var": 1304.198854,
+            "rms_contrast": 64.554543,
+            "snr_db": 37.372383,
+            "blockiness": 0.94526,
+            "mtf50_cy_px": 0.025916,
+            "mean_level": 121.504044
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 16.800857,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "912056cba415c80e148b9f9f4183f7e37b76aa84c0d108bc3110a2daeba651ff"
+        },
+        {
+          "value": 0.025,
+          "measured": {
+            "laplacian_var": 1315.583769,
+            "rms_contrast": 64.576187,
+            "snr_db": 37.239624,
+            "blockiness": 0.932238,
+            "mtf50_cy_px": 0.025874,
+            "mean_level": 121.486343
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 17.309974,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "c0d557fef7d9737cec48bca99fd049d4f4084a6290bd86d0c183ce7872fca44c"
+        },
+        {
+          "value": 0.037500000000000006,
+          "measured": {
+            "laplacian_var": 1326.464962,
+            "rms_contrast": 64.58725,
+            "snr_db": 37.196503,
+            "blockiness": 0.921577,
+            "mtf50_cy_px": 0.025832,
+            "mean_level": 121.468994
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 17.819091,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "4201336562334b54233dcc9bbb4d2dce0114eab497250b9d59188ec0ec8dc0ca"
+        },
+        {
+          "value": 0.05,
+          "measured": {
+            "laplacian_var": 1338.294893,
+            "rms_contrast": 64.603256,
+            "snr_db": 37.119347,
+            "blockiness": 0.909242,
+            "mtf50_cy_px": 0.025817,
+            "mean_level": 121.459305
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 18.328208,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "1c065a1dd2df014687661c3807d1714d81871a74006a5fb88cadab3031395f52"
+        },
+        {
+          "value": 0.0625,
+          "measured": {
+            "laplacian_var": 1345.375645,
+            "rms_contrast": 64.624565,
+            "snr_db": 37.068951,
+            "blockiness": 0.903159,
+            "mtf50_cy_px": 0.025785,
+            "mean_level": 121.445312
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 18.837325,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "a478e158accb6c5eb07b7860037c79c007183fbc9a29bf24db106a3543130dbd"
+        },
+        {
+          "value": 0.07500000000000001,
+          "measured": {
+            "laplacian_var": 1350.284333,
+            "rms_contrast": 64.638054,
+            "snr_db": 37.032871,
+            "blockiness": 0.894028,
+            "mtf50_cy_px": 0.025761,
+            "mean_level": 121.434845
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 19.346442,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "c292f4b873478f15ed127e80e477ecb9ed8af5384e9162967e77eafb05ab9270"
+        },
+        {
+          "value": 0.08750000000000001,
+          "measured": {
+            "laplacian_var": 1368.603748,
+            "rms_contrast": 64.657982,
+            "snr_db": 36.953377,
+            "blockiness": 0.889694,
+            "mtf50_cy_px": 0.025714,
+            "mean_level": 121.415756
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 19.855558,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "fb2a69e5df54df6f522ae5a01ad1ba2b1b77badd4621bf9eac928aa7f9fdf241"
+        },
+        {
+          "value": 0.1,
+          "measured": {
+            "laplacian_var": 1381.50283,
+            "rms_contrast": 64.671997,
+            "snr_db": 36.88913,
+            "blockiness": 0.889968,
+            "mtf50_cy_px": 0.025647,
+            "mean_level": 121.389374
+          },
+          "derived": {
+            "corner_displacement_px": {
+              "value": 20.364675,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "f17b66307f5c1a7649042ef6c0480512c75fbcac592331aedf8cdc6dfb0e530b"
+        }
+      ]
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "unit": "lux",
+      "range": [
+        0.5,
+        400.0
+      ],
+      "expect": [
+        "snr_db",
+        "increasing"
+      ],
+      "stochastic": true,
+      "points": [
+        {
+          "value": 0.5,
+          "measured": {
+            "laplacian_var": 329.322907,
+            "rms_contrast": 4.103331,
+            "snr_db": 2.805846,
+            "blockiness": 0.998541,
+            "mtf50_cy_px": 0.5,
+            "mean_level": 5.654358
+          },
+          "derived": {
+            "signal_e": {
+              "value": 0.9,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 0.67082,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": -13.41935,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "4e529c936fc7ad01bf5d9c71bb751e5a31c5b3e008d3aee6e4cfcd58472f9d34"
+        },
+        {
+          "value": 50.4375,
+          "measured": {
+            "laplacian_var": 381.366693,
+            "rms_contrast": 17.798296,
+            "snr_db": 19.906483,
+            "blockiness": 0.91638,
+            "mtf50_cy_px": 0.033576,
+            "mean_level": 33.479385
+          },
+          "derived": {
+            "signal_e": {
+              "value": 90.7875,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 6.737488,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 16.203201,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "ff895c13443ca4a3f96eee8904a9edc9b9de3604aeea7ce70f323c7f4d15765b"
+        },
+        {
+          "value": 100.375,
+          "measured": {
+            "laplacian_var": 504.649443,
+            "rms_contrast": 24.328863,
+            "snr_db": 22.857994,
+            "blockiness": 0.885747,
+            "mtf50_cy_px": 0.031639,
+            "mean_level": 46.026184
+          },
+          "derived": {
+            "signal_e": {
+              "value": 180.675,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 9.504604,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 19.370518,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "9f9e597329d519ee13f120f0c8f98a25d02ea7b74b2ebf2ea492daee0cbad970"
+        },
+        {
+          "value": 150.3125,
+          "measured": {
+            "laplacian_var": 638.66914,
+            "rms_contrast": 29.236946,
+            "snr_db": 24.41757,
+            "blockiness": 0.872413,
+            "mtf50_cy_px": 0.030195,
+            "mean_level": 55.45076
+          },
+          "derived": {
+            "signal_e": {
+              "value": 270.5625,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 11.631047,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 21.185826,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "7e1ace8b32073be5c64de529db26d07feb9ee18f572bcb0eae78a26e99a6e3ee"
+        },
+        {
+          "value": 200.25,
+          "measured": {
+            "laplacian_var": 777.0242,
+            "rms_contrast": 33.294018,
+            "snr_db": 25.323414,
+            "blockiness": 0.866408,
+            "mtf50_cy_px": 0.029081,
+            "mean_level": 63.260452
+          },
+          "derived": {
+            "signal_e": {
+              "value": 360.45,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 13.424791,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 22.462815,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "864ffe43481f73c1c9b5d294c352e2dfe6f52f16a0b4fb3f2192ee915b4e5771"
+        },
+        {
+          "value": 250.1875,
+          "measured": {
+            "laplacian_var": 911.93222,
+            "rms_contrast": 36.882866,
+            "snr_db": 26.024406,
+            "blockiness": 0.866617,
+            "mtf50_cy_px": 0.028441,
+            "mean_level": 70.041595
+          },
+          "derived": {
+            "signal_e": {
+              "value": 450.3375,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 15.005624,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 23.448608,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "6d93bab7358a0724be9d213255dcd3277fb6c4f60e1ab94c74d6ab25488d1aec"
+        },
+        {
+          "value": 300.125,
+          "measured": {
+            "laplacian_var": 1050.204103,
+            "rms_contrast": 40.071041,
+            "snr_db": 26.61215,
+            "blockiness": 0.860387,
+            "mtf50_cy_px": 0.028153,
+            "mean_level": 76.132645
+          },
+          "derived": {
+            "signal_e": {
+              "value": 540.225,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 16.4351,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 24.251605,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "bdc4ce8c74986820d3e3993bfc91cce75fd2c82e718a770024429de3edc06118"
+        },
+        {
+          "value": 350.0625,
+          "measured": {
+            "laplacian_var": 1181.635925,
+            "rms_contrast": 42.982948,
+            "snr_db": 27.006815,
+            "blockiness": 0.856117,
+            "mtf50_cy_px": 0.027803,
+            "mean_level": 81.686874
+          },
+          "derived": {
+            "signal_e": {
+              "value": 630.1125,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 17.749824,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 24.929089,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "cac525971d56268d815882a6e39025139fab63f5502101d1a4640554ad29c57e"
+        },
+        {
+          "value": 400.0,
+          "measured": {
+            "laplacian_var": 1312.5606,
+            "rms_contrast": 45.669682,
+            "snr_db": 27.382469,
+            "blockiness": 0.850242,
+            "mtf50_cy_px": 0.027253,
+            "mean_level": 86.826569
+          },
+          "derived": {
+            "signal_e": {
+              "value": 720.0,
+              "unit": "dimensionless"
+            },
+            "shot_noise_e": {
+              "value": 18.973666,
+              "unit": "dimensionless"
+            },
+            "modelled_snr_db": {
+              "value": 25.515036,
+              "unit": "dimensionless"
+            }
+          },
+          "output_sha256": "673d670fc16069dc787ed7836df77512cc95879d11f75735ecad18a63ac112a5"
+        }
+      ]
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "unit": "ms",
+      "range": [
+        0.0,
+        40.0
+      ],
+      "expect": [
+        "laplacian_var",
+        "decreasing"
+      ],
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 0.0,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.0,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 5.0,
+          "measured": {
+            "laplacian_var": 754.738248,
+            "rms_contrast": 61.19059,
+            "snr_db": 48.047585,
+            "blockiness": 0.831067,
+            "mtf50_cy_px": 0.026175,
+            "mean_level": 121.825836
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 4.712432,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.3,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "117cfcecd2a6d567408acaa8e7aec788670127ce246baec7f742f93334ccaa69"
+        },
+        {
+          "value": 10.0,
+          "measured": {
+            "laplacian_var": 459.385572,
+            "rms_contrast": 58.61002,
+            "snr_db": 56.677666,
+            "blockiness": 0.781419,
+            "mtf50_cy_px": 0.025815,
+            "mean_level": 121.804337
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 9.425122,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.6,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "5cc2b713281224b1294db672d0930351bac4b985ce3b64a62fbb650e91823afe"
+        },
+        {
+          "value": 15.0,
+          "measured": {
+            "laplacian_var": 360.186352,
+            "rms_contrast": 56.552124,
+            "snr_db": 56.542755,
+            "blockiness": 0.786145,
+            "mtf50_cy_px": 0.025246,
+            "mean_level": 121.804916
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 14.13833,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.9,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "6f5acabf993fab17c99cd34d25de90eb2784544974f9419f636caba7c0f6feac"
+        },
+        {
+          "value": 20.0,
+          "measured": {
+            "laplacian_var": 257.736434,
+            "rms_contrast": 54.58131,
+            "snr_db": 59.077454,
+            "blockiness": 0.69712,
+            "mtf50_cy_px": 0.024471,
+            "mean_level": 121.781799
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 18.852313,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 1.2,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "bcf5ffee26021dc1ad66eaa4f6a49ebfbc5d901cda497040ae4ae4f1dba17342"
+        },
+        {
+          "value": 25.0,
+          "measured": {
+            "laplacian_var": 204.154431,
+            "rms_contrast": 53.052792,
+            "snr_db": 59.857697,
+            "blockiness": 0.641138,
+            "mtf50_cy_px": 0.023496,
+            "mean_level": 121.772644
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 23.567329,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 1.5,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "e9a9686d146721545b2562bfae812003bfec89a221592ef3f57f7b9f646e12be"
+        },
+        {
+          "value": 30.0,
+          "measured": {
+            "laplacian_var": 169.218734,
+            "rms_contrast": 51.791969,
+            "snr_db": 60.074051,
+            "blockiness": 0.650896,
+            "mtf50_cy_px": 0.023168,
+            "mean_level": 121.77858
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 28.283639,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 1.8,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "39cea88a4b30bd2309b11a3c48b13459db97a68d544e9dd9d615987c43550e6c"
+        },
+        {
+          "value": 35.0,
+          "measured": {
+            "laplacian_var": 148.662977,
+            "rms_contrast": 50.722965,
+            "snr_db": 61.077309,
+            "blockiness": 0.692104,
+            "mtf50_cy_px": 0.022817,
+            "mean_level": 121.749634
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 33.001502,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 2.1,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "ac1df5f73d9ef1ac80112bc4afbda1069a0f31ee1fc847cd7fa7a7faee8a1139"
+        },
+        {
+          "value": 40.0,
+          "measured": {
+            "laplacian_var": 125.165342,
+            "rms_contrast": 49.588993,
+            "snr_db": 61.409267,
+            "blockiness": 0.687634,
+            "mtf50_cy_px": 0.022394,
+            "mean_level": 121.757416
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 37.721176,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 2.4,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "0352c5736d406b34368279d41e0e13bf1ec9b03ac627999fdc614282290c8313"
+        }
+      ]
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "angular_velocity_deg_s",
+      "unit": "deg/s",
+      "range": [
+        0.0,
+        120.0
+      ],
+      "expect": [
+        "laplacian_var",
+        "decreasing"
+      ],
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 0.0,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.0,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 15.0,
+          "measured": {
+            "laplacian_var": 754.738248,
+            "rms_contrast": 61.19059,
+            "snr_db": 48.047585,
+            "blockiness": 0.831067,
+            "mtf50_cy_px": 0.026175,
+            "mean_level": 121.825836
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 4.712432,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.3,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "117cfcecd2a6d567408acaa8e7aec788670127ce246baec7f742f93334ccaa69"
+        },
+        {
+          "value": 30.0,
+          "measured": {
+            "laplacian_var": 459.385572,
+            "rms_contrast": 58.61002,
+            "snr_db": 56.677666,
+            "blockiness": 0.781419,
+            "mtf50_cy_px": 0.025815,
+            "mean_level": 121.804337
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 9.425122,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.6,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "5cc2b713281224b1294db672d0930351bac4b985ce3b64a62fbb650e91823afe"
+        },
+        {
+          "value": 45.0,
+          "measured": {
+            "laplacian_var": 360.186352,
+            "rms_contrast": 56.552124,
+            "snr_db": 56.542755,
+            "blockiness": 0.786145,
+            "mtf50_cy_px": 0.025246,
+            "mean_level": 121.804916
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 14.13833,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 0.9,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "6f5acabf993fab17c99cd34d25de90eb2784544974f9419f636caba7c0f6feac"
+        },
+        {
+          "value": 60.0,
+          "measured": {
+            "laplacian_var": 257.736434,
+            "rms_contrast": 54.58131,
+            "snr_db": 59.077454,
+            "blockiness": 0.69712,
+            "mtf50_cy_px": 0.024471,
+            "mean_level": 121.781799
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 18.852313,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 1.2,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "bcf5ffee26021dc1ad66eaa4f6a49ebfbc5d901cda497040ae4ae4f1dba17342"
+        },
+        {
+          "value": 75.0,
+          "measured": {
+            "laplacian_var": 204.154431,
+            "rms_contrast": 53.052792,
+            "snr_db": 59.857697,
+            "blockiness": 0.641138,
+            "mtf50_cy_px": 0.023496,
+            "mean_level": 121.772644
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 23.567329,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 1.5,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "e9a9686d146721545b2562bfae812003bfec89a221592ef3f57f7b9f646e12be"
+        },
+        {
+          "value": 90.0,
+          "measured": {
+            "laplacian_var": 169.218734,
+            "rms_contrast": 51.791969,
+            "snr_db": 60.074051,
+            "blockiness": 0.650896,
+            "mtf50_cy_px": 0.023168,
+            "mean_level": 121.77858
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 28.283639,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 1.8,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "39cea88a4b30bd2309b11a3c48b13459db97a68d544e9dd9d615987c43550e6c"
+        },
+        {
+          "value": 105.0,
+          "measured": {
+            "laplacian_var": 148.662977,
+            "rms_contrast": 50.722965,
+            "snr_db": 61.077309,
+            "blockiness": 0.692104,
+            "mtf50_cy_px": 0.022817,
+            "mean_level": 121.749634
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 33.001502,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 2.1,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "ac1df5f73d9ef1ac80112bc4afbda1069a0f31ee1fc847cd7fa7a7faee8a1139"
+        },
+        {
+          "value": 120.0,
+          "measured": {
+            "laplacian_var": 125.165342,
+            "rms_contrast": 49.588993,
+            "snr_db": 61.409267,
+            "blockiness": 0.687634,
+            "mtf50_cy_px": 0.022394,
+            "mean_level": 121.757416
+          },
+          "derived": {
+            "psf_length_px": {
+              "value": 37.721176,
+              "unit": "px"
+            },
+            "sweep_angle_deg": {
+              "value": 2.4,
+              "unit": "deg"
+            }
+          },
+          "output_sha256": "0352c5736d406b34368279d41e0e13bf1ec9b03ac627999fdc614282290c8313"
+        }
+      ]
+    },
+    {
+      "degradation": "rolling_shutter",
+      "axis": "readout_time_ms",
+      "unit": "ms",
+      "range": [
+        0.0,
+        40.0
+      ],
+      "expect": null,
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 0.0,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.0,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 5.0,
+          "measured": {
+            "laplacian_var": 1647.60968,
+            "rms_contrast": 63.493427,
+            "snr_db": 37.173088,
+            "blockiness": 0.879169,
+            "mtf50_cy_px": 0.025826,
+            "mean_level": 124.562759
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 9.425122,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.036817,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "41e4fb4df7bfbe1b4fbdfe74da6ff9a4bc8e89cef16a5550205f9cb819c53961"
+        },
+        {
+          "value": 10.0,
+          "measured": {
+            "laplacian_var": 1667.977006,
+            "rms_contrast": 63.238422,
+            "snr_db": 37.049137,
+            "blockiness": 0.889455,
+            "mtf50_cy_px": 0.024668,
+            "mean_level": 127.157715
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 18.852313,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.073642,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "32f61d80bdc3473f3fa1b0845ee842779ee2adb250503193b926b4467bc0f984"
+        },
+        {
+          "value": 15.0,
+          "measured": {
+            "laplacian_var": 1696.916769,
+            "rms_contrast": 62.897678,
+            "snr_db": 36.714714,
+            "blockiness": 0.884359,
+            "mtf50_cy_px": 0.023404,
+            "mean_level": 129.649506
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 28.283639,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.110483,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "bacb3e06af81c272da2010288460fdf6a5c05d19c678c88db85ad09b4c9a4c92"
+        },
+        {
+          "value": 20.0,
+          "measured": {
+            "laplacian_var": 1712.939185,
+            "rms_contrast": 62.371868,
+            "snr_db": 36.324596,
+            "blockiness": 0.879068,
+            "mtf50_cy_px": 0.023108,
+            "mean_level": 131.975449
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 37.721176,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.147348,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "7fad6517354432787923b5077f4b2333635e1791e2ba383cefd099b2188e79c0"
+        },
+        {
+          "value": 25.0,
+          "measured": {
+            "laplacian_var": 1747.339128,
+            "rms_contrast": 61.973488,
+            "snr_db": 35.903965,
+            "blockiness": 0.894587,
+            "mtf50_cy_px": 0.022606,
+            "mean_level": 134.039749
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 47.167001,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.184246,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "7a67e097f7f6bdd5d72aa2e760d4a4cdcc834945f75df5108e9b3afb54c3822f"
+        },
+        {
+          "value": 30.0,
+          "measured": {
+            "laplacian_var": 1782.453896,
+            "rms_contrast": 61.463322,
+            "snr_db": 35.224586,
+            "blockiness": 0.892245,
+            "mtf50_cy_px": 0.007719,
+            "mean_level": 136.210815
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 56.623201,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.221184,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "d871e2663911119359431ec1ff39f86c467afa0fb7633f02e164169d6b34ea4b"
+        },
+        {
+          "value": 35.0,
+          "measured": {
+            "laplacian_var": 1834.630264,
+            "rms_contrast": 61.084534,
+            "snr_db": 34.5495,
+            "blockiness": 0.891329,
+            "mtf50_cy_px": 0.007558,
+            "mean_level": 138.096603
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 66.091869,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.258171,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "9c4df97dc3997d27d372365221454415d0bc4bd26b03ba322728056046d7c0e5"
+        },
+        {
+          "value": 40.0,
+          "measured": {
+            "laplacian_var": 1862.483079,
+            "rms_contrast": 60.599159,
+            "snr_db": 33.920902,
+            "blockiness": 0.888196,
+            "mtf50_cy_px": 0.007407,
+            "mean_level": 139.903122
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 75.575112,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.295215,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "3b4b7c80cff89037723b462c8ff4d5b54be698dae2f45561fb471bc26fdc6478"
+        }
+      ]
+    },
+    {
+      "degradation": "rolling_shutter",
+      "axis": "angular_velocity_deg_s",
+      "unit": "deg/s",
+      "range": [
+        0.0,
+        240.0
+      ],
+      "expect": null,
+      "stochastic": false,
+      "points": [
+        {
+          "value": 0.0,
+          "measured": {
+            "laplacian_var": 2314.91264,
+            "rms_contrast": 64.193779,
+            "snr_db": 34.750122,
+            "blockiness": 0.813944,
+            "mtf50_cy_px": 0.026328,
+            "mean_level": 121.833466
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 0.0,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.0,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "115349bfd23904482288d835eb7f27bd20cc6100a867259455c25682a2d1bfa2"
+        },
+        {
+          "value": 30.0,
+          "measured": {
+            "laplacian_var": 1647.60968,
+            "rms_contrast": 63.493427,
+            "snr_db": 37.173088,
+            "blockiness": 0.879169,
+            "mtf50_cy_px": 0.025826,
+            "mean_level": 124.562759
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 9.425122,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.036817,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "41e4fb4df7bfbe1b4fbdfe74da6ff9a4bc8e89cef16a5550205f9cb819c53961"
+        },
+        {
+          "value": 60.0,
+          "measured": {
+            "laplacian_var": 1667.977006,
+            "rms_contrast": 63.238422,
+            "snr_db": 37.049137,
+            "blockiness": 0.889455,
+            "mtf50_cy_px": 0.024668,
+            "mean_level": 127.157715
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 18.852313,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.073642,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "32f61d80bdc3473f3fa1b0845ee842779ee2adb250503193b926b4467bc0f984"
+        },
+        {
+          "value": 90.0,
+          "measured": {
+            "laplacian_var": 1696.916769,
+            "rms_contrast": 62.897678,
+            "snr_db": 36.714714,
+            "blockiness": 0.884359,
+            "mtf50_cy_px": 0.023404,
+            "mean_level": 129.649506
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 28.283639,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.110483,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "bacb3e06af81c272da2010288460fdf6a5c05d19c678c88db85ad09b4c9a4c92"
+        },
+        {
+          "value": 120.0,
+          "measured": {
+            "laplacian_var": 1712.939185,
+            "rms_contrast": 62.371868,
+            "snr_db": 36.324596,
+            "blockiness": 0.879068,
+            "mtf50_cy_px": 0.023108,
+            "mean_level": 131.975449
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 37.721176,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.147348,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "7fad6517354432787923b5077f4b2333635e1791e2ba383cefd099b2188e79c0"
+        },
+        {
+          "value": 150.0,
+          "measured": {
+            "laplacian_var": 1747.339128,
+            "rms_contrast": 61.973488,
+            "snr_db": 35.903965,
+            "blockiness": 0.894587,
+            "mtf50_cy_px": 0.022606,
+            "mean_level": 134.039749
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 47.167001,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.184246,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "7a67e097f7f6bdd5d72aa2e760d4a4cdcc834945f75df5108e9b3afb54c3822f"
+        },
+        {
+          "value": 180.0,
+          "measured": {
+            "laplacian_var": 1782.453896,
+            "rms_contrast": 61.463322,
+            "snr_db": 35.224586,
+            "blockiness": 0.892245,
+            "mtf50_cy_px": 0.007719,
+            "mean_level": 136.210815
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 56.623201,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.221184,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "d871e2663911119359431ec1ff39f86c467afa0fb7633f02e164169d6b34ea4b"
+        },
+        {
+          "value": 210.0,
+          "measured": {
+            "laplacian_var": 1834.630264,
+            "rms_contrast": 61.084534,
+            "snr_db": 34.5495,
+            "blockiness": 0.891329,
+            "mtf50_cy_px": 0.007558,
+            "mean_level": 138.096603
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 66.091869,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.258171,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "9c4df97dc3997d27d372365221454415d0bc4bd26b03ba322728056046d7c0e5"
+        },
+        {
+          "value": 240.0,
+          "measured": {
+            "laplacian_var": 1862.483079,
+            "rms_contrast": 60.599159,
+            "snr_db": 33.920902,
+            "blockiness": 0.888196,
+            "mtf50_cy_px": 0.007407,
+            "mean_level": 139.903122
+          },
+          "derived": {
+            "row_shift_total_px": {
+              "value": 75.575112,
+              "unit": "px"
+            },
+            "row_shift_per_row_px": {
+              "value": 0.295215,
+              "unit": "px"
+            }
+          },
+          "output_sha256": "3b4b7c80cff89037723b462c8ff4d5b54be698dae2f45561fb471bc26fdc6478"
+        }
+      ]
+    }
+  ],
+  "command": "uv run python bench/degrade_response.py"
+}
