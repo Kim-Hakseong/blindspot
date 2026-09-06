@@ -1,0 +1,920 @@
+{
+  "strategy": "grid",
+  "axis": "motion_blur.exposure_ms",
+  "unit": "ms",
+  "range": [
+    0.0,
+    40.0
+  ],
+  "steps": 20,
+  "probes_used": 20,
+  "seed": 20260906,
+  "dataset": {
+    "name": "road100",
+    "frames": 100,
+    "objects": 984,
+    "source": "COCO val2017"
+  },
+  "pipeline": {
+    "name": "yolox_s",
+    "model_path": "models/yolox_s.onnx",
+    "backend": "cv::dnn",
+    "input_size": "640x640",
+    "score_threshold": "0.25",
+    "nms_threshold": "0.45"
+  },
+  "criterion": {
+    "rule": "mAP@50 below a fraction of the undegraded baseline",
+    "baseline_map50": 0.6110733916774186,
+    "fraction": 0.6,
+    "threshold_map50": 0.36664403500645115
+  },
+  "baseline": {
+    "mAP50": 0.6110733916774186,
+    "n_ground_truth": 984,
+    "n_predictions": 1471,
+    "true_positives": 832,
+    "false_positives": 639,
+    "false_negatives": 152,
+    "n_classes_scored": 6
+  },
+  "boundary": {
+    "axis": "motion_blur.exposure_ms",
+    "unit": "ms",
+    "lower": 10.526315789473683,
+    "upper": 12.631578947368421,
+    "width": 2.105263157894738,
+    "map50_before": 0.4125029333513787,
+    "map50_after": 0.361860423087504,
+    "reproduce": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 12.6316 --focal_length_px 900 --seed 20260906"
+  },
+  "wall_seconds": 164.6,
+  "environment": {
+    "opencv": "5.0.0",
+    "python": "3.12.13",
+    "machine": "arm64"
+  },
+  "command": "uv run python bench/grid_baseline.py --axis motion_blur.exposure_ms --steps 20",
+  "probes": [
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 0.0,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.6110733916774186,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1471,
+        "true_positives": 832,
+        "false_positives": 639,
+        "false_negatives": 152,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 0.0,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.0,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 1013.009605,
+        "rms_contrast": 68.34771,
+        "snr_db": 31.721951,
+        "blockiness": 0.962776,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.972916
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.142,
+      "params": {
+        "exposure_ms": 0.0,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 0 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 2.1052631578947367,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.5975400852333501,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1436,
+        "true_positives": 829,
+        "false_positives": 607,
+        "false_negatives": 155,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 1.984167,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.126316,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 531.312035,
+        "rms_contrast": 67.994316,
+        "snr_db": 40.627785,
+        "blockiness": 0.93159,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.965492
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.011,
+      "params": {
+        "exposure_ms": 2.1052631578947367,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 2.10526 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 4.2105263157894735,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.5653061061966298,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1359,
+        "true_positives": 813,
+        "false_positives": 546,
+        "false_negatives": 171,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 3.968353,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.252632,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 427.992845,
+        "rms_contrast": 67.774727,
+        "snr_db": 46.008686,
+        "blockiness": 0.909805,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.960907
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.372,
+      "params": {
+        "exposure_ms": 4.2105263157894735,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 4.21053 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 6.315789473684211,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.506948795920312,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1250,
+        "true_positives": 774,
+        "false_positives": 476,
+        "false_negatives": 210,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 5.952578,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.378947,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 386.273313,
+        "rms_contrast": 67.600029,
+        "snr_db": 48.10862,
+        "blockiness": 0.896496,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.960419
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.057,
+      "params": {
+        "exposure_ms": 6.315789473684211,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 6.31579 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 8.421052631578947,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.4509330750158564,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1132,
+        "true_positives": 731,
+        "false_positives": 401,
+        "false_negatives": 253,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 7.936861,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.505263,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 359.967764,
+        "rms_contrast": 67.45063,
+        "snr_db": 49.351345,
+        "blockiness": 0.888128,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.95919
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.123,
+      "params": {
+        "exposure_ms": 8.421052631578947,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 8.42105 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 10.526315789473683,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.4125029333513787,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1044,
+        "true_positives": 688,
+        "false_positives": 356,
+        "false_negatives": 296,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 9.921221,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.631579,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 339.773729,
+        "rms_contrast": 67.314613,
+        "snr_db": 50.152161,
+        "blockiness": 0.880861,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.959198
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.218,
+      "params": {
+        "exposure_ms": 10.526315789473683,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 10.5263 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 12.631578947368421,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.361860423087504,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 939,
+        "true_positives": 636,
+        "false_positives": 303,
+        "false_negatives": 348,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 11.905677,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.757895,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 323.806418,
+        "rms_contrast": 67.190102,
+        "snr_db": 50.6814,
+        "blockiness": 0.877007,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.957672
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.249,
+      "params": {
+        "exposure_ms": 12.631578947368421,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 12.6316 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 14.736842105263158,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.32837305749769474,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 844,
+        "true_positives": 579,
+        "false_positives": 265,
+        "false_negatives": 405,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 13.890249,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 0.884211,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 310.467903,
+        "rms_contrast": 67.074745,
+        "snr_db": 51.106678,
+        "blockiness": 0.874474,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.957741
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.319,
+      "params": {
+        "exposure_ms": 14.736842105263158,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 14.7368 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 16.842105263157894,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.3030525527198521,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 769,
+        "true_positives": 534,
+        "false_positives": 235,
+        "false_negatives": 450,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 15.874956,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.010526,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 298.813146,
+        "rms_contrast": 66.96563,
+        "snr_db": 51.42025,
+        "blockiness": 0.871041,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.958549
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.351,
+      "params": {
+        "exposure_ms": 16.842105263157894,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 16.8421 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 18.94736842105263,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.26586401262150566,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 715,
+        "true_positives": 491,
+        "false_positives": 224,
+        "false_negatives": 493,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 17.859818,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.136842,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 288.561441,
+        "rms_contrast": 66.862129,
+        "snr_db": 51.729782,
+        "blockiness": 0.869113,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.958
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.778,
+      "params": {
+        "exposure_ms": 18.94736842105263,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 18.9474 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 21.052631578947366,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.23962592197095242,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 653,
+        "true_positives": 445,
+        "false_positives": 208,
+        "false_negatives": 539,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 19.844853,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.263158,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 279.544038,
+        "rms_contrast": 66.763275,
+        "snr_db": 51.838234,
+        "blockiness": 0.864464,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.958336
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.775,
+      "params": {
+        "exposure_ms": 21.052631578947366,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 21.0526 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 23.157894736842103,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.19596466141519564,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 603,
+        "true_positives": 399,
+        "false_positives": 204,
+        "false_negatives": 585,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 21.830081,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.389474,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 271.343264,
+        "rms_contrast": 66.668266,
+        "snr_db": 52.002453,
+        "blockiness": 0.859888,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.957031
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.784,
+      "params": {
+        "exposure_ms": 23.157894736842103,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 23.1579 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 25.263157894736842,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.17865979953064795,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 552,
+        "true_positives": 363,
+        "false_positives": 189,
+        "false_negatives": 621,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 23.815522,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.515789,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 264.026281,
+        "rms_contrast": 66.577225,
+        "snr_db": 52.111721,
+        "blockiness": 0.854566,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.95726
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.816,
+      "params": {
+        "exposure_ms": 25.263157894736842,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 25.2632 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 27.36842105263158,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.16115899103609355,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 503,
+        "true_positives": 331,
+        "false_positives": 172,
+        "false_negatives": 653,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 25.801194,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.642105,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 257.203333,
+        "rms_contrast": 66.48893,
+        "snr_db": 52.20002,
+        "blockiness": 0.852137,
+        "mtf50_cy_px": 0.002494,
+        "mean_level": 91.958397
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.711,
+      "params": {
+        "exposure_ms": 27.36842105263158,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 27.3684 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 29.473684210526315,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.14168505737491205,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 455,
+        "true_positives": 297,
+        "false_positives": 158,
+        "false_negatives": 687,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 27.787117,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.768421,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 251.072667,
+        "rms_contrast": 66.403305,
+        "snr_db": 52.307281,
+        "blockiness": 0.849942,
+        "mtf50_cy_px": 0.002495,
+        "mean_level": 91.957222
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.77,
+      "params": {
+        "exposure_ms": 29.473684210526315,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 29.4737 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 31.57894736842105,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.12455987418244036,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 400,
+        "true_positives": 258,
+        "false_positives": 142,
+        "false_negatives": 726,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 29.773311,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 1.894737,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 245.413358,
+        "rms_contrast": 66.320023,
+        "snr_db": 52.374538,
+        "blockiness": 0.848883,
+        "mtf50_cy_px": 0.002495,
+        "mean_level": 91.957932
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.292,
+      "params": {
+        "exposure_ms": 31.57894736842105,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 31.5789 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 33.68421052631579,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.09918733610901871,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 353,
+        "true_positives": 217,
+        "false_positives": 136,
+        "false_negatives": 767,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 31.759794,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 2.021053,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 240.092348,
+        "rms_contrast": 66.239243,
+        "snr_db": 52.404861,
+        "blockiness": 0.84756,
+        "mtf50_cy_px": 0.002495,
+        "mean_level": 91.957718
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.862,
+      "params": {
+        "exposure_ms": 33.68421052631579,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 33.6842 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 35.78947368421053,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.09016009129401707,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 314,
+        "true_positives": 193,
+        "false_positives": 121,
+        "false_negatives": 791,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 33.746586,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 2.147368,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 235.247171,
+        "rms_contrast": 66.15992,
+        "snr_db": 52.503845,
+        "blockiness": 0.844469,
+        "mtf50_cy_px": 0.002495,
+        "mean_level": 91.957359
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.763,
+      "params": {
+        "exposure_ms": 35.78947368421053,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 35.7895 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 37.89473684210526,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.07748575008994989,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 289,
+        "true_positives": 171,
+        "false_positives": 118,
+        "false_negatives": 813,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 35.733707,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 2.273684,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 230.747707,
+        "rms_contrast": 66.082504,
+        "snr_db": 52.521248,
+        "blockiness": 0.841923,
+        "mtf50_cy_px": 0.002496,
+        "mean_level": 91.957138
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.775,
+      "params": {
+        "exposure_ms": 37.89473684210526,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 37.8947 --focal_length_px 900 --seed 20260906"
+    },
+    {
+      "degradation": "motion_blur",
+      "axis": "exposure_ms",
+      "value": 40.0,
+      "unit": "ms",
+      "seed": 20260906,
+      "map50": 0.06577923651948987,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 253,
+        "true_positives": 152,
+        "false_positives": 101,
+        "false_negatives": 832,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "psf_length_px": {
+          "value": 37.721176,
+          "unit": "px"
+        },
+        "sweep_angle_deg": {
+          "value": 2.4,
+          "unit": "deg"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 226.428972,
+        "rms_contrast": 66.006958,
+        "snr_db": 52.567459,
+        "blockiness": 0.840068,
+        "mtf50_cy_px": 0.002496,
+        "mean_level": 91.957184
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.716,
+      "params": {
+        "exposure_ms": 40.0,
+        "angular_velocity_deg_s": 60.0,
+        "focal_length_px": 900.0,
+        "direction_deg": 0.0
+      },
+      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 40 --focal_length_px 900 --seed 20260906"
+    }
+  ]
+}

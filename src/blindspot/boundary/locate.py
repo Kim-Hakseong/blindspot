@@ -81,6 +81,58 @@ def scan_boundaries(samples: Sequence[tuple[float, bool]]) -> list[tuple[float, 
     return transitions
 
 
+def locate_on_axis(
+    axis,
+    evaluate_value: Evaluator,
+    target_width: float,
+    max_probes: int = 64,
+    verify_samples: int = 0,
+) -> BoundaryResult:
+    """Locate a boundary on an ``Axis``, respecting which end is severe.
+
+    Bisection needs to walk from benign to severe. Half the physical axes run
+    the other way -- more light and higher JPEG quality are *better* -- so
+    searching in raw value order would start at the harsh end, find it already
+    failing, and report "fails throughout" on an axis that has a perfectly good
+    boundary in it. Severity is normalised to [0, 1] here and the result is
+    mapped back into the axis's own unit, so callers cannot get it wrong.
+    """
+    severity_width = abs(target_width / (axis.severe - axis.benign))
+
+    def evaluate_severity(severity: float) -> bool:
+        return evaluate_value(axis.from_severity(severity))
+
+    result = bisect_boundary(
+        evaluate_severity,
+        lo=0.0,
+        hi=1.0,
+        target_width=severity_width,
+        max_probes=max_probes,
+        verify_samples=verify_samples,
+    )
+
+    def to_value(severity):
+        return None if severity is None else axis.from_severity(severity)
+
+    lower_value = to_value(result.lower)
+    upper_value = to_value(result.upper)
+    # from_severity may invert the ordering; report lower <= upper in axis units.
+    if lower_value is not None and upper_value is not None and lower_value > upper_value:
+        lower_value, upper_value = upper_value, lower_value
+
+    return BoundaryResult(
+        status=result.status,
+        lower=lower_value,
+        upper=upper_value,
+        probes_used=result.probes_used,
+        probes=[(axis.from_severity(s), failed) for s, failed in result.probes],
+        transitions=[
+            tuple(sorted((axis.from_severity(a), axis.from_severity(b))))
+            for a, b in result.transitions
+        ],
+    )
+
+
 def bisect_boundary(
     evaluate: Evaluator,
     lo: float,

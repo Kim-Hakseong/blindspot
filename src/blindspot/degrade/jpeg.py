@@ -24,7 +24,15 @@ class Jpeg(Degradation):
     name = "jpeg"
     Params = JpegParams
     stochastic = False
-    axes = (Axis("quality", "jpeg-q", 5.0, 100.0, expect=("blockiness", "decreasing")),)
+    axes = (Axis(
+            "quality",
+            "jpeg-q",
+            5.0,
+            100.0,
+            expect=("blockiness", "decreasing"),
+            # Low quality is the harsh condition.
+            severe_end="lo",
+        ),)
 
     def derived(self, params: JpegParams) -> dict[str, tuple[float, str]]:
         return {}

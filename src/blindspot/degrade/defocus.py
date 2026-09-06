@@ -76,8 +76,18 @@ class Defocus(Degradation):
             0.6,
             6.0,
             expect=("laplacian_var", "increasing"),
+            # Closer than the focus distance is the harsh condition.
+            severe_end="lo",
         ),
-        Axis("aperture_f_number", "f-number", 1.4, 8.0, expect=("laplacian_var", "increasing")),
+        Axis(
+            "aperture_f_number",
+            "f-number",
+            1.4,
+            8.0,
+            expect=("laplacian_var", "increasing"),
+            # A wider aperture (lower f-number) is the harsh condition.
+            severe_end="lo",
+        ),
     )
 
     def derived(self, params: DefocusParams) -> dict[str, tuple[float, str]]:

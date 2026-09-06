@@ -14,7 +14,12 @@ from __future__ import annotations
 
 import pytest
 
-from blindspot.boundary.locate import BoundaryStatus, bisect_boundary, scan_boundaries
+from blindspot.boundary.locate import (
+    BoundaryStatus,
+    bisect_boundary,
+    locate_on_axis,
+    scan_boundaries,
+)
 
 
 def step_at(threshold: float):
@@ -162,3 +167,66 @@ def test_bisection_flags_a_non_monotone_response():
     )
     assert result.status is BoundaryStatus.NOT_MONOTONE
     assert len(result.transitions) >= 2
+
+
+# ------------------------------------------------- severity orientation
+
+
+class FakeAxis:
+    """Minimal stand-in for degrade.Axis, to test orientation in isolation."""
+
+    def __init__(self, lo, hi, severe_end):
+        self.lo, self.hi, self.severe_end = lo, hi, severe_end
+
+    @property
+    def benign(self):
+        return self.lo if self.severe_end == "hi" else self.hi
+
+    @property
+    def severe(self):
+        return self.hi if self.severe_end == "hi" else self.lo
+
+    def from_severity(self, s):
+        return self.benign + s * (self.severe - self.benign)
+
+
+def test_locate_handles_an_axis_whose_low_end_is_severe():
+    """Illuminance: 0.5 lux is harsh, 400 lux is benign.
+
+    Searching in raw value order would probe 0.5 first, find it failing, and
+    report 'fails throughout' on an axis that has a real boundary in it.
+    """
+    axis = FakeAxis(lo=0.5, hi=400.0, severe_end="lo")
+
+    def evaluate(lux: float) -> bool:
+        return lux < 20.0  # fails in the dark
+
+    result = locate_on_axis(axis, evaluate, target_width=2.0)
+    assert result.status is BoundaryStatus.LOCATED
+    assert result.lower <= 20.0 <= result.upper
+    assert result.upper - result.lower <= 2.0
+
+
+def test_locate_handles_an_axis_whose_high_end_is_severe():
+    axis = FakeAxis(lo=0.0, hi=40.0, severe_end="hi")
+
+    def evaluate(ms: float) -> bool:
+        return ms >= 11.5
+
+    result = locate_on_axis(axis, evaluate, target_width=1.0)
+    assert result.status is BoundaryStatus.LOCATED
+    assert result.lower <= 11.5 <= result.upper
+
+
+def test_locate_reports_bounds_in_ascending_axis_units():
+    """Even on an inverted axis, lower must not exceed upper."""
+    axis = FakeAxis(lo=5.0, hi=100.0, severe_end="lo")
+    result = locate_on_axis(axis, lambda q: q < 12.0, target_width=1.0)
+    assert result.lower < result.upper
+
+
+def test_locate_probes_are_reported_in_axis_units():
+    axis = FakeAxis(lo=0.5, hi=400.0, severe_end="lo")
+    result = locate_on_axis(axis, lambda lux: lux < 20.0, target_width=5.0)
+    for value, _ in result.probes:
+        assert 0.5 <= value <= 400.0

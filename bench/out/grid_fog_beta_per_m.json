@@ -1,0 +1,996 @@
+{
+  "strategy": "grid",
+  "axis": "fog.beta_per_m",
+  "unit": "1/m",
+  "range": [
+    0.0,
+    0.12
+  ],
+  "steps": 20,
+  "probes_used": 20,
+  "seed": 20260906,
+  "dataset": {
+    "name": "road100",
+    "frames": 100,
+    "objects": 984,
+    "source": "COCO val2017"
+  },
+  "pipeline": {
+    "name": "yolox_s",
+    "model_path": "models/yolox_s.onnx",
+    "backend": "cv::dnn",
+    "input_size": "640x640",
+    "score_threshold": "0.25",
+    "nms_threshold": "0.45"
+  },
+  "criterion": {
+    "rule": "mAP@50 below a fraction of the undegraded baseline",
+    "baseline_map50": 0.6110733916774186,
+    "fraction": 0.6,
+    "threshold_map50": 0.36664403500645115
+  },
+  "baseline": {
+    "mAP50": 0.6110733916774186,
+    "n_ground_truth": 984,
+    "n_predictions": 1471,
+    "true_positives": 832,
+    "false_positives": 639,
+    "false_negatives": 152,
+    "n_classes_scored": 6
+  },
+  "boundary": {
+    "axis": "fog.beta_per_m",
+    "unit": "1/m",
+    "lower": 0.056842105263157895,
+    "upper": 0.06315789473684211,
+    "width": 0.006315789473684212,
+    "map50_before": 0.41808092470606883,
+    "map50_after": 0.3632245104370895,
+    "reproduce": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0631579 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+  },
+  "wall_seconds": 258.5,
+  "environment": {
+    "opencv": "5.0.0",
+    "python": "3.12.13",
+    "machine": "arm64"
+  },
+  "command": "uv run python bench/grid_baseline.py --axis fog.beta_per_m --steps 20",
+  "probes": [
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.0,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.6110733916774186,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1471,
+        "true_positives": 832,
+        "false_positives": 639,
+        "false_negatives": 152,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 1.0,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 1.0,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 1013.009605,
+        "rms_contrast": 68.34771,
+        "snr_db": 31.721951,
+        "blockiness": 0.962776,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.972916
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.316,
+      "params": {
+        "beta_per_m": 0.0,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.00631578947368421,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.615527243815824,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1457,
+        "true_positives": 833,
+        "false_positives": 624,
+        "false_negatives": 151,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.968914,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.603347,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 619.4,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 600.944261,
+        "rms_contrast": 57.147968,
+        "snr_db": 36.446281,
+        "blockiness": 0.962381,
+        "mtf50_cy_px": 0.00255,
+        "mean_level": 122.476997
+      },
+      "n_frames": 100,
+      "wall_seconds": 13.176,
+      "params": {
+        "beta_per_m": 0.00631578947368421,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.00631579 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.01263157894736842,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.6054165193906805,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1416,
+        "true_positives": 827,
+        "false_positives": 589,
+        "false_negatives": 157,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.938795,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.364027,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 309.7,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 370.092947,
+        "rms_contrast": 54.117256,
+        "snr_db": 40.079666,
+        "blockiness": 0.963079,
+        "mtf50_cy_px": 0.002609,
+        "mean_level": 144.472931
+      },
+      "n_frames": 100,
+      "wall_seconds": 13.085,
+      "params": {
+        "beta_per_m": 0.01263157894736842,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0126316 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.01894736842105263,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.6030147044414139,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1372,
+        "true_positives": 821,
+        "false_positives": 551,
+        "false_negatives": 163,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.909612,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.219635,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 206.466667,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 236.668383,
+        "rms_contrast": 53.246803,
+        "snr_db": 43.104626,
+        "blockiness": 0.962969,
+        "mtf50_cy_px": 0.002652,
+        "mean_level": 160.361633
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.953,
+      "params": {
+        "beta_per_m": 0.01894736842105263,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0189474 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.02526315789473684,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.561885152022556,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1323,
+        "true_positives": 801,
+        "false_positives": 522,
+        "false_negatives": 183,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.881336,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.132516,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 154.85,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 156.638916,
+        "rms_contrast": 52.375355,
+        "snr_db": 45.689144,
+        "blockiness": 0.954756,
+        "mtf50_cy_px": 0.002672,
+        "mean_level": 172.08223
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.839,
+      "params": {
+        "beta_per_m": 0.02526315789473684,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0252632 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.031578947368421054,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.5364996372523827,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1258,
+        "true_positives": 785,
+        "false_positives": 473,
+        "false_negatives": 199,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.85394,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.079953,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 123.88,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 106.942377,
+        "rms_contrast": 51.107124,
+        "snr_db": 47.992741,
+        "blockiness": 0.933335,
+        "mtf50_cy_px": 0.002669,
+        "mean_level": 180.884247
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.775,
+      "params": {
+        "beta_per_m": 0.031578947368421054,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0315789 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.03789473684210526,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.5012741567353111,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1162,
+        "true_positives": 743,
+        "false_positives": 419,
+        "false_negatives": 241,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.827394,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.048239,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 103.233333,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 75.180318,
+        "rms_contrast": 49.455162,
+        "snr_db": 50.069847,
+        "blockiness": 0.933947,
+        "mtf50_cy_px": 0.002649,
+        "mean_level": 187.661209
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.597,
+      "params": {
+        "beta_per_m": 0.03789473684210526,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0378947 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.04421052631578947,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.48259945034256574,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1069,
+        "true_positives": 707,
+        "false_positives": 362,
+        "false_negatives": 277,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.801674,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.029105,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 88.485714,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 54.101893,
+        "rms_contrast": 47.578796,
+        "snr_db": 51.932869,
+        "blockiness": 0.940791,
+        "mtf50_cy_px": 0.002618,
+        "mean_level": 192.978729
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.976,
+      "params": {
+        "beta_per_m": 0.04421052631578947,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0442105 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.05052631578947368,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.45617090103394836,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 953,
+        "true_positives": 650,
+        "false_positives": 303,
+        "false_negatives": 334,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.776754,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.01756,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 77.425,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 39.81263,
+        "rms_contrast": 45.533894,
+        "snr_db": 53.74012,
+        "blockiness": 0.941792,
+        "mtf50_cy_px": 0.002583,
+        "mean_level": 197.253647
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.939,
+      "params": {
+        "beta_per_m": 0.05052631578947368,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0505263 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.056842105263157895,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.41808092470606883,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 835,
+        "true_positives": 590,
+        "false_positives": 245,
+        "false_negatives": 394,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.752608,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.010595,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 68.822222,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 29.821321,
+        "rms_contrast": 43.451565,
+        "snr_db": 55.403309,
+        "blockiness": 0.931503,
+        "mtf50_cy_px": 0.002545,
+        "mean_level": 200.726746
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.827,
+      "params": {
+        "beta_per_m": 0.056842105263157895,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0568421 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.06315789473684211,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.3632245104370895,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 718,
+        "true_positives": 517,
+        "false_positives": 201,
+        "false_negatives": 467,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.729213,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.006392,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 61.94,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 22.661684,
+        "rms_contrast": 41.405262,
+        "snr_db": 56.9874,
+        "blockiness": 0.93542,
+        "mtf50_cy_px": 0.002506,
+        "mean_level": 203.612732
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.588,
+      "params": {
+        "beta_per_m": 0.06315789473684211,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0631579 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.06947368421052631,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.32634172098114894,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 618,
+        "true_positives": 459,
+        "false_positives": 159,
+        "false_negatives": 525,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.706545,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.003857,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 56.309091,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 17.380154,
+        "rms_contrast": 39.400173,
+        "snr_db": 58.515144,
+        "blockiness": 0.924824,
+        "mtf50_cy_px": 0.002471,
+        "mean_level": 206.054779
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.725,
+      "params": {
+        "beta_per_m": 0.06947368421052631,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0694737 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.07578947368421052,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.2748554405586723,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 529,
+        "true_positives": 392,
+        "false_positives": 137,
+        "false_negatives": 592,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.684582,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.002327,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 51.616667,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 13.510766,
+        "rms_contrast": 37.458366,
+        "snr_db": 59.849663,
+        "blockiness": 0.964693,
+        "mtf50_cy_px": 0.002433,
+        "mean_level": 208.09845
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.836,
+      "params": {
+        "beta_per_m": 0.07578947368421052,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0757895 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.08210526315789474,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.24867974187068917,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 457,
+        "true_positives": 344,
+        "false_positives": 113,
+        "false_negatives": 640,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.663301,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.001404,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 47.646154,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 10.582367,
+        "rms_contrast": 35.656147,
+        "snr_db": 61.390881,
+        "blockiness": 0.88371,
+        "mtf50_cy_px": 0.0024,
+        "mean_level": 209.93631
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.765,
+      "params": {
+        "beta_per_m": 0.08210526315789474,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0821053 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.08842105263157894,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.22331869183184738,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 398,
+        "true_positives": 297,
+        "false_positives": 101,
+        "false_negatives": 687,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.642682,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.000847,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 44.242857,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 8.391281,
+        "rms_contrast": 33.888634,
+        "snr_db": 62.681091,
+        "blockiness": 0.961148,
+        "mtf50_cy_px": 0.002369,
+        "mean_level": 211.574203
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.735,
+      "params": {
+        "beta_per_m": 0.08842105263157894,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0884211 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.09473684210526316,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.1906809984859504,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 332,
+        "true_positives": 245,
+        "false_positives": 87,
+        "false_negatives": 739,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.622704,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.000511,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 41.293333,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 6.745414,
+        "rms_contrast": 32.235062,
+        "snr_db": 64.080711,
+        "blockiness": 0.874343,
+        "mtf50_cy_px": 0.002337,
+        "mean_level": 212.949066
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.707,
+      "params": {
+        "beta_per_m": 0.09473684210526316,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0947368 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.10105263157894737,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.1562420518378768,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 273,
+        "true_positives": 200,
+        "false_positives": 73,
+        "false_negatives": 784,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.603347,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.000308,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 38.7125,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 5.412062,
+        "rms_contrast": 30.641773,
+        "snr_db": 65.471519,
+        "blockiness": 0.936992,
+        "mtf50_cy_px": 0.002309,
+        "mean_level": 214.175659
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.681,
+      "params": {
+        "beta_per_m": 0.10105263157894737,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.101053 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.10736842105263157,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.13931788273837042,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 237,
+        "true_positives": 172,
+        "false_positives": 65,
+        "false_negatives": 812,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.584591,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.000186,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 36.435294,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 4.406173,
+        "rms_contrast": 29.157576,
+        "snr_db": 66.54335,
+        "blockiness": 0.93632,
+        "mtf50_cy_px": 0.002284,
+        "mean_level": 215.268494
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.825,
+      "params": {
+        "beta_per_m": 0.10736842105263157,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.107368 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.11368421052631579,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.11251472945832285,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 209,
+        "true_positives": 147,
+        "false_positives": 62,
+        "false_negatives": 837,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.566419,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 0.000112,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 34.411111,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 3.625691,
+        "rms_contrast": 27.727962,
+        "snr_db": 67.926285,
+        "blockiness": 0.932127,
+        "mtf50_cy_px": 0.002264,
+        "mean_level": 216.262939
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.762,
+      "params": {
+        "beta_per_m": 0.11368421052631579,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.113684 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    },
+    {
+      "degradation": "fog",
+      "axis": "beta_per_m",
+      "value": 0.12,
+      "unit": "1/m",
+      "seed": 20260906,
+      "map50": 0.1019536007604397,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 191,
+        "true_positives": 130,
+        "false_positives": 61,
+        "false_negatives": 854,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "transmission_near": {
+          "value": 0.548812,
+          "unit": "dimensionless"
+        },
+        "transmission_far": {
+          "value": 6.8e-05,
+          "unit": "dimensionless"
+        },
+        "meteorological_visibility_m": {
+          "value": 32.6,
+          "unit": "m"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 2.941152,
+        "rms_contrast": 26.428347,
+        "snr_db": 69.142662,
+        "blockiness": 0.805286,
+        "mtf50_cy_px": 0.002244,
+        "mean_level": 217.13765
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.594,
+      "params": {
+        "beta_per_m": 0.12,
+        "depth_near_m": 5.0,
+        "depth_far_m": 80.0,
+        "airlight": 0.9
+      },
+      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.12 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    }
+  ]
+}

@@ -65,7 +65,9 @@ def main() -> int:
     print("-" * 78)
 
     probes = []
-    for value in np.linspace(axis.lo, axis.hi, args.steps):
+    # Benign -> severe, so the transition is a pass -> fail crossing even on
+    # axes where severity decreases with the value (lux, JPEG quality).
+    for value in [axis.from_severity(s) for s in np.linspace(0.0, 1.0, args.steps)]:
         result = run_probe(
             frames, pipeline, validation_set, degradation, axis_field, float(value), args.seed
         )

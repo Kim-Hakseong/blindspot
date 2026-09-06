@@ -1,0 +1,1281 @@
+{
+  "dataset": {
+    "name": "road100",
+    "frames": 100,
+    "objects": 984,
+    "source": "COCO val2017"
+  },
+  "pipeline": {
+    "name": "yolox_s",
+    "model_path": "models/yolox_s.onnx",
+    "backend": "cv::dnn",
+    "input_size": "640x640",
+    "score_threshold": "0.25",
+    "nms_threshold": "0.45"
+  },
+  "criterion": {
+    "rule": "mAP@50 below a fraction of the undegraded baseline",
+    "baseline_map50": 0.6110733916774186,
+    "fraction": 0.6,
+    "threshold_map50": 0.36664403500645115
+  },
+  "baseline": {
+    "mAP50": 0.6110733916774186,
+    "n_ground_truth": 984,
+    "n_predictions": 1471,
+    "true_positives": 832,
+    "false_positives": 639,
+    "false_negatives": 152,
+    "n_classes_scored": 6
+  },
+  "grid_levels": [
+    5,
+    9,
+    17,
+    33
+  ],
+  "seed": 20260906,
+  "summary": {
+    "axes_evaluated": 4,
+    "note": "Savings scales with the precision demanded: a grid must double its probes to halve boundary uncertainty, bisection needs one more. The gate is evaluated at the finest precision measured.",
+    "by_grid_level": {
+      "5": {
+        "grid_steps": 5,
+        "axes_with_valid_savings_cheap": 4,
+        "axes_with_valid_savings_verified": 4,
+        "mean_savings_cheap": 1.25,
+        "mean_savings_verified": 1.0,
+        "min_savings_verified": 1.0
+      },
+      "9": {
+        "grid_steps": 9,
+        "axes_with_valid_savings_cheap": 4,
+        "axes_with_valid_savings_verified": 4,
+        "mean_savings_cheap": 1.8,
+        "mean_savings_verified": 1.5,
+        "min_savings_verified": 1.5
+      },
+      "17": {
+        "grid_steps": 17,
+        "axes_with_valid_savings_cheap": 4,
+        "axes_with_valid_savings_verified": 4,
+        "mean_savings_cheap": 2.8333,
+        "mean_savings_verified": 2.4286,
+        "min_savings_verified": 2.4286
+      },
+      "33": {
+        "grid_steps": 33,
+        "axes_with_valid_savings_cheap": 4,
+        "axes_with_valid_savings_verified": 4,
+        "mean_savings_cheap": 4.7143,
+        "mean_savings_verified": 4.125,
+        "min_savings_verified": 4.125
+      }
+    },
+    "gate_threshold": 3.0,
+    "gate_grid_steps": 33,
+    "gate_metric": "mean_savings_verified",
+    "gate_value": 4.125,
+    "gate_passed": true
+  },
+  "axes": [
+    {
+      "axis": "motion_blur.exposure_ms",
+      "unit": "ms",
+      "range": [
+        0.0,
+        40.0
+      ],
+      "finest_grid_steps": 33,
+      "finest_grid_wall_seconds": 0.0,
+      "map50_curve": [
+        {
+          "value": 0.0,
+          "map50": 0.611073
+        },
+        {
+          "value": 1.25,
+          "map50": 0.613158
+        },
+        {
+          "value": 2.5,
+          "map50": 0.599163
+        },
+        {
+          "value": 3.75,
+          "map50": 0.566618
+        },
+        {
+          "value": 5.0,
+          "map50": 0.540099
+        },
+        {
+          "value": 6.25,
+          "map50": 0.504976
+        },
+        {
+          "value": 7.5,
+          "map50": 0.470928
+        },
+        {
+          "value": 8.75,
+          "map50": 0.458634
+        },
+        {
+          "value": 10.0,
+          "map50": 0.426039
+        },
+        {
+          "value": 11.25,
+          "map50": 0.401934
+        },
+        {
+          "value": 12.5,
+          "map50": 0.378372
+        },
+        {
+          "value": 13.75,
+          "map50": 0.344606
+        },
+        {
+          "value": 15.0,
+          "map50": 0.325289
+        },
+        {
+          "value": 16.25,
+          "map50": 0.295052
+        },
+        {
+          "value": 17.5,
+          "map50": 0.284941
+        },
+        {
+          "value": 18.75,
+          "map50": 0.27598
+        },
+        {
+          "value": 20.0,
+          "map50": 0.270582
+        },
+        {
+          "value": 21.25,
+          "map50": 0.239592
+        },
+        {
+          "value": 22.5,
+          "map50": 0.212009
+        },
+        {
+          "value": 23.75,
+          "map50": 0.187993
+        },
+        {
+          "value": 25.0,
+          "map50": 0.178038
+        },
+        {
+          "value": 26.25,
+          "map50": 0.171156
+        },
+        {
+          "value": 27.5,
+          "map50": 0.160524
+        },
+        {
+          "value": 28.75,
+          "map50": 0.148565
+        },
+        {
+          "value": 30.0,
+          "map50": 0.137356
+        },
+        {
+          "value": 31.25,
+          "map50": 0.128201
+        },
+        {
+          "value": 32.5,
+          "map50": 0.113363
+        },
+        {
+          "value": 33.75,
+          "map50": 0.098959
+        },
+        {
+          "value": 35.0,
+          "map50": 0.090921
+        },
+        {
+          "value": 36.25,
+          "map50": 0.089648
+        },
+        {
+          "value": 37.5,
+          "map50": 0.080477
+        },
+        {
+          "value": 38.75,
+          "map50": 0.071416
+        },
+        {
+          "value": 40.0,
+          "map50": 0.065779
+        }
+      ],
+      "levels": [
+        {
+          "grid_steps": 5,
+          "precision": 10.0,
+          "precision_unit": "ms",
+          "grid": {
+            "probes_used": 5,
+            "lower": 10.0,
+            "upper": 20.0,
+            "midpoint": 15.0,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 10.0,
+            "upper": 20.0,
+            "midpoint": 15.0,
+            "probes_used": 4,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.25,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 10.0,
+            "upper": 20.0,
+            "midpoint": 15.0,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.0,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 9,
+          "precision": 5.0,
+          "precision_unit": "ms",
+          "grid": {
+            "probes_used": 9,
+            "lower": 10.0,
+            "upper": 15.0,
+            "midpoint": 12.5,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 10.0,
+            "upper": 15.0,
+            "midpoint": 12.5,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.8,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 10.0,
+            "upper": 15.0,
+            "midpoint": 12.5,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.5,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 17,
+          "precision": 2.5,
+          "precision_unit": "ms",
+          "grid": {
+            "probes_used": 17,
+            "lower": 12.5,
+            "upper": 15.0,
+            "midpoint": 13.75,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 12.5,
+            "upper": 15.0,
+            "midpoint": 13.75,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.8333333333333335,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 12.5,
+            "upper": 15.0,
+            "midpoint": 13.75,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.4285714285714284,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 33,
+          "precision": 1.25,
+          "precision_unit": "ms",
+          "grid": {
+            "probes_used": 33,
+            "lower": 12.5,
+            "upper": 13.75,
+            "midpoint": 13.125,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 12.5,
+            "upper": 13.75,
+            "midpoint": 13.125,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.714285714285714,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 12.5,
+            "upper": 13.75,
+            "midpoint": 13.125,
+            "probes_used": 8,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.125,
+            "n_transitions": 1
+          }
+        }
+      ]
+    },
+    {
+      "axis": "low_light.illuminance_lux",
+      "unit": "lux",
+      "range": [
+        0.5,
+        400.0
+      ],
+      "finest_grid_steps": 33,
+      "finest_grid_wall_seconds": 0.0,
+      "map50_curve": [
+        {
+          "value": 400.0,
+          "map50": 0.58635
+        },
+        {
+          "value": 387.515625,
+          "map50": 0.604275
+        },
+        {
+          "value": 375.03125,
+          "map50": 0.571977
+        },
+        {
+          "value": 362.546875,
+          "map50": 0.582879
+        },
+        {
+          "value": 350.0625,
+          "map50": 0.583402
+        },
+        {
+          "value": 337.578125,
+          "map50": 0.570727
+        },
+        {
+          "value": 325.09375,
+          "map50": 0.59693
+        },
+        {
+          "value": 312.609375,
+          "map50": 0.577858
+        },
+        {
+          "value": 300.125,
+          "map50": 0.585741
+        },
+        {
+          "value": 287.640625,
+          "map50": 0.582362
+        },
+        {
+          "value": 275.15625,
+          "map50": 0.578995
+        },
+        {
+          "value": 262.671875,
+          "map50": 0.576169
+        },
+        {
+          "value": 250.1875,
+          "map50": 0.559144
+        },
+        {
+          "value": 237.703125,
+          "map50": 0.572465
+        },
+        {
+          "value": 225.21875,
+          "map50": 0.558697
+        },
+        {
+          "value": 212.734375,
+          "map50": 0.575347
+        },
+        {
+          "value": 200.25,
+          "map50": 0.569533
+        },
+        {
+          "value": 187.765625,
+          "map50": 0.568174
+        },
+        {
+          "value": 175.28125,
+          "map50": 0.570446
+        },
+        {
+          "value": 162.796875,
+          "map50": 0.554911
+        },
+        {
+          "value": 150.3125,
+          "map50": 0.563366
+        },
+        {
+          "value": 137.828125,
+          "map50": 0.550438
+        },
+        {
+          "value": 125.34375,
+          "map50": 0.563831
+        },
+        {
+          "value": 112.859375,
+          "map50": 0.560731
+        },
+        {
+          "value": 100.375,
+          "map50": 0.524604
+        },
+        {
+          "value": 87.890625,
+          "map50": 0.528783
+        },
+        {
+          "value": 75.40625,
+          "map50": 0.520278
+        },
+        {
+          "value": 62.921875,
+          "map50": 0.502352
+        },
+        {
+          "value": 50.4375,
+          "map50": 0.475708
+        },
+        {
+          "value": 37.953125,
+          "map50": 0.458369
+        },
+        {
+          "value": 25.46875,
+          "map50": 0.435899
+        },
+        {
+          "value": 12.984375,
+          "map50": 0.360726
+        },
+        {
+          "value": 0.5,
+          "map50": 0.0
+        }
+      ],
+      "levels": [
+        {
+          "grid_steps": 5,
+          "precision": 99.875,
+          "precision_unit": "lux",
+          "grid": {
+            "probes_used": 5,
+            "lower": 0.5,
+            "upper": 100.375,
+            "midpoint": 50.4375,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.5,
+            "upper": 100.375,
+            "midpoint": 50.4375,
+            "probes_used": 4,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.25,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.5,
+            "upper": 100.375,
+            "midpoint": 50.4375,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.0,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 9,
+          "precision": 49.9375,
+          "precision_unit": "lux",
+          "grid": {
+            "probes_used": 9,
+            "lower": 0.5,
+            "upper": 50.4375,
+            "midpoint": 25.46875,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.5,
+            "upper": 50.4375,
+            "midpoint": 25.46875,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.8,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.5,
+            "upper": 50.4375,
+            "midpoint": 25.46875,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.5,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 17,
+          "precision": 24.96875,
+          "precision_unit": "lux",
+          "grid": {
+            "probes_used": 17,
+            "lower": 0.5,
+            "upper": 25.46875,
+            "midpoint": 12.984375,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.5,
+            "upper": 25.46875,
+            "midpoint": 12.984375,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.8333333333333335,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.5,
+            "upper": 25.46875,
+            "midpoint": 12.984375,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.4285714285714284,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 33,
+          "precision": 12.484375,
+          "precision_unit": "lux",
+          "grid": {
+            "probes_used": 33,
+            "lower": 12.984375,
+            "upper": 25.46875,
+            "midpoint": 19.2265625,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 12.984375,
+            "upper": 25.46875,
+            "midpoint": 19.2265625,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.714285714285714,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 12.984375,
+            "upper": 25.46875,
+            "midpoint": 19.2265625,
+            "probes_used": 8,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.125,
+            "n_transitions": 1
+          }
+        }
+      ]
+    },
+    {
+      "axis": "fog.beta_per_m",
+      "unit": "1/m",
+      "range": [
+        0.0,
+        0.12
+      ],
+      "finest_grid_steps": 33,
+      "finest_grid_wall_seconds": 0.0,
+      "map50_curve": [
+        {
+          "value": 0.0,
+          "map50": 0.611073
+        },
+        {
+          "value": 0.00375,
+          "map50": 0.614756
+        },
+        {
+          "value": 0.0075,
+          "map50": 0.618235
+        },
+        {
+          "value": 0.01125,
+          "map50": 0.6105
+        },
+        {
+          "value": 0.015,
+          "map50": 0.60295
+        },
+        {
+          "value": 0.01875,
+          "map50": 0.602281
+        },
+        {
+          "value": 0.0225,
+          "map50": 0.582549
+        },
+        {
+          "value": 0.02625,
+          "map50": 0.55219
+        },
+        {
+          "value": 0.03,
+          "map50": 0.542622
+        },
+        {
+          "value": 0.03375,
+          "map50": 0.524701
+        },
+        {
+          "value": 0.0375,
+          "map50": 0.499826
+        },
+        {
+          "value": 0.041249999999999995,
+          "map50": 0.495032
+        },
+        {
+          "value": 0.045,
+          "map50": 0.480688
+        },
+        {
+          "value": 0.04875,
+          "map50": 0.455637
+        },
+        {
+          "value": 0.0525,
+          "map50": 0.445262
+        },
+        {
+          "value": 0.056249999999999994,
+          "map50": 0.425785
+        },
+        {
+          "value": 0.06,
+          "map50": 0.392903
+        },
+        {
+          "value": 0.06375,
+          "map50": 0.355415
+        },
+        {
+          "value": 0.0675,
+          "map50": 0.341826
+        },
+        {
+          "value": 0.07125,
+          "map50": 0.306235
+        },
+        {
+          "value": 0.075,
+          "map50": 0.276488
+        },
+        {
+          "value": 0.07875,
+          "map50": 0.261101
+        },
+        {
+          "value": 0.08249999999999999,
+          "map50": 0.2517
+        },
+        {
+          "value": 0.08625,
+          "map50": 0.233025
+        },
+        {
+          "value": 0.09,
+          "map50": 0.214941
+        },
+        {
+          "value": 0.09375,
+          "map50": 0.19624
+        },
+        {
+          "value": 0.0975,
+          "map50": 0.173358
+        },
+        {
+          "value": 0.10124999999999999,
+          "map50": 0.155492
+        },
+        {
+          "value": 0.105,
+          "map50": 0.143921
+        },
+        {
+          "value": 0.10875,
+          "map50": 0.137774
+        },
+        {
+          "value": 0.11249999999999999,
+          "map50": 0.117563
+        },
+        {
+          "value": 0.11624999999999999,
+          "map50": 0.107869
+        },
+        {
+          "value": 0.12,
+          "map50": 0.101954
+        }
+      ],
+      "levels": [
+        {
+          "grid_steps": 5,
+          "precision": 0.03,
+          "precision_unit": "1/m",
+          "grid": {
+            "probes_used": 5,
+            "lower": 0.06,
+            "upper": 0.09,
+            "midpoint": 0.075,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.09,
+            "midpoint": 0.075,
+            "probes_used": 4,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.25,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.09,
+            "midpoint": 0.075,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.0,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 9,
+          "precision": 0.015,
+          "precision_unit": "1/m",
+          "grid": {
+            "probes_used": 9,
+            "lower": 0.06,
+            "upper": 0.075,
+            "midpoint": 0.0675,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.075,
+            "midpoint": 0.0675,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.8,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.075,
+            "midpoint": 0.0675,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.5,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 17,
+          "precision": 0.0075,
+          "precision_unit": "1/m",
+          "grid": {
+            "probes_used": 17,
+            "lower": 0.06,
+            "upper": 0.0675,
+            "midpoint": 0.06375,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.0675,
+            "midpoint": 0.06375,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.8333333333333335,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.0675,
+            "midpoint": 0.06375,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.4285714285714284,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 33,
+          "precision": 0.00375,
+          "precision_unit": "1/m",
+          "grid": {
+            "probes_used": 33,
+            "lower": 0.06,
+            "upper": 0.06375,
+            "midpoint": 0.061875,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.06375,
+            "midpoint": 0.061875,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.714285714285714,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 0.06,
+            "upper": 0.06375,
+            "midpoint": 0.061875,
+            "probes_used": 8,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.125,
+            "n_transitions": 1
+          }
+        }
+      ]
+    },
+    {
+      "axis": "jpeg.quality",
+      "unit": "jpeg-q",
+      "range": [
+        5.0,
+        100.0
+      ],
+      "finest_grid_steps": 33,
+      "finest_grid_wall_seconds": 0.0,
+      "map50_curve": [
+        {
+          "value": 100.0,
+          "map50": 0.610622
+        },
+        {
+          "value": 97.03125,
+          "map50": 0.616136
+        },
+        {
+          "value": 94.0625,
+          "map50": 0.609339
+        },
+        {
+          "value": 91.09375,
+          "map50": 0.614113
+        },
+        {
+          "value": 88.125,
+          "map50": 0.606925
+        },
+        {
+          "value": 85.15625,
+          "map50": 0.599446
+        },
+        {
+          "value": 82.1875,
+          "map50": 0.616173
+        },
+        {
+          "value": 79.21875,
+          "map50": 0.600321
+        },
+        {
+          "value": 76.25,
+          "map50": 0.592641
+        },
+        {
+          "value": 73.28125,
+          "map50": 0.61843
+        },
+        {
+          "value": 70.3125,
+          "map50": 0.609805
+        },
+        {
+          "value": 67.34375,
+          "map50": 0.623494
+        },
+        {
+          "value": 64.375,
+          "map50": 0.613534
+        },
+        {
+          "value": 61.40625,
+          "map50": 0.604765
+        },
+        {
+          "value": 58.4375,
+          "map50": 0.594413
+        },
+        {
+          "value": 55.46875,
+          "map50": 0.59606
+        },
+        {
+          "value": 52.5,
+          "map50": 0.59573
+        },
+        {
+          "value": 49.53125,
+          "map50": 0.607637
+        },
+        {
+          "value": 46.5625,
+          "map50": 0.584237
+        },
+        {
+          "value": 43.59375,
+          "map50": 0.567438
+        },
+        {
+          "value": 40.625,
+          "map50": 0.573418
+        },
+        {
+          "value": 37.65625,
+          "map50": 0.555128
+        },
+        {
+          "value": 34.6875,
+          "map50": 0.567996
+        },
+        {
+          "value": 31.71875,
+          "map50": 0.583992
+        },
+        {
+          "value": 28.75,
+          "map50": 0.593235
+        },
+        {
+          "value": 25.78125,
+          "map50": 0.541076
+        },
+        {
+          "value": 22.8125,
+          "map50": 0.526452
+        },
+        {
+          "value": 19.84375,
+          "map50": 0.532809
+        },
+        {
+          "value": 16.875,
+          "map50": 0.51475
+        },
+        {
+          "value": 13.90625,
+          "map50": 0.439739
+        },
+        {
+          "value": 10.9375,
+          "map50": 0.391535
+        },
+        {
+          "value": 7.96875,
+          "map50": 0.244783
+        },
+        {
+          "value": 5.0,
+          "map50": 0.093078
+        }
+      ],
+      "levels": [
+        {
+          "grid_steps": 5,
+          "precision": 23.75,
+          "precision_unit": "jpeg-q",
+          "grid": {
+            "probes_used": 5,
+            "lower": 5.0,
+            "upper": 28.75,
+            "midpoint": 16.875,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 5.0,
+            "upper": 28.75,
+            "midpoint": 16.875,
+            "probes_used": 4,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.25,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 5.0,
+            "upper": 28.75,
+            "midpoint": 16.875,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.0,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 9,
+          "precision": 11.875,
+          "precision_unit": "jpeg-q",
+          "grid": {
+            "probes_used": 9,
+            "lower": 5.0,
+            "upper": 16.875,
+            "midpoint": 10.9375,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 5.0,
+            "upper": 16.875,
+            "midpoint": 10.9375,
+            "probes_used": 5,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.8,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 5.0,
+            "upper": 16.875,
+            "midpoint": 10.9375,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 1.5,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 17,
+          "precision": 5.9375,
+          "precision_unit": "jpeg-q",
+          "grid": {
+            "probes_used": 17,
+            "lower": 5.0,
+            "upper": 10.9375,
+            "midpoint": 7.96875,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 5.0,
+            "upper": 10.9375,
+            "midpoint": 7.96875,
+            "probes_used": 6,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.8333333333333335,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 5.0,
+            "upper": 10.9375,
+            "midpoint": 7.96875,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 2.4285714285714284,
+            "n_transitions": 1
+          }
+        },
+        {
+          "grid_steps": 33,
+          "precision": 2.96875,
+          "precision_unit": "jpeg-q",
+          "grid": {
+            "probes_used": 33,
+            "lower": 7.96875,
+            "upper": 10.9375,
+            "midpoint": 9.453125,
+            "n_transitions": 1
+          },
+          "bisection_cheap": {
+            "status": "located",
+            "lower": 7.96875,
+            "upper": 10.9375,
+            "midpoint": 9.453125,
+            "probes_used": 7,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.714285714285714,
+            "n_transitions": 1
+          },
+          "bisection_verified": {
+            "status": "located",
+            "lower": 7.96875,
+            "upper": 10.9375,
+            "midpoint": 9.453125,
+            "probes_used": 8,
+            "wall_seconds": 0.0,
+            "boundary_error": 0.0,
+            "boundary_error_in_grid_cells": 0.0,
+            "savings_valid": true,
+            "savings": 4.125,
+            "n_transitions": 1
+          }
+        }
+      ]
+    }
+  ],
+  "environment": {
+    "opencv": "5.0.0",
+    "python": "3.12.13",
+    "machine": "arm64"
+  },
+  "command": "uv run python bench/boundary_efficiency.py"
+}

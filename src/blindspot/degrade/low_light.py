@@ -40,7 +40,15 @@ class LowLight(Degradation):
     name = "low_light"
     Params = LowLightParams
     stochastic = True
-    axes = (Axis("illuminance_lux", "lux", 0.5, 400.0, expect=("snr_db", "increasing")),)
+    axes = (Axis(
+            "illuminance_lux",
+            "lux",
+            0.5,
+            400.0,
+            expect=("snr_db", "increasing"),
+            # Darkness is the harsh condition: severity is at the low end.
+            severe_end="lo",
+        ),)
 
     def derived(self, params: LowLightParams) -> dict[str, tuple[float, str]]:
         # Electrons collected by a mid-grey (reflectance 0.5) patch.
