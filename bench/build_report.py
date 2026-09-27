@@ -160,6 +160,15 @@ def main() -> int:
         "limitations": limitations_from_results(ROOT / "docs" / "results.md"),
     })
     (args.out / "report.json").write_text(report.dump_json() + "\n", encoding="utf-8")
+    # Coverage is computed here, so it is also persisted where documents can
+    # cite it (the viewer's copy is a build artefact and not committed).
+    (OUT / "coverage.json").write_text(json.dumps({
+        "command": "uv run python bench/build_report.py",
+        "method": "undegraded frames' objective measure inverted through the population-median sweep",
+        "regions": [r.model_dump(by_alias=True) for r in report.uncovered_regions],
+        # ":" not "." in keys, so a document can cite them by dotted path.
+        "by_axis": {r.axis.replace(".", ":"): r.coverage_percent for r in report.uncovered_regions},
+    }, indent=1) + "\n", encoding="utf-8")
     print(f"wrote {args.out / 'report.json'} (map2d: {'yes' if map2d else 'not yet'})")
     for region in report.uncovered_regions:
         print(f"  {region.axis}: covers {region.coverage_percent:.1f}%")

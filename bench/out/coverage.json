@@ -1,0 +1,69 @@
+{
+ "command": "uv run python bench/build_report.py",
+ "method": "undegraded frames' objective measure inverted through the population-median sweep",
+ "regions": [
+  {
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "coverage_percent": 17.4,
+   "uncovered": [
+    {
+     "from": 6.960989180467725,
+     "to": 40.0,
+     "unit": "ms"
+    }
+   ],
+   "inferred_from": "laplacian_var of undegraded frames vs population-median sweep"
+  },
+  {
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "coverage_percent": 88.42,
+   "uncovered": [
+    {
+     "from": 0.5,
+     "to": 46.77394713256937,
+     "unit": "lux"
+    }
+   ],
+   "inferred_from": "snr_db of undegraded frames vs population-median sweep"
+  },
+  {
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "coverage_percent": 30.07,
+   "uncovered": [
+    {
+     "from": 0.03608586133592737,
+     "to": 0.12,
+     "unit": "1/m"
+    }
+   ],
+   "inferred_from": "rms_contrast of undegraded frames vs population-median sweep"
+  },
+  {
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "coverage_percent": 23.85,
+   "uncovered": [
+    {
+     "from": 5.0,
+     "to": 71.40220954541097,
+     "unit": "jpeg-q"
+    },
+    {
+     "from": 94.0625,
+     "to": 100.0,
+     "unit": "jpeg-q"
+    }
+   ],
+   "inferred_from": "blockiness of undegraded frames vs population-median sweep"
+  }
+ ],
+ "by_axis": {
+  "motion_blur:exposure_ms": 17.4,
+  "low_light:illuminance_lux": 88.42,
+  "fog:beta_per_m": 30.07,
+  "jpeg:quality": 23.85
+ }
+}

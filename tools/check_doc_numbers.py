@@ -62,7 +62,10 @@ def check(docs: list[pathlib.Path]) -> list[str]:
             checked += 1
             raw_path = match.group("path")
             cited = float(match.group("value").replace(",", ""))
-            stem, _, rest = raw_path.partition(".")
+            # "frames/frames[0].frame.x" -> bench/out/frames/frames.json, "[0].frame.x"
+            head = raw_path.split(".", 1)[0]
+            stem = head.split("[", 1)[0]
+            rest = raw_path[len(stem):].lstrip(".")
             where = f"{doc.relative_to(ROOT)}:{text[: match.start()].count(chr(10)) + 1}"
 
             if stem not in cache:
