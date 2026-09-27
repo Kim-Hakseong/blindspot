@@ -87,11 +87,13 @@ with YuNet via `FaceDetectorYN` and blurred at render time, after scoring.
 
 **Determinism** is enforced by a registry-driven test suite: same seed gives
 byte-identical output, no kernel reads or writes numpy's global RNG, and
-results match across processes and under a changed `PYTHONHASHSEED`. The arm64
-worker container reproduces the native macOS result to every printed digit;
-compare `uv run blindspot probe --degradation motion_blur --axis exposure_ms
---value 13.75 --frames 20` with the same arguments inside
-`docker run --network none … blindspot:local probe --dataset /val/road100 …`.
+results match across processes and under a changed `PYTHONHASHSEED`. The same
+probe (`probe --degradation motion_blur --axis exposure_ms --value 13.75
+--frames 5 --seed 20260906`) returns an identical mAP to every printed digit
+natively on macOS, in the linux/arm64 worker image, and in the linux/amd64
+worker image. The amd64 run was Rosetta-translated on Apple silicon; a real x86
+host can take different SIMD paths inside OpenCV, so bit-identity on x86
+hardware is not yet shown.
 
 ## 5. AWS deployment
 
