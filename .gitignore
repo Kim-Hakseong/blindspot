@@ -32,3 +32,9 @@ Design.md
 val/**/images/
 models/*.onnx
 .cache/
+
+# Generated build outputs
+viewer/out/
+viewer/public/data/
+viewer/next-env.d.ts
+viewer/tsconfig.tsbuildinfo

@@ -1,0 +1,12 @@
+.git
+.venv
+.cache
+viewer
+infra/node_modules
+infra/cdk.out
+val
+bench/out/hook_cells
+runs
+**/__pycache__
+*.md
+!README.md

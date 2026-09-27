@@ -288,6 +288,102 @@ def probe(
 
 
 @app.command()
+def worker(
+    spec: str = typer.Option(..., help="Wave spec: local path or s3://bucket/key"),
+    table: Optional[str] = typer.Option(None, help="DynamoDB probe table (cloud); else --ledger"),
+    ledger: pathlib.Path = typer.Option("runs/ledger.jsonl", help="Local JSONL ledger"),
+):
+    """Run one wave of probes. This is the container's command on AWS Batch."""
+    import os
+
+    from .cloud.worker import DynamoSink, LocalSink, fetch_dataset, run_wave, select_probes
+
+    if spec.startswith("s3://"):
+        import boto3
+
+        bucket, _, key = spec[len("s3://"):].partition("/")
+        wave = json.loads(boto3.client("s3").get_object(Bucket=bucket, Key=key)["Body"].read())
+    else:
+        wave = json.loads(pathlib.Path(spec).read_text(encoding="utf-8"))
+
+    wave = select_probes(wave, os.environ.get("AWS_BATCH_JOB_ARRAY_INDEX"))
+    if str(wave["dataset"]).startswith("s3://"):
+        wave["dataset_ref"] = wave["dataset"]
+        wave["dataset"] = str(fetch_dataset(wave["dataset"], pathlib.Path("/tmp/datasets")))
+
+    if table:
+        import boto3
+
+        sink = DynamoSink(boto3.resource("dynamodb").Table(table))
+    else:
+        sink = LocalSink(ledger)
+    for record in run_wave(wave, sink):
+        typer.echo(f"{record['probe_id']}: mAP@50 {record['map50']:.4f} "
+                   f"({record['wall_seconds']}s on {record['arch']})")
+
+
+@app.command("cloud-run")
+def cloud_run(
+    dataset: pathlib.Path = typer.Option(..., help="Local validation set to upload once"),
+    budget: float = typer.Option(0.40, help="Hard spending limit for this run, USD"),
+    arch: str = typer.Option("arm64", help="arm64 (Graviton) | x86"),
+    axes: list[str] = typer.Option(DEFAULT_AXES, "--axis"),
+    pipeline: str = typer.Option("yolox_s"),
+    frames: Optional[int] = typer.Option(None),
+    grid_steps: int = typer.Option(33, help="Precision target: axis range / (steps - 1)"),
+    seed: int = typer.Option(20260906),
+    cost_per_probe: float = typer.Option(0.002, help="USD per probe, for the contract"),
+    stack: str = typer.Option("Blindspot"),
+    profile: str = typer.Option("blindspot", help="AWS profile dedicated to this project"),
+):
+    """Start a run on AWS: upload the dataset, fix the contract, start the loop."""
+    import hashlib
+    import uuid
+
+    import boto3
+
+    from .degrade import REGISTRY
+
+    if arch not in {"arm64", "x86"}:
+        raise typer.BadParameter("arch must be arm64 or x86")
+    session = boto3.Session(profile_name=profile)
+    outputs = {o["OutputKey"]: o["OutputValue"] for o in session.client("cloudformation")
+               .describe_stacks(StackName=stack)["Stacks"][0]["Outputs"]}
+    bucket = outputs["BucketName"]
+    s3 = session.client("s3")
+
+    manifest = (dataset / "manifest.json").read_bytes()
+    digest = hashlib.sha256(manifest).hexdigest()[:12]
+    prefix = f"datasets/{dataset.name}-{digest}"
+    for path in [dataset / "manifest.json", *sorted((dataset / "images").glob("*"))]:
+        key = f"{prefix}/{path.relative_to(dataset).as_posix()}"
+        try:
+            s3.head_object(Bucket=bucket, Key=key)
+        except s3.exceptions.ClientError:
+            s3.upload_file(str(path), bucket, key)
+
+    run_axes = []
+    for axis_id in axes:
+        deg, _, field = axis_id.partition(".")
+        a = REGISTRY.get(deg).axis(field)
+        run_axes.append({"axis": axis_id, "unit": a.unit, "lo": a.lo, "hi": a.hi,
+                         "severe_end": a.severe_end,
+                         "target_width": (a.hi - a.lo) / (grid_steps - 1)})
+    run_id = f"{time.strftime('%Y%m%d-%H%M%S')}-{uuid.uuid4().hex[:6]}"
+    definition = {"run_id": run_id, "seed": seed, "verify_samples": 5, "budget_usd": budget,
+                  "cost_per_probe_usd": cost_per_probe, "dataset": f"s3://{bucket}/{prefix}",
+                  "pipeline": pipeline, "frames": frames, "axes": run_axes}
+    session.resource("dynamodb").Table("bs-runs").put_item(Item={
+        "run_id": run_id, "status": "RUNNING", "arch": arch, "round": 0,
+        "definition": json.dumps(definition), "created": int(time.time())})
+    execution = session.client("stepfunctions").start_execution(
+        stateMachineArn=outputs["StateMachineArn"], name=run_id,
+        input=json.dumps({"run_id": run_id, "arch": arch}))
+    typer.echo(f"run {run_id} started on {arch}; budget {budget:.2f} USD fixed")
+    typer.echo(execution["executionArn"])
+
+
+@app.command()
 def check(
     against: pathlib.Path = typer.Option(..., help="A previous report to compare with"),
     current: pathlib.Path = typer.Option("report.json", help="The report to check"),

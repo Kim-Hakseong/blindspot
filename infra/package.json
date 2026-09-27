@@ -1,0 +1,8 @@
+{
+  "name": "blindspot-infra",
+  "private": true,
+  "description": "Pinned AWS CDK CLI. The app itself is Python (infra/app.py).",
+  "devDependencies": {
+    "aws-cdk": "2.1143.0"
+  }
+}

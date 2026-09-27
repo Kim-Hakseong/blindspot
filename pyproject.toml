@@ -18,6 +18,13 @@ dependencies = [
 blindspot = "blindspot.cli:app"
 
 [dependency-groups]
+infra = [
+    "aws-cdk-lib==2.271.0",
+    "constructs==10.8.1",
+]
+cloud = [
+    "boto3==1.43.103",
+]
 dev = [
     "pytest==8.4.1",
     "pytest-cov==6.2.1",

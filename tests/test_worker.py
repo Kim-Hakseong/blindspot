@@ -98,3 +98,27 @@ def test_ledger_command_reruns_to_the_same_number(tmp_path):
     out = CliRunner().invoke(app, ["probe", *argv])
     assert out.exit_code == 0, out.output
     assert json.loads(out.output[out.output.index("{"):])["map50"] == record["map50"]
+
+
+def test_array_child_runs_only_its_own_probe():
+    from blindspot.cloud.worker import select_probes
+
+    s = spec()
+    assert select_probes(s, None)["probes"] == s["probes"]
+    assert select_probes(s, "2")["probes"] == [s["probes"][2]]
+
+
+def test_dynamo_sink_stores_decimals_and_serialised_condition():
+    from decimal import Decimal
+
+    from blindspot.cloud.worker import DynamoSink
+
+    class T:
+        item = None
+
+        def put_item(self, Item):
+            T.item = Item
+
+    DynamoSink(T()).write({"run_id": "r", "probe_id": "p", "set": {"a.b": 1.5}, "map50": 0.25})
+    assert T.item["map50"] == Decimal("0.25")
+    assert T.item["set"] == '{"a.b": 1.5}'

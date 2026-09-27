@@ -73,6 +73,7 @@ def run_wave(spec: dict, sink) -> list[dict]:
         record = {
             "run_id": spec["run_id"],
             "probe_id": probe["probe_id"],
+            "set": probe.get("set", {}),
             "condition": scored["condition"],
             "seed": spec["seed"],
             "map50": scored["map50"],
@@ -89,3 +90,42 @@ def run_wave(spec: dict, sink) -> list[dict]:
         sink.write(record)
         results.append(record)
     return results
+
+
+class DynamoSink:
+    """One item per probe in bs-probes (rule C2)."""
+
+    def __init__(self, table):
+        self.table = table
+
+    def write(self, record: dict) -> None:
+        from decimal import Decimal
+
+        item = json.loads(json.dumps(record), parse_float=Decimal)
+        item["set"] = json.dumps(record.get("set", {}), sort_keys=True)
+        self.table.put_item(Item=item)
+
+
+def select_probes(spec: dict, array_index: str | None) -> dict:
+    """An array child runs its own probe; a plain job runs the whole wave."""
+    if array_index is None:
+        return spec
+    return {**spec, "probes": [spec["probes"][int(array_index)]]}
+
+
+def fetch_dataset(uri: str, dest: pathlib.Path) -> pathlib.Path:  # pragma: no cover - AWS
+    """Mirror s3://bucket/datasets/<name>/ to a local directory once."""
+    import boto3
+
+    bucket, _, prefix = uri[len("s3://"):].partition("/")
+    s3 = boto3.client("s3")
+    target = dest / prefix.rstrip("/").rsplit("/", 1)[-1]
+    paginator = s3.get_paginator("list_objects_v2")
+    for page in paginator.paginate(Bucket=bucket, Prefix=prefix.rstrip("/") + "/"):
+        for obj in page.get("Contents", []):
+            rel = obj["Key"][len(prefix.rstrip("/")) + 1:]
+            out = target / rel
+            if not out.is_file():
+                out.parent.mkdir(parents=True, exist_ok=True)
+                s3.download_file(bucket, obj["Key"], str(out))
+    return target
