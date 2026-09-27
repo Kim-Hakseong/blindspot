@@ -30,15 +30,18 @@ DEFAULT_AXES = [
 ]
 
 
-def _load(dataset: pathlib.Path, model: pathlib.Path, frames: Optional[int]):
+def _load(dataset: pathlib.Path, pipeline: str, frames: Optional[int]):
     from .runner.dataset import ValidationSet
-    from .runner.yolox import COCO_CLASSES, YoloxPipeline
+    from .runner.registry import PIPELINES, load_pipeline
+    from .runner.yolox import COCO_CLASSES
 
+    if pipeline not in PIPELINES:
+        raise typer.BadParameter(f"unknown pipeline {pipeline!r}; known: {sorted(PIPELINES)}")
     validation_set = ValidationSet(dataset, COCO_CLASSES)
     loaded = validation_set.load(limit=frames)
     if not loaded:
         raise typer.BadParameter(f"no frames loaded from {dataset}")
-    return validation_set, loaded, YoloxPipeline(model)
+    return validation_set, loaded, load_pipeline(pipeline)
 
 
 @app.command()
@@ -46,13 +49,15 @@ def run(
     dataset: pathlib.Path = typer.Option(..., help="Validation set directory"),
     budget: float = typer.Option(0.40, help="Hard spending limit for this run, USD"),
     strategy: str = typer.Option("active", help="active | grid"),
-    model: pathlib.Path = typer.Option("models/yolox_s.onnx", help="Pipeline under test"),
+    pipeline: str = typer.Option("yolox_s", help="Pipeline under test (see runner/registry.py)"),
     axes: list[str] = typer.Option(DEFAULT_AXES, "--axis", help="Axis to probe"),
     frames: Optional[int] = typer.Option(None, help="Limit frames (for a quick look)"),
     grid_steps: int = typer.Option(20, help="Grid resolution, and the precision target"),
     seed: int = typer.Option(20260906),
     out: pathlib.Path = typer.Option("report.json"),
     cost_per_probe: float = typer.Option(0.01, help="USD per probe, for the contract"),
+    probes: Optional[int] = typer.Option(
+        None, help="Contract in probes instead of USD: budget = probes x cost-per-probe"),
 ):
     """Search for the pipeline's failure boundaries under a fixed budget."""
     import numpy as np
@@ -67,8 +72,12 @@ def run(
     if strategy not in {"active", "grid"}:
         raise typer.BadParameter("strategy must be 'active' or 'grid'")
 
+    if probes is not None:
+        if probes < 1:
+            raise typer.BadParameter("--probes must be at least 1")
+        budget = probes * cost_per_probe
     started = time.time()
-    validation_set, loaded, pipeline = _load(dataset, model, frames)
+    validation_set, loaded, pipeline = _load(dataset, pipeline, frames)
     contract = BudgetContract(limit_usd=budget, cost_per_probe_usd=cost_per_probe)
 
     typer.echo(f"dataset  {validation_set.name}: {len(loaded)} frames, "
@@ -242,7 +251,7 @@ def probe(
     set_: list[str] = typer.Option([], "--set", help="AXIS=VALUE, repeatable (composite)"),
     fix: list[str] = typer.Option([], "--fix", help="PARAM=VALUE pinned across kernels"),
     dataset: pathlib.Path = typer.Option("val/road100"),
-    model: pathlib.Path = typer.Option("models/yolox_s.onnx"),
+    pipeline: str = typer.Option("yolox_s", help="Pipeline under test (see runner/registry.py)"),
     frames: Optional[int] = typer.Option(None),
     seed: int = typer.Option(20260906),
 ):
@@ -260,7 +269,7 @@ def probe(
     axes = _pairs(set_, "--set")
     fixed = _pairs(fix, "--fix")
 
-    validation_set, loaded, pipeline = _load(dataset, model, frames)
+    validation_set, loaded, pipeline = _load(dataset, pipeline, frames)
     if set_:
         from .boundary.probe import run_condition_probe
         from .degrade.compose import Condition
