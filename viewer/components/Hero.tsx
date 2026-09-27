@@ -108,9 +108,10 @@ function drawMap(ctx: CanvasRenderingContext2D, map: Map2D, baseline: number,
     }
     if (uncovered[c.j][c.i]) {
       ctx.fillStyle = token("--uncovered");
-      ctx.globalAlpha = 0.55;
-      for (let dx = 3; dx < cw; dx += 7) for (let dy = 3; dy < ch; dy += 7) {
-        ctx.fillRect(X(c.i) + dx, Y(c.j) + dy, 1.5, 1.5);
+      // Uncovered is meant to be the most visible mark on the map (Design.md).
+      ctx.globalAlpha = 0.9;
+      for (let dx = 4; dx < cw - 1; dx += 8) for (let dy = 4; dy < ch - 1; dy += 8) {
+        ctx.fillRect(X(c.i) + dx, Y(c.j) + dy, 2.5, 2.5);
       }
       ctx.globalAlpha = 1;
     }
@@ -154,8 +155,14 @@ export default function Hero({ report }: { report: Report }) {
   const stops = useMemo(() => imageStops(map.cells), [map]);
   const uncovered = useMemo(() => uncoveredMask(map, report.uncovered_regions), [map, report]);
   const images = useImages(map);
-  const [xi, setXi] = useState(0);
-  const [yi, setYi] = useState(0);
+  // ?x=&y= select slider stops, so a given view can be linked and reproduced.
+  const initial = (key: string, n: number) => {
+    if (typeof window === "undefined") return 0;
+    const v = Number(new URLSearchParams(window.location.search).get(key));
+    return Number.isInteger(v) && v >= 0 && v < n ? v : 0;
+  };
+  const [xi, setXi] = useState(() => initial("x", stops.xs.length));
+  const [yi, setYi] = useState(() => initial("y", stops.ys.length));
   const cell = map.cells[stops.ys[yi]][stops.xs[xi]];
   const frameRef = useRef<HTMLCanvasElement>(null);
   const mapRef = useRef<HTMLCanvasElement>(null);
