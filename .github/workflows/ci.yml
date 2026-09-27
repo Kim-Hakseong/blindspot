@@ -1,0 +1,38 @@
+# Checks that run on every push. Tests that need fetched models or datasets
+# skip cleanly here; they run locally after tools/fetch_models.sh and
+# tools/fetch_dataset.py. Actions are pinned by commit SHA.
+name: ci
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: "0.11.12"
+      - run: uv sync --frozen --group dev --group infra --group agent --group cloud
+      - name: Test suite (determinism, units, judgment path, infra synth, agent gate)
+        run: uv run pytest -q
+      - name: Every cited figure matches its benchmark output
+        run: uv run python tools/check_doc_numbers.py
+
+  viewer:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: viewer
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: "24"
+      - run: npm ci
+      - run: node --test test/
+      - run: npx tsc --noEmit
