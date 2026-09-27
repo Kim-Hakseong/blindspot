@@ -384,6 +384,37 @@ def cloud_run(
 
 
 @app.command()
+def approve(
+    run_id: str = typer.Option(..., help="Run halted in AWAITING_APPROVAL"),
+    additional_usd: float = typer.Option(..., help="Amount to add to the contract"),
+    approver: str = typer.Option(..., help="Who is approving"),
+    reason: str = typer.Option(..., help="Why"),
+    profile: str = typer.Option("blindspot"),
+    stack: str = typer.Option("Blindspot"),
+):
+    """Human approval: continue a halted run under a new, larger contract."""
+    import boto3
+
+    from .cloud.approve import approve as do_approve
+
+    session = boto3.Session(profile_name=profile)
+    ddb = session.resource("dynamodb")
+    outputs = {o["OutputKey"]: o["OutputValue"] for o in session.client("cloudformation")
+               .describe_stacks(StackName=stack)["Stacks"][0]["Outputs"]}
+    sfn = session.client("stepfunctions")
+
+    def start(run_id, arch, contract_version):
+        sfn.start_execution(stateMachineArn=outputs["StateMachineArn"],
+                            name=f"{run_id}-v{contract_version}",
+                            input=json.dumps({"run_id": run_id, "arch": arch}))
+
+    out = do_approve(ddb.Table("bs-runs"), ddb.Table("bs-decisions"), start,
+                     run_id, additional_usd, approver, reason)
+    typer.echo(f"run {run_id} resumed under contract v{out['contract_version']}: "
+               f"{out['budget_usd']:.2f} USD")
+
+
+@app.command()
 def check(
     against: pathlib.Path = typer.Option(..., help="A previous report to compare with"),
     current: pathlib.Path = typer.Option("report.json", help="The report to check"),
