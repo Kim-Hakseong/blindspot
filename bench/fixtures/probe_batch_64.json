@@ -1,0 +1,392 @@
+{
+ "seed": 20260906,
+ "frames": 10,
+ "dataset": "val/road100",
+ "pipeline": "yolox_s",
+ "probes": [
+  {
+   "probe_id": "motion_blur.exposure_ms#00",
+   "set": {
+    "motion_blur.exposure_ms": 0.0
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#01",
+   "set": {
+    "motion_blur.exposure_ms": 2.6666666666666665
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#02",
+   "set": {
+    "motion_blur.exposure_ms": 5.333333333333333
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#03",
+   "set": {
+    "motion_blur.exposure_ms": 8.0
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#04",
+   "set": {
+    "motion_blur.exposure_ms": 10.666666666666666
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#05",
+   "set": {
+    "motion_blur.exposure_ms": 13.333333333333332
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#06",
+   "set": {
+    "motion_blur.exposure_ms": 16.0
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#07",
+   "set": {
+    "motion_blur.exposure_ms": 18.666666666666664
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#08",
+   "set": {
+    "motion_blur.exposure_ms": 21.333333333333332
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#09",
+   "set": {
+    "motion_blur.exposure_ms": 24.0
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#10",
+   "set": {
+    "motion_blur.exposure_ms": 26.666666666666664
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#11",
+   "set": {
+    "motion_blur.exposure_ms": 29.333333333333332
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#12",
+   "set": {
+    "motion_blur.exposure_ms": 32.0
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#13",
+   "set": {
+    "motion_blur.exposure_ms": 34.666666666666664
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#14",
+   "set": {
+    "motion_blur.exposure_ms": 37.33333333333333
+   }
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#15",
+   "set": {
+    "motion_blur.exposure_ms": 40.0
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#00",
+   "set": {
+    "low_light.illuminance_lux": 0.5
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#01",
+   "set": {
+    "low_light.illuminance_lux": 27.133333333333333
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#02",
+   "set": {
+    "low_light.illuminance_lux": 53.766666666666666
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#03",
+   "set": {
+    "low_light.illuminance_lux": 80.4
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#04",
+   "set": {
+    "low_light.illuminance_lux": 107.03333333333333
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#05",
+   "set": {
+    "low_light.illuminance_lux": 133.66666666666666
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#06",
+   "set": {
+    "low_light.illuminance_lux": 160.3
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#07",
+   "set": {
+    "low_light.illuminance_lux": 186.93333333333334
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#08",
+   "set": {
+    "low_light.illuminance_lux": 213.56666666666666
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#09",
+   "set": {
+    "low_light.illuminance_lux": 240.2
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#10",
+   "set": {
+    "low_light.illuminance_lux": 266.8333333333333
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#11",
+   "set": {
+    "low_light.illuminance_lux": 293.46666666666664
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#12",
+   "set": {
+    "low_light.illuminance_lux": 320.1
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#13",
+   "set": {
+    "low_light.illuminance_lux": 346.73333333333335
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#14",
+   "set": {
+    "low_light.illuminance_lux": 373.3666666666667
+   }
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#15",
+   "set": {
+    "low_light.illuminance_lux": 400.0
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#00",
+   "set": {
+    "fog.beta_per_m": 0.0
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#01",
+   "set": {
+    "fog.beta_per_m": 0.008
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#02",
+   "set": {
+    "fog.beta_per_m": 0.016
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#03",
+   "set": {
+    "fog.beta_per_m": 0.024
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#04",
+   "set": {
+    "fog.beta_per_m": 0.032
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#05",
+   "set": {
+    "fog.beta_per_m": 0.04
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#06",
+   "set": {
+    "fog.beta_per_m": 0.048
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#07",
+   "set": {
+    "fog.beta_per_m": 0.056
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#08",
+   "set": {
+    "fog.beta_per_m": 0.064
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#09",
+   "set": {
+    "fog.beta_per_m": 0.07200000000000001
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#10",
+   "set": {
+    "fog.beta_per_m": 0.08
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#11",
+   "set": {
+    "fog.beta_per_m": 0.088
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#12",
+   "set": {
+    "fog.beta_per_m": 0.096
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#13",
+   "set": {
+    "fog.beta_per_m": 0.10400000000000001
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#14",
+   "set": {
+    "fog.beta_per_m": 0.112
+   }
+  },
+  {
+   "probe_id": "fog.beta_per_m#15",
+   "set": {
+    "fog.beta_per_m": 0.12
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#00",
+   "set": {
+    "jpeg.quality": 5.0
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#01",
+   "set": {
+    "jpeg.quality": 11.333333333333332
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#02",
+   "set": {
+    "jpeg.quality": 17.666666666666664
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#03",
+   "set": {
+    "jpeg.quality": 24.0
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#04",
+   "set": {
+    "jpeg.quality": 30.333333333333332
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#05",
+   "set": {
+    "jpeg.quality": 36.666666666666664
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#06",
+   "set": {
+    "jpeg.quality": 43.0
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#07",
+   "set": {
+    "jpeg.quality": 49.33333333333333
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#08",
+   "set": {
+    "jpeg.quality": 55.666666666666664
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#09",
+   "set": {
+    "jpeg.quality": 62.0
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#10",
+   "set": {
+    "jpeg.quality": 68.33333333333333
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#11",
+   "set": {
+    "jpeg.quality": 74.66666666666666
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#12",
+   "set": {
+    "jpeg.quality": 81.0
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#13",
+   "set": {
+    "jpeg.quality": 87.33333333333333
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#14",
+   "set": {
+    "jpeg.quality": 93.66666666666666
+   }
+  },
+  {
+   "probe_id": "jpeg.quality#15",
+   "set": {
+    "jpeg.quality": 100.0
+   }
+  }
+ ]
+}
