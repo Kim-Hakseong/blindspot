@@ -85,3 +85,15 @@ def test_only_preexisting_wrong_boxes_falls_back_to_missed_detections():
                      fail_fp_scores=(0.95,), fail_new_fp_scores=())
     chosen, mode = pick([only_old])
     assert mode == "missed_detections"
+
+
+def test_frames_where_people_are_the_subject_are_not_showcased():
+    """Found on real data: the JPEG pick was a children's team photo. Blurring
+    faces is not enough for a public showcase; a frame whose labelled objects
+    are mostly people is not eligible to be shown at all."""
+    portrait = Stats(image_id="team", license_id=4, baseline_tp=10, fail_tp=6,
+                     fail_fp_scores=(0.95,), fail_new_fp_scores=(0.95,), person_share=0.9)
+    street = Stats(image_id="street", license_id=4, baseline_tp=5, fail_tp=2,
+                   fail_fp_scores=(0.6,), fail_new_fp_scores=(0.6,), person_share=0.3)
+    chosen, _ = pick([portrait, street])
+    assert chosen.image_id == "street"

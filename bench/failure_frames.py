@@ -8,7 +8,10 @@ Which *frame* is shown is decided by `pick_frame`, a stated rule rather than a
 judgement call:
 
 1. only CC BY 2.0 frames (redistributable with attribution),
-2. only frames the pipeline got at least partly right undegraded,
+2. only frames the pipeline got at least partly right undegraded, and only
+   frames where people are not the subject (under half the labelled objects
+   are persons) -- blurred faces are not enough to put a group portrait, let
+   alone one of children, in a public showcase,
 3. prefer the frame whose most confident *degradation-induced* wrong box is
    most confident -- the silent failure this tool is about. A wrong box only
    counts if no prediction of the same class sat there undegraded (IoU < 0.5):
@@ -48,6 +51,7 @@ CONFIDENT = 0.5
 #: Matching and every count are computed on all predictions regardless.
 SHOWN = 0.5
 REDISTRIBUTABLE_LICENCES = {4}  # CC BY 2.0
+MAX_PERSON_SHARE = 0.5
 
 
 @dataclass(frozen=True)
@@ -59,6 +63,8 @@ class FrameStats:
     fail_fp_scores: tuple[float, ...]
     #: Wrong boxes with no same-class undegraded prediction at IoU >= 0.5.
     fail_new_fp_scores: tuple[float, ...] = ()
+    #: Fraction of the frame's labelled objects that are people.
+    person_share: float = 0.0
 
     @property
     def max_fp(self) -> float:
@@ -66,7 +72,12 @@ class FrameStats:
 
 
 def pick_frame(stats: list[FrameStats]) -> tuple[FrameStats | None, str]:
-    eligible = [s for s in stats if s.license_id in REDISTRIBUTABLE_LICENCES and s.baseline_tp > 0]
+    eligible = [
+        s for s in stats
+        if s.license_id in REDISTRIBUTABLE_LICENCES
+        and s.baseline_tp > 0
+        and s.person_share < MAX_PERSON_SHARE
+    ]
     if not eligible:
         return None, "no_eligible_frame"
 
@@ -130,6 +141,10 @@ def main() -> int:
                 image_id=f.image_id,
                 license_id=records[f.image_id]["license_id"],
                 baseline_tp=sum(x.matched for x in baseline[f.image_id][1]),
+                person_share=(
+                    sum(o["label"] == "person" for o in records[f.image_id]["objects"])
+                    / max(len(records[f.image_id]["objects"]), 1)
+                ),
                 fail_tp=sum(x.matched for x in m),
                 fail_fp_scores=tuple(round(x.detection.score, 4) for x in m if not x.matched),
                 fail_new_fp_scores=tuple(
@@ -183,7 +198,7 @@ def main() -> int:
             },
             "reproduce": (
                 f"uv run blindspot probe --degradation {degradation} --axis {field} "
-                f"--value {value:.6g} --seed {args.seed}"
+                f"--value {float(value)!r} --seed {args.seed}"
             ),
         })
         print(f"{entry['axis']}: {chosen.image_id} ({mode}, max induced FP conf "
