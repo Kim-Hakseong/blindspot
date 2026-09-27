@@ -7,23 +7,30 @@
 ## Reproduce path A — full AWS deployment
 
 ```bash
-git clone https://github.com/Kim-Hakseong/blindspot.git
-cd blindspot
-uv sync --frozen                          # pinned via uv.lock
-uv run cdk deploy --all --require-approval never
-uv run blindspot run --repo . --dataset ./val/road100 --budget 0.40
+git clone https://github.com/Kim-Hakseong/blindspot.git && cd blindspot
+uv sync --frozen --group infra --group cloud          # pinned via uv.lock
+sh tools/fetch_models.sh                              # SHA-256 verified
+uv run python tools/fetch_dataset.py --name road100   # licence-filtered COCO
+cd infra && npm ci && npx cdk bootstrap --qualifier bspot --toolkit-stack-name CDKToolkit-blindspot \
+  && npx cdk deploy Blindspot -c budget_email=YOU@EXAMPLE.COM && cd ..
+uv run blindspot cloud-run --dataset val/road100 --budget 0.40
 ```
 
-## Reproduce path B — local, no AWS credentials
+Uses an AWS profile named `blindspot` (override with `--profile`). Everything
+created is tagged `project=blindspot`; `sh tools/teardown.sh` removes it all.
+
+## Reproduce path B — local, no AWS credentials, no network
 
 ```bash
-docker run --rm -v "$PWD/val:/val" \
-  ghcr.io/kim-hakseong/blindspot:local \
-  run --dataset /val --probes 8
+sh tools/fetch_models.sh
+uv run python tools/fetch_dataset.py --name road100
+docker build -t blindspot:local .
+docker run --rm --network none -v "$PWD/val:/val:ro" blindspot:local \
+  run --dataset /val/road100 --probes 8 --axis motion_blur.exposure_ms --grid-steps 17
 ```
 
-Both paths print a report URL and write `report.json`. Path B runs a reduced
-probe count on one machine and needs no cloud account of any kind.
+An 8-probe contract locates the motion-blur boundary on one machine with the
+network switched off. The same image is the AWS Batch worker.
 
 ### Run the test suite
 
