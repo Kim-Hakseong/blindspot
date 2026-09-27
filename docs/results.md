@@ -78,6 +78,77 @@ A search that used fewer probes but found a *different* boundary would have
 saved nothing, so savings is only reported as valid when the located boundary
 lands within one grid cell of the grid's.
 
+## Two axes at once: the Blindspot Map
+
+A real camera has one shutter, and its exposure time sets both how far the
+image smears and how much light the sensor collects. The map therefore ties
+the two together (`low_light.exposure_ms` = `motion_blur.exposure_ms`) and
+probes a 17 x 17 grid of exposure x illuminance, every cell on all 100 frames.
+Camera model: 60 deg/s pan, fixed gain, no auto-exposure.
+
+```bash
+uv run python bench/hook_grid.py --steps 17
+```
+
+273 <!--bench:hook_grid.n_failed--> of 289 <!--bench:hook_grid.n_cells-->
+conditions fail. What passes is a closed window: short exposure and bright
+light. At 114–173 lux it is two-sided in exposure -- too short starves the
+sensor, too long smears the image -- and below about 75 lux it closes.
+
+**Cross-check with the 1-D sweep.** At 400 lux the blur edge falls between
+10.75 ms (mAP 0.3800 <!--bench:hook_grid.cells[0][4].map50-->, pass) and
+13.19 ms (mAP 0.3221 <!--bench:hook_grid.cells[0][5].map50-->, fail),
+overlapping the independent 1-D boundary of 12.50–13.75 ms.
+
+**The axes interact.** At 10.75 ms and 49.5 lux each axis on its own is
+inside its 1-D envelope -- blur below 12.5 ms, light above 25.5 lux (and the
+1-D light sweep used an even shorter 10 ms shutter) -- yet the combined
+condition fails, at mAP 0.2950 <!--bench:hook_grid.cells[5][4].map50-->.
+One-axis envelopes overstate the safe region.
+
+### 2-D boundary sampling
+
+Level-set estimation (Gotovos et al., 2013) against the exhaustive map.
+Probes are deterministic, so looking a cell up in the map is exactly what
+re-running that probe would return, and each lookup counts as one probe.
+
+```bash
+uv run python bench/levelset_efficiency.py
+```
+
+| | |
+|---|---|
+| Probes | 22 <!--bench:levelset_efficiency.primary.probes_used--> of 289 |
+| Misclassified cells | 0 <!--bench:levelset_efficiency.primary.misclassified_cells--> |
+| Savings | 13.14× <!--bench:levelset_efficiency.primary.savings--> |
+
+**Condition on this number:** 94% of this map fails, so the passing region is
+small and the rest is uniform -- a favourable shape for this method. On
+synthetic surfaces with a larger window and a diagonal edge the same code
+needed 18 and 13 probes, which suggests the result is not only an artefact of
+this map, but the real-data figure is stated for this map. Sensitivity to the
+confidence parameter is in `bench/out/levelset_efficiency.json`.
+
+## A second pipeline, same frames
+
+The same 1-D search on NanoDet-Plus-m (a different detector family), road100:
+
+| Axis | YOLOX-S | NanoDet-Plus-m |
+|---|---|---|
+| Undegraded mAP@50 | 0.6111 | 0.4219 <!--bench:efficiency_road100_nanodet_plus_m.baseline.mAP50--> |
+| Motion blur | 12.50–13.75 ms | 12.50 <!--bench:efficiency_road100_nanodet_plus_m.axes[0].levels[3].grid.lower-->–13.75 ms |
+| Illuminance | 12.98–25.47 lux | 25.47 <!--bench:efficiency_road100_nanodet_plus_m.axes[1].levels[3].grid.lower-->–37.95 <!--bench:efficiency_road100_nanodet_plus_m.axes[1].levels[3].grid.upper--> lux |
+| Fog β | 0.060–0.064 /m | 0.030 <!--bench:efficiency_road100_nanodet_plus_m.axes[2].levels[3].grid.lower-->–0.03375 <!--bench:efficiency_road100_nanodet_plus_m.axes[2].levels[3].grid.upper--> /m |
+| JPEG q | 7.97–10.94 | 5.00 <!--bench:efficiency_road100_nanodet_plus_m.axes[3].levels[3].grid.lower-->–7.97 <!--bench:efficiency_road100_nanodet_plus_m.axes[3].levels[3].grid.upper--> |
+
+Same blur edge; NanoDet fails in darker conditions sooner, in fog at half the
+extinction coefficient, and tolerates harsher JPEG compression. These are
+different operating envelopes on identical frames, which is the case for
+measuring a pipeline rather than assuming a model family's robustness.
+Verified bisection again matched the grid's interval with zero error on all
+four axes. Results for the remaining dataset x pipeline combinations are added
+as they are measured.
+
 ## Known limitations
 
 1. **Synthetic degradation is not real degradation.** This is the central
@@ -91,9 +162,9 @@ lands within one grid cell of the grid's.
    than the scan spacing can still be missed. Cheap mode misses interior bands
    entirely — this is pinned by a test, not merely documented.
 
-3. **One axis at a time.** These are 1-D searches. Interactions — blur *and*
-   low light together — are not explored. Joint condition space is the obvious
-   next step and is not implemented.
+3. **Two axes at most.** Blur and light are mapped jointly, and the map shows
+   one-axis envelopes overstate the safe region. Other pairs, and three or
+   more axes at once, are not explored.
 
 4. **Fog depth is approximated.** Depth is a linear ramp increasing towards the
    top of frame, the standard ground-plane camera assumption. Scenes violating
@@ -110,6 +181,7 @@ lands within one grid cell of the grid's.
    this build, so an honest CRF unit is unreachable through OpenCV alone. See
    [`degradation-axes.md`](degradation-axes.md) for the evidence.
 
-8. **Single pipeline measured.** Model independence is a property of the
-   adapter interface, but only YOLOX-S has actually been run. Claims of model
-   independence are therefore structural, not yet demonstrated.
+8. **Three pipelines, two families.** YOLOX-S, YOLOX-Nano and NanoDet-Plus
+   pass the same adapter contract, but two share a family, and all are
+   COCO-trained detectors. Segmentation, tracking and non-COCO pipelines are
+   untested.
