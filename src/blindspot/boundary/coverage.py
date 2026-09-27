@@ -141,3 +141,31 @@ def axis_coverage(
 def native_measurements(frames, metric: str) -> list[float]:
     """The objective measurement of each undegraded validation frame."""
     return [measure(frame.image)[metric] for frame in frames]
+
+
+def population_sweep(
+    frames,
+    degradation: str,
+    field: str,
+    values,
+    metric: str,
+    seed: int,
+) -> list[float]:
+    """Median of ``metric`` across ``frames`` at each axis value.
+
+    This is the curve native measurements are inverted through. It must
+    describe the population rather than one frame: sharpness and contrast are
+    scene-dependent, so a single-frame curve would read another scene's
+    texture as a different capture condition. Degradation and measurement
+    only -- no inference -- so it costs a fraction of one probe.
+    """
+    from ..degrade import REGISTRY
+
+    deg = REGISTRY.get(degradation)
+    base = {a.field: (a.lo + a.hi) / 2.0 for a in deg.axes}
+    medians = []
+    for value in values:
+        params = deg.Params(**(base | {field: float(value)}))
+        samples = [measure(deg.apply(f.image, params, seed=seed))[metric] for f in frames]
+        medians.append(float(np.median(samples)))
+    return medians
