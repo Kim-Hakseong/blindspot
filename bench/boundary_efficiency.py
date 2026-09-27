@@ -42,7 +42,8 @@ from blindspot.boundary.locate import (  # noqa: E402
 from blindspot.boundary.probe import baseline_map50, run_probe  # noqa: E402
 from blindspot.degrade import REGISTRY  # noqa: E402
 from blindspot.runner.dataset import ValidationSet  # noqa: E402
-from blindspot.runner.yolox import COCO_CLASSES, YoloxPipeline  # noqa: E402
+from blindspot.runner.registry import PIPELINES, load_pipeline  # noqa: E402
+from blindspot.runner.yolox import COCO_CLASSES  # noqa: E402
 
 DEFAULT_AXES = (
     "motion_blur.exposure_ms",
@@ -269,7 +270,7 @@ def evaluate_axis(axis_id, frames, pipeline, validation_set, criterion, levels, 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=pathlib.Path, default=pathlib.Path("val/road100"))
-    parser.add_argument("--model", type=pathlib.Path, default=pathlib.Path("models/yolox_s.onnx"))
+    parser.add_argument("--pipeline", default="yolox_s", choices=sorted(PIPELINES))
     parser.add_argument("--axes", nargs="*", default=list(DEFAULT_AXES))
     parser.add_argument(
         "--levels",
@@ -291,7 +292,7 @@ def main() -> int:
 
     validation_set = ValidationSet(args.dataset, COCO_CLASSES)
     frames = validation_set.load(limit=args.frames)
-    pipeline = YoloxPipeline(args.model)
+    pipeline = load_pipeline(args.pipeline)
 
     store = ProbeStore(args.probe_cache)
     base = baseline_map50(frames, pipeline, validation_set)
