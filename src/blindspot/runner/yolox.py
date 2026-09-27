@@ -47,11 +47,11 @@ COCO_CLASSES = (
 )
 
 
-def _build_grid() -> tuple[np.ndarray, np.ndarray]:
-    """Grid centres and strides for all 8400 prediction cells."""
+def _build_grid(size: int = INPUT_SIZE) -> tuple[np.ndarray, np.ndarray]:
+    """Grid centres and strides for every prediction cell at this input size."""
     grids, expanded = [], []
     for stride in STRIDES:
-        n = INPUT_SIZE // stride
+        n = size // stride
         yy, xx = np.meshgrid(np.arange(n), np.arange(n), indexing="ij")
         grids.append(np.stack([xx.ravel(), yy.ravel()], axis=1))
         expanded.append(np.full((n * n, 1), stride))
@@ -85,7 +85,17 @@ class YoloxPipeline(Pipeline):
         score_threshold: float = 0.25,
         nms_threshold: float = 0.45,
         classes: tuple[str, ...] = COCO_CLASSES,
+        input_size: int = INPUT_SIZE,
+        name: str = "yolox_s",
+        license: str = "Apache-2.0 (OpenCV model zoo)",
     ) -> None:
+        self.name = name
+        self.license = license
+        self.input_size = input_size
+        if input_size == INPUT_SIZE:
+            self._grid, self._strides = _GRID, _EXPANDED_STRIDES
+        else:
+            self._grid, self._strides = _build_grid(input_size)
         self.model_path = pathlib.Path(model_path)
         if not self.model_path.is_file():
             raise FileNotFoundError(
@@ -103,20 +113,21 @@ class YoloxPipeline(Pipeline):
             "name": self.name,
             "model_path": str(self.model_path),
             "backend": "cv::dnn",
-            "input_size": f"{INPUT_SIZE}x{INPUT_SIZE}",
+            "input_size": f"{self.input_size}x{self.input_size}",
+            "license": self.license,
             "score_threshold": str(self.score_threshold),
             "nms_threshold": str(self.nms_threshold),
         }
 
     def predict(self, image: np.ndarray, image_id: str) -> list[Detection]:
-        canvas, scale = letterbox(image)
+        canvas, scale = letterbox(image, self.input_size)
         blob = cv2.dnn.blobFromImage(canvas)
         self.net.setInput(blob)
         raw = self.net.forward()[0]  # (8400, 85)
 
         # Decode: centres are grid offsets, sizes are log-scale, both in strides.
-        centres = (raw[:, :2] + _GRID) * _EXPANDED_STRIDES
-        sizes = np.exp(raw[:, 2:4]) * _EXPANDED_STRIDES
+        centres = (raw[:, :2] + self._grid) * self._strides
+        sizes = np.exp(raw[:, 2:4]) * self._strides
 
         objectness = raw[:, 4]
         class_scores = raw[:, 5:]
