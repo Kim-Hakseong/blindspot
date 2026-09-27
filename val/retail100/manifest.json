@@ -1,0 +1,4669 @@
+{
+  "name": "retail100",
+  "description": "Shelf-like scenes with small repeated objects",
+  "source": "COCO val2017",
+  "source_url": "https://cocodataset.org/",
+  "annotations_license": "CC BY 4.0",
+  "image_license_policy": "Only COCO licence ids 4, 5, 7, 8 (CC BY 2.0, CC BY-SA 2.0, no known copyright restrictions, US Government Work). Non-Commercial and No-Derivatives licences are excluded because probes are derivative works.",
+  "redistributed": false,
+  "categories": [
+    "bottle",
+    "cup",
+    "bowl",
+    "banana",
+    "apple",
+    "orange"
+  ],
+  "selection": {
+    "min_objects": 3,
+    "min_box_area_px": 1024,
+    "order": "descending object count, ties by image id"
+  },
+  "stats": {
+    "eligible_images": 73,
+    "selected": 73,
+    "total_objects": 354,
+    "licence_breakdown": {
+      "Attribution License": 50,
+      "Attribution-ShareAlike License": 23
+    }
+  },
+  "command": "uv run python tools/fetch_dataset.py --name retail100 --count 100",
+  "images": [
+    {
+      "image_id": "78959",
+      "file_name": "000000078959.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000078959.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8423/7623696666_ebf4bcbec7_z.jpg",
+      "width": 384,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            244.77,
+            62.73,
+            307.57,
+            132.93
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            239.89,
+            132.04,
+            337.47,
+            168.84
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            198.7,
+            23.08,
+            230.67,
+            113.83
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            222.6,
+            175.6,
+            290.6,
+            202.24
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            196.94,
+            179.62,
+            312.59,
+            240.85
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            225.56,
+            40.65,
+            263.39,
+            116.92
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            254.67,
+            0.53,
+            307.19,
+            90.57
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            165.99,
+            120.99,
+            194.79,
+            162.31
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            153.31,
+            0.0,
+            232.64,
+            79.21
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            80.02,
+            118.8,
+            168.11,
+            200.03
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            159.8,
+            67.11,
+            213.35,
+            136.57
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            136.95,
+            38.28,
+            203.44,
+            100.49
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            263.84,
+            45.63,
+            295.25,
+            90.05
+          ]
+        }
+      ],
+      "sha256": "e42bf26adeaac411f4714a1caa9a1c6488c2016cc6c4333f4ae1a5ab43f0b2cb",
+      "bytes": 149479
+    },
+    {
+      "image_id": "242946",
+      "file_name": "000000242946.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000242946.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3093/2650118269_48decfbb16_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            235.37,
+            165.57,
+            270.11,
+            215.41
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            297.2,
+            224.93,
+            344.82,
+            279.2
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            270.9,
+            175.11,
+            349.6,
+            225.24
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            585.31,
+            223.61,
+            640.0,
+            264.75
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            42.07,
+            453.03,
+            152.09,
+            474.61
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            24.51,
+            199.27,
+            92.97,
+            233.35
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            251.73,
+            246.39,
+            299.13,
+            273.96
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            0.0,
+            435.19,
+            32.36,
+            480.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            363.65,
+            159.49,
+            395.01,
+            208.12
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            149.97,
+            170.3,
+            191.07,
+            198.88
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            448.83,
+            367.79,
+            640.0,
+            472.52
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            561.03,
+            245.02,
+            620.44,
+            303.99
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            585.35,
+            298.82,
+            640.0,
+            411.24
+          ]
+        }
+      ],
+      "sha256": "79a2d1d40ed9e58bc559fcc15b0028c1aa91d22711787934e5a3f8c67109df37",
+      "bytes": 141071
+    },
+    {
+      "image_id": "366711",
+      "file_name": "000000366711.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000366711.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8463/8406266140_d29926b155_z.jpg",
+      "width": 427,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            194.48,
+            349.25,
+            260.62,
+            420.76
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            273.35,
+            248.86,
+            335.37,
+            305.58
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            360.99,
+            234.19,
+            427.0,
+            285.96
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            225.68,
+            288.03,
+            302.25,
+            365.1
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            260.26,
+            356.94,
+            332.55,
+            430.48
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            185.25,
+            286.32,
+            230.83,
+            333.49
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            377.11,
+            276.26,
+            424.82,
+            353.65
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            274.7,
+            163.72,
+            356.67,
+            241.38
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            226.09,
+            219.61,
+            298.3,
+            294.0
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            304.32,
+            419.19,
+            357.6,
+            496.42
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            235.83,
+            192.99,
+            275.83,
+            223.23
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            166.4,
+            344.79,
+            202.12,
+            392.55
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            303.86,
+            229.78,
+            370.27,
+            298.29
+          ]
+        }
+      ],
+      "sha256": "0b143541e290144f4b515de9d81d238df12b438896e3817584d27a37b161d623",
+      "bytes": 288147
+    },
+    {
+      "image_id": "498919",
+      "file_name": "000000498919.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000498919.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/226/508669075_b4ad2fd7e5_z.jpg",
+      "width": 432,
+      "height": 324,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            290.77,
+            206.46,
+            351.53,
+            263.56
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            327.05,
+            240.78,
+            398.71,
+            308.63
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            310.28,
+            221.84,
+            369.74,
+            282.07
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            245.88,
+            223.56,
+            290.13,
+            278.97
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            61.7,
+            27.63,
+            187.09,
+            105.26
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            94.33,
+            89.27,
+            140.11,
+            137.83
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            278.65,
+            191.34,
+            333.59,
+            242.26
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            156.53,
+            245.74,
+            355.98,
+            319.79
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            378.9,
+            161.98,
+            428.35,
+            207.4
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            327.37,
+            166.63,
+            432.0,
+            319.79
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            285.17,
+            76.81,
+            328.91,
+            114.27
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            29.83,
+            164.04,
+            74.64,
+            194.72
+          ]
+        }
+      ],
+      "sha256": "207e1007cad81d6fdb5e4061c0a652c351b217c23570dbe0bac920929841d537",
+      "bytes": 77868
+    },
+    {
+      "image_id": "74733",
+      "file_name": "000000074733.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000074733.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5461/9330037796_1700b955f3_z.jpg",
+      "width": 612,
+      "height": 612,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            536.24,
+            123.24,
+            612.0,
+            258.26
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            116.24,
+            53.13,
+            188.59,
+            178.69
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            48.07,
+            70.85,
+            126.37,
+            202.05
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            0.0,
+            86.17,
+            57.46,
+            235.69
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            281.3,
+            395.12,
+            445.96,
+            599.58
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            180.61,
+            39.11,
+            245.02,
+            156.86
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            394.71,
+            323.19,
+            541.86,
+            566.62
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            484.17,
+            273.06,
+            612.0,
+            484.79
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            564.17,
+            234.26,
+            612.0,
+            426.04
+          ]
+        }
+      ],
+      "sha256": "d99c93fb6d22a5d51bbb6e09ca5f10c11bdcf90a711abf6cc83188df52cc456a",
+      "bytes": 178821
+    },
+    {
+      "image_id": "275198",
+      "file_name": "000000275198.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000275198.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7262/7488569650_9e0faaf072_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            262.36,
+            259.69,
+            299.47,
+            375.57
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            308.87,
+            331.14,
+            332.78,
+            375.65
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            283.58,
+            317.25,
+            332.46,
+            354.53
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            357.08,
+            288.27,
+            440.26,
+            333.19
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            262.34,
+            275.78,
+            354.95,
+            322.09
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            379.7,
+            248.27,
+            435.9,
+            288.73
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            277.45,
+            345.49,
+            304.76,
+            392.06
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            444.72,
+            263.92,
+            471.57,
+            330.88
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            330.0,
+            246.49,
+            372.48,
+            278.86
+          ]
+        }
+      ],
+      "sha256": "c34482da7ff6fc53d5e78dc433cc673ab601757761e07948f15450cc8214a483",
+      "bytes": 260200
+    },
+    {
+      "image_id": "359833",
+      "file_name": "000000359833.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000359833.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8350/8185927378_1291fac336_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            168.36,
+            283.87,
+            229.72,
+            349.33
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            0.0,
+            158.13,
+            290.52,
+            368.18
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            0.0,
+            362.29,
+            150.03,
+            640.0
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            54.41,
+            0.14,
+            356.51,
+            76.02
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            169.65,
+            103.0,
+            209.97,
+            137.91
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            28.11,
+            82.07,
+            74.77,
+            124.12
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            0.0,
+            134.63,
+            65.73,
+            183.55
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            146.69,
+            138.33,
+            238.59,
+            190.43
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            215.52,
+            143.62,
+            256.46,
+            181.24
+          ]
+        }
+      ],
+      "sha256": "21c1c260e938546b28665f994fd1147b610a3043221c69307c3a3a5784d0b289",
+      "bytes": 112124
+    },
+    {
+      "image_id": "192871",
+      "file_name": "000000192871.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000192871.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3115/3164630720_5de3a5f1da_z.jpg",
+      "width": 640,
+      "height": 427,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            37.46,
+            147.15,
+            607.19,
+            427.0
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            348.65,
+            245.79,
+            507.47,
+            393.84
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            69.65,
+            158.23,
+            197.85,
+            310.66
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            382.65,
+            165.94,
+            552.13,
+            299.3
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            35.5,
+            354.07,
+            122.82,
+            416.44
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            141.66,
+            161.41,
+            351.88,
+            366.74
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            123.05,
+            306.83,
+            240.94,
+            421.27
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            235.09,
+            318.06,
+            464.42,
+            425.53
+          ]
+        }
+      ],
+      "sha256": "3b01c2d37f4e03a559a45270a5b06b290823bf71bc713c615a01300e899375a7",
+      "bytes": 82014
+    },
+    {
+      "image_id": "548506",
+      "file_name": "000000548506.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000548506.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7215/7172313601_80f97928a8_z.jpg",
+      "width": 640,
+      "height": 425,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            351.46,
+            0.0,
+            582.58,
+            297.98
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            451.74,
+            2.87,
+            640.0,
+            206.29
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            226.0,
+            81.0,
+            640.0,
+            381.0
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            59.0,
+            7.0,
+            362.0,
+            173.0
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            2.0,
+            188.66,
+            256.4,
+            425.0
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            73.69,
+            167.07,
+            303.43,
+            334.38
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            1.04,
+            57.08,
+            74.14,
+            231.47
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            35.86,
+            63.32,
+            131.46,
+            196.75
+          ]
+        }
+      ],
+      "sha256": "6587aa7e069e1aec1ef2bac033583a7173db33619ba2cecdd4e52e8cf17e4ad3",
+      "bytes": 130140
+    },
+    {
+      "image_id": "90891",
+      "file_name": "000000090891.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000090891.jpg",
+      "flickr_url": "http://farm7.staticflickr.com/6145/5938772497_5a89d3ec7c_z.jpg",
+      "width": 640,
+      "height": 431,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            380.66,
+            351.93,
+            448.39,
+            388.36
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            414.49,
+            41.72,
+            455.82,
+            73.58
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            93.5,
+            42.03,
+            122.47,
+            97.77
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            219.41,
+            204.95,
+            257.67,
+            276.54
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            368.86,
+            281.35,
+            421.14,
+            350.06
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            19.37,
+            333.02,
+            47.46,
+            370.79
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            598.54,
+            16.34,
+            634.97,
+            50.27
+          ]
+        }
+      ],
+      "sha256": "d3ca274ad2a7c3620c54f1024a65325fe7bfa0d6bb91a818edfc9fc5b1ea2be6",
+      "bytes": 421559
+    },
+    {
+      "image_id": "142620",
+      "file_name": "000000142620.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000142620.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7375/9756491185_311b0b2b7d_z.jpg",
+      "width": 640,
+      "height": 426,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            110.62,
+            203.7,
+            148.3,
+            315.55
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            235.19,
+            292.88,
+            279.34,
+            332.89
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            164.61,
+            377.82,
+            214.29,
+            426.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            229.72,
+            379.51,
+            277.09,
+            426.0
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            99.86,
+            350.75,
+            160.28,
+            399.34
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            253.77,
+            321.42,
+            354.82,
+            375.79
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            74.2,
+            280.99,
+            123.96,
+            360.25
+          ]
+        }
+      ],
+      "sha256": "0f3dd713a8c98734879b3108ac6a160877b031831048330a0fc09cedfdf1dd80",
+      "bytes": 267317
+    },
+    {
+      "image_id": "189078",
+      "file_name": "000000189078.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000189078.jpg",
+      "flickr_url": "http://farm5.staticflickr.com/4026/4430551771_58c190b055_z.jpg",
+      "width": 500,
+      "height": 334,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            20.64,
+            66.41,
+            173.57,
+            152.72
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            59.64,
+            44.99,
+            180.92,
+            89.48
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            21.27,
+            74.83,
+            198.51,
+            205.6
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            335.18,
+            7.38,
+            477.64,
+            199.18
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            252.29,
+            119.88,
+            355.11,
+            220.31
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            183.55,
+            47.08,
+            267.86,
+            134.72
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            261.39,
+            60.52,
+            350.86,
+            137.32
+          ]
+        }
+      ],
+      "sha256": "be35d8cf9253deefe62871e6abb91f26f345787ed4dfb54de6b3aed7deade662",
+      "bytes": 77344
+    },
+    {
+      "image_id": "194724",
+      "file_name": "000000194724.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000194724.jpg",
+      "flickr_url": "http://farm7.staticflickr.com/6155/6165978029_81ac06fbe3_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            418.29,
+            0.3,
+            521.13,
+            258.61
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            514.77,
+            133.02,
+            609.25,
+            262.28
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            190.87,
+            2.26,
+            214.59,
+            51.95
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            170.94,
+            0.0,
+            192.87,
+            54.43
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            280.45,
+            0.05,
+            299.58,
+            53.8
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            299.87,
+            0.0,
+            320.71,
+            52.12
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            209.45,
+            1.25,
+            233.14,
+            51.12
+          ]
+        }
+      ],
+      "sha256": "ef3c018f96fdab2b7bfb28ffd8b952535c8c1084d2a39eb5133c14e585c137c4",
+      "bytes": 216017
+    },
+    {
+      "image_id": "297084",
+      "file_name": "000000297084.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000297084.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5510/10199431365_8ae1b637f4_z.jpg",
+      "width": 612,
+      "height": 612,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            222.43,
+            412.87,
+            286.92,
+            605.02
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            323.77,
+            435.64,
+            382.99,
+            605.42
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            148.53,
+            380.53,
+            231.05,
+            534.56
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            390.16,
+            569.51,
+            510.92,
+            612.0
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            269.87,
+            535.13,
+            323.75,
+            601.58
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            66.56,
+            501.21,
+            204.21,
+            612.0
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            76.56,
+            559.48,
+            201.59,
+            606.61
+          ]
+        }
+      ],
+      "sha256": "9e812fd1861d9bc51048321fec481961b40f37c55f04350d6704a7446944d16d",
+      "bytes": 208657
+    },
+    {
+      "image_id": "406570",
+      "file_name": "000000406570.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000406570.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2625/3796453122_e3fa536540_z.jpg",
+      "width": 427,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            220.51,
+            1.34,
+            427.0,
+            124.8
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            156.41,
+            29.12,
+            194.04,
+            60.54
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            0.66,
+            227.85,
+            427.0,
+            640.0
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            2.56,
+            155.33,
+            46.89,
+            217.05
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            81.53,
+            142.63,
+            135.39,
+            194.44
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            33.45,
+            200.21,
+            84.68,
+            234.36
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            1.66,
+            94.39,
+            158.46,
+            261.97
+          ]
+        }
+      ],
+      "sha256": "2790f0224bf5f6315f6480b3c5dc46130dfeeffb1a12bb58b6d686c1cd616065",
+      "bytes": 72465
+    },
+    {
+      "image_id": "481386",
+      "file_name": "000000481386.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000481386.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5328/8789640387_14e10562cb_z.jpg",
+      "width": 427,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            41.03,
+            472.49,
+            86.14,
+            510.3
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            50.9,
+            228.04,
+            131.95,
+            276.41
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            9.7,
+            407.14,
+            64.15,
+            446.95
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            0.38,
+            403.68,
+            55.63,
+            429.8
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            133.95,
+            395.93,
+            160.14,
+            443.54
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            49.82,
+            400.37,
+            89.52,
+            440.08
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            29.77,
+            466.02,
+            73.69,
+            498.96
+          ]
+        }
+      ],
+      "sha256": "f218e3c3a63a1600ad6b696d35f324bf78b0f787459d10793e39b420f80cad27",
+      "bytes": 264715
+    },
+    {
+      "image_id": "25394",
+      "file_name": "000000025394.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000025394.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/38/87248274_fe9dc3879b_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            213.02,
+            372.97,
+            256.54,
+            430.23
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            51.56,
+            0.72,
+            75.87,
+            51.34
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            84.46,
+            1.61,
+            102.78,
+            57.72
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            263.64,
+            17.37,
+            294.17,
+            104.5
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            244.49,
+            438.21,
+            375.37,
+            628.05
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            233.91,
+            21.9,
+            251.09,
+            93.8
+          ]
+        }
+      ],
+      "sha256": "f13f54a3cbe28140004425b1b010c51bd5be0e4c4da1d4b1e382e3e0b426e316",
+      "bytes": 118322
+    },
+    {
+      "image_id": "117719",
+      "file_name": "000000117719.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000117719.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3395/3499231904_8b958aa5bc_z.jpg",
+      "width": 640,
+      "height": 425,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            367.8,
+            281.17,
+            393.71,
+            337.83
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            66.07,
+            177.68,
+            88.3,
+            246.74
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            139.12,
+            101.57,
+            168.05,
+            161.56
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            184.65,
+            101.61,
+            201.55,
+            162.27
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            217.18,
+            96.67,
+            238.28,
+            166.49
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            0.0,
+            93.81,
+            19.64,
+            149.08
+          ]
+        }
+      ],
+      "sha256": "347879f8b17e27bbe503a00f8fe6963c0519f35e4d3db5ecdad92de924024744",
+      "bytes": 132184
+    },
+    {
+      "image_id": "79651",
+      "file_name": "000000079651.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000079651.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3720/9659844494_a70f5d61c0_z.jpg",
+      "width": 640,
+      "height": 478,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            396.73,
+            9.62,
+            511.15,
+            377.48
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            150.99,
+            0.0,
+            261.41,
+            390.27
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            280.21,
+            0.0,
+            385.28,
+            379.1
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            294.32,
+            345.7,
+            632.68,
+            459.56
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            179.38,
+            365.48,
+            491.96,
+            473.97
+          ]
+        }
+      ],
+      "sha256": "05107da6f72e8e495bbfaa0e8d638433cb5fd9c35d43bf193ff2b12db0c684bb",
+      "bytes": 222884
+    },
+    {
+      "image_id": "92053",
+      "file_name": "000000092053.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000092053.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5244/5375419008_044fb14543_z.jpg",
+      "width": 640,
+      "height": 427,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            309.58,
+            0.0,
+            391.72,
+            180.19
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            273.68,
+            0.0,
+            311.71,
+            95.92
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            65.59,
+            71.98,
+            307.99,
+            215.4
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            368.22,
+            78.75,
+            640.0,
+            249.55
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            96.0,
+            176.76,
+            485.94,
+            427.0
+          ]
+        }
+      ],
+      "sha256": "b31ae99dde64c615138636ae6f3c3d139d7d398e830126594532a701da146ac3",
+      "bytes": 135828
+    },
+    {
+      "image_id": "286553",
+      "file_name": "000000286553.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000286553.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2710/4252543190_2e6b88828f_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            10.69,
+            379.35,
+            68.85,
+            479.95
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            0.0,
+            383.13,
+            19.08,
+            480.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            250.21,
+            329.09,
+            280.42,
+            384.75
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            0.7,
+            392.47,
+            17.5,
+            479.78
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            190.54,
+            447.91,
+            258.56,
+            480.0
+          ]
+        }
+      ],
+      "sha256": "f37863b16e8789da5ed5f768a16f651883ac31cdcd8a965d1795e0d5456b2314",
+      "bytes": 126326
+    },
+    {
+      "image_id": "419312",
+      "file_name": "000000419312.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000419312.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3276/3064530534_3b508c25c6_z.jpg",
+      "width": 375,
+      "height": 500,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            0.0,
+            69.56,
+            92.84,
+            235.11
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            18.61,
+            10.29,
+            115.24,
+            147.37
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            315.48,
+            0.28,
+            374.89,
+            87.59
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            189.94,
+            0.0,
+            290.6,
+            24.04
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            0.0,
+            0.0,
+            24.0,
+            78.5
+          ]
+        }
+      ],
+      "sha256": "7b953b528b2ae9fdc1c768710a8581c397ea552651ceeab6b59d2603f3223417",
+      "bytes": 169613
+    },
+    {
+      "image_id": "473406",
+      "file_name": "000000473406.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000473406.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3422/3941022247_9b39c55b5a_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            376.31,
+            223.31,
+            417.51,
+            364.77
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            355.19,
+            226.8,
+            388.97,
+            336.59
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            315.78,
+            307.18,
+            361.32,
+            411.49
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            26.69,
+            271.05,
+            65.48,
+            319.85
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            321.69,
+            448.01,
+            459.99,
+            546.33
+          ]
+        }
+      ],
+      "sha256": "821a802ea625958f0c8465a313723b265674f891482e9e6dff781eeed3314385",
+      "bytes": 137909
+    },
+    {
+      "image_id": "8844",
+      "file_name": "000000008844.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000008844.jpg",
+      "flickr_url": "http://farm7.staticflickr.com/6109/6283843124_f4091ce78a_z.jpg",
+      "width": 640,
+      "height": 426,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            534.18,
+            242.04,
+            563.85,
+            321.49
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            543.65,
+            259.19,
+            637.72,
+            392.8
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            0.0,
+            116.15,
+            387.79,
+            417.02
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            370.87,
+            243.57,
+            543.28,
+            383.9
+          ]
+        }
+      ],
+      "sha256": "bd8133fe5862ea2b0b308db3c1d96b23012f2f667d43cb524d35ac1b710670a4",
+      "bytes": 111826
+    },
+    {
+      "image_id": "28809",
+      "file_name": "000000028809.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000028809.jpg",
+      "flickr_url": "http://farm5.staticflickr.com/4026/4444464874_e0a59ec935_z.jpg",
+      "width": 498,
+      "height": 500,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            215.25,
+            158.07,
+            497.76,
+            493.27
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            229.12,
+            34.71,
+            498.0,
+            165.63
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            225.84,
+            10.11,
+            498.0,
+            102.25
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            297.89,
+            0.84,
+            495.53,
+            57.31
+          ]
+        }
+      ],
+      "sha256": "ae2c7be44df33d27135b6aa2f5d82d4c8bb9784e99469a04be708ee68943a45d",
+      "bytes": 142169
+    },
+    {
+      "image_id": "50811",
+      "file_name": "000000050811.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000050811.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8328/8133371246_ae679ac932_z.jpg",
+      "width": 640,
+      "height": 605,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            448.87,
+            314.95,
+            521.73,
+            576.46
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            524.71,
+            316.61,
+            595.36,
+            592.82
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            448.06,
+            332.8,
+            467.86,
+            443.77
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            164.53,
+            448.89,
+            368.79,
+            535.58
+          ]
+        }
+      ],
+      "sha256": "c69067b49ec7f1f07045130495c56fd29da44178965a33861b51a503a041acfa",
+      "bytes": 163013
+    },
+    {
+      "image_id": "64084",
+      "file_name": "000000064084.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000064084.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8482/8219102302_a64732337b_z.jpg",
+      "width": 640,
+      "height": 436,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            0.0,
+            215.76,
+            55.08,
+            431.42
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            0.0,
+            137.33,
+            106.43,
+            436.0
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            127.97,
+            115.51,
+            343.14,
+            327.28
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            25.77,
+            58.12,
+            157.86,
+            403.91
+          ]
+        }
+      ],
+      "sha256": "8cfec390ac738c1ea0aeb0ea79297178255022a0f6cbbe32bfa2402eadbaee2b",
+      "bytes": 162690
+    },
+    {
+      "image_id": "66231",
+      "file_name": "000000066231.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000066231.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8352/8375313873_80051bc3e2_z.jpg",
+      "width": 640,
+      "height": 427,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            573.48,
+            274.16,
+            635.46,
+            330.91
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            576.01,
+            315.43,
+            621.78,
+            346.16
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            614.32,
+            304.15,
+            640.0,
+            345.13
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            273.36,
+            265.26,
+            328.47,
+            289.95
+          ]
+        }
+      ],
+      "sha256": "9f4fe7d747ae0d163c865e6478afc0a39822817b650b11094bbcb4fe37b46680",
+      "bytes": 163610
+    },
+    {
+      "image_id": "85157",
+      "file_name": "000000085157.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000085157.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2620/3776048035_fb7c6fc8d5_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            267.77,
+            246.59,
+            306.35,
+            312.94
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            298.18,
+            242.1,
+            351.96,
+            276.47
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            208.59,
+            244.75,
+            247.93,
+            303.88
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            347.23,
+            235.36,
+            381.47,
+            279.27
+          ]
+        }
+      ],
+      "sha256": "027adfd5c8d13be607a05da2098af34e7350b5f70a5bfd16f266e8c802a3a59b",
+      "bytes": 171606
+    },
+    {
+      "image_id": "132329",
+      "file_name": "000000132329.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000132329.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2507/4142321546_09ffc1dab0_z.jpg",
+      "width": 426,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            163.59,
+            31.0,
+            215.25,
+            213.24
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            217.19,
+            32.52,
+            267.94,
+            213.98
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            265.64,
+            32.3,
+            321.64,
+            214.59
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            107.35,
+            85.43,
+            161.03,
+            214.8
+          ]
+        }
+      ],
+      "sha256": "78a2bdb448e5729fe89f9a4c768bdf6164ccb992e52aa7469d3c4c82a8707e49",
+      "bytes": 70867
+    },
+    {
+      "image_id": "156278",
+      "file_name": "000000156278.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000156278.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7001/6590444993_42ee1edef5_z.jpg",
+      "width": 640,
+      "height": 425,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            278.52,
+            305.12,
+            336.25,
+            333.28
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            422.03,
+            384.55,
+            534.34,
+            425.0
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            282.89,
+            357.69,
+            336.16,
+            391.12
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            181.65,
+            358.18,
+            225.52,
+            396.88
+          ]
+        }
+      ],
+      "sha256": "7d3fdff1cdf4fe345c57ea392793a18bf485ab1fd5fdfc53d4d185855f2ae382",
+      "bytes": 160050
+    },
+    {
+      "image_id": "166918",
+      "file_name": "000000166918.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000166918.jpg",
+      "flickr_url": "http://farm5.staticflickr.com/4117/4745624149_369a63786e_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            173.67,
+            380.77,
+            199.09,
+            475.98
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            350.74,
+            479.52,
+            397.66,
+            570.71
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            339.37,
+            405.37,
+            373.37,
+            444.65
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            330.98,
+            444.57,
+            375.07,
+            503.46
+          ]
+        }
+      ],
+      "sha256": "a7f8457580a2bb8635ca7acd1b2061ea7977a84418e5e8441a77ba1f861d7e22",
+      "bytes": 219406
+    },
+    {
+      "image_id": "173008",
+      "file_name": "000000173008.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000173008.jpg",
+      "flickr_url": "http://farm2.staticflickr.com/1162/1157171906_e210cf9a4e_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            257.86,
+            196.31,
+            311.58,
+            290.03
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            49.95,
+            444.43,
+            93.67,
+            475.36
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            24.25,
+            421.13,
+            143.89,
+            480.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            488.49,
+            265.45,
+            512.35,
+            309.38
+          ]
+        }
+      ],
+      "sha256": "57e4391ce5b3b06e3b778342e9c4272a9a4a93e9fbb8ab8270f4d0c4dfd3e5c5",
+      "bytes": 121891
+    },
+    {
+      "image_id": "191761",
+      "file_name": "000000191761.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000191761.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/26/63857259_7a26ba906c_z.jpg",
+      "width": 500,
+      "height": 375,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            42.98,
+            27.81,
+            500.0,
+            330.34
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            297.47,
+            107.87,
+            500.0,
+            202.25
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            278.17,
+            194.54,
+            411.09,
+            274.65
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            378.74,
+            199.01,
+            496.05,
+            283.64
+          ]
+        }
+      ],
+      "sha256": "26c0697f27e653a634840879f24189a8326ffaf72da758b2a9b8cf5271c2fd34",
+      "bytes": 150958
+    },
+    {
+      "image_id": "199771",
+      "file_name": "000000199771.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000199771.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5035/7115744429_7d4deeb996_z.jpg",
+      "width": 640,
+      "height": 425,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            367.57,
+            264.24,
+            440.48,
+            421.42
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            256.13,
+            391.31,
+            301.3,
+            425.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            285.23,
+            291.98,
+            370.81,
+            420.34
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            191.45,
+            293.78,
+            305.48,
+            391.34
+          ]
+        }
+      ],
+      "sha256": "060235d75ac8a669d705e7685f73f53a09da291583f45faf45ac4ac1dbab4388",
+      "bytes": 201077
+    },
+    {
+      "image_id": "287347",
+      "file_name": "000000287347.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000287347.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5089/5250579638_55e8ea39b1_z.jpg",
+      "width": 478,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            390.13,
+            270.3,
+            426.27,
+            388.77
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            425.29,
+            287.27,
+            459.29,
+            398.22
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            177.94,
+            489.04,
+            275.52,
+            638.28
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            77.59,
+            596.4,
+            194.05,
+            640.0
+          ]
+        }
+      ],
+      "sha256": "13276f8d15148d023ebcc28e52226350b95332533c778d1f87d44633e7c4304d",
+      "bytes": 210512
+    },
+    {
+      "image_id": "301718",
+      "file_name": "000000301718.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000301718.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3763/9132300748_f22266f91b_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            153.9,
+            210.04,
+            213.15,
+            389.09
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            26.69,
+            267.98,
+            74.1,
+            376.58
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            2.88,
+            298.71,
+            60.4,
+            487.11
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            71.55,
+            320.0,
+            156.21,
+            365.22
+          ]
+        }
+      ],
+      "sha256": "54a5a90b270b5ae95672c8ed2947867efabe7acf977d89c985cd1e909a58b1be",
+      "bytes": 187495
+    },
+    {
+      "image_id": "314182",
+      "file_name": "000000314182.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000314182.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2089/1912178745_cb0814bb3a_z.jpg",
+      "width": 375,
+      "height": 500,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            167.42,
+            101.12,
+            375.0,
+            322.47
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            0.0,
+            129.21,
+            174.16,
+            325.84
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            37.5,
+            269.0,
+            293.65,
+            500.0
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            103.69,
+            50.56,
+            258.43,
+            162.92
+          ]
+        }
+      ],
+      "sha256": "5ada32a5fd65082d93a24e31af732446ee67a38dae1486f523de1476e0aea578",
+      "bytes": 110568
+    },
+    {
+      "image_id": "352618",
+      "file_name": "000000352618.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000352618.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/183/416853313_572bdfffa2_z.jpg",
+      "width": 640,
+      "height": 426,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            4.79,
+            143.6,
+            640.0,
+            419.3
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            3.01,
+            147.35,
+            134.32,
+            315.74
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            482.19,
+            226.04,
+            640.0,
+            339.74
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            330.78,
+            187.44,
+            566.33,
+            347.82
+          ]
+        }
+      ],
+      "sha256": "99deb69d767d3e492002446c25a7f96845771dd097216644c62661c3081e2cd1",
+      "bytes": 56224
+    },
+    {
+      "image_id": "356248",
+      "file_name": "000000356248.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000356248.jpg",
+      "flickr_url": "http://farm7.staticflickr.com/6013/5997608563_ecaa98e80a_z.jpg",
+      "width": 478,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            2.32,
+            205.23,
+            27.61,
+            275.38
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            107.05,
+            249.62,
+            145.78,
+            288.77
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            161.41,
+            248.85,
+            191.56,
+            295.52
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            73.71,
+            238.88,
+            108.59,
+            284.38
+          ]
+        }
+      ],
+      "sha256": "82c899741205bb8a7fb3deac0acc3fca15f81c029aaaf4d0f39aabbb090f452c",
+      "bytes": 214434
+    },
+    {
+      "image_id": "397133",
+      "file_name": "000000397133.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000397133.jpg",
+      "flickr_url": "http://farm7.staticflickr.com/6116/6255196340_da26cf2c9e_z.jpg",
+      "width": 640,
+      "height": 427,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            217.62,
+            240.54,
+            256.61,
+            298.29
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            31.28,
+            344.0,
+            99.4,
+            384.83
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            59.63,
+            287.36,
+            135.7,
+            328.66
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            141.47,
+            267.91,
+            173.66,
+            303.77
+          ]
+        }
+      ],
+      "sha256": "09e1d25c75f7879bdaa69c327fece5cabacd53939c8c2ef9e87f1c97a2e478c4",
+      "bytes": 200576
+    },
+    {
+      "image_id": "410735",
+      "file_name": "000000410735.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000410735.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8247/8459265911_9ec56fb242_z.jpg",
+      "width": 640,
+      "height": 512,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            26.27,
+            184.0,
+            222.09,
+            329.73
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            38.05,
+            346.52,
+            224.86,
+            481.44
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            232.52,
+            116.94,
+            619.67,
+            484.62
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            45.22,
+            30.59,
+            196.82,
+            146.29
+          ]
+        }
+      ],
+      "sha256": "100e3482a768dddcdccb9603682ae0b00921a31854d86b8924e7fc723bcbacac",
+      "bytes": 222913
+    },
+    {
+      "image_id": "473869",
+      "file_name": "000000473869.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000473869.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3500/3725168577_4b8a7d72b9_z.jpg",
+      "width": 640,
+      "height": 427,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            532.89,
+            148.61,
+            559.94,
+            230.2
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            287.79,
+            296.02,
+            361.75,
+            348.43
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            499.1,
+            141.8,
+            548.8,
+            288.88
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            577.97,
+            163.48,
+            617.01,
+            278.16
+          ]
+        }
+      ],
+      "sha256": "d2f1193dc4c0cd50e0a233810fde1875f7211e936c35d9a3754bf71c2c8da84e",
+      "bytes": 109371
+    },
+    {
+      "image_id": "541634",
+      "file_name": "000000541634.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000541634.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5529/9471702865_6cf3a45fde_z.jpg",
+      "width": 612,
+      "height": 612,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            78.94,
+            33.76,
+            224.81,
+            324.71
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            109.53,
+            253.42,
+            506.58,
+            551.89
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            0.0,
+            82.66,
+            117.63,
+            270.23
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            463.91,
+            237.19,
+            575.13,
+            353.04
+          ]
+        }
+      ],
+      "sha256": "238f614674164a4c3d3d2e57980a2aa32788f03fc269daf80123ca9e2a1ed6d4",
+      "bytes": 186957
+    },
+    {
+      "image_id": "562059",
+      "file_name": "000000562059.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000562059.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2817/9256079385_0d21c6c751_z.jpg",
+      "width": 427,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            2.88,
+            66.16,
+            197.03,
+            309.21
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            123.69,
+            127.56,
+            427.0,
+            429.58
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            0.79,
+            287.93,
+            146.15,
+            435.84
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            226.51,
+            53.21,
+            373.97,
+            170.26
+          ]
+        }
+      ],
+      "sha256": "0d26126da0200cbfb7b59f925b427e5b60d9c9341d4be2b510bd67e61fa153ef",
+      "bytes": 220687
+    },
+    {
+      "image_id": "571804",
+      "file_name": "000000571804.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000571804.jpg",
+      "flickr_url": "http://farm7.staticflickr.com/6075/6155496426_d035b57a3f_z.jpg",
+      "width": 640,
+      "height": 426,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            457.42,
+            267.52,
+            558.32,
+            340.96
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            352.2,
+            263.91,
+            449.03,
+            333.07
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            144.96,
+            198.2,
+            209.88,
+            258.54
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            150.72,
+            291.57,
+            200.09,
+            331.68
+          ]
+        }
+      ],
+      "sha256": "d6b461cb052c89474fb97a070cc4c9ed8ead0585e8a1b535d22e76654e64ae94",
+      "bytes": 119718
+    },
+    {
+      "image_id": "578922",
+      "file_name": "000000578922.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000578922.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3185/3072908271_08764c732a_z.jpg",
+      "width": 598,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            422.08,
+            542.88,
+            525.56,
+            640.0
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            537.64,
+            590.28,
+            597.37,
+            638.88
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            317.58,
+            499.42,
+            428.71,
+            640.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            376.26,
+            293.26,
+            450.29,
+            391.21
+          ]
+        }
+      ],
+      "sha256": "e8bdc69a8a58ae37aa4289191102f54585bc9dcf96202e061ff574c607c21b6b",
+      "bytes": 191143
+    },
+    {
+      "image_id": "7574",
+      "file_name": "000000007574.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000007574.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7054/6924897347_7266fd119c_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            501.24,
+            306.49,
+            533.2,
+            389.13
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            483.34,
+            299.06,
+            510.64,
+            381.47
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            348.26,
+            300.53,
+            401.09,
+            340.01
+          ]
+        }
+      ],
+      "sha256": "4f26c847c2f49574978e96733efaec720dd1d1ba95a8220d0de012b7317eed47",
+      "bytes": 163988
+    },
+    {
+      "image_id": "10707",
+      "file_name": "000000010707.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000010707.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/147/434840964_a9c5bc3b58_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            212.13,
+            330.28,
+            229.11,
+            391.31
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            121.92,
+            357.43,
+            148.76,
+            415.67
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            162.55,
+            348.69,
+            181.72,
+            408.66
+          ]
+        }
+      ],
+      "sha256": "a361abb7579193709ef3debbec6298bf0c540bece429c4aadb19be82e04ab6a0",
+      "bytes": 121031
+    },
+    {
+      "image_id": "62554",
+      "file_name": "000000062554.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000062554.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5021/5560942229_40538af5b5_z.jpg",
+      "width": 640,
+      "height": 428,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            0.0,
+            159.54,
+            462.7,
+            423.66
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            527.07,
+            231.79,
+            640.0,
+            390.49
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            32.98,
+            354.4,
+            640.0,
+            428.0
+          ]
+        }
+      ],
+      "sha256": "2b9444ef969f3b95e53ba3e78ddd329c41c03fbc3c8e7e07034cdd6cb8bc9f41",
+      "bytes": 140456
+    },
+    {
+      "image_id": "166277",
+      "file_name": "000000166277.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000166277.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/247/522239585_3ad698c8a7_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            325.46,
+            239.82,
+            454.27,
+            416.87
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            165.39,
+            307.34,
+            332.22,
+            548.95
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            424.06,
+            179.66,
+            480.0,
+            348.06
+          ]
+        }
+      ],
+      "sha256": "339f27367484fcbe52320570a985448dc0314a584b0b86ac0b25d1462324f8f0",
+      "bytes": 114703
+    },
+    {
+      "image_id": "182417",
+      "file_name": "000000182417.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000182417.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2151/2100467664_2703dd9ff2_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            539.31,
+            403.56,
+            639.65,
+            480.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            517.4,
+            0.87,
+            639.58,
+            180.4
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            0.0,
+            221.66,
+            48.57,
+            305.63
+          ]
+        }
+      ],
+      "sha256": "688c4a3bf75a7dd19a9401d7f105f9675d50b2b1bc01a1355320878500e4d1fd",
+      "bytes": 132008
+    },
+    {
+      "image_id": "213255",
+      "file_name": "000000213255.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000213255.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2021/2521020235_f252d7108f_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            185.53,
+            402.46,
+            231.55,
+            530.46
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            231.23,
+            400.86,
+            279.4,
+            532.99
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            274.09,
+            403.04,
+            327.54,
+            537.35
+          ]
+        }
+      ],
+      "sha256": "536b78fa08534eb0778e58838065ba773fe8751dd87c13bf070f726affaab6e0",
+      "bytes": 112582
+    },
+    {
+      "image_id": "222299",
+      "file_name": "000000222299.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000222299.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3270/2569402304_5459e6c3c1_z.jpg",
+      "width": 500,
+      "height": 375,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            133.93,
+            43.29,
+            222.11,
+            77.53
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            276.61,
+            208.63,
+            306.45,
+            299.76
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            270.57,
+            136.85,
+            361.81,
+            165.77
+          ]
+        }
+      ],
+      "sha256": "f172cb97c2176c8954ca652d32d1fb8a505556c99c97dd6c39dcca32d24360c2",
+      "bytes": 151770
+    },
+    {
+      "image_id": "231097",
+      "file_name": "000000231097.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000231097.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/87/269735183_d7e708519f_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            1.08,
+            89.19,
+            46.49,
+            214.59
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            5.63,
+            0.04,
+            120.64,
+            58.39
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            8.75,
+            1.88,
+            131.25,
+            60.63
+          ]
+        }
+      ],
+      "sha256": "c68ddbcec601c1b7fab277f9294cf321bf83d22914e765e183b398ebf84ab53b",
+      "bytes": 94833
+    },
+    {
+      "image_id": "241319",
+      "file_name": "000000241319.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000241319.jpg",
+      "flickr_url": "http://farm5.staticflickr.com/4110/5030334212_7d75b72d07_z.jpg",
+      "width": 640,
+      "height": 476,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            105.15,
+            37.6,
+            143.31,
+            131.52
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            106.73,
+            221.64,
+            176.1,
+            315.55
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            511.01,
+            214.44,
+            588.21,
+            307.22
+          ]
+        }
+      ],
+      "sha256": "86e9949e3dbaa94b1543f585375f1d8ef1b05aa8411fca298bc4c13e53d29c1d",
+      "bytes": 313852
+    },
+    {
+      "image_id": "287714",
+      "file_name": "000000287714.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000287714.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8300/7810400652_ca6a6a78aa_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            439.49,
+            212.72,
+            463.98,
+            303.54
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            419.39,
+            209.99,
+            441.15,
+            297.72
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            607.91,
+            350.07,
+            640.0,
+            404.05
+          ]
+        }
+      ],
+      "sha256": "41b8b958c98da54bb4eb03b5cf5838d192b83763995f5bb40ce771811e0b0041",
+      "bytes": 151403
+    },
+    {
+      "image_id": "294350",
+      "file_name": "000000294350.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000294350.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7147/6762303723_50e8ef095c_z.jpg",
+      "width": 640,
+      "height": 425,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            210.02,
+            159.42,
+            237.98,
+            210.97
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            0.0,
+            0.0,
+            95.15,
+            153.51
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            237.9,
+            336.76,
+            286.08,
+            412.73
+          ]
+        }
+      ],
+      "sha256": "8236646946496fe2a6f4da3d6247573026051fd2fbfffc2a3dfb3f7766dc23cf",
+      "bytes": 162838
+    },
+    {
+      "image_id": "296634",
+      "file_name": "000000296634.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000296634.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7064/6927990329_9df1053911_z.jpg",
+      "width": 640,
+      "height": 453,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            234.13,
+            41.43,
+            607.73,
+            419.1
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            44.89,
+            40.81,
+            224.46,
+            218.34
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            40.72,
+            224.97,
+            225.99,
+            406.17
+          ]
+        }
+      ],
+      "sha256": "d655d317be6a4c34514b7c4e9412e25b98c7af7c05df40c2ce47ff2025b4caf4",
+      "bytes": 219148
+    },
+    {
+      "image_id": "304984",
+      "file_name": "000000304984.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000304984.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2893/8855498113_c85a20a73e_z.jpg",
+      "width": 385,
+      "height": 289,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            32.31,
+            71.47,
+            160.84,
+            155.06
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            151.61,
+            167.77,
+            260.91,
+            237.34
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            33.63,
+            49.22,
+            154.42,
+            106.37
+          ]
+        }
+      ],
+      "sha256": "daf02d9fb5c505f84c9fcbacdadbd7d7f83c2a3c2d7eb13ebb47448f2c8fa3d0",
+      "bytes": 80205
+    },
+    {
+      "image_id": "312192",
+      "file_name": "000000312192.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000312192.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3350/3506835310_1e61679920_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            12.41,
+            1.55,
+            147.93,
+            217.76
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            234.74,
+            25.19,
+            455.7,
+            81.57
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            0.0,
+            150.28,
+            29.25,
+            213.62
+          ]
+        }
+      ],
+      "sha256": "1e698a3dcde04f64793eacefeb9802710182f0ae918db480983049e8235d2cf9",
+      "bytes": 165630
+    },
+    {
+      "image_id": "318114",
+      "file_name": "000000318114.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000318114.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8231/8594007784_8ce364d236_z.jpg",
+      "width": 385,
+      "height": 308,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            14.36,
+            8.46,
+            139.64,
+            205.55
+          ]
+        },
+        {
+          "label": "orange",
+          "category_id": 55,
+          "box": [
+            202.67,
+            84.67,
+            304.81,
+            157.28
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            120.62,
+            101.35,
+            379.31,
+            284.18
+          ]
+        }
+      ],
+      "sha256": "8e6da930dbb9d44c5674f231ecc190c69679139ae97967e953860c3bc12b9725",
+      "bytes": 70294
+    },
+    {
+      "image_id": "346707",
+      "file_name": "000000346707.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000346707.jpg",
+      "flickr_url": "http://farm2.staticflickr.com/1253/968473927_155f555988_z.jpg",
+      "width": 333,
+      "height": 500,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            260.78,
+            30.08,
+            315.19,
+            82.95
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            0.0,
+            230.02,
+            140.28,
+            430.74
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            167.91,
+            98.36,
+            234.66,
+            200.66
+          ]
+        }
+      ],
+      "sha256": "f987fe4d5c80de13717d525addfd8c060c2ec8c7501eb152b4125509975a0668",
+      "bytes": 85961
+    },
+    {
+      "image_id": "356424",
+      "file_name": "000000356424.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000356424.jpg",
+      "flickr_url": "http://farm9.staticflickr.com/8116/8607070980_b791deaeb4_z.jpg",
+      "width": 480,
+      "height": 640,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            24.13,
+            455.67,
+            92.36,
+            640.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            130.88,
+            460.22,
+            235.87,
+            628.49
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            19.08,
+            471.78,
+            116.12,
+            587.59
+          ]
+        }
+      ],
+      "sha256": "c669af906be21b4c9113b05a7a9dc489d4f893b25641ffafad19ef6327275740",
+      "bytes": 160969
+    },
+    {
+      "image_id": "382125",
+      "file_name": "000000382125.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000382125.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5239/7053693277_0d21e419e0_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            410.97,
+            428.22,
+            474.61,
+            474.61
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            492.21,
+            411.57,
+            610.06,
+            480.0
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            180.58,
+            460.69,
+            255.9,
+            480.0
+          ]
+        }
+      ],
+      "sha256": "d83f8b6bbbef41c27da7cc759e139b983c5025bc30da9f23f6c9402d29cfb22f",
+      "bytes": 183654
+    },
+    {
+      "image_id": "389381",
+      "file_name": "000000389381.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000389381.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2544/4007091102_031486bd66_z.jpg",
+      "width": 640,
+      "height": 543,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            139.11,
+            275.77,
+            547.88,
+            491.75
+          ]
+        },
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            58.44,
+            45.78,
+            474.82,
+            327.02
+          ]
+        },
+        {
+          "label": "apple",
+          "category_id": 53,
+          "box": [
+            150.68,
+            202.46,
+            378.63,
+            342.14
+          ]
+        }
+      ],
+      "sha256": "87f7041b4292e3816f62cc662488aed5e2a33b7952a092a4c00988c4149f0412",
+      "bytes": 222335
+    },
+    {
+      "image_id": "389812",
+      "file_name": "000000389812.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000389812.jpg",
+      "flickr_url": "http://farm6.staticflickr.com/5209/5324496767_e91279d366_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            313.89,
+            414.2,
+            396.94,
+            478.92
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            244.25,
+            375.85,
+            328.02,
+            419.38
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            181.36,
+            308.19,
+            424.76,
+            473.36
+          ]
+        }
+      ],
+      "sha256": "5faf03376e4da84ebcf9b029ccf5199d42f2956e118f27dcce743c358399b147",
+      "bytes": 268253
+    },
+    {
+      "image_id": "397354",
+      "file_name": "000000397354.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000397354.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/188/410311643_a3c829f3c7_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            296.72,
+            282.68,
+            316.03,
+            359.19
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            46.69,
+            279.81,
+            78.28,
+            352.91
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            328.07,
+            329.57,
+            355.61,
+            384.2
+          ]
+        }
+      ],
+      "sha256": "067fb73c369a8433d1f9d97c2c36f51f487cf3a6d37c1f2fe0368a39f3dc38db",
+      "bytes": 109047
+    },
+    {
+      "image_id": "439290",
+      "file_name": "000000439290.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000439290.jpg",
+      "flickr_url": "http://farm3.staticflickr.com/2798/4080153258_198168e787_z.jpg",
+      "width": 640,
+      "height": 427,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            354.66,
+            228.07,
+            445.08,
+            282.32
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            366.79,
+            110.99,
+            456.44,
+            171.34
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            345.75,
+            157.39,
+            385.58,
+            216.98
+          ]
+        }
+      ],
+      "sha256": "85ba556003e6514d24b3f2037a62b077242b9cfd3654eada5a2a522346aabb7f",
+      "bytes": 192573
+    },
+    {
+      "image_id": "455597",
+      "file_name": "000000455597.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000455597.jpg",
+      "flickr_url": "http://farm8.staticflickr.com/7171/6594914093_03ba0a761a_z.jpg",
+      "width": 640,
+      "height": 446,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            466.01,
+            159.6,
+            493.0,
+            207.53
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            531.66,
+            162.29,
+            563.41,
+            211.15
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            556.98,
+            156.71,
+            577.54,
+            208.26
+          ]
+        }
+      ],
+      "sha256": "80bcfb867bb4a1b510ac914ee5a64703f410da01b05435d14bcf21be0ab0d74e",
+      "bytes": 126777
+    },
+    {
+      "image_id": "468505",
+      "file_name": "000000468505.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000468505.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3012/2488900788_9115057573_z.jpg",
+      "width": 640,
+      "height": 480,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            329.62,
+            224.03,
+            352.54,
+            293.86
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            318.69,
+            211.11,
+            337.67,
+            279.86
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            246.29,
+            236.11,
+            280.67,
+            296.28
+          ]
+        }
+      ],
+      "sha256": "a3327665e199c84b0ad0e69c8e3f3f6df13902eb3b8580a0708c2c6cade370b6",
+      "bytes": 134196
+    },
+    {
+      "image_id": "555009",
+      "file_name": "000000555009.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000555009.jpg",
+      "flickr_url": "http://farm1.staticflickr.com/22/30339463_78c837ba54_z.jpg",
+      "width": 500,
+      "height": 375,
+      "license_id": 5,
+      "license_name": "Attribution-ShareAlike License",
+      "license_url": "http://creativecommons.org/licenses/by-sa/2.0/",
+      "objects": [
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            472.94,
+            120.0,
+            499.88,
+            245.59
+          ]
+        },
+        {
+          "label": "bottle",
+          "category_id": 44,
+          "box": [
+            450.0,
+            112.9,
+            495.97,
+            224.19
+          ]
+        },
+        {
+          "label": "cup",
+          "category_id": 47,
+          "box": [
+            379.41,
+            151.47,
+            426.0,
+            234.08
+          ]
+        }
+      ],
+      "sha256": "01d975300362169fe1d5bbdf664f28873201678c9e6679080e69aba4deb1ca27",
+      "bytes": 47600
+    },
+    {
+      "image_id": "577539",
+      "file_name": "000000577539.jpg",
+      "url": "http://images.cocodataset.org/val2017/000000577539.jpg",
+      "flickr_url": "http://farm4.staticflickr.com/3494/3850219428_10c4b01c88_z.jpg",
+      "width": 500,
+      "height": 334,
+      "license_id": 4,
+      "license_name": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "objects": [
+        {
+          "label": "bowl",
+          "category_id": 51,
+          "box": [
+            16.51,
+            1.55,
+            451.84,
+            330.3
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            249.85,
+            181.31,
+            328.79,
+            226.43
+          ]
+        },
+        {
+          "label": "banana",
+          "category_id": 52,
+          "box": [
+            167.28,
+            157.33,
+            247.71,
+            217.75
+          ]
+        }
+      ],
+      "sha256": "e47b41db1c064f91364db5b38fad5c49988854a7197225fb4fde903640ee5e72",
+      "bytes": 164357
+    }
+  ]
+}
