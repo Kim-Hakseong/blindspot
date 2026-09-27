@@ -1,0 +1,145 @@
+[
+  {
+    "axis": "motion_blur.exposure_ms",
+    "unit": "ms",
+    "condition_value": 13.75,
+    "png": "motion_blur_exposure_ms.png",
+    "selection_mode": "confident_false_positive",
+    "selection_rule": "see bench/failure_frames.py::pick_frame",
+    "frame": {
+      "image_id": "210273",
+      "license_id": 4,
+      "baseline_tp": 19,
+      "fail_tp": 6,
+      "fail_fp_scores": [
+        0.3401,
+        0.8339,
+        0.6595,
+        0.5707,
+        0.5481,
+        0.2956
+      ],
+      "fail_new_fp_scores": [
+        0.3401,
+        0.8339,
+        0.6595,
+        0.5707,
+        0.2956
+      ],
+      "max_fp_score": 0.8339
+    },
+    "illustrative_only": true,
+    "display_min_score": 0.5,
+    "measured_claim": "set-level mAP@50 in bench/out/efficiency.json",
+    "attribution": {
+      "source": "http://farm6.staticflickr.com/5163/5336041838_1a09008014_z.jpg",
+      "license": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "modified": "resized-free overlay; faces blurred; degradation applied on right"
+    },
+    "reproduce": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 13.75 --seed 20260906"
+  },
+  {
+    "axis": "low_light.illuminance_lux",
+    "unit": "lux",
+    "condition_value": 12.984375,
+    "png": "low_light_illuminance_lux.png",
+    "selection_mode": "confident_false_positive",
+    "selection_rule": "see bench/failure_frames.py::pick_frame",
+    "frame": {
+      "image_id": "495146",
+      "license_id": 4,
+      "baseline_tp": 8,
+      "fail_tp": 1,
+      "fail_fp_scores": [
+        0.7488,
+        0.5161,
+        0.5062,
+        0.4949,
+        0.3047,
+        0.2808,
+        0.2526
+      ],
+      "fail_new_fp_scores": [
+        0.7488,
+        0.5062,
+        0.3047
+      ],
+      "max_fp_score": 0.7488
+    },
+    "illustrative_only": true,
+    "display_min_score": 0.5,
+    "measured_claim": "set-level mAP@50 in bench/out/efficiency.json",
+    "attribution": {
+      "source": "http://farm8.staticflickr.com/7375/9211776644_83a3bd9c9b_z.jpg",
+      "license": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "modified": "resized-free overlay; faces blurred; degradation applied on right"
+    },
+    "reproduce": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 12.9844 --seed 20260906"
+  },
+  {
+    "axis": "fog.beta_per_m",
+    "unit": "1/m",
+    "condition_value": 0.06375,
+    "png": "fog_beta_per_m.png",
+    "selection_mode": "confident_false_positive",
+    "selection_rule": "see bench/failure_frames.py::pick_frame",
+    "frame": {
+      "image_id": "147740",
+      "license_id": 4,
+      "baseline_tp": 8,
+      "fail_tp": 4,
+      "fail_fp_scores": [
+        0.8166,
+        0.4833,
+        0.2746
+      ],
+      "fail_new_fp_scores": [
+        0.8166
+      ],
+      "max_fp_score": 0.8166
+    },
+    "illustrative_only": true,
+    "display_min_score": 0.5,
+    "measured_claim": "set-level mAP@50 in bench/out/efficiency.json",
+    "attribution": {
+      "source": "http://farm9.staticflickr.com/8042/8026451116_b1bd0c0c0a_z.jpg",
+      "license": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "modified": "resized-free overlay; faces blurred; degradation applied on right"
+    },
+    "reproduce": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.06375 --seed 20260906"
+  },
+  {
+    "axis": "jpeg.quality",
+    "unit": "jpeg-q",
+    "condition_value": 7.96875,
+    "png": "jpeg_quality.png",
+    "selection_mode": "confident_false_positive",
+    "selection_rule": "see bench/failure_frames.py::pick_frame",
+    "frame": {
+      "image_id": "247917",
+      "license_id": 4,
+      "baseline_tp": 10,
+      "fail_tp": 6,
+      "fail_fp_scores": [
+        0.8478
+      ],
+      "fail_new_fp_scores": [
+        0.8478
+      ],
+      "max_fp_score": 0.8478
+    },
+    "illustrative_only": true,
+    "display_min_score": 0.5,
+    "measured_claim": "set-level mAP@50 in bench/out/efficiency.json",
+    "attribution": {
+      "source": "http://farm9.staticflickr.com/8164/7205570594_5aba222a6f_z.jpg",
+      "license": "Attribution License",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "modified": "resized-free overlay; faces blurred; degradation applied on right"
+    },
+    "reproduce": "uv run blindspot probe --degradation jpeg --axis quality --value 7.96875 --seed 20260906"
+  }
+]

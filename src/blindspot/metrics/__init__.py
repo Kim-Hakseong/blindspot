@@ -25,6 +25,8 @@ __all__ = [
     "iou_xyxy",
     "average_precision",
     "mean_ap50",
+    "match_detections",
+    "Match",
     "IOU_THRESHOLD",
 ]
 
@@ -109,6 +111,57 @@ def average_precision(matches: Sequence[int], n_ground_truth: int) -> float:
     return ap
 
 
+@dataclass(frozen=True)
+class Match:
+    """One prediction's verdict: did it claim an unused ground truth?"""
+
+    detection: Detection
+    matched: bool
+    best_iou: float
+
+
+def match_detections(
+    predictions: Iterable[Detection],
+    ground_truth: Iterable[GroundTruth],
+    iou_threshold: float = IOU_THRESHOLD,
+) -> list[Match]:
+    """Greedy, score-ordered, one-truth-per-prediction matching.
+
+    This is the single matching rule. `mean_ap50` is built on it, and so is the
+    overlay that colours boxes, so a picture of a frame and the number computed
+    from it cannot disagree about which boxes were right.
+
+    Returned grouped by label, each group in descending score order with a
+    value-based tie-break, which is the order AP integrates over.
+    """
+    preds = list(predictions)
+    truths_by_key: dict[tuple[str, int], list[GroundTruth]] = {}
+    for truth in ground_truth:
+        truths_by_key.setdefault((truth.image_id, truth.label), []).append(truth)
+
+    matches: list[Match] = []
+    for label in sorted({p.label for p in preds}):
+        candidates = [p for p in preds if p.label == label]
+        candidates.sort(key=lambda d: (-d.score, d.image_id, d.box))
+        claimed: set[int] = set()
+        for prediction in candidates:
+            pool = truths_by_key.get((prediction.image_id, prediction.label), [])
+            best_iou, best_index, best_any = 0.0, -1, 0.0
+            for index, truth in enumerate(pool):
+                overlap = iou_xyxy(prediction.box, truth.box)
+                best_any = max(best_any, overlap)
+                if id(truth) in claimed:
+                    continue
+                if overlap > best_iou:
+                    best_iou, best_index = overlap, index
+            if best_index >= 0 and best_iou >= iou_threshold:
+                claimed.add(id(pool[best_index]))
+                matches.append(Match(prediction, True, best_iou))
+            else:
+                matches.append(Match(prediction, False, best_any))
+    return matches
+
+
 def mean_ap50(
     predictions: Iterable[Detection],
     ground_truth: Iterable[GroundTruth],
@@ -123,52 +176,21 @@ def mean_ap50(
     preds = list(predictions)
     truths = list(ground_truth)
 
-    truths_by_key: dict[tuple[str, int], list[GroundTruth]] = {}
-    for truth in truths:
-        truths_by_key.setdefault((truth.image_id, truth.label), []).append(truth)
-
-    labels = {t.label for t in truths} | {p.label for p in preds}
     gt_count_by_label: dict[int, int] = {}
     for truth in truths:
         gt_count_by_label[truth.label] = gt_count_by_label.get(truth.label, 0) + 1
 
-    total_tp = 0
-    total_fp = 0
+    matches = match_detections(preds, truths, iou_threshold)
+    sequence_by_label: dict[int, list[int]] = {}
+    for m in matches:
+        sequence_by_label.setdefault(m.detection.label, []).append(1 if m.matched else 0)
+
     per_class: dict[int, float] = {}
+    for label, n_gt in gt_count_by_label.items():
+        per_class[label] = average_precision(sequence_by_label.get(label, []), n_gt)
 
-    for label in sorted(labels):
-        n_gt = gt_count_by_label.get(label, 0)
-
-        candidates = [p for p in preds if p.label == label]
-        # Descending score; ties broken by a stable, value-based key so the
-        # result cannot depend on the order predictions arrived in.
-        candidates.sort(key=lambda d: (-d.score, d.image_id, d.box))
-
-        claimed: set[int] = set()
-        matches: list[int] = []
-        for prediction in candidates:
-            pool = truths_by_key.get((prediction.image_id, prediction.label), [])
-            best_iou = 0.0
-            best_index = -1
-            for index, truth in enumerate(pool):
-                if id(truth) in claimed:
-                    continue
-                overlap = iou_xyxy(prediction.box, truth.box)
-                if overlap > best_iou:
-                    best_iou = overlap
-                    best_index = index
-
-            if best_index >= 0 and best_iou >= iou_threshold:
-                claimed.add(id(pool[best_index]))
-                matches.append(1)
-                total_tp += 1
-            else:
-                matches.append(0)
-                total_fp += 1
-
-        if n_gt > 0:
-            per_class[label] = average_precision(matches, n_gt)
-
+    total_tp = sum(1 for m in matches if m.matched)
+    total_fp = len(matches) - total_tp
     map50 = sum(per_class.values()) / len(per_class) if per_class else 0.0
 
     return {

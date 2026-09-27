@@ -103,6 +103,9 @@ def select(coco: dict, preset: dict, count: int) -> tuple[list[dict], dict]:
                 "image_id": str(image_id),
                 "file_name": image["file_name"],
                 "url": image["coco_url"].replace("https://", "http://"),
+                # Original photograph, for the attribution CC BY requires when a
+                # rendered frame is published (see DATASETS.md).
+                "flickr_url": image.get("flickr_url"),
                 "width": image["width"],
                 "height": image["height"],
                 "license_id": image["license"],
