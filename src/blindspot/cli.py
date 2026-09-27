@@ -425,24 +425,42 @@ def check(
     conditions than it used to. That is a regression whether or not aggregate
     accuracy moved.
     """
+    from .degrade import REGISTRY
+
     baseline = json.loads(against.read_text(encoding="utf-8"))
     latest = json.loads(current.read_text(encoding="utf-8"))
 
-    previous = {
-        f["axis"]: f["boundary"] for f in baseline["findings"] if f.get("boundary")
-    }
+    def pass_edge_severity(axis_id: str, boundary: dict) -> float:
+        """How harsh the last passing condition is, in [0, 1].
+
+        Comparing in severity rather than raw value is what makes this right on
+        axes whose severe end is low (lux, JPEG quality), where failing
+        *sooner* means the boundary moved up.
+        """
+        deg, _, field = axis_id.partition(".")
+        axis = REGISTRY.get(deg).axis(field)
+        edge = boundary["lower"] if axis.severe_end == "hi" else boundary["upper"]
+        return axis.to_severity(edge)
+
+    previous = {f["axis"]: f for f in baseline["findings"]}
     regressions = []
     for finding in latest["findings"]:
         old = previous.get(finding["axis"])
         new = finding.get("boundary")
-        if not old or not new:
+        if old is None or not new:
             continue
-        # For axes where a larger value is more severe, a boundary that moved
-        # *down* means failure now starts earlier.
-        if new["lower"] < old["lower"]:
+        if not old.get("boundary"):
+            if old.get("status") == "passes_throughout":
+                regressions.append(f"{finding['axis']}: a failure boundary appeared where the "
+                                   "whole range used to pass")
+            continue
+        before = pass_edge_severity(finding["axis"], old["boundary"])
+        after = pass_edge_severity(finding["axis"], new)
+        if after < before - 1e-12:
             regressions.append(
-                f"{finding['axis']}: boundary moved {old['lower']:.4g} -> "
-                f"{new['lower']:.4g} {new['unit']}"
+                f"{finding['axis']}: now fails from a milder condition "
+                f"({old['boundary']['lower']:.4g}-{old['boundary']['upper']:.4g} -> "
+                f"{new['lower']:.4g}-{new['upper']:.4g} {new.get('unit', '')})"
             )
 
     if regressions:
