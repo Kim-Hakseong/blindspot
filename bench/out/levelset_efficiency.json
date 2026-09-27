@@ -1,0 +1,151 @@
+{
+  "oracle": "exhaustive map bench/out/hook_grid.json; deterministic probes make lookup equal to re-running",
+  "axes": [
+    "motion_blur.exposure_ms",
+    "low_light.illuminance_lux"
+  ],
+  "coupling": "low_light.exposure_ms is pinned to motion_blur.exposure_ms (one camera, one exposure)",
+  "grid_steps": 17,
+  "dataset": {
+    "name": "road100",
+    "frames": 100,
+    "objects": 984
+  },
+  "pipeline": "yolox_s",
+  "threshold_map50": 0.36664403500645115,
+  "validity_rule": "every misclassified cell within 1 cell (Chebyshev) of the true boundary",
+  "primary_beta": 1.96,
+  "primary": {
+    "beta": 1.96,
+    "grid_cells": 289,
+    "probes_used": 22,
+    "status": "converged",
+    "misclassified_cells": 0,
+    "max_distance_to_boundary_cells": 0,
+    "savings_valid": true,
+    "savings": 13.1364
+  },
+  "sensitivity": [
+    {
+      "beta": 1.0,
+      "grid_cells": 289,
+      "probes_used": 20,
+      "status": "converged",
+      "misclassified_cells": 1,
+      "max_distance_to_boundary_cells": 1,
+      "savings_valid": true,
+      "savings": 14.45
+    },
+    {
+      "beta": 1.96,
+      "grid_cells": 289,
+      "probes_used": 22,
+      "status": "converged",
+      "misclassified_cells": 0,
+      "max_distance_to_boundary_cells": 0,
+      "savings_valid": true,
+      "savings": 13.1364
+    },
+    {
+      "beta": 3.0,
+      "grid_cells": 289,
+      "probes_used": 31,
+      "status": "converged",
+      "misclassified_cells": 0,
+      "max_distance_to_boundary_cells": 0,
+      "savings_valid": true,
+      "savings": 9.3226
+    }
+  ],
+  "probe_order_primary": [
+    [
+      0,
+      0
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      16,
+      0
+    ],
+    [
+      0,
+      8
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      16,
+      8
+    ],
+    [
+      0,
+      16
+    ],
+    [
+      8,
+      16
+    ],
+    [
+      16,
+      16
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "command": "uv run python bench/levelset_efficiency.py"
+}
