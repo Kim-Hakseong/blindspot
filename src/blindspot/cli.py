@@ -57,7 +57,7 @@ def run(
     """Search for the pipeline's failure boundaries under a fixed budget."""
     import numpy as np
 
-    from .boundary.coverage import axis_coverage, native_measurements
+    from .boundary.coverage import axis_coverage, native_measurements, population_sweep
     from .boundary.criterion import Criterion
     from .boundary.locate import BoundaryStatus, locate_on_axis, scan_boundaries
     from .boundary.probe import baseline_map50, run_probe
@@ -179,7 +179,12 @@ def run(
                     axis_range=(axis.lo, axis.hi),
                     metric=metric,
                     sweep_values=[p.value for p in ordered],
-                    sweep_metric=[p.measured[metric] for p in ordered],
+                    # Population median, not the first frame: sharpness and
+                    # contrast are scene-dependent.
+                    sweep_metric=population_sweep(
+                        loaded, degradation, axis_field,
+                        [p.value for p in ordered], metric, seed,
+                    ),
                     native_metric_values=native_measurements(loaded, metric),
                 ).to_dict()
             )
@@ -216,20 +221,59 @@ def run(
     typer.echo(f"wrote {out}")
 
 
+def _pairs(items: list[str], flag: str) -> dict[str, float]:
+    out = {}
+    for item in items:
+        name, sep, value = item.partition("=")
+        if not sep or not name or not value:
+            raise typer.BadParameter(f"{flag} expects AXIS=VALUE, got {item!r}")
+        try:
+            out[name] = float(value)
+        except ValueError:
+            raise typer.BadParameter(f"{flag} value must be a number: {item!r}") from None
+    return out
+
+
 @app.command()
 def probe(
-    degradation: str = typer.Option(..., help="Degradation name"),
-    axis: str = typer.Option(..., help="Axis field to set"),
-    value: float = typer.Option(..., help="Axis value, in the axis's physical unit"),
+    degradation: Optional[str] = typer.Option(None, help="Degradation name (single axis)"),
+    axis: Optional[str] = typer.Option(None, help="Axis field to set (single axis)"),
+    value: Optional[float] = typer.Option(None, help="Axis value, in the axis's physical unit"),
+    set_: list[str] = typer.Option([], "--set", help="AXIS=VALUE, repeatable (composite)"),
+    fix: list[str] = typer.Option([], "--fix", help="PARAM=VALUE pinned across kernels"),
     dataset: pathlib.Path = typer.Option("val/road100"),
     model: pathlib.Path = typer.Option("models/yolox_s.onnx"),
     frames: Optional[int] = typer.Option(None),
     seed: int = typer.Option(20260906),
 ):
-    """Reproduce one condition. This is the command a report's findings print."""
-    from .boundary.probe import run_probe
+    """Reproduce one condition. This is the command a report prints.
+
+    Single axis:  --degradation motion_blur --axis exposure_ms --value 12.6
+    Composite:    --set motion_blur.exposure_ms=12 --set low_light.illuminance_lux=18
+                  --fix low_light.exposure_ms=12
+    """
+    single = degradation is not None or axis is not None or value is not None
+    if set_ and single:
+        raise typer.BadParameter("use either --set or --degradation/--axis/--value, not both")
+    if not set_ and (degradation is None or axis is None or value is None):
+        raise typer.BadParameter("give --set AXIS=VALUE, or all of --degradation --axis --value")
+    axes = _pairs(set_, "--set")
+    fixed = _pairs(fix, "--fix")
 
     validation_set, loaded, pipeline = _load(dataset, model, frames)
+    if set_:
+        from .boundary.probe import run_condition_probe
+        from .degrade.compose import Condition
+
+        result = run_condition_probe(
+            loaded, pipeline, validation_set, Condition.from_axes(axes, fixed=fixed), seed
+        )
+        result.pop("captured", None)
+        typer.echo(json.dumps(result, indent=2))
+        return
+
+    from .boundary.probe import run_probe
+
     result = run_probe(loaded, pipeline, validation_set, degradation, axis, value, seed)
     typer.echo(json.dumps(result.to_dict(), indent=2))
 

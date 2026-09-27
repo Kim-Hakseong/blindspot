@@ -46,7 +46,7 @@
     "width": 2.105263157894738,
     "map50_before": 0.4125029333513787,
     "map50_after": 0.361860423087504,
-    "reproduce": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 12.6316 --focal_length_px 900 --seed 20260906"
+    "reproduce": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 12.631578947368421 --seed 20260906"
   },
   "wall_seconds": 164.6,
   "environment": {
@@ -97,7 +97,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 0 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 0.0 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -140,7 +140,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 2.10526 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 2.1052631578947367 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -183,7 +183,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 4.21053 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 4.2105263157894735 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -226,7 +226,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 6.31579 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 6.315789473684211 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -269,7 +269,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 8.42105 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 8.421052631578947 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -312,7 +312,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 10.5263 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 10.526315789473683 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -355,7 +355,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 12.6316 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 12.631578947368421 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -398,7 +398,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 14.7368 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 14.736842105263158 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -441,7 +441,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 16.8421 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 16.842105263157894 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -484,7 +484,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 18.9474 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 18.94736842105263 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -527,7 +527,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 21.0526 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 21.052631578947366 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -570,7 +570,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 23.1579 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 23.157894736842103 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -613,7 +613,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 25.2632 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 25.263157894736842 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -656,7 +656,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 27.3684 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 27.36842105263158 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -699,7 +699,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 29.4737 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 29.473684210526315 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -742,7 +742,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 31.5789 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 31.57894736842105 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -785,7 +785,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 33.6842 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 33.68421052631579 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -828,7 +828,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 35.7895 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 35.78947368421053 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -871,7 +871,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 37.8947 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 37.89473684210526 --seed 20260906"
     },
     {
       "degradation": "motion_blur",
@@ -914,7 +914,7 @@
         "focal_length_px": 900.0,
         "direction_deg": 0.0
       },
-      "command": "uv run blindspot probe --degradation motion_blur --angular_velocity_deg_s 60 --direction_deg 0 --exposure_ms 40 --focal_length_px 900 --seed 20260906"
+      "command": "uv run blindspot probe --degradation motion_blur --axis exposure_ms --value 40.0 --seed 20260906"
     }
   ]
 }

@@ -37,10 +37,9 @@ class ProbeResult:
     @property
     def command(self) -> str:
         """The command that regenerates this exact condition."""
-        args = " ".join(f"--{k} {v:g}" for k, v in sorted(self.params.items()))
         return (
             f"uv run blindspot probe --degradation {self.degradation} "
-            f"{args} --seed {self.seed}"
+            f"--axis {self.axis} --value {self.value!r} --seed {self.seed}"
         )
 
     def to_dict(self) -> dict:
@@ -125,3 +124,46 @@ def baseline_map50(frames: Sequence, pipeline, validation_set) -> dict[str, floa
         )
         truths.extend(frame.truths)
     return mean_ap50(predictions, truths)
+
+
+def run_condition_probe(
+    frames: Sequence,
+    pipeline,
+    validation_set,
+    condition,
+    seed: int,
+    capture: str | None = None,
+) -> dict:
+    """Score a composite condition (several axes at once).
+
+    ``capture`` names one frame whose degraded image and predictions are
+    returned too, so a viewer can show the very frame that was scored rather
+    than a re-render of it.
+    """
+    from ..degrade.compose import apply_condition
+    from ..metrics import match_detections
+
+    started = time.perf_counter()
+    predictions, truths = [], []
+    captured = None
+    for frame in frames:
+        degraded = apply_condition(frame.image, condition, seed=seed)
+        preds = validation_set.filter_predictions(pipeline.predict(degraded, frame.image_id))
+        predictions.extend(preds)
+        truths.extend(frame.truths)
+        if capture is not None and frame.image_id == capture:
+            captured = {
+                "image": degraded,
+                "matches": match_detections(preds, frame.truths),
+                "truths": frame.truths,
+            }
+    scored = mean_ap50(predictions, truths)
+    return {
+        "condition": condition.describe(),
+        "seed": seed,
+        "map50": scored["mAP50"],
+        "counts": {k: v for k, v in scored.items() if k != "mAP50"},
+        "n_frames": len(frames),
+        "wall_seconds": round(time.perf_counter() - started, 3),
+        "captured": captured,
+    }

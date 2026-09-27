@@ -46,7 +46,7 @@
     "width": 0.006315789473684212,
     "map50_before": 0.41808092470606883,
     "map50_after": 0.3632245104370895,
-    "reproduce": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0631579 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+    "reproduce": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.06315789473684211 --seed 20260906"
   },
   "wall_seconds": 258.5,
   "environment": {
@@ -97,7 +97,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.0 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -144,7 +144,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.00631579 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.00631578947368421 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -191,7 +191,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0126316 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.01263157894736842 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -238,7 +238,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0189474 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.01894736842105263 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -285,7 +285,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0252632 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.02526315789473684 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -332,7 +332,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0315789 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.031578947368421054 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -379,7 +379,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0378947 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.03789473684210526 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -426,7 +426,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0442105 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.04421052631578947 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -473,7 +473,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0505263 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.05052631578947368 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -520,7 +520,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0568421 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.056842105263157895 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -567,7 +567,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0631579 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.06315789473684211 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -614,7 +614,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0694737 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.06947368421052631 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -661,7 +661,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0757895 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.07578947368421052 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -708,7 +708,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0821053 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.08210526315789474 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -755,7 +755,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0884211 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.08842105263157894 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -802,7 +802,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.0947368 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.09473684210526316 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -849,7 +849,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.101053 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.10105263157894737 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -896,7 +896,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.107368 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.10736842105263157 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -943,7 +943,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.113684 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.11368421052631579 --seed 20260906"
     },
     {
       "degradation": "fog",
@@ -990,7 +990,7 @@
         "depth_far_m": 80.0,
         "airlight": 0.9
       },
-      "command": "uv run blindspot probe --degradation fog --airlight 0.9 --beta_per_m 0.12 --depth_far_m 80 --depth_near_m 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation fog --axis beta_per_m --value 0.12 --seed 20260906"
     }
   ]
 }

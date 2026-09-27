@@ -48,7 +48,7 @@
     "fail_value": 10.0,
     "map50_before": 0.45979440173913716,
     "map50_after": 0.3477885266375455,
-    "reproduce": "uv run blindspot probe --degradation jpeg --quality 10 --seed 20260906"
+    "reproduce": "uv run blindspot probe --degradation jpeg --axis quality --value 10.0 --seed 20260906"
   },
   "wall_seconds": 239.2,
   "environment": {
@@ -87,7 +87,7 @@
       "params": {
         "quality": 100.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 100 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 100.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -118,7 +118,7 @@
       "params": {
         "quality": 95.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 95 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 95.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -149,7 +149,7 @@
       "params": {
         "quality": 90.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 90 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 90.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -180,7 +180,7 @@
       "params": {
         "quality": 85.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 85 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 85.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -211,7 +211,7 @@
       "params": {
         "quality": 80.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 80 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 80.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -242,7 +242,7 @@
       "params": {
         "quality": 75.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 75 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 75.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -273,7 +273,7 @@
       "params": {
         "quality": 70.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 70 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 70.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -304,7 +304,7 @@
       "params": {
         "quality": 65.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 65 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 65.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -335,7 +335,7 @@
       "params": {
         "quality": 60.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 60 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 60.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -366,7 +366,7 @@
       "params": {
         "quality": 55.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 55 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 55.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -397,7 +397,7 @@
       "params": {
         "quality": 50.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 50 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 50.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -428,7 +428,7 @@
       "params": {
         "quality": 45.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 45 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 45.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -459,7 +459,7 @@
       "params": {
         "quality": 40.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 40 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 40.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -490,7 +490,7 @@
       "params": {
         "quality": 35.000000000000014
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 35 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 35.000000000000014 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -521,7 +521,7 @@
       "params": {
         "quality": 30.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 30 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 30.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -552,7 +552,7 @@
       "params": {
         "quality": 25.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 25 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 25.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -583,7 +583,7 @@
       "params": {
         "quality": 20.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 20 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 20.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -614,7 +614,7 @@
       "params": {
         "quality": 15.000000000000014
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 15 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 15.000000000000014 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -645,7 +645,7 @@
       "params": {
         "quality": 10.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 10 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 10.0 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -676,7 +676,7 @@
       "params": {
         "quality": 5.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 5 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --axis quality --value 5.0 --seed 20260906"
     }
   ]
 }

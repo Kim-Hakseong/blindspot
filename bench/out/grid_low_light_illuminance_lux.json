@@ -48,7 +48,7 @@
     "fail_value": 0.5,
     "map50_before": 0.3925617290694002,
     "map50_after": 0.0,
-    "reproduce": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 0.5 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    "reproduce": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 0.5 --seed 20260906"
   },
   "wall_seconds": 306.72,
   "environment": {
@@ -105,7 +105,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 400 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 400.0 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -154,7 +154,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 378.974 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 378.9736842105263 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -203,7 +203,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 357.947 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 357.94736842105266 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -252,7 +252,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 336.921 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 336.92105263157896 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -301,7 +301,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 315.895 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 315.89473684210526 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -350,7 +350,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 294.868 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 294.86842105263156 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -399,7 +399,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 273.842 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 273.8421052631579 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -448,7 +448,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 252.816 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 252.81578947368422 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -497,7 +497,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 231.789 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 231.78947368421055 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -546,7 +546,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 210.763 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 210.76315789473685 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -595,7 +595,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 189.737 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 189.73684210526318 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -644,7 +644,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 168.711 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 168.71052631578945 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -693,7 +693,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 147.684 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 147.6842105263158 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -742,7 +742,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 126.658 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 126.65789473684214 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -791,7 +791,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 105.632 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 105.63157894736844 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -840,7 +840,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 84.6053 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 84.60526315789474 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -889,7 +889,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 63.5789 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 63.5789473684211 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -938,7 +938,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 42.5526 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 42.5526315789474 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -987,7 +987,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 21.5263 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 21.5263157894737 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -1036,7 +1036,7 @@
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 0.5 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --axis illuminance_lux --value 0.5 --seed 20260906"
     }
   ]
 }
