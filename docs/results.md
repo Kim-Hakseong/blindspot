@@ -146,8 +146,37 @@ extinction coefficient, and tolerates harsher JPEG compression. These are
 different operating envelopes on identical frames, which is the case for
 measuring a pipeline rather than assuming a model family's robustness.
 Verified bisection again matched the grid's interval with zero error on all
-four axes. Results for the remaining dataset x pipeline combinations are added
-as they are measured.
+four axes.
+
+## Across datasets and pipelines
+
+The same comparison on three validation sets (road100, indoor100, and the
+73-frame retail100) and two pipelines (YOLOX-S, NanoDet-Plus-m):
+
+```bash
+uv run python bench/boundary_efficiency.py --dataset val/<set> --pipeline <name> --levels 5 9 17 33
+uv run python bench/efficiency_matrix.py
+```
+
+| | |
+|---|---|
+| Combinations | 6 <!--bench:efficiency_matrix.summary.combinations--> |
+| Axis searches | 24 <!--bench:efficiency_matrix.summary.axis_runs--> |
+| Boundaries located | 24 <!--bench:efficiency_matrix.summary.located--> |
+| Worst boundary error vs grid | 0 <!--bench:efficiency_matrix.summary.max_boundary_error--> |
+| Lowest verified savings at 33 grid points | 4.125× <!--bench:efficiency_matrix.summary.min_savings_verified--> |
+
+As before, the savings ratio is arithmetic (33 grid probes against 8); the
+measured result is that verified bisection returned the grid's own interval on
+every one of the 24 searches. None of the 24 responses was non-monotone at the
+scan spacing, so the verified mode's refusal path was never exercised on real
+data -- it is covered by tests only.
+
+The envelopes themselves move with the scene as well as the model: YOLOX-S
+fails in fog at 0.0525 <!--bench:efficiency_matrix.rows[10].boundary[0]--> /m
+indoors against 0.06 /m on roads, and NanoDet's blur edge drops to
+8.75 <!--bench:efficiency_matrix.rows[4].boundary[0]--> ms indoors. Full
+per-axis table: `bench/out/efficiency_matrix.json`.
 
 ## Known limitations
 

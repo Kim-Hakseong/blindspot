@@ -1,0 +1,471 @@
+{
+ "summary": {
+  "combinations": 6,
+  "axis_runs": 24,
+  "located": 24,
+  "valid_savings": 24,
+  "max_boundary_error": 0.0,
+  "min_savings_verified": 4.125
+ },
+ "combinations": [
+  [
+   "indoor100",
+   "nanodet_plus_m"
+  ],
+  [
+   "indoor100",
+   "yolox_s"
+  ],
+  [
+   "retail100",
+   "nanodet_plus_m"
+  ],
+  [
+   "retail100",
+   "yolox_s"
+  ],
+  [
+   "road100",
+   "nanodet_plus_m"
+  ],
+  [
+   "road100",
+   "yolox_s"
+  ]
+ ],
+ "rows": [
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6110733916774186,
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "grid_steps": 33,
+   "boundary": [
+    12.5,
+    13.75
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6110733916774186,
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "grid_steps": 33,
+   "boundary": [
+    12.984375,
+    25.46875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6110733916774186,
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "grid_steps": 33,
+   "boundary": [
+    0.06,
+    0.06375
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6110733916774186,
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "grid_steps": 33,
+   "boundary": [
+    7.96875,
+    10.9375
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.43319320278996715,
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "grid_steps": 33,
+   "boundary": [
+    8.75,
+    10.0
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.43319320278996715,
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "grid_steps": 33,
+   "boundary": [
+    25.46875,
+    37.953125
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.43319320278996715,
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "grid_steps": 33,
+   "boundary": [
+    0.03,
+    0.03375
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.43319320278996715,
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "grid_steps": 33,
+   "boundary": [
+    5.0,
+    7.96875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6256638825136315,
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "grid_steps": 33,
+   "boundary": [
+    12.5,
+    13.75
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_yolox_s.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6256638825136315,
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "grid_steps": 33,
+   "boundary": [
+    12.984375,
+    25.46875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_yolox_s.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6256638825136315,
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "grid_steps": 33,
+   "boundary": [
+    0.0525,
+    0.056249999999999994
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_yolox_s.json"
+  },
+  {
+   "dataset": "indoor100",
+   "frames": 100,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.6256638825136315,
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "grid_steps": 33,
+   "boundary": [
+    10.9375,
+    13.90625
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_indoor100_yolox_s.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.3599659330645037,
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "grid_steps": 33,
+   "boundary": [
+    12.5,
+    13.75
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.3599659330645037,
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "grid_steps": 33,
+   "boundary": [
+    50.4375,
+    62.921875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.3599659330645037,
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "grid_steps": 33,
+   "boundary": [
+    0.03,
+    0.03375
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.3599659330645037,
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "grid_steps": 33,
+   "boundary": [
+    10.9375,
+    13.90625
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.4818610198933293,
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "grid_steps": 33,
+   "boundary": [
+    13.75,
+    15.0
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_yolox_s.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.4818610198933293,
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "grid_steps": 33,
+   "boundary": [
+    12.984375,
+    25.46875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_yolox_s.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.4818610198933293,
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "grid_steps": 33,
+   "boundary": [
+    0.056249999999999994,
+    0.06
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_yolox_s.json"
+  },
+  {
+   "dataset": "retail100",
+   "frames": 73,
+   "pipeline": "yolox_s",
+   "baseline_map50": 0.4818610198933293,
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "grid_steps": 33,
+   "boundary": [
+    13.90625,
+    16.875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_retail100_yolox_s.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.42192836780380544,
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "grid_steps": 33,
+   "boundary": [
+    12.5,
+    13.75
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_road100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.42192836780380544,
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "grid_steps": 33,
+   "boundary": [
+    25.46875,
+    37.953125
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_road100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.42192836780380544,
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "grid_steps": 33,
+   "boundary": [
+    0.03,
+    0.03375
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_road100_nanodet_plus_m.json"
+  },
+  {
+   "dataset": "road100",
+   "frames": 100,
+   "pipeline": "nanodet_plus_m",
+   "baseline_map50": 0.42192836780380544,
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "grid_steps": 33,
+   "boundary": [
+    5.0,
+    7.96875
+   ],
+   "status": "located",
+   "probes_verified": 8,
+   "boundary_error": 0.0,
+   "savings_verified": 4.125,
+   "source": "efficiency_road100_nanodet_plus_m.json"
+  }
+ ],
+ "command": "uv run python bench/efficiency_matrix.py"
+}
