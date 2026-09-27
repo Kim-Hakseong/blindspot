@@ -10,7 +10,7 @@ dependencies = [
     "numpy==2.2.6",
     "scipy==1.18.1",
     "scikit-learn==1.9.1",
-    "pydantic==2.11.7",
+    "pydantic==2.13.5",
     "typer==0.16.0",
 ]
 
@@ -21,6 +21,9 @@ blindspot = "blindspot.cli:app"
 infra = [
     "aws-cdk-lib==2.271.0",
     "constructs==10.8.1",
+]
+agent = [
+    "mcp==2.2.0",
 ]
 cloud = [
     "boto3==1.43.103",
