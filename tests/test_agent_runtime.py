@@ -1,0 +1,132 @@
+"""The agent loop: Claude drives the MCP tools, under rules A1-A5.
+
+Tested with a scripted fake client, so no model is called. The properties
+pinned are the ones the rules require: at most ten model calls per run, a
+one-step model downgrade after repeated overloads, a refusal ends the loop
+cleanly, and every tool call still goes through the same server -- so the
+gate and the decision ledger see it.
+"""
+
+from __future__ import annotations
+
+import json
+import pathlib
+from types import SimpleNamespace as NS
+
+import pytest
+
+pytest.importorskip("anthropic")
+pytest.importorskip("mcp")
+
+import anthropic  # noqa: E402
+
+from blindspot.agent.mcp_server import AgentSession  # noqa: E402
+from blindspot.agent.runtime import DOWNGRADE, MODEL, run_agent  # noqa: E402
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+AXES = ["motion_blur.exposure_ms", "low_light.illuminance_lux", "fog.beta_per_m", "jpeg.quality"]
+
+
+def session(tmp_path):
+    return AgentSession(
+        dataset=ROOT / "val" / "road100", pipeline="yolox_s", frames=2, seed=7, axes=AXES,
+        coverage={a: c for a, c in zip(AXES, [17.4, 88.4, 30.1, 23.9])},
+        baseline_map50=0.61, threshold_map50=0.366, budget_usd=0.05, cost_per_probe_usd=0.01,
+        ledger_path=tmp_path / "d.jsonl", findings=[])
+
+
+def tool_use(name, args, id_="t1"):
+    return NS(type="tool_use", name=name, input=args, id=id_)
+
+
+def text(s):
+    return NS(type="text", text=s)
+
+
+class FakeClient:
+    """Returns scripted responses; records every request."""
+
+    def __init__(self, script):
+        self.script = list(script)
+        self.requests = []
+        self.messages = self
+        self.beta = NS(messages=self)
+
+    def create(self, **kw):
+        self.requests.append(kw)
+        item = self.script.pop(0)
+        if isinstance(item, Exception):
+            raise item
+        return item
+
+
+def resp(stop, *blocks):
+    return NS(stop_reason=stop, content=list(blocks), stop_details=None)
+
+
+def overloaded():
+    return anthropic.OverloadedError("overloaded", response=NS(status_code=529, headers={},
+                                                                request=None), body=None)
+
+
+def ledger(tmp_path):
+    return [json.loads(l) for l in (tmp_path / "d.jsonl").read_text().splitlines()]
+
+
+def test_tool_calls_run_through_the_server_and_reach_the_ledger(tmp_path):
+    client = FakeClient([
+        resp("tool_use", tool_use("propose_axis_priority",
+                                  {"order": list(reversed(AXES)), "rationale": "jpeg least covered"})),
+        resp("end_turn", text("done")),
+    ])
+    out = run_agent(session(tmp_path), client=client)
+    assert out["status"] == "completed" and out["model_calls"] == 2
+    assert ledger(tmp_path)[0]["tool"] == "propose_axis_priority"
+    result = client.requests[1]["messages"][-1]["content"][0]
+    assert result["type"] == "tool_result" and result["tool_use_id"] == "t1"
+
+
+def test_the_model_sees_exactly_the_mcp_tools(tmp_path):
+    client = FakeClient([resp("end_turn", text("nothing to do"))])
+    run_agent(session(tmp_path), client=client)
+    names = sorted(t["name"] for t in client.requests[0]["tools"])
+    assert names == sorted(["get_envelope", "probe_condition", "explain_failure",
+                            "propose_axis_priority", "reallocate_budget"])
+    assert client.requests[0]["model"] == MODEL
+
+
+def test_call_cap_stops_the_loop_and_falls_back(tmp_path):
+    """A5: at most ten model calls per run, then the fixed heuristic."""
+    loop = [resp("tool_use", tool_use("get_envelope", {}, f"t{i}")) for i in range(20)]
+    client = FakeClient(loop)
+    out = run_agent(session(tmp_path), client=client)
+    assert out["model_calls"] == 10 and len(client.requests) == 10
+    assert out["status"] == "call_cap_reached"
+    assert out["axis_order"] == ["motion_blur.exposure_ms", "jpeg.quality",
+                                 "fog.beta_per_m", "low_light.illuminance_lux"]
+
+
+def test_repeated_overload_downgrades_the_model_one_step(tmp_path):
+    """A5: three overloads on a model, then the next model down."""
+    client = FakeClient([overloaded(), overloaded(), overloaded(), resp("end_turn", text("ok"))])
+    out = run_agent(session(tmp_path), client=client)
+    assert out["status"] == "completed"
+    assert [r["model"] for r in client.requests] == [MODEL] * 3 + [DOWNGRADE[MODEL]]
+    assert out["model"] == DOWNGRADE[MODEL]
+
+
+def test_a_refusal_ends_the_run_on_the_heuristic(tmp_path):
+    r = resp("refusal")
+    r.stop_details = NS(category=None, explanation="declined")
+    out = run_agent(session(tmp_path), client=FakeClient([r]))
+    assert out["status"] == "refused" and out["axis_order"]
+
+
+def test_a_tool_error_is_returned_to_the_model_not_raised(tmp_path):
+    client = FakeClient([
+        resp("tool_use", tool_use("no_such_tool", {})),
+        resp("end_turn", text("ok")),
+    ])
+    run_agent(session(tmp_path), client=client)
+    result = client.requests[1]["messages"][-1]["content"][0]
+    assert result["is_error"] is True

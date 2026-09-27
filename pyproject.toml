@@ -24,6 +24,7 @@ infra = [
 ]
 agent = [
     "mcp==2.2.0",
+    "anthropic[bedrock]==1.8.0",
 ]
 cloud = [
     "boto3==1.43.103",
