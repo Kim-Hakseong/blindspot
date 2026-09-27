@@ -38,8 +38,19 @@
     "false_negatives": 152,
     "n_classes_scored": 6
   },
-  "boundary": null,
-  "wall_seconds": 207.74,
+  "boundary": {
+    "axis": "low_light.illuminance_lux",
+    "unit": "lux",
+    "lower": 0.5,
+    "upper": 21.5263157894737,
+    "width": 21.0263157894737,
+    "pass_value": 21.5263157894737,
+    "fail_value": 0.5,
+    "map50_before": 0.3925617290694002,
+    "map50_after": 0.0,
+    "reproduce": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 0.5 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+  },
+  "wall_seconds": 306.72,
   "environment": {
     "opencv": "5.0.0",
     "python": "3.12.13",
@@ -50,835 +61,100 @@
     {
       "degradation": "low_light",
       "axis": "illuminance_lux",
-      "value": 0.5,
+      "value": 400.0,
       "unit": "lux",
       "seed": 20260906,
-      "map50": 0.0,
+      "map50": 0.5863499945166801,
       "counts": {
         "n_ground_truth": 984,
-        "n_predictions": 0,
-        "true_positives": 0,
-        "false_positives": 0,
-        "false_negatives": 984,
+        "n_predictions": 1408,
+        "true_positives": 820,
+        "false_positives": 588,
+        "false_negatives": 164,
         "n_classes_scored": 6
       },
       "derived": {
         "signal_e": {
-          "value": 0.9,
+          "value": 720.0,
           "unit": "dimensionless"
         },
         "shot_noise_e": {
-          "value": 0.67082,
+          "value": 18.973666,
           "unit": "dimensionless"
         },
         "modelled_snr_db": {
-          "value": -13.41935,
+          "value": 25.515036,
           "unit": "dimensionless"
         }
       },
       "measured_degradation": {
-        "laplacian_var": 318.027153,
-        "rms_contrast": 4.020177,
-        "snr_db": 2.631269,
-        "blockiness": 0.999001,
-        "mtf50_cy_px": 0.002852,
-        "mean_level": 5.430976
+        "laplacian_var": 686.217962,
+        "rms_contrast": 47.109547,
+        "snr_db": 25.242872,
+        "blockiness": 0.973046,
+        "mtf50_cy_px": 0.002517,
+        "mean_level": 66.748558
       },
       "n_frames": 100,
-      "wall_seconds": 8.983,
+      "wall_seconds": 11.119,
       "params": {
-        "illuminance_lux": 0.5,
+        "illuminance_lux": 400.0,
         "exposure_ms": 10.0,
         "iso_gain": 4.0,
         "read_noise_e": 2.0,
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 0.5 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 400 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
     },
     {
       "degradation": "low_light",
       "axis": "illuminance_lux",
-      "value": 21.526315789473685,
+      "value": 378.9736842105263,
       "unit": "lux",
       "seed": 20260906,
-      "map50": 0.3925617290694002,
+      "map50": 0.5806188448909482,
       "counts": {
         "n_ground_truth": 984,
-        "n_predictions": 1033,
-        "true_positives": 677,
-        "false_positives": 356,
-        "false_negatives": 307,
+        "n_predictions": 1402,
+        "true_positives": 822,
+        "false_positives": 580,
+        "false_negatives": 162,
         "n_classes_scored": 6
       },
       "derived": {
         "signal_e": {
-          "value": 38.747368,
+          "value": 682.152632,
           "unit": "dimensionless"
         },
         "shot_noise_e": {
-          "value": 4.401555,
+          "value": 18.468252,
           "unit": "dimensionless"
         },
         "modelled_snr_db": {
-          "value": 12.056973,
+          "value": 25.27788,
           "unit": "dimensionless"
         }
       },
       "measured_degradation": {
-        "laplacian_var": 316.57442,
-        "rms_contrast": 11.669942,
-        "snr_db": 13.568125,
-        "blockiness": 0.991597,
-        "mtf50_cy_px": 0.002633,
-        "mean_level": 17.897598
+        "laplacian_var": 662.42575,
+        "rms_contrast": 45.930622,
+        "snr_db": 25.076256,
+        "blockiness": 0.975243,
+        "mtf50_cy_px": 0.002518,
+        "mean_level": 65.142815
       },
       "n_frames": 100,
-      "wall_seconds": 10.386,
+      "wall_seconds": 13.426,
       "params": {
-        "illuminance_lux": 21.526315789473685,
+        "illuminance_lux": 378.9736842105263,
         "exposure_ms": 10.0,
         "iso_gain": 4.0,
         "read_noise_e": 2.0,
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 21.5263 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 42.55263157894737,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.4546060951949722,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1154,
-        "true_positives": 738,
-        "false_positives": 416,
-        "false_negatives": 246,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 76.594737,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 6.188487,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 15.400245,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 306.870557,
-        "rms_contrast": 16.186361,
-        "snr_db": 16.818373,
-        "blockiness": 0.987632,
-        "mtf50_cy_px": 0.002583,
-        "mean_level": 24.360897
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.526,
-      "params": {
-        "illuminance_lux": 42.55263157894737,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 42.5526 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 63.578947368421055,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5062405770802475,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1242,
-        "true_positives": 765,
-        "false_positives": 477,
-        "false_negatives": 219,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 114.442105,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 7.56446,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 17.282109,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 317.541148,
-        "rms_contrast": 19.628178,
-        "snr_db": 18.603563,
-        "blockiness": 0.981283,
-        "mtf50_cy_px": 0.002561,
-        "mean_level": 29.21113
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.309,
-      "params": {
-        "illuminance_lux": 63.578947368421055,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 63.5789 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 84.60526315789474,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5428516254313819,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1273,
-        "true_positives": 787,
-        "false_positives": 486,
-        "false_negatives": 197,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 152.289474,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 8.726095,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 18.594048,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 333.946907,
-        "rms_contrast": 22.532141,
-        "snr_db": 19.851105,
-        "blockiness": 0.98631,
-        "mtf50_cy_px": 0.002549,
-        "mean_level": 33.21957
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.27,
-      "params": {
-        "illuminance_lux": 84.60526315789474,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 84.6053 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 105.63157894736842,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5294054511873558,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1304,
-        "true_positives": 793,
-        "false_positives": 511,
-        "false_negatives": 191,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 190.136842,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 9.750304,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 19.601373,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 351.529607,
-        "rms_contrast": 25.035906,
-        "snr_db": 20.800714,
-        "blockiness": 0.98006,
-        "mtf50_cy_px": 0.002543,
-        "mean_level": 36.71022
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.233,
-      "params": {
-        "illuminance_lux": 105.63157894736842,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 105.632 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 126.65789473684211,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5576208063166738,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1317,
-        "true_positives": 797,
-        "false_positives": 520,
-        "false_negatives": 187,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 227.984211,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 10.676709,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 20.418966,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 375.13756,
-        "rms_contrast": 27.305048,
-        "snr_db": 21.469421,
-        "blockiness": 0.977323,
-        "mtf50_cy_px": 0.002539,
-        "mean_level": 39.823074
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.128,
-      "params": {
-        "illuminance_lux": 126.65789473684211,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 126.658 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 147.68421052631578,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5726437794826672,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1334,
-        "true_positives": 805,
-        "false_positives": 529,
-        "false_negatives": 179,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 265.831579,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 11.528911,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 21.106996,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 397.961033,
-        "rms_contrast": 29.377953,
-        "snr_db": 22.008137,
-        "blockiness": 0.982219,
-        "mtf50_cy_px": 0.002535,
-        "mean_level": 42.672596
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.124,
-      "params": {
-        "illuminance_lux": 147.68421052631578,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 147.684 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 168.71052631578948,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5584095138188183,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1343,
-        "true_positives": 805,
-        "false_positives": 538,
-        "false_negatives": 179,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 303.678947,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 12.322316,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 21.700919,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 421.143196,
-        "rms_contrast": 31.309595,
-        "snr_db": 22.50313,
-        "blockiness": 0.973273,
-        "mtf50_cy_px": 0.002532,
-        "mean_level": 45.297295
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.02,
-      "params": {
-        "illuminance_lux": 168.71052631578948,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 168.711 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 189.73684210526318,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5595462844747111,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1364,
-        "true_positives": 808,
-        "false_positives": 556,
-        "false_negatives": 176,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 341.526316,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 13.067638,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 22.223385,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 445.026225,
-        "rms_contrast": 33.108276,
-        "snr_db": 22.915754,
-        "blockiness": 0.973572,
-        "mtf50_cy_px": 0.002528,
-        "mean_level": 47.748524
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.08,
-      "params": {
-        "illuminance_lux": 189.73684210526318,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 189.737 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 210.76315789473685,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5617101700051205,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1365,
-        "true_positives": 815,
-        "false_positives": 550,
-        "false_negatives": 169,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 379.373684,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 13.772685,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 22.689743,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 469.228416,
-        "rms_contrast": 34.803806,
-        "snr_db": 23.267948,
-        "blockiness": 0.975734,
-        "mtf50_cy_px": 0.002527,
-        "mean_level": 50.055038
-      },
-      "n_frames": 100,
-      "wall_seconds": 9.988,
-      "params": {
-        "illuminance_lux": 210.76315789473685,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 210.763 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 231.78947368421052,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5746824525309904,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1369,
-        "true_positives": 811,
-        "false_positives": 558,
-        "false_negatives": 173,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 417.221053,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 14.443356,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 23.110877,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 492.531896,
-        "rms_contrast": 36.410561,
-        "snr_db": 23.585766,
-        "blockiness": 0.97746,
-        "mtf50_cy_px": 0.002525,
-        "mean_level": 52.237957
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.073,
-      "params": {
-        "illuminance_lux": 231.78947368421052,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 231.789 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 252.81578947368422,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5690547891272927,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1386,
-        "true_positives": 811,
-        "false_positives": 575,
-        "false_negatives": 173,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 455.068421,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 15.084237,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 23.494782,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 516.195469,
-        "rms_contrast": 37.942413,
-        "snr_db": 23.862341,
-        "blockiness": 0.978447,
-        "mtf50_cy_px": 0.002523,
-        "mean_level": 54.316875
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.013,
-      "params": {
-        "illuminance_lux": 252.81578947368422,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 252.816 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 273.8421052631579,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5687754141692759,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1379,
-        "true_positives": 815,
-        "false_positives": 564,
-        "false_negatives": 169,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 492.915789,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 15.698978,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 23.847507,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 540.100693,
-        "rms_contrast": 39.403858,
-        "snr_db": 24.114872,
-        "blockiness": 0.976615,
-        "mtf50_cy_px": 0.002522,
-        "mean_level": 56.303329
-      },
-      "n_frames": 100,
-      "wall_seconds": 10.133,
-      "params": {
-        "illuminance_lux": 273.8421052631579,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 273.842 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 294.86842105263156,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5715591858504837,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1384,
-        "true_positives": 811,
-        "false_positives": 573,
-        "false_negatives": 173,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 530.763158,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 16.290536,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 24.173737,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 564.632203,
-        "rms_contrast": 40.807076,
-        "snr_db": 24.353683,
-        "blockiness": 0.979588,
-        "mtf50_cy_px": 0.002522,
-        "mean_level": 58.202965
-      },
-      "n_frames": 100,
-      "wall_seconds": 9.962,
-      "params": {
-        "illuminance_lux": 294.86842105263156,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 294.868 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 315.89473684210526,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5811741837306541,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1401,
-        "true_positives": 818,
-        "false_positives": 583,
-        "false_negatives": 166,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 568.610526,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 16.861354,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 24.477172,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 589.917517,
-        "rms_contrast": 42.150803,
-        "snr_db": 24.549753,
-        "blockiness": 0.975845,
-        "mtf50_cy_px": 0.00252,
-        "mean_level": 60.034924
-      },
-      "n_frames": 100,
-      "wall_seconds": 9.932,
-      "params": {
-        "illuminance_lux": 315.89473684210526,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 315.895 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
-    },
-    {
-      "degradation": "low_light",
-      "axis": "illuminance_lux",
-      "value": 336.92105263157896,
-      "unit": "lux",
-      "seed": 20260906,
-      "map50": 0.5779908165123672,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1392,
-        "true_positives": 819,
-        "false_positives": 573,
-        "false_negatives": 165,
-        "n_classes_scored": 6
-      },
-      "derived": {
-        "signal_e": {
-          "value": 606.457895,
-          "unit": "dimensionless"
-        },
-        "shot_noise_e": {
-          "value": 17.41347,
-          "unit": "dimensionless"
-        },
-        "modelled_snr_db": {
-          "value": 24.760792,
-          "unit": "dimensionless"
-        }
-      },
-      "measured_degradation": {
-        "laplacian_var": 613.337457,
-        "rms_contrast": 43.448536,
-        "snr_db": 24.74831,
-        "blockiness": 0.96906,
-        "mtf50_cy_px": 0.00252,
-        "mean_level": 61.798832
-      },
-      "n_frames": 100,
-      "wall_seconds": 9.921,
-      "params": {
-        "illuminance_lux": 336.92105263157896,
-        "exposure_ms": 10.0,
-        "iso_gain": 4.0,
-        "read_noise_e": 2.0,
-        "full_well_e": 6000.0,
-        "photons_per_lux_s": 180.0
-      },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 336.921 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 378.974 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
     },
     {
       "degradation": "low_light",
@@ -918,7 +194,7 @@
         "mean_level": 63.500248
       },
       "n_frames": 100,
-      "wall_seconds": 9.915,
+      "wall_seconds": 11.558,
       "params": {
         "illuminance_lux": 357.94736842105266,
         "exposure_ms": 10.0,
@@ -932,100 +208,835 @@
     {
       "degradation": "low_light",
       "axis": "illuminance_lux",
-      "value": 378.97368421052636,
+      "value": 336.92105263157896,
       "unit": "lux",
       "seed": 20260906,
-      "map50": 0.5806188448909482,
+      "map50": 0.5779908165123672,
       "counts": {
         "n_ground_truth": 984,
-        "n_predictions": 1402,
-        "true_positives": 822,
-        "false_positives": 580,
-        "false_negatives": 162,
+        "n_predictions": 1392,
+        "true_positives": 819,
+        "false_positives": 573,
+        "false_negatives": 165,
         "n_classes_scored": 6
       },
       "derived": {
         "signal_e": {
-          "value": 682.152632,
+          "value": 606.457895,
           "unit": "dimensionless"
         },
         "shot_noise_e": {
-          "value": 18.468252,
+          "value": 17.41347,
           "unit": "dimensionless"
         },
         "modelled_snr_db": {
-          "value": 25.27788,
+          "value": 24.760792,
           "unit": "dimensionless"
         }
       },
       "measured_degradation": {
-        "laplacian_var": 662.42575,
-        "rms_contrast": 45.930622,
-        "snr_db": 25.076256,
-        "blockiness": 0.975243,
-        "mtf50_cy_px": 0.002518,
-        "mean_level": 65.142815
+        "laplacian_var": 613.337457,
+        "rms_contrast": 43.448536,
+        "snr_db": 24.74831,
+        "blockiness": 0.96906,
+        "mtf50_cy_px": 0.00252,
+        "mean_level": 61.798832
       },
       "n_frames": 100,
-      "wall_seconds": 9.935,
+      "wall_seconds": 11.287,
       "params": {
-        "illuminance_lux": 378.97368421052636,
+        "illuminance_lux": 336.92105263157896,
         "exposure_ms": 10.0,
         "iso_gain": 4.0,
         "read_noise_e": 2.0,
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 378.974 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 336.921 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
     },
     {
       "degradation": "low_light",
       "axis": "illuminance_lux",
-      "value": 400.0,
+      "value": 315.89473684210526,
       "unit": "lux",
       "seed": 20260906,
-      "map50": 0.5863499945166801,
+      "map50": 0.5811741837306541,
       "counts": {
         "n_ground_truth": 984,
-        "n_predictions": 1408,
-        "true_positives": 820,
-        "false_positives": 588,
-        "false_negatives": 164,
+        "n_predictions": 1401,
+        "true_positives": 818,
+        "false_positives": 583,
+        "false_negatives": 166,
         "n_classes_scored": 6
       },
       "derived": {
         "signal_e": {
-          "value": 720.0,
+          "value": 568.610526,
           "unit": "dimensionless"
         },
         "shot_noise_e": {
-          "value": 18.973666,
+          "value": 16.861354,
           "unit": "dimensionless"
         },
         "modelled_snr_db": {
-          "value": 25.515036,
+          "value": 24.477172,
           "unit": "dimensionless"
         }
       },
       "measured_degradation": {
-        "laplacian_var": 686.217962,
-        "rms_contrast": 47.109547,
-        "snr_db": 25.242872,
-        "blockiness": 0.973046,
-        "mtf50_cy_px": 0.002517,
-        "mean_level": 66.748558
+        "laplacian_var": 589.917517,
+        "rms_contrast": 42.150803,
+        "snr_db": 24.549753,
+        "blockiness": 0.975845,
+        "mtf50_cy_px": 0.00252,
+        "mean_level": 60.034924
       },
       "n_frames": 100,
-      "wall_seconds": 9.989,
+      "wall_seconds": 11.685,
       "params": {
-        "illuminance_lux": 400.0,
+        "illuminance_lux": 315.89473684210526,
         "exposure_ms": 10.0,
         "iso_gain": 4.0,
         "read_noise_e": 2.0,
         "full_well_e": 6000.0,
         "photons_per_lux_s": 180.0
       },
-      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 400 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 315.895 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 294.86842105263156,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5715591858504837,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1384,
+        "true_positives": 811,
+        "false_positives": 573,
+        "false_negatives": 173,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 530.763158,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 16.290536,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 24.173737,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 564.632203,
+        "rms_contrast": 40.807076,
+        "snr_db": 24.353683,
+        "blockiness": 0.979588,
+        "mtf50_cy_px": 0.002522,
+        "mean_level": 58.202965
+      },
+      "n_frames": 100,
+      "wall_seconds": 11.94,
+      "params": {
+        "illuminance_lux": 294.86842105263156,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 294.868 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 273.8421052631579,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5687754141692759,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1379,
+        "true_positives": 815,
+        "false_positives": 564,
+        "false_negatives": 169,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 492.915789,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 15.698978,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 23.847507,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 540.100693,
+        "rms_contrast": 39.403858,
+        "snr_db": 24.114872,
+        "blockiness": 0.976615,
+        "mtf50_cy_px": 0.002522,
+        "mean_level": 56.303329
+      },
+      "n_frames": 100,
+      "wall_seconds": 11.662,
+      "params": {
+        "illuminance_lux": 273.8421052631579,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 273.842 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 252.81578947368422,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5690547891272927,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1386,
+        "true_positives": 811,
+        "false_positives": 575,
+        "false_negatives": 173,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 455.068421,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 15.084237,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 23.494782,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 516.195469,
+        "rms_contrast": 37.942413,
+        "snr_db": 23.862341,
+        "blockiness": 0.978447,
+        "mtf50_cy_px": 0.002523,
+        "mean_level": 54.316875
+      },
+      "n_frames": 100,
+      "wall_seconds": 11.513,
+      "params": {
+        "illuminance_lux": 252.81578947368422,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 252.816 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 231.78947368421055,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5746824525309904,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1369,
+        "true_positives": 811,
+        "false_positives": 558,
+        "false_negatives": 173,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 417.221053,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 14.443356,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 23.110877,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 492.531896,
+        "rms_contrast": 36.410561,
+        "snr_db": 23.585766,
+        "blockiness": 0.97746,
+        "mtf50_cy_px": 0.002525,
+        "mean_level": 52.237957
+      },
+      "n_frames": 100,
+      "wall_seconds": 13.21,
+      "params": {
+        "illuminance_lux": 231.78947368421055,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 231.789 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 210.76315789473685,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5617101700051205,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1365,
+        "true_positives": 815,
+        "false_positives": 550,
+        "false_negatives": 169,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 379.373684,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 13.772685,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 22.689743,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 469.228416,
+        "rms_contrast": 34.803806,
+        "snr_db": 23.267948,
+        "blockiness": 0.975734,
+        "mtf50_cy_px": 0.002527,
+        "mean_level": 50.055038
+      },
+      "n_frames": 100,
+      "wall_seconds": 17.001,
+      "params": {
+        "illuminance_lux": 210.76315789473685,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 210.763 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 189.73684210526318,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5595462844747111,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1364,
+        "true_positives": 808,
+        "false_positives": 556,
+        "false_negatives": 176,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 341.526316,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 13.067638,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 22.223385,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 445.026225,
+        "rms_contrast": 33.108276,
+        "snr_db": 22.915754,
+        "blockiness": 0.973572,
+        "mtf50_cy_px": 0.002528,
+        "mean_level": 47.748524
+      },
+      "n_frames": 100,
+      "wall_seconds": 17.646,
+      "params": {
+        "illuminance_lux": 189.73684210526318,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 189.737 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 168.71052631578945,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5584095138188183,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1343,
+        "true_positives": 805,
+        "false_positives": 538,
+        "false_negatives": 179,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 303.678947,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 12.322316,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 21.700919,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 421.143196,
+        "rms_contrast": 31.309595,
+        "snr_db": 22.50313,
+        "blockiness": 0.973273,
+        "mtf50_cy_px": 0.002532,
+        "mean_level": 45.297295
+      },
+      "n_frames": 100,
+      "wall_seconds": 18.188,
+      "params": {
+        "illuminance_lux": 168.71052631578945,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 168.711 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 147.6842105263158,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5726437794826672,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1334,
+        "true_positives": 805,
+        "false_positives": 529,
+        "false_negatives": 179,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 265.831579,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 11.528911,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 21.106996,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 397.961033,
+        "rms_contrast": 29.377953,
+        "snr_db": 22.008137,
+        "blockiness": 0.982219,
+        "mtf50_cy_px": 0.002535,
+        "mean_level": 42.672596
+      },
+      "n_frames": 100,
+      "wall_seconds": 13.639,
+      "params": {
+        "illuminance_lux": 147.6842105263158,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 147.684 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 126.65789473684214,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5576208063166738,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1317,
+        "true_positives": 797,
+        "false_positives": 520,
+        "false_negatives": 187,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 227.984211,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 10.676709,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 20.418966,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 375.13756,
+        "rms_contrast": 27.305048,
+        "snr_db": 21.469421,
+        "blockiness": 0.977323,
+        "mtf50_cy_px": 0.002539,
+        "mean_level": 39.823074
+      },
+      "n_frames": 100,
+      "wall_seconds": 11.746,
+      "params": {
+        "illuminance_lux": 126.65789473684214,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 126.658 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 105.63157894736844,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5294054511873558,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1304,
+        "true_positives": 793,
+        "false_positives": 511,
+        "false_negatives": 191,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 190.136842,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 9.750304,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 19.601373,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 351.529607,
+        "rms_contrast": 25.035906,
+        "snr_db": 20.800714,
+        "blockiness": 0.98006,
+        "mtf50_cy_px": 0.002543,
+        "mean_level": 36.71022
+      },
+      "n_frames": 100,
+      "wall_seconds": 21.585,
+      "params": {
+        "illuminance_lux": 105.63157894736844,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 105.632 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 84.60526315789474,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5428516254313819,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1273,
+        "true_positives": 787,
+        "false_positives": 486,
+        "false_negatives": 197,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 152.289474,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 8.726095,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 18.594048,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 333.946907,
+        "rms_contrast": 22.532141,
+        "snr_db": 19.851105,
+        "blockiness": 0.98631,
+        "mtf50_cy_px": 0.002549,
+        "mean_level": 33.21957
+      },
+      "n_frames": 100,
+      "wall_seconds": 18.141,
+      "params": {
+        "illuminance_lux": 84.60526315789474,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 84.6053 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 63.5789473684211,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.5062405770802475,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1242,
+        "true_positives": 765,
+        "false_positives": 477,
+        "false_negatives": 219,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 114.442105,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 7.56446,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 17.282109,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 317.541148,
+        "rms_contrast": 19.628178,
+        "snr_db": 18.603563,
+        "blockiness": 0.981283,
+        "mtf50_cy_px": 0.002561,
+        "mean_level": 29.21113
+      },
+      "n_frames": 100,
+      "wall_seconds": 18.657,
+      "params": {
+        "illuminance_lux": 63.5789473684211,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 63.5789 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 42.5526315789474,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.4546060951949722,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1154,
+        "true_positives": 738,
+        "false_positives": 416,
+        "false_negatives": 246,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 76.594737,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 6.188487,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 15.400245,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 306.870557,
+        "rms_contrast": 16.186361,
+        "snr_db": 16.818373,
+        "blockiness": 0.987632,
+        "mtf50_cy_px": 0.002583,
+        "mean_level": 24.360897
+      },
+      "n_frames": 100,
+      "wall_seconds": 19.967,
+      "params": {
+        "illuminance_lux": 42.5526315789474,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 42.5526 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 21.5263157894737,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.3925617290694002,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1033,
+        "true_positives": 677,
+        "false_positives": 356,
+        "false_negatives": 307,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 38.747368,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 4.401555,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": 12.056973,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 316.57442,
+        "rms_contrast": 11.669942,
+        "snr_db": 13.568125,
+        "blockiness": 0.991597,
+        "mtf50_cy_px": 0.002633,
+        "mean_level": 17.897598
+      },
+      "n_frames": 100,
+      "wall_seconds": 18.158,
+      "params": {
+        "illuminance_lux": 21.5263157894737,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 21.5263 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
+    },
+    {
+      "degradation": "low_light",
+      "axis": "illuminance_lux",
+      "value": 0.5,
+      "unit": "lux",
+      "seed": 20260906,
+      "map50": 0.0,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 0,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 984,
+        "n_classes_scored": 6
+      },
+      "derived": {
+        "signal_e": {
+          "value": 0.9,
+          "unit": "dimensionless"
+        },
+        "shot_noise_e": {
+          "value": 0.67082,
+          "unit": "dimensionless"
+        },
+        "modelled_snr_db": {
+          "value": -13.41935,
+          "unit": "dimensionless"
+        }
+      },
+      "measured_degradation": {
+        "laplacian_var": 318.027153,
+        "rms_contrast": 4.020177,
+        "snr_db": 2.631269,
+        "blockiness": 0.999001,
+        "mtf50_cy_px": 0.002852,
+        "mean_level": 5.430976
+      },
+      "n_frames": 100,
+      "wall_seconds": 17.345,
+      "params": {
+        "illuminance_lux": 0.5,
+        "exposure_ms": 10.0,
+        "iso_gain": 4.0,
+        "read_noise_e": 2.0,
+        "full_well_e": 6000.0,
+        "photons_per_lux_s": 180.0
+      },
+      "command": "uv run blindspot probe --degradation low_light --exposure_ms 10 --full_well_e 6000 --illuminance_lux 0.5 --iso_gain 4 --photons_per_lux_s 180 --read_noise_e 2 --seed 20260906"
     }
   ]
 }

@@ -84,12 +84,17 @@ def main() -> int:
     boundary = None
     for previous, current in zip(probes, probes[1:]):
         if not criterion.failed(previous.map50) and criterion.failed(current.map50):
+            # lower/upper are in ascending axis units; pass/fail values say which
+            # side is which, because on inverted axes (lux, JPEG q) the passing
+            # side is the *larger* value.
             boundary = {
                 "axis": args.axis,
                 "unit": axis.unit,
-                "lower": previous.value,
-                "upper": current.value,
-                "width": current.value - previous.value,
+                "lower": min(previous.value, current.value),
+                "upper": max(previous.value, current.value),
+                "width": abs(current.value - previous.value),
+                "pass_value": previous.value,
+                "fail_value": current.value,
                 "map50_before": previous.map50,
                 "map50_after": current.map50,
                 "reproduce": current.command,

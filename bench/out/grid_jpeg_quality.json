@@ -38,8 +38,19 @@
     "false_negatives": 152,
     "n_classes_scored": 6
   },
-  "boundary": null,
-  "wall_seconds": 269.09,
+  "boundary": {
+    "axis": "jpeg.quality",
+    "unit": "jpeg-q",
+    "lower": 10.0,
+    "upper": 15.000000000000014,
+    "width": 5.000000000000014,
+    "pass_value": 15.000000000000014,
+    "fail_value": 10.0,
+    "map50_before": 0.45979440173913716,
+    "map50_after": 0.3477885266375455,
+    "reproduce": "uv run blindspot probe --degradation jpeg --quality 10 --seed 20260906"
+  },
+  "wall_seconds": 239.2,
   "environment": {
     "opencv": "5.0.0",
     "python": "3.12.13",
@@ -50,560 +61,33 @@
     {
       "degradation": "jpeg",
       "axis": "quality",
-      "value": 5.0,
+      "value": 100.0,
       "unit": "jpeg-q",
       "seed": 20260906,
-      "map50": 0.09307804301846734,
+      "map50": 0.6106218739847773,
       "counts": {
         "n_ground_truth": 984,
-        "n_predictions": 257,
-        "true_positives": 113,
-        "false_positives": 144,
-        "false_negatives": 871,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 435.977788,
-        "rms_contrast": 65.253685,
-        "snr_db": 46.88612,
-        "blockiness": 3.464148,
-        "mtf50_cy_px": 0.002518,
-        "mean_level": 93.992302
-      },
-      "n_frames": 100,
-      "wall_seconds": 13.513,
-      "params": {
-        "quality": 5.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 5 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 10.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.3477885266375455,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 807,
-        "true_positives": 482,
-        "false_positives": 325,
-        "false_negatives": 502,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 490.426719,
-        "rms_contrast": 67.961151,
-        "snr_db": 43.565289,
-        "blockiness": 2.287533,
-        "mtf50_cy_px": 0.00249,
-        "mean_level": 92.034157
-      },
-      "n_frames": 100,
-      "wall_seconds": 14.367,
-      "params": {
-        "quality": 10.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 10 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 15.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.45979440173913716,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1032,
-        "true_positives": 661,
-        "false_positives": 371,
-        "false_negatives": 323,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 623.019674,
-        "rms_contrast": 67.451103,
-        "snr_db": 41.739407,
-        "blockiness": 1.847116,
-        "mtf50_cy_px": 0.002498,
-        "mean_level": 92.541237
-      },
-      "n_frames": 100,
-      "wall_seconds": 14.842,
-      "params": {
-        "quality": 15.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 15 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 20.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5328086653130929,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1164,
-        "true_positives": 730,
-        "false_positives": 434,
-        "false_negatives": 254,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 706.86517,
-        "rms_contrast": 68.186127,
-        "snr_db": 40.559654,
-        "blockiness": 1.656805,
-        "mtf50_cy_px": 0.002492,
-        "mean_level": 92.04422
-      },
-      "n_frames": 100,
-      "wall_seconds": 13.807,
-      "params": {
-        "quality": 20.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 20 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 25.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5451609988627276,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1223,
-        "true_positives": 760,
-        "false_positives": 463,
-        "false_negatives": 224,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 748.137658,
-        "rms_contrast": 68.202385,
-        "snr_db": 39.587875,
-        "blockiness": 1.524469,
-        "mtf50_cy_px": 0.002492,
-        "mean_level": 92.028473
-      },
-      "n_frames": 100,
-      "wall_seconds": 13.586,
-      "params": {
-        "quality": 25.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 25 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 30.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5982197281734627,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1256,
-        "true_positives": 776,
-        "false_positives": 480,
-        "false_negatives": 208,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 762.612555,
-        "rms_contrast": 68.221519,
-        "snr_db": 38.946136,
-        "blockiness": 1.457609,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 92.022179
-      },
-      "n_frames": 100,
-      "wall_seconds": 13.014,
-      "params": {
-        "quality": 30.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 30 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 35.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5679960668747339,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1277,
-        "true_positives": 780,
-        "false_positives": 497,
-        "false_negatives": 204,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 774.851776,
-        "rms_contrast": 68.185944,
-        "snr_db": 38.484203,
-        "blockiness": 1.400963,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 92.034698
-      },
-      "n_frames": 100,
-      "wall_seconds": 14.229,
-      "params": {
-        "quality": 35.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 35 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 40.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5742073426929808,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1291,
-        "true_positives": 797,
-        "false_positives": 494,
-        "false_negatives": 187,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 801.029202,
-        "rms_contrast": 67.911743,
-        "snr_db": 38.071754,
-        "blockiness": 1.360397,
-        "mtf50_cy_px": 0.002496,
-        "mean_level": 92.265144
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.81,
-      "params": {
-        "quality": 40.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 40 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 45.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5693995307183461,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1327,
-        "true_positives": 796,
-        "false_positives": 531,
-        "false_negatives": 188,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 838.25497,
-        "rms_contrast": 68.278976,
-        "snr_db": 37.603992,
-        "blockiness": 1.313758,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 92.000862
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.773,
-      "params": {
-        "quality": 45.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 45 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 50.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.6076370425015395,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1358,
-        "true_positives": 821,
-        "false_positives": 537,
-        "false_negatives": 163,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 855.49973,
-        "rms_contrast": 68.257164,
-        "snr_db": 37.222111,
-        "blockiness": 1.285993,
-        "mtf50_cy_px": 0.002492,
-        "mean_level": 91.980377
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.624,
-      "params": {
-        "quality": 50.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 50 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 55.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5960597863616002,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1361,
-        "true_positives": 817,
-        "false_positives": 544,
-        "false_negatives": 167,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 872.357948,
-        "rms_contrast": 68.277985,
-        "snr_db": 36.77441,
-        "blockiness": 1.260224,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 92.002571
-      },
-      "n_frames": 100,
-      "wall_seconds": 13.021,
-      "params": {
-        "quality": 55.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 55 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 60.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5937070624351409,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1369,
-        "true_positives": 818,
-        "false_positives": 551,
-        "false_negatives": 166,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 895.979382,
-        "rms_contrast": 68.289261,
-        "snr_db": 36.458466,
-        "blockiness": 1.222955,
-        "mtf50_cy_px": 0.002492,
-        "mean_level": 91.989662
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.332,
-      "params": {
-        "quality": 60.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 60 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 65.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.6138468439567194,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1385,
-        "true_positives": 822,
-        "false_positives": 563,
-        "false_negatives": 162,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 910.076842,
-        "rms_contrast": 68.303902,
-        "snr_db": 35.900288,
-        "blockiness": 1.193586,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 91.991821
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.572,
-      "params": {
-        "quality": 65.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 65 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 70.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.6098047915365745,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1387,
-        "true_positives": 821,
-        "false_positives": 566,
-        "false_negatives": 163,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 956.589005,
-        "rms_contrast": 67.989365,
-        "snr_db": 35.268723,
-        "blockiness": 1.156578,
-        "mtf50_cy_px": 0.002496,
-        "mean_level": 92.226585
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.352,
-      "params": {
-        "quality": 70.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 70 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 75.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.6039296194061925,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1400,
-        "true_positives": 823,
-        "false_positives": 577,
-        "false_negatives": 161,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 927.376517,
-        "rms_contrast": 68.310005,
-        "snr_db": 35.208515,
-        "blockiness": 1.141496,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 91.996361
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.38,
-      "params": {
-        "quality": 75.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 75 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 80.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.607475316184113,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1417,
-        "true_positives": 826,
-        "false_positives": 591,
-        "false_negatives": 158,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 979.67013,
-        "rms_contrast": 68.31778,
-        "snr_db": 34.022457,
-        "blockiness": 1.091634,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 91.992744
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.573,
-      "params": {
-        "quality": 80.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 80 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 85.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.5994459290180064,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1441,
-        "true_positives": 826,
-        "false_positives": 615,
-        "false_negatives": 158,
-        "n_classes_scored": 6
-      },
-      "derived": {},
-      "measured_degradation": {
-        "laplacian_var": 1125.825282,
-        "rms_contrast": 68.364906,
-        "snr_db": 31.790762,
-        "blockiness": 1.014602,
-        "mtf50_cy_px": 0.002493,
-        "mean_level": 91.980827
-      },
-      "n_frames": 100,
-      "wall_seconds": 12.435,
-      "params": {
-        "quality": 85.0
-      },
-      "command": "uv run blindspot probe --degradation jpeg --quality 85 --seed 20260906"
-    },
-    {
-      "degradation": "jpeg",
-      "axis": "quality",
-      "value": 90.0,
-      "unit": "jpeg-q",
-      "seed": 20260906,
-      "map50": 0.6128604732363986,
-      "counts": {
-        "n_ground_truth": 984,
-        "n_predictions": 1445,
+        "n_predictions": 1459,
         "true_positives": 833,
-        "false_positives": 612,
+        "false_positives": 626,
         "false_negatives": 151,
         "n_classes_scored": 6
       },
       "derived": {},
       "measured_degradation": {
-        "laplacian_var": 958.866965,
-        "rms_contrast": 68.3228,
-        "snr_db": 33.712933,
-        "blockiness": 1.040755,
+        "laplacian_var": 1015.018523,
+        "rms_contrast": 68.346535,
+        "snr_db": 31.655016,
+        "blockiness": 0.962595,
         "mtf50_cy_px": 0.002493,
-        "mean_level": 91.980927
+        "mean_level": 91.972633
       },
       "n_frames": 100,
-      "wall_seconds": 12.487,
+      "wall_seconds": 14.421,
       "params": {
-        "quality": 90.0
+        "quality": 100.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 90 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --quality 100 --seed 20260906"
     },
     {
       "degradation": "jpeg",
@@ -630,7 +114,7 @@
         "mean_level": 91.979485
       },
       "n_frames": 100,
-      "wall_seconds": 11.168,
+      "wall_seconds": 12.303,
       "params": {
         "quality": 95.0
       },
@@ -639,33 +123,560 @@
     {
       "degradation": "jpeg",
       "axis": "quality",
-      "value": 100.0,
+      "value": 90.0,
       "unit": "jpeg-q",
       "seed": 20260906,
-      "map50": 0.6106218739847773,
+      "map50": 0.6128604732363986,
       "counts": {
         "n_ground_truth": 984,
-        "n_predictions": 1459,
+        "n_predictions": 1445,
         "true_positives": 833,
-        "false_positives": 626,
+        "false_positives": 612,
         "false_negatives": 151,
         "n_classes_scored": 6
       },
       "derived": {},
       "measured_degradation": {
-        "laplacian_var": 1015.018523,
-        "rms_contrast": 68.346535,
-        "snr_db": 31.655016,
-        "blockiness": 0.962595,
+        "laplacian_var": 958.866965,
+        "rms_contrast": 68.3228,
+        "snr_db": 33.712933,
+        "blockiness": 1.040755,
         "mtf50_cy_px": 0.002493,
-        "mean_level": 91.972633
+        "mean_level": 91.980927
       },
       "n_frames": 100,
-      "wall_seconds": 7.058,
+      "wall_seconds": 12.699,
       "params": {
-        "quality": 100.0
+        "quality": 90.0
       },
-      "command": "uv run blindspot probe --degradation jpeg --quality 100 --seed 20260906"
+      "command": "uv run blindspot probe --degradation jpeg --quality 90 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 85.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5994459290180064,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1441,
+        "true_positives": 826,
+        "false_positives": 615,
+        "false_negatives": 158,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 1125.825282,
+        "rms_contrast": 68.364906,
+        "snr_db": 31.790762,
+        "blockiness": 1.014602,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.980827
+      },
+      "n_frames": 100,
+      "wall_seconds": 14.307,
+      "params": {
+        "quality": 85.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 85 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 80.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.607475316184113,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1417,
+        "true_positives": 826,
+        "false_positives": 591,
+        "false_negatives": 158,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 979.67013,
+        "rms_contrast": 68.31778,
+        "snr_db": 34.022457,
+        "blockiness": 1.091634,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.992744
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.599,
+      "params": {
+        "quality": 80.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 80 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 75.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.6039296194061925,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1400,
+        "true_positives": 823,
+        "false_positives": 577,
+        "false_negatives": 161,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 927.376517,
+        "rms_contrast": 68.310005,
+        "snr_db": 35.208515,
+        "blockiness": 1.141496,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.996361
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.969,
+      "params": {
+        "quality": 75.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 75 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 70.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.6098047915365745,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1387,
+        "true_positives": 821,
+        "false_positives": 566,
+        "false_negatives": 163,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 956.589005,
+        "rms_contrast": 67.989365,
+        "snr_db": 35.268723,
+        "blockiness": 1.156578,
+        "mtf50_cy_px": 0.002496,
+        "mean_level": 92.226585
+      },
+      "n_frames": 100,
+      "wall_seconds": 9.456,
+      "params": {
+        "quality": 70.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 70 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 65.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.6138468439567194,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1385,
+        "true_positives": 822,
+        "false_positives": 563,
+        "false_negatives": 162,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 910.076842,
+        "rms_contrast": 68.303902,
+        "snr_db": 35.900288,
+        "blockiness": 1.193586,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 91.991821
+      },
+      "n_frames": 100,
+      "wall_seconds": 14.035,
+      "params": {
+        "quality": 65.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 65 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 60.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5937070624351409,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1369,
+        "true_positives": 818,
+        "false_positives": 551,
+        "false_negatives": 166,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 895.979382,
+        "rms_contrast": 68.289261,
+        "snr_db": 36.458466,
+        "blockiness": 1.222955,
+        "mtf50_cy_px": 0.002492,
+        "mean_level": 91.989662
+      },
+      "n_frames": 100,
+      "wall_seconds": 15.73,
+      "params": {
+        "quality": 60.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 60 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 55.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5960597863616002,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1361,
+        "true_positives": 817,
+        "false_positives": 544,
+        "false_negatives": 167,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 872.357948,
+        "rms_contrast": 68.277985,
+        "snr_db": 36.77441,
+        "blockiness": 1.260224,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 92.002571
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.035,
+      "params": {
+        "quality": 55.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 55 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 50.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.6076370425015395,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1358,
+        "true_positives": 821,
+        "false_positives": 537,
+        "false_negatives": 163,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 855.49973,
+        "rms_contrast": 68.257164,
+        "snr_db": 37.222111,
+        "blockiness": 1.285993,
+        "mtf50_cy_px": 0.002492,
+        "mean_level": 91.980377
+      },
+      "n_frames": 100,
+      "wall_seconds": 14.869,
+      "params": {
+        "quality": 50.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 50 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 45.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5693995307183461,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1327,
+        "true_positives": 796,
+        "false_positives": 531,
+        "false_negatives": 188,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 838.25497,
+        "rms_contrast": 68.278976,
+        "snr_db": 37.603992,
+        "blockiness": 1.313758,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 92.000862
+      },
+      "n_frames": 100,
+      "wall_seconds": 14.083,
+      "params": {
+        "quality": 45.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 45 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 40.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5742073426929808,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1291,
+        "true_positives": 797,
+        "false_positives": 494,
+        "false_negatives": 187,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 801.029202,
+        "rms_contrast": 67.911743,
+        "snr_db": 38.071754,
+        "blockiness": 1.360397,
+        "mtf50_cy_px": 0.002496,
+        "mean_level": 92.265144
+      },
+      "n_frames": 100,
+      "wall_seconds": 12.872,
+      "params": {
+        "quality": 40.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 40 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 35.000000000000014,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5679960668747339,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1277,
+        "true_positives": 780,
+        "false_positives": 497,
+        "false_negatives": 204,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 774.851776,
+        "rms_contrast": 68.185944,
+        "snr_db": 38.484203,
+        "blockiness": 1.400963,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 92.034698
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.053,
+      "params": {
+        "quality": 35.000000000000014
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 35 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 30.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5982197281734627,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1256,
+        "true_positives": 776,
+        "false_positives": 480,
+        "false_negatives": 208,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 762.612555,
+        "rms_contrast": 68.221519,
+        "snr_db": 38.946136,
+        "blockiness": 1.457609,
+        "mtf50_cy_px": 0.002493,
+        "mean_level": 92.022179
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.988,
+      "params": {
+        "quality": 30.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 30 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 25.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5451609988627276,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1223,
+        "true_positives": 760,
+        "false_positives": 463,
+        "false_negatives": 224,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 748.137658,
+        "rms_contrast": 68.202385,
+        "snr_db": 39.587875,
+        "blockiness": 1.524469,
+        "mtf50_cy_px": 0.002492,
+        "mean_level": 92.028473
+      },
+      "n_frames": 100,
+      "wall_seconds": 8.265,
+      "params": {
+        "quality": 25.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 25 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 20.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.5328086653130929,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1164,
+        "true_positives": 730,
+        "false_positives": 434,
+        "false_negatives": 254,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 706.86517,
+        "rms_contrast": 68.186127,
+        "snr_db": 40.559654,
+        "blockiness": 1.656805,
+        "mtf50_cy_px": 0.002492,
+        "mean_level": 92.04422
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.675,
+      "params": {
+        "quality": 20.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 20 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 15.000000000000014,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.45979440173913716,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 1032,
+        "true_positives": 661,
+        "false_positives": 371,
+        "false_negatives": 323,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 623.019674,
+        "rms_contrast": 67.451103,
+        "snr_db": 41.739407,
+        "blockiness": 1.847116,
+        "mtf50_cy_px": 0.002498,
+        "mean_level": 92.541237
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.577,
+      "params": {
+        "quality": 15.000000000000014
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 15 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 10.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.3477885266375455,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 807,
+        "true_positives": 482,
+        "false_positives": 325,
+        "false_negatives": 502,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 490.426719,
+        "rms_contrast": 67.961151,
+        "snr_db": 43.565289,
+        "blockiness": 2.287533,
+        "mtf50_cy_px": 0.00249,
+        "mean_level": 92.034157
+      },
+      "n_frames": 100,
+      "wall_seconds": 9.123,
+      "params": {
+        "quality": 10.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 10 --seed 20260906"
+    },
+    {
+      "degradation": "jpeg",
+      "axis": "quality",
+      "value": 5.0,
+      "unit": "jpeg-q",
+      "seed": 20260906,
+      "map50": 0.09307804301846734,
+      "counts": {
+        "n_ground_truth": 984,
+        "n_predictions": 257,
+        "true_positives": 113,
+        "false_positives": 144,
+        "false_negatives": 871,
+        "n_classes_scored": 6
+      },
+      "derived": {},
+      "measured_degradation": {
+        "laplacian_var": 435.977788,
+        "rms_contrast": 65.253685,
+        "snr_db": 46.88612,
+        "blockiness": 3.464148,
+        "mtf50_cy_px": 0.002518,
+        "mean_level": 93.992302
+      },
+      "n_frames": 100,
+      "wall_seconds": 7.398,
+      "params": {
+        "quality": 5.0
+      },
+      "command": "uv run blindspot probe --degradation jpeg --quality 5 --seed 20260906"
     }
   ]
 }

@@ -1,0 +1,42 @@
+[
+  {
+    "source": "grid_fog_beta_per_m.json",
+    "png": "grid_fog_beta_per_m.png",
+    "axis": "fog.beta_per_m",
+    "unit": "1/m",
+    "boundary": [
+      0.056842105263157895,
+      0.06315789473684211
+    ]
+  },
+  {
+    "source": "grid_jpeg_quality.json",
+    "png": "grid_jpeg_quality.png",
+    "axis": "jpeg.quality",
+    "unit": "jpeg-q",
+    "boundary": [
+      10.0,
+      15.000000000000014
+    ]
+  },
+  {
+    "source": "grid_low_light_illuminance_lux.json",
+    "png": "grid_low_light_illuminance_lux.png",
+    "axis": "low_light.illuminance_lux",
+    "unit": "lux",
+    "boundary": [
+      0.5,
+      21.5263157894737
+    ]
+  },
+  {
+    "source": "grid_motion_blur_exposure_ms.json",
+    "png": "grid_motion_blur_exposure_ms.png",
+    "axis": "motion_blur.exposure_ms",
+    "unit": "ms",
+    "boundary": [
+      10.526315789473683,
+      12.631578947368421
+    ]
+  }
+]
