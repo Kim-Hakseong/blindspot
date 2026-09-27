@@ -5,65 +5,76 @@ be diffed and corrected. The rendered version is generated from this source.
 
 ## System
 
+Rendered: [`architecture-1.png`](architecture-1.png) (system), [`architecture-2.png`](architecture-2.png) (probe lifecycle), regenerated from the text below by `uv run python tools/render_architecture.py`.
+
 ```mermaid
 flowchart TB
-    dev["Developer<br/>blindspot run --dataset ./val --budget 0.40"]
+    dev["Developer<br/>blindspot cloud-run --dataset ./val --budget 0.40"]
+    human["Human approver<br/>blindspot approve --additional-usd --reason"]
 
-    subgraph control["AWS App Runner — FastAPI control plane"]
-        api["POST /runs → run_id, budget contract fixed<br/>GET /runs/{id}/envelope → boundary JSON"]
+    subgraph state["State — DynamoDB + S3 (tagged project=blindspot)"]
+        runs[("bs-runs<br/>run definition, fixed contract")]
+        ledger[("bs-probes<br/>one record per probe")]
+        decisions[("bs-decisions<br/>every plan and proposal,<br/>accepted or rejected")]
+        s3[("S3<br/>datasets · wave specs · envelopes")]
     end
 
-    subgraph orch["AWS Step Functions — probe loop"]
-        plan["PlanProbes<br/>deterministic scheduler (bisection)"]
-        agent{{"MCP tool call → Bedrock<br/>proposes axis priority only"}}
-        map["Map state — parallel fan-out"]
-        evald["EvaluateBoundary<br/>converged? budget spent?"]
+    subgraph loop["AWS Step Functions — bs-runs"]
+        plan["Plan (Lambda)<br/>pure plan_round over the ledger<br/>replays the local search<br/>applies criterion + budget contract"]
+        decide{"Decide"}
+        submit["SubmitWave<br/>arm64 or x86 queue<br/>array job if > 1 probe"]
+        finalize["Finalize<br/>envelope to S3"]
+        halt["Halt<br/>AWAITING_APPROVAL"]
     end
 
-    subgraph worker["AWS Batch on Fargate — probe worker (arm64 + x86-64)"]
+    subgraph worker["AWS Batch on Fargate — same image, arm64 (Graviton) + x86-64"]
         direction TB
-        w1["1. load source frame from S3"]
-        w2["2. OpenCV 5 degradation<br/>(image, physical params, seed)"]
-        w3["3. OpenCV 5 objective measurement<br/>MTF50 · Laplacian var · SNR · blockiness"]
-        w4["4. run pipeline under test — cv::dnn"]
-        w5["5. metrics — mAP@50, IoU, counts"]
-        w6["6. write probe record + overlay"]
-        w1 --> w2 --> w3 --> w4 --> w5 --> w6
+        w1["OpenCV 5 degradation<br/>(image, physical params, seed)"]
+        w2["cv::dnn pipeline<br/>YOLOX-S · YOLOX-Nano · NanoDet"]
+        w3["mAP@50 + counts<br/>no pass/fail here"]
+        w1 --> w2 --> w3
     end
 
-    subgraph store["State and artefacts"]
-        ddb[("DynamoDB<br/>bs-runs · bs-probes · bs-decisions")]
-        s3[("S3<br/>frames · overlays · report JSON")]
-        cw["CloudWatch<br/>metrics · logs"]
+    subgraph agent["Agent (optional) — MCP server"]
+        mcp{{"Claude via MCP<br/>proposes axis order / budget split<br/>writes failure explanations"}}
+        gate["cost.gate<br/>deterministic accept / reject"]
     end
 
-    viewer["CloudFront + S3<br/>report viewer — public, no credentials"]
-    ci["GitHub Actions<br/>blindspot check → PR fails on boundary regression"]
+    viewer["Static report viewer<br/>(not yet hosted)"]
 
-    dev --> api --> plan
-    plan -.proposal only.-> agent
-    agent -.-> plan
-    plan --> map --> worker
-    worker --> ddb
-    worker --> s3
-    worker --> cw
-    worker --> evald
-    evald -->|not converged| plan
-    evald -->|budget exceeded| hold["AWAITING_APPROVAL<br/>partial results kept"]
+    dev --> runs
+    dev --> s3
+    dev --> plan
+    plan --> decide
+    decide -->|probe| submit --> worker
+    worker --> ledger
+    ledger --> plan
+    decide -->|done| finalize --> s3
+    decide -->|contract reached| halt --> runs
+    plan --> decisions
+    human --> decisions
+    human --> runs
+    mcp -.proposal.-> gate
+    gate --> decisions
     s3 --> viewer
-    api --> ci
 
     classDef judgment fill:#1f6feb,stroke:#0d419d,color:#fff
     classDef llm fill:#8957e5,stroke:#6639ba,color:#fff
-    class w2,w3,w5,plan,evald judgment
-    class agent llm
+    classDef planned stroke-dasharray: 5 5
+    class plan,w1,w3,gate judgment
+    class mcp llm
+    class viewer planned
 ```
 
-Blue nodes are the judgment path: degradation, measurement, metrics, boundary
-decisions and budget accounting. They are deterministic and cannot import an
-LLM client. The single purple node is the only place a model is consulted, and
-it may only propose which axis to spend remaining budget on — the scheduler
-decides whether to accept, and records the rejection when it does not.
+Blue nodes are the judgment path: planning, degradation, measurement and the
+proposal gate. They are deterministic and cannot import an LLM client (enforced
+by `tests/test_no_llm_in_judgment.py`). The single purple node is the only
+place a model is consulted; it may propose an axis order or a split of the
+remaining budget, and the gate accepts or rejects each proposal, recording
+both. Nothing that runs under the budget contract can raise it; only a
+recorded human approval can.
+
+The stack is defined and synth-tested in `infra/`; it is not deployed yet.
 
 ## Probe lifecycle
 
