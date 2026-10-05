@@ -178,3 +178,18 @@ def test_model_spend_beyond_the_contract_stops_the_agent(tmp_path):
     big.usage = NS(input_tokens=60000, output_tokens=0)  # 0.06 USD
     out = run_agent(s, client=FakeClient([big, resp("end_turn", text("never reached"))]))
     assert out["status"] == "budget_exhausted" and out["model_calls"] == 1
+
+
+def test_every_model_call_leaves_a_ledger_record_with_its_charge(tmp_path):
+    a = resp("tool_use", tool_use("get_envelope", {}))
+    a.usage = NS(input_tokens=1000, output_tokens=200)
+    b = resp("end_turn", text("done"))
+    b.usage = NS(input_tokens=3000, output_tokens=100)
+    run_agent(session(tmp_path), client=FakeClient([a, b]))
+    calls = [r for r in ledger(tmp_path) if r["tool"] == "agent.model_call"]
+    pin, pout = PRICE_PER_MTOK[MODEL]
+    assert [c["input"]["call"] for c in calls] == [1, 2]
+    assert calls[0]["output"]["usd"] == pytest.approx((1000 * pin + 200 * pout) / 1e6)
+    assert calls[1]["output"]["contract_spent_after_usd"] == pytest.approx(
+        (4000 * pin + 300 * pout) / 1e6)
+    assert all(c["accepted_by_scheduler"] for c in calls)

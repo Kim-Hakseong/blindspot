@@ -114,7 +114,17 @@ def run_agent(session: AgentSession, client=None, model: str = MODEL) -> dict:
             # Charged to the same contract the gate checks proposals against.
             try:
                 session.contract.charge_usd(call_usd, "agent model call")
+                charged = True
             except BudgetExceeded:
+                charged = False
+            session.ledger.record({
+                "tool": "agent.model_call", "input": {"model": model, "call": calls},
+                "output": {"input_tokens": usage.input_tokens, "output_tokens": usage.output_tokens,
+                           "usd": call_usd, "contract_spent_after_usd": session.contract.spent_usd,
+                           "contract_remaining_usd": session.contract.remaining_usd},
+                "rationale": "model call priced from its token usage and charged to the run contract",
+                "accepted_by_scheduler": charged})
+            if not charged:
                 status = "budget_exhausted"
                 break
 
