@@ -153,3 +153,18 @@ def test_a_split_beyond_the_contract_is_kept_as_pending_not_applied(tmp_path):
     asyncio.run(build_server(s).call_tool(
         "reallocate_budget", {"probes_per_axis": {axes[0]: 9}, "rationale": "more blur"}))
     assert s.allocation is None and s.pending_allocation == {axes[0]: 9}
+
+
+def test_an_accepted_split_replaces_an_earlier_refused_one(tmp_path):
+    # Live run 20261005-210045-b05e54: refused at 199 probes, accepted at 189;
+    # the refused split must not keep the run waiting for approval.
+    import asyncio
+    from blindspot.agent.mcp_server import AgentSession, build_server
+    axes = ["motion_blur.exposure_ms", "fog.beta_per_m"]
+    s = AgentSession(dataset=tmp_path, pipeline="yolox_s", frames=1, seed=1, axes=axes, coverage={},
+                     baseline_map50=0.6, threshold_map50=0.36, budget_usd=0.05,
+                     cost_per_probe_usd=0.01, ledger_path=tmp_path / "d.jsonl")
+    server = build_server(s)
+    asyncio.run(server.call_tool("reallocate_budget", {"probes_per_axis": {axes[0]: 9}, "rationale": "a"}))
+    asyncio.run(server.call_tool("reallocate_budget", {"probes_per_axis": {axes[0]: 4}, "rationale": "b"}))
+    assert s.allocation == {axes[0]: 4} and s.pending_allocation is None

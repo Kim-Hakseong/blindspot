@@ -83,5 +83,5 @@ def review(p: Proposal, run_axes: list[str], contract: BudgetContract, llm_calls
     requested = sum(alloc.values())
     decision = contract.request(requested)
     if not decision.approved:
-        return _reject(p, f"exceeds budget contract: {decision.reason}", RunState.AWAITING_APPROVAL)
+        return _reject(p, decision.reason, RunState.AWAITING_APPROVAL)
     return Verdict(p, True, RunState.RUNNING, "allocation applied", {"probes_per_axis": dict(alloc)})

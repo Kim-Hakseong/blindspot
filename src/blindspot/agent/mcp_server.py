@@ -141,6 +141,7 @@ def build_server(s: AgentSession) -> MCPServer:
                 s.order = verdict.applied["order"]
             else:
                 s.allocation = verdict.applied["probes_per_axis"]
+                s.pending_allocation = None  # replaces any split refused earlier
         elif verdict.state is RunState.AWAITING_APPROVAL:
             s.pending_allocation = dict(args["probes_per_axis"])
         record = verdict.to_record() | {"tool": tool}

@@ -1,0 +1,206 @@
+[
+ {
+  "run_id": "20261005-210045-b05e54",
+  "rationale": "read-only",
+  "at": 1791201647.0,
+  "output": {
+   "allocation": null,
+   "findings": [
+    {
+     "lower": 12.5,
+     "axis": "motion_blur.exposure_ms",
+     "unit": "ms",
+     "upper": 13.75,
+     "status": "located"
+    },
+    {
+     "status": "located",
+     "lower": 12.984375,
+     "axis": "low_light.illuminance_lux",
+     "unit": "lux",
+     "upper": 25.46875
+    },
+    {
+     "axis": "fog.beta_per_m",
+     "unit": "1/m",
+     "upper": 0.06375,
+     "lower": 0.06,
+     "status": "located"
+    },
+    {
+     "axis": "jpeg.quality",
+     "lower": 7.96875,
+     "upper": 10.9375,
+     "unit": "jpeg-q",
+     "status": "located"
+    }
+   ],
+   "coverage_percent": {
+    "fog.beta_per_m": 30.07,
+    "low_light.illuminance_lux": 88.42,
+    "motion_blur.exposure_ms": 17.4,
+    "jpeg.quality": 23.85
+   },
+   "baseline_map50": 0.6110733916774186,
+   "axis_order": [
+    "motion_blur.exposure_ms",
+    "jpeg.quality",
+    "fog.beta_per_m",
+    "low_light.illuminance_lux"
+   ],
+   "budget": {
+    "remaining_usd": 0.398656,
+    "probes_charged": 0.0,
+    "limit_usd": 0.4,
+    "probes_remaining": 199.0,
+    "spent_usd": 0.001344,
+    "cost_per_probe_usd": 0.002
+   },
+   "threshold_map50": 0.36664403500645115
+  },
+  "input": {},
+  "tool": "get_envelope",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-001"
+ },
+ {
+  "rationale": "read-only",
+  "run_id": "20261005-210045-b05e54",
+  "at": 1791201649.0,
+  "output": {
+   "axis": "motion_blur.exposure_ms",
+   "boundary": {
+    "lower": 12.5,
+    "upper": 13.75
+   },
+   "criterion": "mAP@50 below 0.3666 (60% of baseline 0.6111)",
+   "coverage_percent": 17.4
+  },
+  "input": {
+   "axis": "motion_blur.exposure_ms"
+  },
+  "tool": "explain_failure",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-002"
+ },
+ {
+  "rationale": "Motion blur has only 17.4% coverage and is the most undercovered boundary, followed by fog at 30.07% and jpeg at 23.85%. Low light already has excellent 88.42% coverage. Allocating 90 probes to motion_blur, 60 to fog, and 30 to jpeg will dramatically improve coverage on the least-explored axes while maintaining minimal probing of the well-covered low_light axis. This uses 199 of 199 remaining probes.</anionale>\n</invoke>",
+  "run_id": "20261005-210045-b05e54",
+  "at": 1791201652.0,
+  "output": {
+   "state": "AWAITING_APPROVAL",
+   "applied": null,
+   "reason": "exceeds budget contract: exceeds budget contract: 199 probes cost 0.3980 USD but only 0.3936 USD remains of a 0.4000 USD limit"
+  },
+  "input": {
+   "probes_per_axis": {
+    "fog.beta_per_m": 60.0,
+    "low_light.illuminance_lux": 19.0,
+    "jpeg.quality": 30.0,
+    "motion_blur.exposure_ms": 90.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-003"
+ },
+ {
+  "run_id": "20261005-210045-b05e54",
+  "rationale": "Motion blur has only 17.4% coverage and is the most undercovered boundary, followed by fog at 30.07% and jpeg at 23.85%. Low light already has excellent 88.42% coverage. Allocating 89 probes to motion_blur, 59 to fog, and 30 to jpeg will dramatically improve coverage on the least-explored axes while maintaining minimal probing of the well-covered low_light axis. This uses 197 of 199 remaining probes within budget.</anionale>\n</invoke>",
+  "at": 1791201654.0,
+  "output": {
+   "reason": "exceeds budget contract: exceeds budget contract: 197 probes cost 0.3940 USD but only 0.3900 USD remains of a 0.4000 USD limit",
+   "state": "AWAITING_APPROVAL",
+   "applied": null
+  },
+  "input": {
+   "probes_per_axis": {
+    "low_light.illuminance_lux": 19.0,
+    "motion_blur.exposure_ms": 89.0,
+    "fog.beta_per_m": 59.0,
+    "jpeg.quality": 30.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-004"
+ },
+ {
+  "rationale": "Motion blur has only 17.4% coverage and is the most undercovered boundary, followed by fog at 30.07% and jpeg at 23.85%. Low light already has excellent 88.42% coverage. Allocating 85 probes to motion_blur, 55 to fog, and 30 to jpeg will dramatically improve coverage on the least-explored axes while maintaining minimal probing of the well-covered low_light axis. This uses 189 probes within the remaining budget.</anionale>\n</invoke>",
+  "run_id": "20261005-210045-b05e54",
+  "at": 1791201656.0,
+  "output": {
+   "state": "RUNNING",
+   "applied": {
+    "probes_per_axis": {
+     "fog.beta_per_m": 55.0,
+     "jpeg.quality": 30.0,
+     "motion_blur.exposure_ms": 85.0,
+     "low_light.illuminance_lux": 19.0
+    }
+   },
+   "reason": "allocation applied"
+  },
+  "input": {
+   "probes_per_axis": {
+    "jpeg.quality": 30.0,
+    "low_light.illuminance_lux": 19.0,
+    "motion_blur.exposure_ms": 85.0,
+    "fog.beta_per_m": 55.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-005"
+ },
+ {
+  "run_id": "20261005-210045-b05e54",
+  "rationale": "## Summary\n\n**Most Important Failure: Motion Blur (motion_blur.exposure_ms)**\nThe pipeline fails when motion blur exposure reaches 12.5\u201313.75 ms, causing mAP@50 to drop below 0.3666 (60% of the baseline 0.6111). This axis has only 17.4% validation coverage\u2014the lowest of all four axes\u2014making it the most critical blind spot.\n\n**Proposed Budget Allocation:**\nI've allocated the remaining 189 probes as follows:\n- **Motion blur**: 85 probes (most undercovered at 17.4%)\n- **Fog**: 55 probes (second most undercovered at 30.07%)\n- **JPEG quality**: 30 probes (23.85% coverage)\n- **Low light**: 19 probes (already well-covered at 88.42%)\n\nThis strategy prioritizes the axes with the least validation coverage to rapidly expand the known failure boundaries and reduce blind spots.",
+  "at": 1791201659.0,
+  "output": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "input_tokens": 13345.0,
+   "allocation": {
+    "fog.beta_per_m": 55.0,
+    "jpeg.quality": 30.0,
+    "motion_blur.exposure_ms": 85.0,
+    "low_light.illuminance_lux": 19.0
+   },
+   "pending_allocation": {
+    "low_light.illuminance_lux": 19.0,
+    "fog.beta_per_m": 59.0,
+    "motion_blur.exposure_ms": 89.0,
+    "jpeg.quality": 30.0
+   },
+   "run_status": "AWAITING_APPROVAL",
+   "applied_probes_per_axis": {
+    "low_light.illuminance_lux": 19.0,
+    "fog.beta_per_m": 55.0,
+    "jpeg.quality": 30.0,
+    "motion_blur.exposure_ms": 85.0
+   },
+   "model_calls": 6.0,
+   "status": "completed",
+   "axis_order": [
+    "motion_blur.exposure_ms",
+    "jpeg.quality",
+    "fog.beta_per_m",
+    "low_light.illuminance_lux"
+   ],
+   "output_tokens": 1112.0,
+   "held_for_approval": {
+    "motion_blur.exposure_ms": 89.0,
+    "low_light.illuminance_lux": 19.0,
+    "jpeg.quality": 30.0,
+    "fog.beta_per_m": 59.0
+   },
+   "model_usd": 0.018904999999999998
+  },
+  "input": {
+   "budget_usd": 0.4
+  },
+  "tool": "agent.summary",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-006"
+ }
+]
