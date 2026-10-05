@@ -119,6 +119,12 @@ identical to the local benchmark's.
   `bs-decisions` (every plan and proposal, accepted or rejected).
 - **S3** for datasets, wave specs and envelopes; public access blocked, TLS
   enforced.
+- **Report viewer**: the static Next.js export is deployed by the same stack
+  to a private S3 bucket and served by CloudFront through origin access
+  control, at https://d18du1w0ii5yhw.cloudfront.net/. No credentials and no
+  API: the page and its report JSON are files, so the report stays readable
+  when the control plane is down. Cache is a five-minute max-age rather than
+  an invalidation, because CDK grants invalidation on `Resource: "*"`.
 - **Cost shape**: public subnets only, no NAT gateway and no interface
   endpoints; on-demand tables; one-week logs; a 25 USD Budgets alarm filtered
   to the project tag (the alarm is created when a notification address is
@@ -179,7 +185,18 @@ inferred from image statistics against the population's response.
 **On AWS.** The deployed run reproduced all four boundaries exactly, and a
 deliberately starved $0.02 contract stopped after four probes in
 `AWAITING_APPROVAL`; a recorded human approval resumed it under contract
-version 2 and it completed.
+version 2 and it completed. Redeployed from a fresh clone by following only
+the README, it reproduced the same boundaries for
+$0.0752 <!--bench:cloud_runs/20261005-165654-d03e9b-cost.total_usd-->.
+
+**x86 vs Graviton.** On the same image and probe batch, x86 Fargate tasks were
+faster per frame (432.1 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_frame_total_median_ms--> ms against
+497.4 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_frame_total_median_ms--> ms on Graviton4) and Graviton
+was cheaper per frame ($0.01091 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.usd_per_1000_frames--> against
+$0.01185 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.usd_per_1000_frames--> per 1,000). OpenCV's own stages
+were faster on Graviton; inference was faster on x86. Fargate placed the x86
+tasks on two CPU generations, so the x86 figure is a median over different
+hardware (`docs/results.md`).
 
 **Not measured:** the sim-to-real gap (section 7) and COOL versus stock OpenCV
 on Graviton.

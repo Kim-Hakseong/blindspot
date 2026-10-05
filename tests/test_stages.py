@@ -38,3 +38,41 @@ def test_stage_bench_reports_each_stage_and_per_probe_map(tmp_path):
     assert set(report["per_frame"]) == {"degrade", "measure", "infer"}
     assert len(report["results"]) == 3
     assert all(0.0 <= r["map50"] <= 1.0 for r in report["results"])
+
+
+def _report(label, totals_ms, maps):
+    return {"label": label, "fingerprint": {"cpu_model": label, "machine": "m", "kleidicv": False,
+                                            "opencv_version": "5.0.0"},
+            "per_frame": {s: {"median_ms": t, "p95_ms": t, "total_s": 1.0, "n": 1}
+                          for s, t in zip(("degrade", "measure", "infer"), totals_ms)},
+            "per_frame_total_median_ms": sum(totals_ms),
+            "results": [{"probe_id": i, "map50": m} for i, m in enumerate(maps)]}
+
+
+def test_compare_arms_prices_a_frame_and_checks_agreement():
+    from blindspot.stages import compare_arms
+    arms = {"arm64": [_report("a", (1, 1, 8), [0.5, 0.25]), _report("a", (1, 1, 10), [0.5, 0.25])],
+            "x86": [_report("b", (2, 2, 16), [0.5, 0.2501])]}
+    prices = {"arm64": 0.036, "x86": 0.072}  # USD per task-hour
+    out = compare_arms(arms, prices)
+    # median over repeats of the per-frame total median
+    assert out["arms"]["arm64"]["per_frame_total_median_ms"] == 11.0
+    assert out["arms"]["x86"]["per_frame_total_median_ms"] == 20.0
+    # cost of 1000 frames = 1000 * ms/3.6e6 h * $/h
+    assert out["arms"]["arm64"]["usd_per_1000_frames"] == pytest.approx(1000 * 11 / 3.6e6 * 0.036)
+    assert out["speedup_arm64_over_x86"] == pytest.approx(20 / 11)
+    assert out["map50_identical_probes"] == 1 and out["map50_max_abs_difference"] == pytest.approx(1e-4)
+    # repeats on one arm must agree exactly, or the arm is not deterministic
+    assert out["arms"]["arm64"]["repeats_bit_identical"] is True
+
+
+def test_compare_arms_exposes_mixed_cpus_within_an_arm():
+    # Fargate does not pin a CPU generation: one x86 arm can land on several.
+    from blindspot.stages import compare_arms
+    arms = {"arm64": [_report("v2", (1, 1, 8), [0.5])],
+            "x86": [_report("old", (2, 2, 20), [0.5]), _report("new", (1, 1, 10), [0.5])]}
+    out = compare_arms(arms, {"arm64": 1.0, "x86": 1.0})
+    assert out["arms"]["x86"]["cpu_models"] == {"old": 1, "new": 1}
+    assert out["arms"]["x86"]["runs"] == [{"cpu_model": "old", "per_frame_total_median_ms": 24},
+                                          {"cpu_model": "new", "per_frame_total_median_ms": 12}]
+    assert out["arms"]["arm64"]["cpu_models"] == {"v2": 1}

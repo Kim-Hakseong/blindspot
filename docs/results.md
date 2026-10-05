@@ -207,6 +207,39 @@ and a reason, resumed it under contract version 2 and it completed. Both the
 halt reasons and the approval are in the decision ledger. Measured cost across
 both halves: $0.0464 <!--bench:cloud_runs/20261005-134003-56d2f0-cost.total_usd-->.
 
+**Reproduced from a fresh clone** -- after a full teardown, the README's
+path A was followed literally from a new `git clone`
+(`bench/out/cloud_runs/20261005-165654-d03e9b-*.json`): 14 min 50 s,
+33 <!--bench:cloud_runs/20261005-165654-d03e9b-cost.fargate_tasks--> tasks,
+$0.0752 <!--bench:cloud_runs/20261005-165654-d03e9b-cost.total_usd-->, and the
+same four boundaries.
+
+**x86 vs Graviton, same work** -- `bench/fargate_stages.py` runs the fixed
+64-probe batch (10 frames each, YOLOX-S) as `blindspot bench-stages` on both
+Batch queues, same image, 2 vCPU / 4 GiB tasks, three runs per side
+(`bench/out/cool/`). Per-frame medians:
+
+| | Graviton (arm64) | x86 |
+|---|---|---|
+| CPU | Neoverse V2 (Graviton4), all 3 runs | 1 × Cascade Lake 8259CL, 2 × Sapphire Rapids 8488C |
+| Degrade | 3.10 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_median_ms.degrade--> ms | 3.62 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_median_ms.degrade--> ms |
+| Measure | 14.8 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_median_ms.measure--> ms | 19.6 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_median_ms.measure--> ms |
+| Infer (`cv::dnn`) | 470.9 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_median_ms.infer--> ms | 401.3 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_median_ms.infer--> ms |
+| Frame total | 497.4 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_frame_total_median_ms--> ms | 432.1 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_frame_total_median_ms--> ms |
+| Cost per 1,000 frames | $0.01091 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.usd_per_1000_frames--> | $0.01185 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.usd_per_1000_frames--> |
+
+x86 is faster per frame and Graviton is cheaper per frame; the OpenCV stages
+are faster on Graviton and the DNN is faster on x86. The x86 side is not one
+CPU: Fargate placed the three tasks on two generations, 571.4
+<!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[0].per_frame_total_median_ms--> ms per frame on Cascade Lake
+against 387.2 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[1].per_frame_total_median_ms--> and 432.1
+<!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[2].per_frame_total_median_ms--> ms on Sapphire Rapids, so
+"x86 on Fargate" is a distribution, not a number. 59
+<!--bench:cool/fargate_x86_vs_arm64.map50_identical_probes--> of 64 <!--bench:cool/fargate_x86_vs_arm64.map50_probes_compared--> probes gave
+identical mAP across architectures (at most 0.000246
+<!--bench:cool/fargate_x86_vs_arm64.map50_max_abs_difference--> apart); each side's three runs were
+bit-identical to each other. COOL is the third arm, not yet run.
+
 ## Known limitations
 
 1. **Synthetic degradation is not real degradation.** This is the central

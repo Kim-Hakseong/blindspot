@@ -1,0 +1,85 @@
+{
+ "arms": {
+  "arm64": {
+   "cpu_model": "0xd4f",
+   "cpu_models": {
+    "0xd4f": 3
+   },
+   "runs": [
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 496.2584630000322
+    },
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 512.1850859999881
+    },
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 497.3555730000072
+    }
+   ],
+   "kleidicv": true,
+   "opencv_version": "5.0.0",
+   "repeats": 3,
+   "per_frame_total_median_ms": 497.3555730000072,
+   "per_stage_median_ms": {
+    "degrade": 3.100031499997158,
+    "measure": 14.82189150000579,
+    "infer": 470.85389450001003
+   },
+   "usd_per_task_hour": 0.079,
+   "usd_per_1000_frames": 0.010914191740833492,
+   "repeats_bit_identical": true
+  },
+  "x86": {
+   "cpu_model": "Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz",
+   "cpu_models": {
+    "Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz": 1,
+    "Intel(R) Xeon(R) Platinum 8488C": 2
+   },
+   "runs": [
+    {
+     "cpu_model": "Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz",
+     "per_frame_total_median_ms": 571.4146095000174
+    },
+    {
+     "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "per_frame_total_median_ms": 387.1889954999972
+    },
+    {
+     "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "per_frame_total_median_ms": 432.0905784999951
+    }
+   ],
+   "kleidicv": false,
+   "opencv_version": "5.0.0",
+   "repeats": 3,
+   "per_frame_total_median_ms": 432.0905784999951,
+   "per_stage_median_ms": {
+    "degrade": 3.6218355000130487,
+    "measure": 19.60501149999061,
+    "infer": 401.2875579999786
+   },
+   "usd_per_task_hour": 0.09874000000000001,
+   "usd_per_1000_frames": 0.011851284366969313,
+   "repeats_bit_identical": true
+  }
+ },
+ "speedup_arm64_over_x86": 0.8687759863504915,
+ "cost_ratio_x86_over_arm64": 1.0858600112942727,
+ "map50_identical_probes": 59,
+ "map50_probes_compared": 64,
+ "map50_max_abs_difference": 0.00024553608060873255,
+ "task_size": {
+  "vcpu": 2,
+  "memory_gb": 4
+ },
+ "frames_per_probe": 10,
+ "probes_per_run": 64,
+ "job_running_seconds": {
+  "arm64": 1079.846,
+  "x86": 1010.1
+ },
+ "command": "uv run --group cloud python bench/fargate_stages.py --dataset <road100 on S3> --repeats 3 --frames 10"
+}

@@ -17,6 +17,7 @@ import pathlib
 import platform
 import statistics
 import time
+from collections import Counter
 
 import cv2
 import numpy as np
@@ -113,3 +114,44 @@ def run_stage_bench(dataset, frames: int, probes: list[dict], label: str,
         "per_frame_total_median_ms": statistics.median(total) if total else None,
         "results": results,
     }
+
+
+def compare_arms(arms: dict[str, list[dict]], usd_per_task_hour: dict[str, float]) -> dict:
+    """Compare stage-bench reports from two CPU arms, each run one or more times.
+
+    Speed is the median over repeats of each run's per-frame median. Cost is
+    that time priced at the arm's task-hour rate, so the comparison is per unit
+    of work rather than per wall-clock hour. Agreement compares per-probe mAP
+    between the first run of each arm.
+    """
+    out: dict = {"arms": {}}
+    for arch, runs in arms.items():
+        ms = statistics.median(r["per_frame_total_median_ms"] for r in runs)
+        maps = [[p["map50"] for p in r["results"]] for r in runs]
+        out["arms"][arch] = {
+            "cpu_model": runs[0]["fingerprint"]["cpu_model"],
+            # Fargate does not pin a CPU generation; an arm may span several.
+            "cpu_models": dict(Counter(r["fingerprint"]["cpu_model"] for r in runs)),
+            "runs": [{"cpu_model": r["fingerprint"]["cpu_model"],
+                      "per_frame_total_median_ms": r["per_frame_total_median_ms"]} for r in runs],
+            "kleidicv": runs[0]["fingerprint"]["kleidicv"],
+            "opencv_version": runs[0]["fingerprint"]["opencv_version"],
+            "repeats": len(runs),
+            "per_frame_total_median_ms": ms,
+            "per_stage_median_ms": {s: statistics.median(r["per_frame"][s]["median_ms"] for r in runs)
+                                    for s in runs[0]["per_frame"]},
+            "usd_per_task_hour": usd_per_task_hour[arch],
+            "usd_per_1000_frames": 1000 * ms / 3.6e6 * usd_per_task_hour[arch],
+            "repeats_bit_identical": all(m == maps[0] for m in maps),
+        }
+    if {"arm64", "x86"} <= set(arms):
+        a, x = out["arms"]["arm64"], out["arms"]["x86"]
+        out["speedup_arm64_over_x86"] = x["per_frame_total_median_ms"] / a["per_frame_total_median_ms"]
+        out["cost_ratio_x86_over_arm64"] = x["usd_per_1000_frames"] / a["usd_per_1000_frames"]
+        pa = [p["map50"] for p in arms["arm64"][0]["results"]]
+        px = [p["map50"] for p in arms["x86"][0]["results"]]
+        diffs = [abs(i - j) for i, j in zip(pa, px)]
+        out["map50_identical_probes"] = sum(d == 0.0 for d in diffs)
+        out["map50_probes_compared"] = len(diffs)
+        out["map50_max_abs_difference"] = max(diffs)
+    return out
