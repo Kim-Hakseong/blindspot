@@ -152,6 +152,19 @@ split did not bind, the boundaries matched the plain run, and the run cost
 $0.0883 <!--bench:cloud_runs/20261005-210213-0a71ee-cost.total_usd--> including
 $0.0126 <!--bench:cloud_runs/20261005-210213-0a71ee-cost.bedrock_usd--> of model calls.
 
+**A documented agent error.** In run `20261005-205745-0109b4` the agent
+justified its probe split with: "This allocation reduces the largest gaps in
+the validation set." That is wrong. Coverage describes the user's validation
+set, the conditions it was actually captured under; probing synthetic
+conditions cannot change it. Its split was also irrelevant to the search,
+which located every boundary in 8 <!--bench:cloud_runs/20261005-205745-0109b4-envelope.findings[0].probes_used-->
+probes per axis however generous the caps. The error cost nothing because the
+agent cannot act on its reasoning: the gate checks only that a proposal is a
+valid permutation or a split the contract can pay for, and the planner, not
+the agent, decides what is measured and what fails. The case is kept as the
+clearest illustration of why the model proposes and deterministic code
+decides.
+
 ## 6. Evaluation
 
 Validation set `road100`: 100 COCO val2017 frames, 984 objects, filtered to

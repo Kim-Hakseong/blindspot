@@ -1,0 +1,350 @@
+[
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791207999.0,
+  "output": {
+   "contract_spent_after_usd": 0.001394,
+   "usd": 0.001394,
+   "contract_remaining_usd": 0.398606,
+   "input_tokens": 1069.0,
+   "output_tokens": 65.0
+  },
+  "input": {
+   "call": 1.0,
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-001"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "read-only",
+  "at": 1791208000.0,
+  "output": {
+   "allocation": null,
+   "budget": {
+    "limit_usd": 0.4,
+    "probes_charged": 0.0,
+    "remaining_usd": 0.398606,
+    "spent_usd": 0.001394,
+    "probes_remaining": 199.0,
+    "cost_per_probe_usd": 0.002
+   },
+   "threshold_map50": 0.36664403500645115,
+   "coverage_percent": {
+    "jpeg.quality": 23.85,
+    "low_light.illuminance_lux": 88.42,
+    "motion_blur.exposure_ms": 17.4,
+    "fog.beta_per_m": 30.07
+   },
+   "axis_order": [
+    "motion_blur.exposure_ms",
+    "jpeg.quality",
+    "fog.beta_per_m",
+    "low_light.illuminance_lux"
+   ],
+   "findings": [
+    {
+     "axis": "motion_blur.exposure_ms",
+     "unit": "ms",
+     "upper": 13.75,
+     "status": "located",
+     "lower": 12.5
+    },
+    {
+     "axis": "low_light.illuminance_lux",
+     "upper": 25.46875,
+     "unit": "lux",
+     "lower": 12.984375,
+     "status": "located"
+    },
+    {
+     "status": "located",
+     "unit": "1/m",
+     "lower": 0.06,
+     "axis": "fog.beta_per_m",
+     "upper": 0.06375
+    },
+    {
+     "lower": 7.96875,
+     "unit": "jpeg-q",
+     "status": "located",
+     "axis": "jpeg.quality",
+     "upper": 10.9375
+    }
+   ],
+   "baseline_map50": 0.6110733916774186
+  },
+  "input": {},
+  "tool": "get_envelope",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-002"
+ },
+ {
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "run_id": "20261005-224637-d745bf",
+  "at": 1791208001.0,
+  "output": {
+   "contract_spent_after_usd": 0.003423,
+   "input_tokens": 1639.0,
+   "contract_remaining_usd": 0.396577,
+   "output_tokens": 78.0,
+   "usd": 0.002029
+  },
+  "input": {
+   "call": 2.0,
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-003"
+ },
+ {
+  "rationale": "read-only",
+  "run_id": "20261005-224637-d745bf",
+  "at": 1791208001.0,
+  "output": {
+   "boundary": {
+    "lower": 12.984375,
+    "upper": 25.46875
+   },
+   "coverage_percent": 88.42,
+   "axis": "low_light.illuminance_lux",
+   "criterion": "mAP@50 below 0.3666 (60% of baseline 0.6111)"
+  },
+  "input": {
+   "axis": "low_light.illuminance_lux"
+  },
+  "tool": "explain_failure",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-004"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791208006.0,
+  "output": {
+   "contract_remaining_usd": 0.393289,
+   "input_tokens": 1818.0,
+   "output_tokens": 294.0,
+   "usd": 0.003288,
+   "contract_spent_after_usd": 0.006711
+  },
+  "input": {
+   "call": 3.0,
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-005"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "Prioritize axes with lowest validation coverage to maximize information gain. motion_blur.exposure_ms has only 17.4% coverage (needs 80 probes for fine-grained boundary characterization), fog.beta_per_m at 30.07% coverage (60 probes), and jpeg.quality at 23.85% coverage (39 probes) are underexplored. low_light.illuminance_lux already has excellent 88.42% coverage despite being the most critical failure mode, so it needs only 20 additional probes to confirm boundary precision. This allocation maximizes coverage on under-validated axes while maintaining focus on the most important failure.",
+  "at": 1791208006.0,
+  "output": {
+   "state": "AWAITING_APPROVAL",
+   "reason": "exceeds budget contract: 199 probes cost 0.3980 USD but only 0.3933 USD remains of a 0.4000 USD limit",
+   "applied": null
+  },
+  "input": {
+   "probes_per_axis": {
+    "fog.beta_per_m": 60.0,
+    "motion_blur.exposure_ms": 80.0,
+    "low_light.illuminance_lux": 20.0,
+    "jpeg.quality": 39.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-006"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791208009.0,
+  "output": {
+   "contract_spent_after_usd": 0.010531,
+   "output_tokens": 276.0,
+   "contract_remaining_usd": 0.389469,
+   "input_tokens": 2440.0,
+   "usd": 0.00382
+  },
+  "input": {
+   "call": 4.0,
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-007"
+ },
+ {
+  "rationale": "Prioritize axes with lowest validation coverage to maximize information gain. motion_blur.exposure_ms has only 17.4% coverage (needs 80 probes for fine-grained boundary characterization), fog.beta_per_m at 30.07% coverage (60 probes), and jpeg.quality at 23.85% coverage (38 probes) are underexplored. low_light.illuminance_lux already has excellent 88.42% coverage despite being the most critical failure mode, so it needs only 20 additional probes to confirm boundary precision. This allocation fits within remaining budget while maximizing coverage on under-validated axes.",
+  "run_id": "20261005-224637-d745bf",
+  "at": 1791208009.0,
+  "output": {
+   "state": "AWAITING_APPROVAL",
+   "reason": "exceeds budget contract: 198 probes cost 0.3960 USD but only 0.3895 USD remains of a 0.4000 USD limit",
+   "applied": null
+  },
+  "input": {
+   "probes_per_axis": {
+    "motion_blur.exposure_ms": 80.0,
+    "jpeg.quality": 38.0,
+    "fog.beta_per_m": 60.0,
+    "low_light.illuminance_lux": 20.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-008"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791208011.0,
+  "output": {
+   "contract_remaining_usd": 0.385048,
+   "input_tokens": 3051.0,
+   "contract_spent_after_usd": 0.014952,
+   "output_tokens": 274.0,
+   "usd": 0.004421
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 5.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-009"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "Prioritize axes with lowest validation coverage to maximize information gain. motion_blur.exposure_ms has only 17.4% coverage (78 probes), fog.beta_per_m at 30.07% coverage (58 probes), and jpeg.quality at 23.85% coverage (39 probes) are underexplored. low_light.illuminance_lux already has excellent 88.42% coverage despite being the most critical failure mode, so it needs only 20 additional probes to confirm boundary precision. This 195-probe allocation respects the budget constraint while maximizing coverage on under-validated axes.",
+  "at": 1791208011.0,
+  "output": {
+   "reason": "exceeds budget contract: 195 probes cost 0.3900 USD but only 0.3850 USD remains of a 0.4000 USD limit",
+   "state": "AWAITING_APPROVAL",
+   "applied": null
+  },
+  "input": {
+   "probes_per_axis": {
+    "low_light.illuminance_lux": 20.0,
+    "motion_blur.exposure_ms": 78.0,
+    "fog.beta_per_m": 58.0,
+    "jpeg.quality": 39.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-010"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791208013.0,
+  "output": {
+   "input_tokens": 3655.0,
+   "output_tokens": 259.0,
+   "contract_spent_after_usd": 0.019902,
+   "contract_remaining_usd": 0.38009800000000005,
+   "usd": 0.00495
+  },
+  "input": {
+   "call": 6.0,
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-011"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "Prioritize axes with lowest validation coverage to maximize information gain. motion_blur.exposure_ms has only 17.4% coverage (75 probes), fog.beta_per_m at 30.07% coverage (55 probes), and jpeg.quality at 23.85% coverage (38 probes) are underexplored. low_light.illuminance_lux already has excellent 88.42% coverage despite being the most critical failure mode, so it needs only 20 additional probes. This 188-probe allocation stays within budget while systematically addressing coverage gaps.",
+  "at": 1791208014.0,
+  "output": {
+   "state": "RUNNING",
+   "applied": {
+    "probes_per_axis": {
+     "low_light.illuminance_lux": 20.0,
+     "fog.beta_per_m": 55.0,
+     "jpeg.quality": 38.0,
+     "motion_blur.exposure_ms": 75.0
+    }
+   },
+   "reason": "allocation applied"
+  },
+  "input": {
+   "probes_per_axis": {
+    "fog.beta_per_m": 55.0,
+    "jpeg.quality": 38.0,
+    "motion_blur.exposure_ms": 75.0,
+    "low_light.illuminance_lux": 20.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-012"
+ },
+ {
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "run_id": "20261005-224637-d745bf",
+  "at": 1791208018.0,
+  "output": {
+   "contract_spent_after_usd": 0.025892,
+   "contract_remaining_usd": 0.374108,
+   "usd": 0.00599,
+   "input_tokens": 4265.0,
+   "output_tokens": 345.0
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 7.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-013"
+ },
+ {
+  "run_id": "20261005-224637-d745bf",
+  "rationale": "## Summary\n\n**Current Status:**\n- Budget: $0.40 total, $0.3986 spent, ~$0.0014 remaining in probe budget\n- 199 probes remain to spend\n- All 4 axes have failure boundaries already located\n\n**Most Important Failure:**\nThe **low_light.illuminance_lux** axis shows the most critical failure mode. The vision pipeline fails catastrophically when illuminance drops below ~12.98 lux, with mAP@50 dropping below 0.367 (60% of the baseline 0.611). This represents severe performance degradation in low-light conditions and is the most impactful failure discovered so far, though it already has excellent coverage at 88.42%.\n\n**Proposed Allocation (Approved):**\nI allocated 188 probes across the underexplored axes:\n- **motion_blur.exposure_ms**: 75 probes (currently only 17.4% coverage) \u2014 most critically under-validated\n- **fog.beta_per_m**: 55 probes (30.07% coverage) \u2014 second priority\n- **jpeg.quality**: 38 probes (23.85% coverage) \u2014 third priority  \n- **low_light.illuminance_lux**: 20 probes (88.42% coverage) \u2014 already well-understood despite being the most important failure\n\nThis strategy maximizes information gain by focusing on the axes with the least validation coverage while maintaining minimal sampling on the already well-characterized low-light boundary.",
+  "at": 1791208018.0,
+  "output": {
+   "status": "completed",
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "model_calls": 7.0,
+   "allocation": {
+    "low_light.illuminance_lux": 20.0,
+    "motion_blur.exposure_ms": 75.0,
+    "jpeg.quality": 38.0,
+    "fog.beta_per_m": 55.0
+   },
+   "output_tokens": 1591.0,
+   "pending_allocation": null,
+   "axis_order": [
+    "motion_blur.exposure_ms",
+    "jpeg.quality",
+    "fog.beta_per_m",
+    "low_light.illuminance_lux"
+   ],
+   "run_status": "AWAITING_APPROVAL",
+   "model_usd": 0.025892,
+   "applied_probes_per_axis": null,
+   "input_tokens": 17937.0,
+   "held_for_approval": {
+    "fog.beta_per_m": 55.0,
+    "motion_blur.exposure_ms": 75.0,
+    "jpeg.quality": 38.0,
+    "low_light.illuminance_lux": 20.0
+   }
+  },
+  "input": {
+   "budget_usd": 0.4
+  },
+  "tool": "agent.summary",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-014"
+ }
+]
