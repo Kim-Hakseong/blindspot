@@ -8,28 +8,37 @@
    "runs": [
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 505.67478094843807,
      "per_frame_total_median_ms": 496.2584630000322
     },
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 520.3417942484359,
      "per_frame_total_median_ms": 512.1850859999881
     },
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 507.76522798437645,
      "per_frame_total_median_ms": 497.3555730000072
     }
    ],
    "kleidicv": true,
    "opencv_version": "5.0.0",
    "repeats": 3,
+   "mean_ms_per_frame": 507.76522798437645,
    "per_frame_total_median_ms": 497.3555730000072,
+   "per_stage_mean_ms": {
+    "degrade": 19.091990098438423,
+    "measure": 15.702492153124293,
+    "infer": 472.9707457328137
+   },
    "per_stage_median_ms": {
     "degrade": 3.100031499997158,
     "measure": 14.82189150000579,
     "infer": 470.85389450001003
    },
    "usd_per_task_hour": 0.079,
-   "usd_per_1000_frames": 0.010914191740833492,
+   "usd_per_1000_frames": 0.011142625836323816,
    "repeats_bit_identical": true
   },
   "x86": {
@@ -41,33 +50,42 @@
    "runs": [
     {
      "cpu_model": "Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz",
+     "mean_ms_per_frame": 584.7916027187498,
      "per_frame_total_median_ms": 571.4146095000174
     },
     {
      "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "mean_ms_per_frame": 397.76949643124937,
      "per_frame_total_median_ms": 387.1889954999972
     },
     {
      "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "mean_ms_per_frame": 443.3641851812512,
      "per_frame_total_median_ms": 432.0905784999951
     }
    ],
    "kleidicv": false,
    "opencv_version": "5.0.0",
    "repeats": 3,
+   "mean_ms_per_frame": 443.3641851812512,
    "per_frame_total_median_ms": 432.0905784999951,
+   "per_stage_mean_ms": {
+    "degrade": 21.353975251563195,
+    "measure": 20.922876671875024,
+    "infer": 401.08733325781293
+   },
    "per_stage_median_ms": {
     "degrade": 3.6218355000130487,
     "measure": 19.60501149999061,
     "infer": 401.2875579999786
    },
    "usd_per_task_hour": 0.09874000000000001,
-   "usd_per_1000_frames": 0.011851284366969313,
+   "usd_per_1000_frames": 0.012160494345776872,
    "repeats_bit_identical": true
   }
  },
- "speedup_arm64_over_x86": 0.8687759863504915,
- "cost_ratio_x86_over_arm64": 1.0858600112942727,
+ "speedup_arm64_over_x86": 0.8731676781831409,
+ "cost_ratio_x86_over_arm64": 1.0913490701747257,
  "map50_identical_probes": 59,
  "map50_probes_compared": 64,
  "map50_max_abs_difference": 0.00024553608060873255,

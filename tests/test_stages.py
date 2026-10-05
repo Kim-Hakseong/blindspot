@@ -43,7 +43,7 @@ def test_stage_bench_reports_each_stage_and_per_probe_map(tmp_path):
 def _report(label, totals_ms, maps):
     return {"label": label, "fingerprint": {"cpu_model": label, "machine": "m", "kleidicv": False,
                                             "opencv_version": "5.0.0"},
-            "per_frame": {s: {"median_ms": t, "p95_ms": t, "total_s": 1.0, "n": 1}
+            "per_frame": {s: {"median_ms": t, "p95_ms": t, "total_s": t / 1000.0, "n": 1}
                           for s, t in zip(("degrade", "measure", "infer"), totals_ms)},
             "per_frame_total_median_ms": sum(totals_ms),
             "results": [{"probe_id": i, "map50": m} for i, m in enumerate(maps)]}
@@ -73,8 +73,9 @@ def test_compare_arms_exposes_mixed_cpus_within_an_arm():
             "x86": [_report("old", (2, 2, 20), [0.5]), _report("new", (1, 1, 10), [0.5])]}
     out = compare_arms(arms, {"arm64": 1.0, "x86": 1.0})
     assert out["arms"]["x86"]["cpu_models"] == {"old": 1, "new": 1}
-    assert out["arms"]["x86"]["runs"] == [{"cpu_model": "old", "per_frame_total_median_ms": 24},
-                                          {"cpu_model": "new", "per_frame_total_median_ms": 12}]
+    assert out["arms"]["x86"]["runs"] == [
+        {"cpu_model": "old", "mean_ms_per_frame": pytest.approx(24), "per_frame_total_median_ms": 24},
+        {"cpu_model": "new", "mean_ms_per_frame": pytest.approx(12), "per_frame_total_median_ms": 12}]
     assert out["arms"]["arm64"]["cpu_models"] == {"v2": 1}
 
 
@@ -124,3 +125,22 @@ def test_three_way_reports_only_the_effects_whose_arms_ran():
             "graviton_cool": [_report("v2", (2, 10, 470), [0.5])]}
     out = compare_three_way(arms, {"graviton_stock": 0.7, "graviton_cool": 0.74})
     assert "chip_effect" not in out and out["cool_effect"]["speedup"] == pytest.approx(488 / 482)
+
+
+def test_speed_and_cost_come_from_total_work_not_the_median_frame():
+    # Stage times are skewed (a few conditions are expensive), so the median
+    # frame understates the work. Live m8g.4xlarge case: COOL had the lower
+    # median frame but did more total work. Cost and speedup use the mean.
+    from blindspot.stages import compare_arms
+    stock = _report("v2", (3, 12, 61), [0.5])
+    stock["per_frame"]["degrade"].update(total_s=0.019, n=1)   # mean 19 ms, median 3 ms
+    stock["per_frame_total_median_ms"] = 84.8
+    cool = _report("v2", (3, 12, 68), [0.5])
+    cool["per_frame"]["degrade"].update(total_s=0.017, n=1)
+    cool["per_frame_total_median_ms"] = 84.3
+    out = compare_arms({"arm64": [cool], "x86": [stock]}, {"arm64": 1.0, "x86": 1.0})
+    assert out["arms"]["x86"]["mean_ms_per_frame"] == pytest.approx(19 + 12 + 61)
+    assert out["arms"]["arm64"]["mean_ms_per_frame"] == pytest.approx(17 + 12 + 68)
+    assert out["arms"]["arm64"]["usd_per_1000_frames"] == pytest.approx(1000 * 97 / 3.6e6)
+    assert out["speedup_arm64_over_x86"] == pytest.approx(92 / 97)        # slower by work
+    assert out["arms"]["arm64"]["per_frame_total_median_ms"] == 84.3      # latency kept

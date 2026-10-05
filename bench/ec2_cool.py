@@ -75,11 +75,15 @@ def main() -> int:
     parser.add_argument("--keep-stack", action="store_true", help="skip the destroy (debugging)")
     parser.add_argument("--graviton-type", default="c8g.large", choices=sorted(COOL_USD_H))
     parser.add_argument("--no-x86", action="store_true", help="arms 2 and 3 only")
+    parser.add_argument("--recompute", action="store_true",
+                        help="rebuild the comparison from the reports in --out; launch nothing")
     parser.add_argument("--out", type=pathlib.Path, default=OUT,
                         help="where reports go (a smoke test writes outside bench/out)")
     args = parser.parse_args()
     out_dir = args.out
     ARMS = arm_table(args.graviton_type, not args.no_x86)
+    if args.recompute:
+        return recompute(out_dir, ARMS)
     shape = ["-c", f"graviton_type={args.graviton_type}", "-c", f"include_x86={'0' if args.no_x86 else '1'}"]
     if not re.fullmatch(r"ami-[0-9a-f]{8,17}", args.ami):
         parser.error("not an AMI id")
@@ -185,9 +189,29 @@ def main() -> int:
     result.update(summary)
     result["cool_opencv_version"] = arms["graviton_cool"][0]["fingerprint"]["opencv_version"]
     (out_dir / "ec2_three_way.json").write_text(json.dumps(result, indent=1) + "\n")
+    show(result)
+    return 0 if not left else 2
+
+
+def recompute(out_dir: pathlib.Path, arms_table: dict) -> int:
+    """Rebuild the comparison from saved reports; run facts are kept as recorded."""
+    previous = json.loads((out_dir / "ec2_three_way.json").read_text())
+    arms = {a: [json.loads(f.read_text()) for f in sorted(out_dir.glob(f"{prefix}r*.json"))]
+            for a, (prefix, _, _) in arms_table.items()}
+    rates = {a: EC2_USD_H[t] + fee for a, (_, t, fee) in arms_table.items()}
+    result = compare_three_way(arms, rates)
+    result["arms"]["graviton_cool"].pop("kleidicv", None)
+    derived = set(result) | {"arms"}
+    result.update({k: v for k, v in previous.items() if k not in derived})
+    (out_dir / "ec2_three_way.json").write_text(json.dumps(result, indent=1) + "\n")
+    show(result)
+    return 0
+
+
+def show(result: dict) -> None:
     for arm, a in result["arms"].items():
         print(f"{arm}: {a['cpu_models']} OpenCV {a['opencv_version']} "
-              f"{a['per_frame_total_median_ms']:.1f} ms/frame ${a['usd_per_1000_frames']:.5f}/1000")
+              f"{a['mean_ms_per_frame']:.1f} ms/frame (mean) ${a['usd_per_1000_frames']:.5f}/1000")
     for eff in ("chip_effect", "cool_effect"):
         if eff not in result:
             continue
@@ -196,7 +220,6 @@ def main() -> int:
               + " ".join(f"{s}={v:.3f}" for s, v in e["stage_speedup"].items())
               + f" cost ratio {e['cost_ratio']:.3f} identical mAP {e['map50_identical_probes']}/"
               f"{e['map50_probes_compared']}")
-    return 0 if not left else 2
 
 
 if __name__ == "__main__":

@@ -8,28 +8,37 @@
    "runs": [
     {
      "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "mean_ms_per_frame": 372.84401287968734,
      "per_frame_total_median_ms": 362.5612490000094
     },
     {
      "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "mean_ms_per_frame": 368.187964546874,
      "per_frame_total_median_ms": 358.62471949997143
     },
     {
      "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "mean_ms_per_frame": 365.75227607968674,
      "per_frame_total_median_ms": 354.19982349998236
     }
    ],
    "kleidicv": false,
    "opencv_version": "5.0.0",
    "repeats": 3,
+   "mean_ms_per_frame": 368.187964546874,
    "per_frame_total_median_ms": 358.62471949997143,
+   "per_stage_mean_ms": {
+    "degrade": 19.04977733749984,
+    "measure": 16.633507181247253,
+    "infer": 332.6027305031233
+   },
    "per_stage_median_ms": {
     "degrade": 3.166815500009079,
     "measure": 15.422551499995052,
     "infer": 331.7505539999672
    },
    "usd_per_task_hour": 0.08925,
-   "usd_per_1000_frames": 0.008890904504270125,
+   "usd_per_1000_frames": 0.009127993287724583,
    "repeats_bit_identical": true
   },
   "graviton_stock": {
@@ -40,28 +49,37 @@
    "runs": [
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 501.85517062031204,
      "per_frame_total_median_ms": 492.61618949999786
     },
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 502.25997802656127,
      "per_frame_total_median_ms": 492.6521440000329
     },
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 503.05391684218955,
      "per_frame_total_median_ms": 494.1052544999138
     }
    ],
    "kleidicv": true,
    "opencv_version": "5.0.0",
    "repeats": 3,
+   "mean_ms_per_frame": 502.25997802656127,
    "per_frame_total_median_ms": 492.6521440000329,
+   "per_stage_mean_ms": {
+    "degrade": 19.118249657812903,
+    "measure": 14.767437149997775,
+    "infer": 468.6198496234385
+   },
    "per_stage_median_ms": {
     "degrade": 3.104332000020804,
     "measure": 13.807105999944724,
     "infer": 467.74627250005096
    },
    "usd_per_task_hour": 0.07976,
-   "usd_per_1000_frames": 0.010914981945956283,
+   "usd_per_1000_frames": 0.01112784884649959,
    "repeats_bit_identical": true
   },
   "graviton_cool": {
@@ -72,40 +90,50 @@
    "runs": [
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 544.8547990046902,
      "per_frame_total_median_ms": 530.5935824999892
     },
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 548.1011209156218,
      "per_frame_total_median_ms": 534.9303829999599
     },
     {
      "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 546.2087217265658,
      "per_frame_total_median_ms": 530.7474295000247
     }
    ],
    "opencv_version": "5.1.0-dev",
    "repeats": 3,
+   "mean_ms_per_frame": 546.2087217265658,
    "per_frame_total_median_ms": 530.7474295000247,
+   "per_stage_mean_ms": {
+    "degrade": 17.659531998435266,
+    "measure": 14.67780974530939,
+    "infer": 513.8144245578129
+   },
    "per_stage_median_ms": {
     "degrade": 3.1450894999807133,
     "measure": 13.565876500024387,
     "infer": 511.7255160000127
    },
    "usd_per_task_hour": 0.08975999999999999,
-   "usd_per_1000_frames": 0.01323330257553395,
+   "usd_per_1000_frames": 0.013618804128382376,
    "repeats_bit_identical": true
   }
  },
  "chip_effect": {
   "baseline": "x86_stock",
   "candidate": "graviton_stock",
-  "speedup": 0.7279471405283228,
+  "speedup": 0.7330625187249201,
   "stage_speedup": {
-   "degrade": 1.0201278407038474,
-   "measure": 1.11700102107254,
-   "infer": 0.709253228736165
+   "degrade": 0.996418483828875,
+   "measure": 1.1263638376987952,
+   "infer": 0.7097495566403935
   },
-  "cost_ratio": 1.2276570894124477,
+  "median_frame_ratio": 0.7279471405283228,
+  "cost_ratio": 1.2190903844620957,
   "map50_identical_probes": 59,
   "map50_probes_compared": 64,
   "map50_max_abs_difference": 0.00024553608060873255
@@ -113,13 +141,14 @@
  "cool_effect": {
   "baseline": "graviton_stock",
   "candidate": "graviton_cool",
-  "speedup": 0.9282233254791673,
+  "speedup": 0.9195385537581996,
   "stage_speedup": {
-   "degrade": 0.987040909341321,
-   "measure": 1.0177820799061457,
-   "infer": 0.9140569658442425
+   "degrade": 1.082602282977085,
+   "measure": 1.0061063201011329,
+   "infer": 0.9120410545630969
   },
-  "cost_ratio": 1.212398026955651,
+  "median_frame_ratio": 0.9282233254791673,
+  "cost_ratio": 1.2238487704356578,
   "map50_identical_probes": 63,
   "map50_probes_compared": 64,
   "map50_max_abs_difference": 5.2904963447508724e-05

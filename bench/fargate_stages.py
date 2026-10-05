@@ -115,7 +115,7 @@ def summarize(arms, job_seconds, repeats, frames) -> int:
     print(json.dumps({k: v for k, v in result.items() if k != "arms"}, indent=1))
     for arch, a in result["arms"].items():
         print(f"{arch}: {a['cpu_models']} kleidicv={a['kleidicv']} "
-              f"{a['per_frame_total_median_ms']:.1f} ms/frame ${a['usd_per_1000_frames']:.5f}/1000 frames")
+              f"{a['mean_ms_per_frame']:.1f} ms/frame (mean) ${a['usd_per_1000_frames']:.5f}/1000 frames")
         for r in a["runs"]:
             print(f"    {r['cpu_model']}: {r['per_frame_total_median_ms']:.1f} ms/frame")
     return 0

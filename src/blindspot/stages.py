@@ -117,28 +117,40 @@ def run_stage_bench(dataset, frames: int, probes: list[dict], label: str,
     }
 
 
+def _mean_ms(report: dict) -> float:
+    """All stage time in a run divided by its frames, in ms."""
+    n = report["per_frame"]["infer"]["n"]
+    return 1000.0 * sum(s["total_s"] for s in report["per_frame"].values()) / n
+
+
 def compare_arms(arms: dict[str, list[dict]], usd_per_task_hour: dict[str, float]) -> dict:
     """Compare stage-bench reports from two CPU arms, each run one or more times.
 
-    Speed is the median over repeats of each run's per-frame median. Cost is
-    that time priced at the arm's task-hour rate, so the comparison is per unit
-    of work rather than per wall-clock hour. Agreement compares per-probe mAP
-    between the first run of each arm.
+    Speed is total work: each run's mean time per frame (all stage time over
+    frames), median over repeats. Stage times are skewed -- a few conditions
+    are far more expensive -- so the median frame understates the work and can
+    even reverse a comparison; it is kept only as a latency figure. Cost is the
+    mean time priced at the arm's hourly rate, so it is per unit of work.
+    Agreement compares per-probe mAP between the first run of each arm.
     """
     out: dict = {"arms": {}}
     for arch, runs in arms.items():
-        ms = statistics.median(r["per_frame_total_median_ms"] for r in runs)
+        ms = statistics.median(_mean_ms(r) for r in runs)
         maps = [[p["map50"] for p in r["results"]] for r in runs]
         out["arms"][arch] = {
             "cpu_model": runs[0]["fingerprint"]["cpu_model"],
             # Fargate does not pin a CPU generation; an arm may span several.
             "cpu_models": dict(Counter(r["fingerprint"]["cpu_model"] for r in runs)),
-            "runs": [{"cpu_model": r["fingerprint"]["cpu_model"],
+            "runs": [{"cpu_model": r["fingerprint"]["cpu_model"], "mean_ms_per_frame": _mean_ms(r),
                       "per_frame_total_median_ms": r["per_frame_total_median_ms"]} for r in runs],
             "kleidicv": runs[0]["fingerprint"].get("kleidicv"),
             "opencv_version": runs[0]["fingerprint"]["opencv_version"],
             "repeats": len(runs),
-            "per_frame_total_median_ms": ms,
+            "mean_ms_per_frame": ms,
+            "per_frame_total_median_ms": statistics.median(r["per_frame_total_median_ms"] for r in runs),
+            "per_stage_mean_ms": {s: statistics.median(1000.0 * r["per_frame"][s]["total_s"]
+                                                       / r["per_frame"][s]["n"] for r in runs)
+                                  for s in runs[0]["per_frame"]},
             "per_stage_median_ms": {s: statistics.median(r["per_frame"][s]["median_ms"] for r in runs)
                                     for s in runs[0]["per_frame"]},
             "usd_per_task_hour": usd_per_task_hour[arch],
@@ -147,7 +159,7 @@ def compare_arms(arms: dict[str, list[dict]], usd_per_task_hour: dict[str, float
         }
     if {"arm64", "x86"} <= set(arms):
         a, x = out["arms"]["arm64"], out["arms"]["x86"]
-        out["speedup_arm64_over_x86"] = x["per_frame_total_median_ms"] / a["per_frame_total_median_ms"]
+        out["speedup_arm64_over_x86"] = x["mean_ms_per_frame"] / a["mean_ms_per_frame"]
         out["cost_ratio_x86_over_arm64"] = x["usd_per_1000_frames"] / a["usd_per_1000_frames"]
         pa = [p["map50"] for p in arms["arm64"][0]["results"]]
         px = [p["map50"] for p in arms["x86"][0]["results"]]
@@ -180,9 +192,10 @@ def compare_three_way(arms: dict[str, list[dict]], usd_per_hour: dict[str, float
         b, c = out["arms"][base], out["arms"][cand]
         out[name] = {
             "baseline": base, "candidate": cand,
-            "speedup": b["per_frame_total_median_ms"] / c["per_frame_total_median_ms"],
-            "stage_speedup": {s: b["per_stage_median_ms"][s] / c["per_stage_median_ms"][s]
-                              for s in b["per_stage_median_ms"]},
+            "speedup": b["mean_ms_per_frame"] / c["mean_ms_per_frame"],
+            "stage_speedup": {s: b["per_stage_mean_ms"][s] / c["per_stage_mean_ms"][s]
+                              for s in b["per_stage_mean_ms"]},
+            "median_frame_ratio": b["per_frame_total_median_ms"] / c["per_frame_total_median_ms"],
             "cost_ratio": c["usd_per_1000_frames"] / b["usd_per_1000_frames"],
             **_map_agreement(arms[base], arms[cand]),
         }
