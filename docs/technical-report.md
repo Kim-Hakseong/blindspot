@@ -184,8 +184,9 @@ inferred from image statistics against the population's response.
 
 **On AWS.** The deployed run reproduced all four boundaries exactly, and a
 deliberately starved $0.02 contract stopped after four probes in
-`AWAITING_APPROVAL`; a recorded human approval resumed it under contract
-version 2 and it completed. Redeployed from a fresh clone by following only
+`AWAITING_APPROVAL`; `blindspot approve` resumed it under contract version 2
+and it completed. That approval was issued by the project's automation for the
+test, under the operator's name, not by a person deciding. Redeployed from a fresh clone by following only
 the README, it reproduced the same boundaries for
 $0.0752 <!--bench:cloud_runs/20261005-165654-d03e9b-cost.total_usd-->.
 

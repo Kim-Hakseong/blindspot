@@ -200,11 +200,13 @@ All four boundaries and per-axis probe counts are identical to the local
 benchmark above: the cloud planner replays the local search, and the
 degradations are deterministic, so Graviton/Linux and macOS agree exactly.
 
-**Budget halt and human approval** -- a deliberately starved $0.02 contract
+**Budget halt and approval** -- a deliberately starved $0.02 contract
 (`bench/out/cloud_runs/20261005-134003-56d2f0-*.json`). The run stopped after
 four probes in `AWAITING_APPROVAL`; `blindspot approve`, with a named approver
 and a reason, resumed it under contract version 2 and it completed. Both the
-halt reasons and the approval are in the decision ledger. Measured cost across
+halt reasons and the approval are in the decision ledger. The approval in this
+test was issued by the project's automation under the operator's name; it shows
+the mechanism, not a person's decision. Measured cost across
 both halves: $0.0464 <!--bench:cloud_runs/20261005-134003-56d2f0-cost.total_usd-->.
 
 **Reproduced from a fresh clone** -- after a full teardown, the README's

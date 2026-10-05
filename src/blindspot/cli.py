@@ -421,7 +421,10 @@ def _agent_before_run(session, definition: dict, dataset: pathlib.Path, profile:
     keys = ("status", "model", "model_calls", "input_tokens", "output_tokens", "model_usd",
             "axis_order", "allocation", "pending_allocation")
     sink.record({"tool": "agent.summary", "input": {"budget_usd": definition["budget_usd"]},
-                 "output": {k: outcome[k] for k in keys} | {"run_status": status},
+                 "output": {k: outcome[k] for k in keys} | {
+                     "run_status": status,
+                     "applied_probes_per_axis": definition.get("probes_per_axis"),
+                     "held_for_approval": definition.get("pending_allocation")},
                  "rationale": outcome["summary"][:4000], "accepted_by_scheduler": status == "RUNNING"})
     typer.echo(f"agent: {outcome['status']}, {outcome['model_calls']} model calls, "
                f"{outcome['model_usd']:.4f} USD charged to the contract; run {status}")

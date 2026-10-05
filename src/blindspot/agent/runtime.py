@@ -31,6 +31,7 @@ import json
 
 import anthropic
 
+from ..cost.contract import BudgetExceeded
 from .mcp_server import AgentSession, build_server
 
 HAIKU = "global.anthropic.claude-haiku-4-5-20251001-v1:0"
@@ -108,7 +109,14 @@ def run_agent(session: AgentSession, client=None, model: str = MODEL) -> dict:
             pin, pout = PRICE_PER_MTOK[model]
             tokens_in += usage.input_tokens
             tokens_out += usage.output_tokens
-            model_usd += (usage.input_tokens * pin + usage.output_tokens * pout) / 1e6
+            call_usd = (usage.input_tokens * pin + usage.output_tokens * pout) / 1e6
+            model_usd += call_usd
+            # Charged to the same contract the gate checks proposals against.
+            try:
+                session.contract.charge_usd(call_usd, "agent model call")
+            except BudgetExceeded:
+                status = "budget_exhausted"
+                break
 
         if response.stop_reason == "refusal":
             status = "refused"

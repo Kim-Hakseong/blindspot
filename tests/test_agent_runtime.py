@@ -158,3 +158,23 @@ def test_in_cloud_mode_the_agent_cannot_measure_on_this_machine(tmp_path):
     run_agent(s, client=client)
     names = {t["name"] for t in client.requests[0]["tools"]}
     assert "probe_condition" not in names and "reallocate_budget" in names
+
+
+def test_each_model_call_is_charged_as_it_happens_so_the_gate_sees_it(tmp_path):
+    # 0.05 USD at 0.01/probe. The first call costs 0.02 (20k input tokens on
+    # Haiku), so a 5-probe split no longer fits and the gate refuses it.
+    s = session(tmp_path)
+    first = resp("tool_use", tool_use("reallocate_budget",
+                                      {"probes_per_axis": {AXES[0]: 5}, "rationale": "r"}))
+    first.usage = NS(input_tokens=20000, output_tokens=0)
+    out = run_agent(s, client=FakeClient([first, resp("end_turn", text("ok"))]))
+    assert s.contract.spent_usd == pytest.approx(0.02)
+    assert out["allocation"] is None and out["pending_allocation"] == {AXES[0]: 5}
+
+
+def test_model_spend_beyond_the_contract_stops_the_agent(tmp_path):
+    s = session(tmp_path)  # 0.05 USD
+    big = resp("tool_use", tool_use("get_envelope", {}))
+    big.usage = NS(input_tokens=60000, output_tokens=0)  # 0.06 USD
+    out = run_agent(s, client=FakeClient([big, resp("end_turn", text("never reached"))]))
+    assert out["status"] == "budget_exhausted" and out["model_calls"] == 1
