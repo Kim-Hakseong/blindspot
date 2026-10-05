@@ -1,0 +1,73 @@
+"""Sim-to-real: synthetic low-light prediction against real low-light photos.
+
+No first-party capture was made. The real images come from a public
+third-party dataset (ExDark, see DATASETS.md), and their scene illuminance is
+*estimated, not measured*, by one of two methods, always labelled:
+
+- EXIF: the incident-light exposure equation E = C * N^2 / (t * S) with
+  C = 250, from the aperture N, exposure time t (s) and ISO S the camera
+  recorded. It assumes the camera exposed the scene correctly (auto-exposure
+  aims at that), which a deliberately dark or bright shot violates.
+- Image statistics: the photo's SNR inverted through Blindspot's own
+  population sweep on the synthetic low-light axis (boundary/coverage.py). It
+  assumes the real camera's noise behaves like the synthetic model.
+
+The comparison is per bin of estimated illuminance: the detector's real mAP@50
+on the bin's images against the synthetic mAP the low-light sweep predicts at
+the bin's median estimate, both judged against the same failure threshold.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+
+EXIF_METHOD = ("estimated, not measured: E = 250 * N^2 / (t * ISO) from EXIF aperture, "
+               "exposure time and ISO (incident-light exposure equation)")
+STATS_METHOD = ("estimated, not measured: image SNR inverted through Blindspot's synthetic "
+                "low-light population sweep")
+INCIDENT_CALIBRATION = 250.0
+
+
+def parse_exdark(text: str) -> list[dict]:
+    """ExDark bbGt annotation -> [{cls, box: (x0, y0, x1, y1)}]."""
+    boxes = []
+    for line in text.splitlines():
+        if not line.strip() or line.startswith("%"):
+            continue
+        cls, x, y, w, h = line.split()[:5]
+        x, y, w, h = map(float, (x, y, w, h))
+        boxes.append({"cls": cls, "box": (x, y, x + w, y + h)})
+    return boxes
+
+
+def _area(box) -> float:
+    return max(box[2] - box[0], 0.0) * max(box[3] - box[1], 0.0)
+
+
+def person_is_main_subject(boxes: list[dict]) -> bool:
+    """Rule C5: exclude an image whose largest annotated object is a person."""
+    if not boxes:
+        return False
+    return max(boxes, key=lambda b: _area(b["box"]))["cls"] == "People"
+
+
+def exif_illuminance_lux(exposure_s, f_number, iso) -> float | None:
+    if not exposure_s or not f_number or not iso:
+        return None
+    return INCIDENT_CALIBRATION * float(f_number) ** 2 / (float(exposure_s) * float(iso))
+
+
+def compare_bins(bins: list[dict], curve: list[dict], threshold_map50: float) -> dict:
+    """Real vs synthetic mAP per illuminance bin, against one threshold."""
+    values = np.array([p["value"] for p in curve], dtype=float)
+    maps = np.array([p["map50"] for p in curve], dtype=float)
+    order = np.argsort(values)
+    out = []
+    for b in bins:
+        synthetic = float(np.interp(b["lux_median"], values[order], maps[order]))
+        out.append(b | {"synthetic_map50": synthetic, "gap_map50": b["real_map50"] - synthetic,
+                        "synthetic_failed": synthetic < threshold_map50,
+                        "real_failed": b["real_map50"] < threshold_map50})
+    agree = sum(b["synthetic_failed"] == b["real_failed"] for b in out)
+    return {"bins": out, "agree": agree, "disagree": len(out) - agree,
+            "threshold_map50": threshold_map50}

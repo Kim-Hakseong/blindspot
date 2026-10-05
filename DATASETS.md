@@ -12,7 +12,8 @@ licence does not permit redistributing.
 | `val/road100` | Road scene validation set (100 frames, 984 objects) | COCO val2017 images: CC BY 2.0 (72) / CC BY-SA 2.0 (28); annotations CC BY 4.0 | In use — `val/road100/manifest.json` |
 | `val/indoor100` | Indoor scenes: people, furniture, screens, tableware (100 frames, 1,111 objects) | COCO val2017: CC BY 2.0 (69) / CC BY-SA 2.0 (31); annotations CC BY 4.0 | In use — `val/indoor100/manifest.json` |
 | `val/retail100` | Small repeated objects: bottles, cups, bowls, fruit (**73 frames**, 354 objects) | COCO val2017: CC BY 2.0 (50) / CC BY-SA 2.0 (23); annotations CC BY 4.0 | In use — `val/retail100/manifest.json` |
-| Real-capture set | sim-to-real gap measurement (30–50 frames) | Original capture, MIT | Not yet captured |
+| ExDark (third-party, real low-light) | sim-to-real gap on the low-light axis | Annotations: ExDark Dataset Research Use Terms v1.0 (non-commercial academic research, benchmarking; no redistribution). Images: third-party rights, not licensed by ExDark | **Not redistributed.** Fetched by `tools/fetch_exdark.sh` with SHA-256 checks into `.cache/` (git-ignored). Use pending DECISION_NEEDED (see below) |
+| Real-capture set | sim-to-real gap (first-party capture) | — | **Cancelled** by the project owner's decision (2026-10-05): no first-party capture; replaced by ExDark |
 
 The synthetic reference scene is generated deterministically by
 `bench/degrade_response.py` from a fixed seed. It contains no photographic
@@ -69,3 +70,30 @@ A validation set is only eligible if all of the following hold:
 Once acquired, each set records here: source URL, publisher, licence and its
 URL, retrieval date, image count, a SHA-256 manifest committed under
 `val/<set>/manifest.sha256`, and whether pixels are redistributed or fetched.
+
+## ExDark (sim-to-real)
+
+- **Name / version**: Exclusively Dark (ExDark) Image Dataset, repository
+  <https://github.com/cs-chan/Exclusively-Dark-Image-Dataset>, terms
+  "ExDark Dataset Research Use Terms" v1.0 effective 2026-10-01.
+- **What is used**: images labelled Car or Bus, outdoor, with at least one car
+  or bus box; images whose largest annotated object is a person are excluded
+  (rule C5). Only aggregate metrics are published, never images.
+- **Licence**: annotations, labels and splits may be used for non-commercial
+  academic research, education, benchmarking and evaluation, and aggregate
+  results may be published (terms §2, §6). Redistribution of the dataset
+  materials is not permitted (§5), so nothing from ExDark is committed. The
+  photographs themselves are third-party material that the terms do not
+  license (§1(b), §7).
+- **Open question (DECISION_NEEDED)**: §3 requires the licensor's written
+  confirmation when a project is carried out "by, for, with, or under the
+  sponsorship of a for-profit entity". This project is an individual,
+  MIT-licensed, non-commercial competition entry, but the competition is
+  sponsored by a company. Until that is resolved, ExDark-derived numbers are
+  computed locally and not published.
+- **Illuminance**: ExDark records no light level. Any illuminance attached to
+  an ExDark image is **estimated, not measured** — from EXIF exposure where
+  present, otherwise from image statistics — and every report says which.
+- **Citation**: Loh, Y. P., Chan, C. S. "Getting to Know Low-light Images with
+  The Exclusively Dark Dataset", *Computer Vision and Image Understanding* 178
+  (2019) 30–42, doi:10.1016/j.cviu.2018.10.010.
