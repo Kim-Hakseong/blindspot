@@ -143,5 +143,210 @@
   "tool": "agent.summary",
   "accepted_by_scheduler": false,
   "decision_id": "0000-agent-004"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-205745-0109b4",
+  "output": {
+   "spent_usd": 0.010851,
+   "truncated": false,
+   "remaining_usd": 0.439149,
+   "probe_ids": [
+    "baseline"
+   ],
+   "action": "probe"
+  },
+  "input": {
+   "ledger_size": 0.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0001-plan"
+ },
+ {
+  "run_id": "20261005-205745-0109b4",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "remaining_usd": 0.437149,
+   "spent_usd": 0.012851,
+   "probe_ids": [
+    "motion_blur.exposure_ms@0.0",
+    "motion_blur.exposure_ms@10.0",
+    "motion_blur.exposure_ms@20.0",
+    "motion_blur.exposure_ms@30.0",
+    "motion_blur.exposure_ms@40.0",
+    "jpeg.quality@100.0",
+    "jpeg.quality@76.25",
+    "jpeg.quality@52.5",
+    "jpeg.quality@28.75",
+    "jpeg.quality@5.0",
+    "fog.beta_per_m@0.0",
+    "fog.beta_per_m@0.03",
+    "fog.beta_per_m@0.06",
+    "fog.beta_per_m@0.09",
+    "fog.beta_per_m@0.12",
+    "low_light.illuminance_lux@400.0",
+    "low_light.illuminance_lux@300.125",
+    "low_light.illuminance_lux@200.25",
+    "low_light.illuminance_lux@100.375",
+    "low_light.illuminance_lux@0.5"
+   ],
+   "truncated": false,
+   "action": "probe"
+  },
+  "input": {
+   "ledger_size": 1.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0002-plan"
+ },
+ {
+  "run_id": "20261005-205745-0109b4",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "truncated": false,
+   "action": "probe",
+   "remaining_usd": 0.397149,
+   "spent_usd": 0.052851,
+   "probe_ids": [
+    "motion_blur.exposure_ms@15.0",
+    "jpeg.quality@16.875",
+    "fog.beta_per_m@0.075",
+    "low_light.illuminance_lux@50.4375"
+   ]
+  },
+  "input": {
+   "ledger_size": 21.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0003-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-205745-0109b4",
+  "output": {
+   "truncated": false,
+   "action": "probe",
+   "spent_usd": 0.060851,
+   "remaining_usd": 0.389149,
+   "probe_ids": [
+    "motion_blur.exposure_ms@12.5",
+    "jpeg.quality@10.9375",
+    "fog.beta_per_m@0.0675",
+    "low_light.illuminance_lux@25.46875"
+   ]
+  },
+  "input": {
+   "ledger_size": 25.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0004-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-205745-0109b4",
+  "output": {
+   "spent_usd": 0.068851,
+   "probe_ids": [
+    "motion_blur.exposure_ms@13.75",
+    "jpeg.quality@7.96875",
+    "fog.beta_per_m@0.06375",
+    "low_light.illuminance_lux@12.984375"
+   ],
+   "action": "probe",
+   "truncated": false,
+   "remaining_usd": 0.381149
+  },
+  "input": {
+   "ledger_size": 29.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0005-plan"
+ },
+ {
+  "run_id": "20261005-205745-0109b4",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "findings": [
+    {
+     "axis": "motion_blur.exposure_ms",
+     "probes_used": 8.0,
+     "lower": 12.5,
+     "reproduce": "uv run blindspot probe --set motion_blur.exposure_ms=13.75 --seed 20260906",
+     "upper": 13.75,
+     "status": "located",
+     "unit": "ms"
+    },
+    {
+     "status": "located",
+     "lower": 7.96875,
+     "upper": 10.9375,
+     "reproduce": "uv run blindspot probe --set jpeg.quality=7.96875 --seed 20260906",
+     "axis": "jpeg.quality",
+     "probes_used": 8.0,
+     "unit": "jpeg-q"
+    },
+    {
+     "lower": 0.06,
+     "upper": 0.06375,
+     "reproduce": "uv run blindspot probe --set fog.beta_per_m=0.06375 --seed 20260906",
+     "probes_used": 8.0,
+     "axis": "fog.beta_per_m",
+     "status": "located",
+     "unit": "1/m"
+    },
+    {
+     "upper": 25.46875,
+     "probes_used": 8.0,
+     "axis": "low_light.illuminance_lux",
+     "status": "located",
+     "unit": "lux",
+     "lower": 12.984375,
+     "reproduce": "uv run blindspot probe --set low_light.illuminance_lux=12.984375 --seed 20260906"
+    }
+   ],
+   "action": "done",
+   "remaining_usd": 0.373149,
+   "probe_ids": [],
+   "criterion": {
+    "threshold_map50": 0.36664403500645115,
+    "baseline_map50": 0.6110733916774186,
+    "fraction": 0.6,
+    "rule": "mAP@50 below a fraction of the undegraded baseline"
+   },
+   "spent_usd": 0.076851
+  },
+  "input": {
+   "ledger_size": 33.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0006-plan"
+ },
+ {
+  "rationale": "Human review of halted run: budget extension approved for W6 gate evidence",
+  "run_id": "20261005-205745-0109b4",
+  "output": {
+   "budget_before_usd": 0.4,
+   "contract_version": 2.0,
+   "budget_after_usd": 0.45,
+   "applied_allocation": {
+    "motion_blur.exposure_ms": 75.0,
+    "jpeg.quality": 50.0,
+    "low_light.illuminance_lux": 20.0,
+    "fog.beta_per_m": 55.0
+   }
+  },
+  "input": {
+   "approver": "haku",
+   "additional_usd": 0.05
+  },
+  "tool": "human.approve",
+  "accepted_by_scheduler": true,
+  "decision_id": "approve-v02-1791206640"
  }
 ]

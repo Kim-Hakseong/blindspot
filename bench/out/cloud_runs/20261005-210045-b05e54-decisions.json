@@ -202,5 +202,21 @@
   "tool": "agent.summary",
   "accepted_by_scheduler": false,
   "decision_id": "0000-agent-006"
+ },
+ {
+  "rationale": "Halted by a bug, not by the budget: a split the gate refused stayed pending after a smaller split was accepted (fixed in 'Let an accepted split replace an earlier refused one'). Resuming would apply the stale refused split.",
+  "run_id": "20261005-210045-b05e54",
+  "output": {
+   "status": "CANCELLED"
+  },
+  "input": {
+   "operator_claimed": "automation",
+   "operator": "automation",
+   "channel": "non-interactive",
+   "status_before": "AWAITING_APPROVAL"
+  },
+  "tool": "operator.cancel",
+  "accepted_by_scheduler": true,
+  "decision_id": "cancel-1791207654"
  }
 ]

@@ -469,6 +469,24 @@ def approve(
                f"{out['budget_usd']:.2f} USD")
 
 
+@app.command()
+def cancel(
+    run_id: str = typer.Option(..., help="Run halted or not yet started"),
+    reason: str = typer.Option(..., help="Why it must not resume"),
+    operator: str = typer.Option(..., help="Who is cancelling"),
+    profile: str = typer.Option("blindspot"),
+):
+    """Cancel a halted run so it can never be approved; the reason is recorded."""
+    import boto3
+
+    from .cloud.cancel import cancel as do_cancel
+
+    ddb = boto3.Session(profile_name=profile).resource("dynamodb")
+    interactive = sys.stdin.isatty() and sys.stdout.isatty()
+    do_cancel(ddb.Table("bs-runs"), ddb.Table("bs-decisions"), run_id, reason, operator, interactive)
+    typer.echo(f"run {run_id} CANCELLED" + ("" if interactive else " (recorded as automation)"))
+
+
 @app.command("bench-stages")
 def bench_stages(
     label: str = typer.Option(..., help="Arm name, e.g. fargate-arm64 / fargate-x86 / cool-c8g"),
