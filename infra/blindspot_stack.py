@@ -21,6 +21,8 @@ import aws_cdk as cdk
 from aws_cdk import (
     aws_batch as batch,
     aws_budgets as budgets,
+    aws_cloudfront as cloudfront,
+    aws_cloudfront_origins as origins,
     aws_cloudwatch as cloudwatch,
     aws_dynamodb as ddb,
     aws_ec2 as ec2,
@@ -30,6 +32,7 @@ from aws_cdk import (
     aws_lambda as lambda_,
     aws_logs as logs,
     aws_s3 as s3,
+    aws_s3_deployment as s3deploy,
     aws_stepfunctions as sfn,
     aws_stepfunctions_tasks as tasks,
 )
@@ -254,6 +257,48 @@ class BlindspotStack(cdk.Stack):
                     ) for kind, pct in (("ACTUAL", 50), ("ACTUAL", 100), ("FORECASTED", 100))
                 ],
             )
+
+        # ---- public report viewer (W5-7): static export behind CloudFront ----
+        # No server: the page is static files plus report.json, so the report
+        # stays up when nothing else in this stack is running. The bucket is
+        # private; only this distribution can read it (Origin Access Control).
+        viewer_bucket = s3.Bucket(
+            self, "Viewer",
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            enforce_ssl=True, encryption=s3.BucketEncryption.S3_MANAGED,
+            removal_policy=cdk.RemovalPolicy.DESTROY,
+        )
+        distribution = cloudfront.Distribution(
+            self, "ViewerCdn",
+            comment="Blindspot report viewer (project=blindspot)",
+            default_root_object="index.html",
+            price_class=cloudfront.PriceClass.PRICE_CLASS_100,
+            default_behavior=cloudfront.BehaviorOptions(
+                origin=origins.S3BucketOrigin.with_origin_access_control(viewer_bucket),
+                viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                cache_policy=cloudfront.CachePolicy.CACHING_OPTIMIZED,
+                response_headers_policy=cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+            ),
+            error_responses=[cloudfront.ErrorResponse(
+                http_status=403, response_http_status=404, response_page_path="/404.html",
+                ttl=cdk.Duration.minutes(5))],
+        )
+        viewer_out = ROOT / "viewer" / "out"
+        if self.node.try_get_context("skip_viewer") == "1" or not viewer_out.is_dir():
+            source = s3deploy.Source.data("index.html", "<!doctype html><title>Blindspot</title>"
+                                          "<p>viewer not built: run bench/build_report.py and "
+                                          "npm run build in viewer/</p>")
+        else:
+            source = s3deploy.Source.asset(str(viewer_out))
+        # No CloudFront invalidation: CDK grants it on Resource "*", which the
+        # least-privilege test rejects. A 5-minute max-age instead, honoured by
+        # the caching policy, so a redeployed report is live within minutes.
+        s3deploy.BucketDeployment(
+            self, "ViewerContent", sources=[source], destination_bucket=viewer_bucket,
+            memory_limit=512,
+            cache_control=[s3deploy.CacheControl.max_age(cdk.Duration.minutes(5))],
+        )
+        cdk.CfnOutput(self, "ReportUrl", value=f"https://{distribution.distribution_domain_name}/")
 
         cdk.CfnOutput(self, "StateMachineArn", value=self.state_machine.state_machine_arn)
         cdk.CfnOutput(self, "BucketName", value=bucket.bucket_name)

@@ -47,7 +47,8 @@ ASSET_ONLY = {"ecr:GetAuthorizationToken"}
 
 @pytest.fixture(scope="module")
 def template():
-    app = cdk.App(context={"budget_email": "alerts@example.invalid", "skip_docker": "1"})
+    app = cdk.App(context={"budget_email": "alerts@example.invalid", "skip_docker": "1",
+                           "skip_viewer": "1"})
     stack = BlindspotStack(app, "Blindspot",
                            env=cdk.Environment(account="123456789012", region="us-east-1"))
     return assertions.Template.from_stack(stack)
@@ -63,6 +64,7 @@ TAGGABLE = {
     "AWS::Batch::ComputeEnvironment", "AWS::Batch::JobQueue", "AWS::Batch::JobDefinition",
     "AWS::StepFunctions::StateMachine", "AWS::Lambda::Function", "AWS::IAM::Role",
     "AWS::Logs::LogGroup",
+    "AWS::CloudFront::Distribution",
 }
 
 
@@ -180,3 +182,26 @@ def test_dashboard_shows_planner_metrics_and_run_outcomes(template):
     body = json.dumps(next(iter(dashboards.values()))["Properties"]["DashboardBody"])
     for metric in ("ProbesCompleted", "SpentUSD", "AxesLocated", "RunHalted", "ExecutionsFailed"):
         assert metric in body
+
+
+
+def test_report_viewer_is_served_by_cloudfront_from_a_private_bucket(template):
+    """W5-7: public URL, no credentials, no server -- static S3 behind CloudFront.
+    The bucket itself stays private; only this distribution may read it."""
+    dists = resources(template, "AWS::CloudFront::Distribution")
+    assert len(dists) == 1
+    cfg = next(iter(dists.values()))["Properties"]["DistributionConfig"]
+    assert cfg["DefaultRootObject"] == "index.html"
+    assert cfg["DefaultCacheBehavior"]["ViewerProtocolPolicy"] == "redirect-to-https"
+    assert "OriginAccessControlId" in json.dumps(cfg["Origins"])
+    assert len(resources(template, "AWS::CloudFront::OriginAccessControl")) == 1
+    buckets = resources(template, "AWS::S3::Bucket")
+    for b in buckets.values():
+        assert b["Properties"]["PublicAccessBlockConfiguration"]["RestrictPublicBuckets"] is True
+    policies = json.dumps(resources(template, "AWS::S3::BucketPolicy"))
+    assert "cloudfront.amazonaws.com" in policies and "AWS:SourceArn" in policies
+
+
+def test_viewer_url_is_an_output(template):
+    outputs = template.to_json()["Outputs"]
+    assert any(k.startswith("ReportUrl") for k in outputs)
