@@ -21,7 +21,7 @@ pytest.importorskip("mcp")
 import anthropic  # noqa: E402
 
 from blindspot.agent.mcp_server import AgentSession  # noqa: E402
-from blindspot.agent.runtime import DOWNGRADE, MODEL, run_agent  # noqa: E402
+from blindspot.agent.runtime import DOWNGRADE, MODEL, PRICE_PER_MTOK, run_agent  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 AXES = ["motion_blur.exposure_ms", "low_light.illuminance_lux", "fog.beta_per_m", "jpeg.quality"]
@@ -108,11 +108,18 @@ def test_call_cap_stops_the_loop_and_falls_back(tmp_path):
 
 def test_repeated_overload_downgrades_the_model_one_step(tmp_path):
     """A5: three overloads on a model, then the next model down."""
+    upper = next(iter(DOWNGRADE))
     client = FakeClient([overloaded(), overloaded(), overloaded(), resp("end_turn", text("ok"))])
-    out = run_agent(session(tmp_path), client=client)
+    out = run_agent(session(tmp_path), client=client, model=upper)
     assert out["status"] == "completed"
-    assert [r["model"] for r in client.requests] == [MODEL] * 3 + [DOWNGRADE[MODEL]]
-    assert out["model"] == DOWNGRADE[MODEL]
+    assert [r["model"] for r in client.requests] == [upper] * 3 + [DOWNGRADE[upper]]
+    assert out["model"] == DOWNGRADE[upper]
+
+
+def test_overload_on_the_last_model_ends_on_the_heuristic(tmp_path):
+    assert MODEL not in DOWNGRADE  # the default is the bottom of the chain
+    out = run_agent(session(tmp_path), client=FakeClient([overloaded()] * 3))
+    assert out["status"] == "overloaded" and out["axis_order"]
 
 
 def test_a_refusal_ends_the_run_on_the_heuristic(tmp_path):
@@ -130,3 +137,24 @@ def test_a_tool_error_is_returned_to_the_model_not_raised(tmp_path):
     run_agent(session(tmp_path), client=client)
     result = client.requests[1]["messages"][-1]["content"][0]
     assert result["is_error"] is True
+
+
+def test_token_usage_is_priced_so_the_run_contract_can_be_charged(tmp_path):
+    a = resp("tool_use", tool_use("get_envelope", {}))
+    a.usage = NS(input_tokens=1000, output_tokens=200)
+    b = resp("end_turn", text("done"))
+    b.usage = NS(input_tokens=3000, output_tokens=100)
+    out = run_agent(session(tmp_path), client=FakeClient([a, b]))
+    pin, pout = PRICE_PER_MTOK[MODEL]
+    assert (out["input_tokens"], out["output_tokens"]) == (4000, 300)
+    assert out["model_usd"] == pytest.approx((4000 * pin + 300 * pout) / 1e6)
+
+
+def test_in_cloud_mode_the_agent_cannot_measure_on_this_machine(tmp_path):
+    # Measurements of a cloud run happen on AWS Batch; the agent only proposes.
+    s = session(tmp_path)
+    s.measure_locally = False
+    client = FakeClient([resp("end_turn", text("ok"))])
+    run_agent(s, client=client)
+    names = {t["name"] for t in client.requests[0]["tools"]}
+    assert "probe_condition" not in names and "reallocate_budget" in names

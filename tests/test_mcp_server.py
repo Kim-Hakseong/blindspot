@@ -141,3 +141,15 @@ def test_a_real_stdio_client_can_list_and_call_tools(tmp_path):
     names, result = asyncio.run(run())
     assert "reallocate_budget" in names
     assert not getattr(result, "isError", False) and not getattr(result, "is_error", False)
+
+
+def test_a_split_beyond_the_contract_is_kept_as_pending_not_applied(tmp_path):
+    import asyncio
+    from blindspot.agent.mcp_server import AgentSession, build_server
+    axes = ["motion_blur.exposure_ms", "fog.beta_per_m"]
+    s = AgentSession(dataset=tmp_path, pipeline="yolox_s", frames=1, seed=1, axes=axes, coverage={},
+                     baseline_map50=0.6, threshold_map50=0.36, budget_usd=0.05,
+                     cost_per_probe_usd=0.01, ledger_path=tmp_path / "d.jsonl")
+    asyncio.run(build_server(s).call_tool(
+        "reallocate_budget", {"probes_per_axis": {axes[0]: 9}, "rationale": "more blur"}))
+    assert s.allocation is None and s.pending_allocation == {axes[0]: 9}

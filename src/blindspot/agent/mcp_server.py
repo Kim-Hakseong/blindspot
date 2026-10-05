@@ -52,10 +52,17 @@ class AgentSession:
     order: list[str] | None = None
     allocation: dict[str, int] | None = None
     proposals: int = 0
+    #: A split the gate refused for exceeding the contract, kept for the human.
+    pending_allocation: dict[str, int] | None = None
+    #: False for a cloud run: measurements happen on AWS Batch, so the agent
+    #: is not offered probe_condition and only reads and proposes.
+    measure_locally: bool = True
+    #: Any object with record(entry); a JSONL file by default, bs-decisions in the cloud.
+    ledger_sink: object | None = None
 
     def __post_init__(self):
         self.contract = BudgetContract(self.budget_usd, self.cost_per_probe_usd)
-        self.ledger = DecisionLedger(self.ledger_path)
+        self.ledger = self.ledger_sink or DecisionLedger(self.ledger_path)
         self._runtime = None
         if self.order is None:
             self.order = heuristic_order(self.axes, self.coverage)
@@ -134,6 +141,8 @@ def build_server(s: AgentSession) -> MCPServer:
                 s.order = verdict.applied["order"]
             else:
                 s.allocation = verdict.applied["probes_per_axis"]
+        elif verdict.state is RunState.AWAITING_APPROVAL:
+            s.pending_allocation = dict(args["probes_per_axis"])
         record = verdict.to_record() | {"tool": tool}
         s.ledger.record(record)
         return record

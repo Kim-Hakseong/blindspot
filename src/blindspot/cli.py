@@ -335,6 +335,8 @@ def cloud_run(
     cost_per_probe: float = typer.Option(0.002, help="USD per probe, for the contract"),
     stack: str = typer.Option("Blindspot"),
     profile: str = typer.Option("blindspot", help="AWS profile dedicated to this project"),
+    agent: bool = typer.Option(False, "--agent", help="Let the agent propose axis order and probe "
+                               "split first (Bedrock; its model cost is charged to the contract)"),
 ):
     """Start a run on AWS: upload the dataset, fix the contract, start the loop."""
     import hashlib
@@ -373,14 +375,57 @@ def cloud_run(
     definition = {"run_id": run_id, "seed": seed, "verify_samples": 5, "budget_usd": budget,
                   "cost_per_probe_usd": cost_per_probe, "dataset": f"s3://{bucket}/{prefix}",
                   "pipeline": pipeline, "frames": frames, "axes": run_axes}
+    status = "RUNNING"
+    if agent:
+        definition, status = _agent_before_run(session, definition, dataset, profile)
     session.resource("dynamodb").Table("bs-runs").put_item(Item={
-        "run_id": run_id, "status": "RUNNING", "arch": arch, "round": 0,
+        "run_id": run_id, "status": status, "arch": arch, "round": 0,
         "definition": json.dumps(definition), "created": int(time.time())})
+    if status == "AWAITING_APPROVAL":
+        typer.echo(f"run {run_id} created AWAITING_APPROVAL: the agent's plan exceeds the "
+                   f"{budget:.2f} USD contract. Nothing has run. To continue:")
+        typer.echo(f"  blindspot approve --run-id {run_id} --additional-usd <USD> "
+                   "--approver <name> --reason <why>")
+        return
     execution = session.client("stepfunctions").start_execution(
         stateMachineArn=outputs["StateMachineArn"], name=run_id,
         input=json.dumps({"run_id": run_id, "arch": arch}))
     typer.echo(f"run {run_id} started on {arch}; budget {budget:.2f} USD fixed")
     typer.echo(execution["executionArn"])
+
+
+def _agent_before_run(session, definition: dict, dataset: pathlib.Path, profile: str):
+    """Run the agent on the plan, then let deterministic code decide what applies."""
+    from .agent.mcp_server import AgentSession
+    from .agent.runtime import default_client, run_agent
+    from .cloud.agent_plan import DynamoDecisionLedger, prepare_agent_run
+
+    report_path = pathlib.Path(__file__).resolve().parents[2] / "viewer/public/data/report.json"
+    report = json.loads(report_path.read_text()) if report_path.is_file() else {}
+    prior = report.get("run", {})
+    same = prior.get("pipeline") == definition["pipeline"] and prior.get("dataset") == dataset.name
+    sink = DynamoDecisionLedger(session.resource("dynamodb").Table("bs-decisions"), definition["run_id"])
+    s = AgentSession(
+        dataset=dataset, pipeline=definition["pipeline"], frames=definition["frames"],
+        seed=definition["seed"], axes=[a["axis"] for a in definition["axes"]],
+        coverage={r["axis"]: r["coverage_percent"] for r in report.get("uncovered_regions", [])} if same else {},
+        baseline_map50=prior.get("baseline_map50", 0.0) if same else 0.0,
+        threshold_map50=prior.get("threshold_map50", 0.0) if same else 0.0,
+        budget_usd=definition["budget_usd"], cost_per_probe_usd=definition["cost_per_probe_usd"],
+        ledger_path=pathlib.Path("unused"), measure_locally=False, ledger_sink=sink,
+        findings=[{k: f[k] for k in ("axis", "unit", "status", "lower", "upper")}
+                  for f in report.get("findings", [])] if same else [],
+    )
+    outcome = run_agent(s, client=default_client(profile=profile))
+    definition, status = prepare_agent_run(definition, outcome)
+    keys = ("status", "model", "model_calls", "input_tokens", "output_tokens", "model_usd",
+            "axis_order", "allocation", "pending_allocation")
+    sink.record({"tool": "agent.summary", "input": {"budget_usd": definition["budget_usd"]},
+                 "output": {k: outcome[k] for k in keys} | {"run_status": status},
+                 "rationale": outcome["summary"][:4000], "accepted_by_scheduler": status == "RUNNING"})
+    typer.echo(f"agent: {outcome['status']}, {outcome['model_calls']} model calls, "
+               f"{outcome['model_usd']:.4f} USD charged to the contract; run {status}")
+    return definition, status
 
 
 @app.command()
