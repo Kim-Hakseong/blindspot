@@ -26,6 +26,7 @@ from aws_cdk import (
     aws_cloudwatch as cloudwatch,
     aws_dynamodb as ddb,
     aws_ec2 as ec2,
+    aws_ecr as ecr,
     aws_ecr_assets as ecr_assets,
     aws_ecs as ecs,
     aws_iam as iam,
@@ -102,13 +103,22 @@ class BlindspotStack(cdk.Stack):
             ("arm64", ecs.CpuArchitecture.ARM64, ecr_assets.Platform.LINUX_ARM64),
             ("x86", ecs.CpuArchitecture.X86_64, ecr_assets.Platform.LINUX_AMD64),
         ):
-            image = (ecs.ContainerImage.from_registry("public.ecr.aws/docker/library/busybox:1.36")
-                     if skip_docker else
-                     ecs.ContainerImage.from_docker_image_asset(ecr_assets.DockerImageAsset(
-                         self, f"WorkerImage_{arch}", directory=str(ROOT), platform=platform,
-                         file="Dockerfile",
-                         exclude=["viewer", "infra", ".venv", ".cache", "val/*/images",
-                                  "bench/out/hook_cells", "node_modules", ".git"])))
+            reuse_tag = self.node.try_get_context(f"worker_tag_{arch}")
+            if reuse_tag:
+                # An image already published to the CDK asset repository and
+                # checked by tools/verify_images.py: redeploy without a local build.
+                asset_repo = ecr.Repository.from_repository_name(
+                    self, f"AssetRepo_{arch}",
+                    f"cdk-bspot-container-assets-{self.account}-{self.region}")
+                image = ecs.ContainerImage.from_ecr_repository(asset_repo, reuse_tag)
+            elif skip_docker:
+                image = ecs.ContainerImage.from_registry("public.ecr.aws/docker/library/busybox:1.36")
+            else:
+                image = ecs.ContainerImage.from_docker_image_asset(ecr_assets.DockerImageAsset(
+                    self, f"WorkerImage_{arch}", directory=str(ROOT), platform=platform,
+                    file="Dockerfile",
+                    exclude=["viewer", "infra", ".venv", ".cache", "val/*/images",
+                             "bench/out/hook_cells", "node_modules", ".git"]))
             env = batch.FargateComputeEnvironment(
                 self, f"Compute_{arch}", compute_environment_name=f"bs-{arch}",
                 vpc=vpc, vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),

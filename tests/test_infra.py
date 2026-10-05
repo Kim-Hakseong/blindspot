@@ -205,3 +205,21 @@ def test_report_viewer_is_served_by_cloudfront_from_a_private_bucket(template):
 def test_viewer_url_is_an_output(template):
     outputs = template.to_json()["Outputs"]
     assert any(k.startswith("ReportUrl") for k in outputs)
+
+
+def test_published_worker_images_can_be_reused_without_a_local_build():
+    # `-c worker_tag_arm64=<tag> -c worker_tag_x86=<tag>` points the job
+    # definitions at images already in the CDK asset repository, so a change
+    # that does not touch the worker redeploys without a Docker build.
+    app = cdk.App(context={"skip_viewer": "1", "worker_tag_arm64": "a" * 64,
+                           "worker_tag_x86": "b" * 64})
+    stack = BlindspotStack(app, "Blindspot",
+                           env=cdk.Environment(account="123456789012", region="us-east-1"))
+    t = assertions.Template.from_stack(stack).to_json()
+    images = {jd["Properties"]["JobDefinitionName"]: json.dumps(jd["Properties"])
+              for jd in t["Resources"].values() if jd["Type"] == "AWS::Batch::JobDefinition"}
+    assert "cdk-bspot-container-assets" in images["bs-worker-arm64"] and "a" * 64 in images["bs-worker-arm64"]
+    assert "b" * 64 in images["bs-worker-x86"]
+    assembly = app.synth()
+    manifest = json.loads(pathlib.Path(assembly.directory, "Blindspot.assets.json").read_text())
+    assert not manifest.get("dockerImages")
