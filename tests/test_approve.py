@@ -31,7 +31,8 @@ def halted_run():
 
 def test_approval_raises_the_limit_as_a_recorded_new_contract():
     runs, decisions, started = halted_run(), Table(), []
-    out = approve(runs, decisions, lambda **kw: started.append(kw), "r1", 0.10, "haku", "need jpeg axis")
+    out = approve(runs, decisions, lambda **kw: started.append(kw), "r1", 0.10, "haku", "need jpeg axis",
+                  confirm=lambda summary: "r1")
     item = runs.items[("r1", "")]
     assert json.loads(item["definition"])["budget_usd"] == pytest.approx(0.18)
     assert item["status"] == "RUNNING" and int(item["contract_version"]) == 2
@@ -87,3 +88,64 @@ def test_approval_too_small_for_the_pending_allocation_keeps_it_pending():
     approve(runs, Table(), lambda **kw: None, "r1", 0.02, "haku", "partial")
     after = json.loads(runs.items[("r1", "")]["definition"])
     assert "probes_per_axis" not in after and after["pending_allocation"] == {"a": 20}
+
+
+def test_an_interactive_approval_must_be_confirmed_by_typing_the_run_id():
+    runs, decisions, started = halted_run(), Table(), []
+    shown = []
+    approve(runs, decisions, lambda **kw: started.append(kw), "r1", 0.10, "haku", "ok",
+            confirm=lambda summary: shown.append(summary) or "r1")
+    rec = next(v for (r, d), v in decisions.items.items() if d)
+    assert rec["input"]["approver"] == "haku" and rec["input"]["channel"] == "interactive-confirmed"
+    assert "0.08" in shown[0] and "0.18" in shown[0]  # the human sees before and after
+
+
+def test_a_wrong_confirmation_writes_nothing_and_starts_nothing():
+    runs, decisions, started = halted_run(), Table(), []
+    with pytest.raises(ValueError, match="not confirmed"):
+        approve(runs, decisions, lambda **kw: started.append(kw), "r1", 0.10, "haku", "ok",
+                confirm=lambda summary: "yes")
+    assert runs.items[("r1", "")]["status"] == "AWAITING_APPROVAL"
+    assert not [k for k in decisions.items if k[1]] and not started
+
+
+def test_without_a_terminal_the_approver_is_recorded_as_automation():
+    # A name passed on the command line by a script is a claim, not a person.
+    runs, decisions, started = halted_run(), Table(), []
+    approve(runs, decisions, lambda **kw: started.append(kw), "r1", 0.10, "haku", "ci", confirm=None)
+    rec = next(v for (r, d), v in decisions.items.items() if d)
+    assert rec["input"]["approver"] == "automation"
+    assert rec["input"]["approver_claimed"] == "haku"
+    assert rec["input"]["channel"] == "non-interactive"
+    assert started  # still allowed: the record says what it was
+
+
+def test_the_cli_records_a_piped_approval_as_automation(monkeypatch):
+    # CliRunner gives the command no terminal, as a script or an agent would.
+    from typer.testing import CliRunner
+
+    import blindspot.cloud.approve as mod
+    from blindspot import cli
+
+    seen = {}
+
+    def fake_approve(runs, decisions, start, run_id, usd, approver, reason, confirm=None):
+        seen["confirm"] = confirm
+        return {"contract_version": 2, "budget_usd": 0.5}
+
+    class Session:
+        def __init__(self, **kw):
+            pass
+
+        def resource(self, name):
+            return type("R", (), {"Table": lambda self, n: None})()
+
+        def client(self, name):
+            return type("C", (), {"describe_stacks": lambda self, **k: {"Stacks": [{"Outputs": []}]}})()
+
+    monkeypatch.setattr(mod, "approve", fake_approve)
+    monkeypatch.setattr("boto3.Session", Session)
+    result = CliRunner().invoke(cli.app, ["approve", "--run-id", "r1", "--additional-usd", "0.1",
+                                          "--approver", "haku", "--reason", "x"])
+    assert result.exit_code == 0, result.output
+    assert seen["confirm"] is None and "automation" in result.output

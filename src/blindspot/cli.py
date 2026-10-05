@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import sys
 import time
 from typing import Optional
 
@@ -456,8 +457,14 @@ def approve(
                             name=f"{run_id}-v{contract_version}",
                             input=json.dumps({"run_id": run_id, "arch": arch}))
 
+    # A person at a terminal confirms by typing the run id; anything else is
+    # recorded as automation (cloud/approve.py).
+    interactive = sys.stdin.isatty() and sys.stdout.isatty()
+    confirm = (lambda summary: typer.prompt(f"{summary}\nType the run id to approve")) if interactive else None
+    if not interactive:
+        typer.echo("no interactive terminal: this approval is recorded with approver 'automation'")
     out = do_approve(ddb.Table("bs-runs"), ddb.Table("bs-decisions"), start,
-                     run_id, additional_usd, approver, reason)
+                     run_id, additional_usd, approver, reason, confirm=confirm)
     typer.echo(f"run {run_id} resumed under contract v{out['contract_version']}: "
                f"{out['budget_usd']:.2f} USD")
 

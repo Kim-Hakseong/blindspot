@@ -4,6 +4,15 @@ The contract cannot be raised by the code operating under it, and an agent
 has no tool that raises it. Continuing is a separate, human act: it must name
 an approver and a reason, it adds a positive amount as a new contract version,
 and it is written to the decision ledger before the loop restarts.
+
+Who approved is only as good as how it was asked. From an interactive
+terminal the approver is shown the change and must type the run id to confirm
+(`confirm`), and the record says "interactive-confirmed". Without a terminal
+(`confirm=None`: a script, CI, an agent) the approval still goes through, but
+the record names the approver "automation" and keeps the supplied name only as
+`approver_claimed`. A terminal shows someone typed; it cannot prove who.
+Records written before this rule have no `channel` field and are left as they
+are.
 """
 
 from __future__ import annotations
@@ -16,7 +25,7 @@ from ..cost.contract import BudgetContract
 
 
 def approve(runs, decisions, start_execution, run_id: str, additional_usd: float,
-            approver: str, reason: str) -> dict:
+            approver: str, reason: str, confirm=None) -> dict:
     if additional_usd <= 0:
         raise ValueError("approval must add a positive amount")
     if not approver.strip() or not reason.strip():
@@ -44,10 +53,20 @@ def approve(runs, decisions, start_execution, run_id: str, additional_usd: float
             definition["probes_per_axis"] = definition.pop("pending_allocation")
             applied = pending
 
+    if confirm is not None:
+        summary = (f"Approve run {run_id}: contract {before:.4f} -> {definition['budget_usd']:.4f} USD "
+                   f"(v{version})" + (f", applying split {applied}" if applied else "")
+                   + f"\nApprover: {approver}\nReason: {reason}")
+        if confirm(summary).strip() != run_id:
+            raise ValueError("approval not confirmed: the run id was not typed back")
+        who = {"approver": approver, "channel": "interactive-confirmed"}
+    else:
+        who = {"approver": "automation", "approver_claimed": approver, "channel": "non-interactive"}
+
     decisions.put_item(Item=json.loads(json.dumps({
         "run_id": run_id, "decision_id": f"approve-v{version:02d}-{int(time.time())}",
         "tool": "human.approve",
-        "input": {"additional_usd": additional_usd, "approver": approver},
+        "input": {"additional_usd": additional_usd, **who},
         "output": {"budget_before_usd": before, "budget_after_usd": definition["budget_usd"],
                    "contract_version": version, "applied_allocation": applied},
         "rationale": reason, "accepted_by_scheduler": True,
