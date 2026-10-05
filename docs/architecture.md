@@ -40,7 +40,7 @@ flowchart TB
         gate["cost.gate<br/>deterministic accept / reject"]
     end
 
-    viewer["Static report viewer<br/>(not yet hosted)"]
+    viewer["Report viewer<br/>S3 (private) → CloudFront (OAC)<br/>public, static, no API"]
 
     dev --> runs
     dev --> s3
@@ -63,7 +63,6 @@ flowchart TB
     classDef planned stroke-dasharray: 5 5
     class plan,w1,w3,gate judgment
     class mcp llm
-    class viewer planned
 ```
 
 Blue nodes are the judgment path: planning, degradation, measurement and the
@@ -113,9 +112,9 @@ sequenceDiagram
 | Coverage / uncovered regions (population response) | Implemented, tested |
 | Budget contract, round planner, planner Lambda adapter | Implemented, tested |
 | Probe worker, local JSONL and DynamoDB ledgers | Implemented, tested |
-| Worker image, arm64 and x86-64 | Built locally; arm64 reproduces native results exactly |
+| Worker image, arm64 and x86-64 | **Deployed** on both Fargate queues; every layer verified by `tools/verify_images.py` |
 | CDK stack (VPC, S3, DynamoDB, Batch x2, Step Functions, Lambda, dashboard) | **Deployed**; full run, budget halt and human approval verified on AWS (Graviton queue) |
-| Report schema and static viewer | Implemented, rendered locally; **not hosted** |
+| Report schema and static viewer | **Hosted** on CloudFront from a private S3 bucket (https://d18du1w0ii5yhw.cloudfront.net/); opens without credentials, independent of the control plane |
 | COOL on Graviton comparison | Not built |
 | MCP agent + decision ledger (agent side) | Not built |
 | sim-to-real gap | **Not measured** |

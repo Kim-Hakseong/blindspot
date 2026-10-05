@@ -1,0 +1,63 @@
+{
+ "stacks": [
+  "Blindspot",
+  "CDKToolkit-blindspot"
+ ],
+ "services": {
+  "AWS Batch": {
+   "ComputeEnvironment": 2,
+   "JobDefinition": 2,
+   "JobQueue": 2
+  },
+  "AWS IAM": {
+   "Policy": 8,
+   "Role": 11
+  },
+  "AWS Lambda": {
+   "Function": 2,
+   "LayerVersion": 1
+  },
+  "AWS Step Functions": {
+   "StateMachine": 1
+  },
+  "AWS Systems Manager": {
+   "Parameter": 1
+  },
+  "AWS X-Ray": {
+   "tracing (state machine)": 1
+  },
+  "Amazon CloudFront": {
+   "Distribution": 1,
+   "OriginAccessControl": 1
+  },
+  "Amazon CloudWatch": {
+   "Dashboard": 1
+  },
+  "Amazon CloudWatch Logs": {
+   "LogGroup": 3
+  },
+  "Amazon DynamoDB": {
+   "Table": 3
+  },
+  "Amazon ECR": {
+   "Repository": 1
+  },
+  "Amazon ECS (Fargate)": {},
+  "Amazon S3": {
+   "Bucket": 3,
+   "BucketPolicy": 3
+  },
+  "Amazon VPC": {
+   "InternetGateway": 1,
+   "Route": 2,
+   "RouteTable": 2,
+   "SecurityGroup": 1,
+   "Subnet": 2,
+   "SubnetRouteTableAssociation": 2,
+   "VPC": 1,
+   "VPCEndpoint": 1,
+   "VPCGatewayAttachment": 1
+  }
+ },
+ "service_count": 14
+}
