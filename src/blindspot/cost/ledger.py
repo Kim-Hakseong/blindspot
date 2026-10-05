@@ -33,7 +33,8 @@ class FargateTask:
 
 
 def run_cost(tasks: list[FargateTask], lambda_gb_seconds: float = 0.0,
-             lambda_requests: int = 0, sfn_transitions: int = 0) -> dict:
+             lambda_requests: int = 0, sfn_transitions: int = 0,
+             bedrock_usd: float = 0.0) -> dict:
     fargate = 0.0
     billed_seconds = 0.0
     for t in tasks:
@@ -45,7 +46,8 @@ def run_cost(tasks: list[FargateTask], lambda_gb_seconds: float = 0.0,
     sfn = sfn_transitions * SFN_TRANSITION
     return {
         "fargate_usd": fargate, "fargate_tasks": len(tasks), "fargate_billed_seconds": billed_seconds,
-        "lambda_usd": lam, "sfn_usd": sfn, "total_usd": fargate + lam + sfn,
+        "lambda_usd": lam, "sfn_usd": sfn, "bedrock_usd": bedrock_usd,
+        "total_usd": fargate + lam + sfn + bedrock_usd,
         "excluded": ["DynamoDB on-demand requests (fractions of a cent per run)",
                      "S3 requests and storage", "CloudWatch Logs ingestion",
                      "public IPv4 address-hours during tasks", "ECR storage (monthly, not per run)"],

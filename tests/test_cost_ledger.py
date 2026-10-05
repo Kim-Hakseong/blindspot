@@ -40,3 +40,10 @@ def test_lambda_and_step_functions_are_included():
 def test_report_states_what_it_does_not_count():
     out = run_cost([])
     assert "excluded" in out and out["excluded"]
+
+
+def test_the_agents_model_cost_is_part_of_the_run_cost():
+    # Run cost = Batch + Step Functions + Bedrock (definition of run cost).
+    out = run_cost([], bedrock_usd=0.0126)
+    assert out["bedrock_usd"] == pytest.approx(0.0126)
+    assert out["total_usd"] == pytest.approx(0.0126)

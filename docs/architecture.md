@@ -116,7 +116,7 @@ sequenceDiagram
 | CDK stack (VPC, S3, DynamoDB, Batch x2, Step Functions, Lambda, dashboard) | **Deployed**; full run, budget halt and the approval path verified on AWS (Graviton queue; the test approval was issued by automation) |
 | Report schema and static viewer | **Hosted** on CloudFront from a private S3 bucket (https://d18du1w0ii5yhw.cloudfront.net/); opens without credentials, independent of the control plane |
 | COOL on Graviton comparison | Not built |
-| MCP agent + decision ledger (agent side) | Not built |
+| MCP agent + decision ledger (agent side) | **Deployed path**: `cloud-run --agent` on Bedrock (Haiku), decisions in `bs-decisions`, model cost charged to the contract; three live runs |
 | sim-to-real gap | **Not measured** |
 
 Rows marked not deployed, not hosted, not built or not measured are not

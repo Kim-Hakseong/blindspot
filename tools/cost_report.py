@@ -159,8 +159,12 @@ def main() -> int:
 
     jobs = expand_arrays(batch, job_ids)
     tasks, missing = fargate_tasks(batch, ecs, jobs)
+    # The agent's Bedrock calls happen before the loop; their measured cost is
+    # in the run definition as prepaid_usd (cloud/agent_plan.py).
+    run_item = boto3.resource("dynamodb").Table("bs-runs").get_item(Key={"run_id": a.run_id}).get("Item")
+    prepaid = float(json.loads(run_item["definition"]).get("prepaid_usd", 0.0)) if run_item else 0.0
     cost = run_cost(tasks, lambda_gb_seconds=lambda_s * LAMBDA_MEMORY_GB,
-                    lambda_requests=lambda_n, sfn_transitions=transitions)
+                    lambda_requests=lambda_n, sfn_transitions=transitions, bedrock_usd=prepaid)
     report = {
         "run_id": a.run_id,
         "executions": [{"name": e["name"], "status": e["status"],
@@ -177,7 +181,7 @@ def main() -> int:
     print(f"run {a.run_id}: total {report['total_usd']:.4f} USD "
           f"(Fargate {report['fargate_usd']:.4f} over {report['fargate_tasks']} tasks, "
           f"{report['fargate_billed_seconds']:.0f} billed s; Lambda {report['lambda_usd']:.5f}; "
-          f"Step Functions {report['sfn_usd']:.5f})")
+          f"Step Functions {report['sfn_usd']:.5f}; Bedrock {report['bedrock_usd']:.5f})")
     if missing:
         print(f"WARNING: {len(missing)} task(s) not priced (ECS no longer reports them)")
     return 0

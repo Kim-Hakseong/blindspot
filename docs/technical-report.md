@@ -139,6 +139,19 @@ identical to the local benchmark's.
   resource, a NAT gateway, or an IAM statement on `Resource: "*"` beyond a
   listed set AWS itself requires — and on any unused entry in that list.
 
+**Agent (opt-in).** `blindspot cloud-run --agent` runs Claude Haiku on
+Bedrock (`claude-haiku-4-5`, the model this account can call) over the MCP
+tools before the loop starts. It may propose an axis order and per-axis probe
+caps; `cost.gate` decides each proposal and every decision is written to
+`bs-decisions`. Each model call is priced from its token usage and charged to
+the run's contract immediately, so the gate always sees what the agent has
+spent. A split the contract cannot pay for creates the run in
+`AWAITING_APPROVAL`, and `blindspot approve` resumes it. A capped axis is
+reported as unresolved, never as a boundary. In the live run the agent's
+split did not bind, the boundaries matched the plain run, and the run cost
+$0.0883 <!--bench:cloud_runs/20261005-210213-0a71ee-cost.total_usd--> including
+$0.0126 <!--bench:cloud_runs/20261005-210213-0a71ee-cost.bedrock_usd--> of model calls.
+
 ## 6. Evaluation
 
 Validation set `road100`: 100 COCO val2017 frames, 984 objects, filtered to
