@@ -13,7 +13,8 @@ licence does not permit redistributing.
 | `val/indoor100` | Indoor scenes: people, furniture, screens, tableware (100 frames, 1,111 objects) | COCO val2017: CC BY 2.0 (69) / CC BY-SA 2.0 (31); annotations CC BY 4.0 | In use — `val/indoor100/manifest.json` |
 | `val/retail100` | Small repeated objects: bottles, cups, bowls, fruit (**73 frames**, 354 objects) | COCO val2017: CC BY 2.0 (50) / CC BY-SA 2.0 (23); annotations CC BY 4.0 | In use — `val/retail100/manifest.json` |
 | ExDark (third-party, real low-light) | sim-to-real gap on the low-light axis | Annotations: ExDark Dataset Research Use Terms v1.0 (non-commercial academic research, benchmarking; no redistribution). Images: third-party rights, not licensed by ExDark | **Not redistributed.** Fetched by `tools/fetch_exdark.sh` with SHA-256 checks into `.cache/` (git-ignored). Use pending DECISION_NEEDED (see below) |
-| Real-capture set | sim-to-real gap (first-party capture) | — | **Cancelled** by the project owner's decision (2026-10-05): no first-party capture; replaced by ExDark |
+| NOD (third-party, real night photos) | sim-to-real gap on the low-light axis | Images **CC BY-NC-SA 2.0** as declared in NOD's annotation files; annotations in an MIT-licensed repository | **In use** as a non-commercial research benchmark. Images fetched by `tools/fetch_nod.py` into `.cache/` (git-ignored); only names and SHA-256 digests are committed (`bench/fixtures/nod_selection.json`). Aggregate metrics only |
+| Real-capture set | sim-to-real gap (first-party capture) | — | **Cancelled** by the project owner's decision (2026-10-05): no first-party capture; replaced by NOD |
 
 The synthetic reference scene is generated deterministically by
 `bench/degrade_response.py` from a fixed seed. It contains no photographic
@@ -107,3 +108,25 @@ URL, retrieval date, image count, a SHA-256 manifest committed under
 | ExDark | Low-light photos from many sources | 12 classes incl. car, bus | Annotations: research-use terms (non-commercial, no redistribution, §3 written confirmation for for-profit-sponsored projects). Images: third-party rights, not licensed | Google Drive (quota-limited) | Fallback only; numbers stay unpublished pending §3 |
 
 None of the three is redistributed by this repository.
+
+## NOD (sim-to-real, in use)
+
+- **Dataset**: NOD (Night Object Detection), I. Morawski, Y.-A. Chen,
+  Y.-S. Lin, W. H. Hsu, "NOD: Taking a Closer Look at Detection under Extreme
+  Low-Light Conditions with Night Object Detection Dataset", BMVC 2021,
+  arXiv:2110.10364. Repository <https://github.com/igor-morawski/NOD>,
+  annotation version 1.0.
+- **Licence**: images CC BY-NC-SA 2.0, as declared in the `licenses` block of
+  NOD's annotation files (the CC BY-NC-ND 4.0 shown on arXiv is the paper's
+  licence). Access is by the authors' request form, submitted by the project
+  owner.
+- **Use**: a non-commercial research benchmark. Blindspot publishes aggregate
+  metrics only. No NOD image, and no degraded or otherwise derived version of
+  one, appears in this repository, the report viewer, evidence frames, the
+  video or the Devpost gallery.
+- **Selection**: the test and validation splits; images with at least one
+  car whose largest annotated object is not a person (rule C5).
+- **What is measured and what is estimated**: exposure time, aperture and ISO
+  are the values the cameras recorded (EXIF). Scene illuminance is
+  **estimated, not measured**, by the methods in `src/blindspot/sim2real.py`,
+  and every report names the method.

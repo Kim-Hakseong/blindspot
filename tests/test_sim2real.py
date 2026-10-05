@@ -60,3 +60,24 @@ def test_bins_compare_real_and_synthetic_against_the_same_threshold():
     assert out["agree"] == 2 and out["disagree"] == 1
     assert out["bins"][1]["synthetic_map50"] == pytest.approx(0.4)
     assert out["bins"][1]["gap_map50"] == pytest.approx(0.20 - 0.4)
+
+
+def test_a_bin_can_carry_its_own_matched_synthetic_prediction():
+    # The synthetic prediction is run at the bin's estimated illuminance AND the
+    # cameras' recorded exposure time; the default-exposure curve is a fallback.
+    curve = [{"value": 100.0, "map50": 0.6}, {"value": 5.0, "map50": 0.1}]
+    bins = [{"lux_median": 5.0, "real_map50": 0.5, "synthetic_map50": 0.45}]
+    out = compare_bins(bins, curve, threshold_map50=0.3)
+    b = out["bins"][0]
+    assert b["synthetic_map50"] == 0.45 and not b["synthetic_failed"]
+    assert b["curve_map50"] == pytest.approx(0.1)  # what the default-exposure curve says
+    assert b["gap_map50"] == pytest.approx(0.05)
+
+
+def test_exif_estimate_can_be_corrected_for_a_deliberately_dark_exposure():
+    # The exposure equation assumes the camera exposed to mid-grey (0.18 linear).
+    # A photo that came out at 0.045 linear mean is a quarter as bright, so the
+    # scene was a quarter as lit as the uncorrected equation says.
+    base = exif_illuminance_lux(1 / 30, 2.0, 800)
+    assert exif_illuminance_lux(1 / 30, 2.0, 800, mean_linear=0.045) == pytest.approx(base / 4)
+    assert exif_illuminance_lux(1 / 30, 2.0, 800, mean_linear=0.18) == pytest.approx(base)

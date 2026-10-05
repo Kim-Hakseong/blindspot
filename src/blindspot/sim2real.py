@@ -6,8 +6,9 @@ third-party dataset (ExDark, see DATASETS.md), and their scene illuminance is
 
 - EXIF: the incident-light exposure equation E = C * N^2 / (t * S) with
   C = 250, from the aperture N, exposure time t (s) and ISO S the camera
-  recorded. It assumes the camera exposed the scene correctly (auto-exposure
-  aims at that), which a deliberately dark or bright shot violates.
+  recorded. It assumes the camera exposed the scene to mid-grey, which a
+  deliberately dark shot violates, so a second variant scales it by the
+  photo's mean linear luminance over 0.18.
 - Image statistics: the photo's SNR inverted through Blindspot's own
   population sweep on the synthetic low-light axis (boundary/coverage.py). It
   assumes the real camera's noise behaves like the synthetic model.
@@ -26,6 +27,9 @@ EXIF_METHOD = ("estimated, not measured: E = 250 * N^2 / (t * ISO) from EXIF ape
 STATS_METHOD = ("estimated, not measured: image SNR inverted through Blindspot's synthetic "
                 "low-light population sweep")
 INCIDENT_CALIBRATION = 250.0
+MID_GREY = 0.18
+EXIF_CORRECTED_METHOD = ("estimated, not measured: E = 250 * N^2 / (t * ISO) from EXIF, scaled by the "
+                         "photo's mean linear luminance / 0.18 (the equation assumes exposure to mid-grey)")
 
 
 def parse_exdark(text: str) -> list[dict]:
@@ -51,10 +55,14 @@ def person_is_main_subject(boxes: list[dict]) -> bool:
     return max(boxes, key=lambda b: _area(b["box"]))["cls"] == "People"
 
 
-def exif_illuminance_lux(exposure_s, f_number, iso) -> float | None:
+def exif_illuminance_lux(exposure_s, f_number, iso, mean_linear: float | None = None) -> float | None:
+    """Incident-light exposure equation, optionally corrected for the photo's
+    actual brightness: the equation assumes an exposure to mid-grey (0.18
+    linear), so a darker-than-mid-grey photo implies proportionally less light."""
     if not exposure_s or not f_number or not iso:
         return None
-    return INCIDENT_CALIBRATION * float(f_number) ** 2 / (float(exposure_s) * float(iso))
+    e = INCIDENT_CALIBRATION * float(f_number) ** 2 / (float(exposure_s) * float(iso))
+    return e if mean_linear is None else e * float(mean_linear) / MID_GREY
 
 
 def compare_bins(bins: list[dict], curve: list[dict], threshold_map50: float) -> dict:
@@ -64,8 +72,12 @@ def compare_bins(bins: list[dict], curve: list[dict], threshold_map50: float) ->
     order = np.argsort(values)
     out = []
     for b in bins:
-        synthetic = float(np.interp(b["lux_median"], values[order], maps[order]))
-        out.append(b | {"synthetic_map50": synthetic, "gap_map50": b["real_map50"] - synthetic,
+        curve_map = float(np.interp(b["lux_median"], values[order], maps[order]))
+        # A matched prediction (same exposure time as the real photos) wins over
+        # the default-exposure curve when the caller has computed one.
+        synthetic = b.get("synthetic_map50", curve_map)
+        out.append(b | {"synthetic_map50": synthetic, "curve_map50": curve_map,
+                        "gap_map50": b["real_map50"] - synthetic,
                         "synthetic_failed": synthetic < threshold_map50,
                         "real_failed": b["real_map50"] < threshold_map50})
     agree = sum(b["synthetic_failed"] == b["real_failed"] for b in out)
