@@ -219,52 +219,54 @@ same four boundaries.
 **x86 vs Graviton, same work** -- `bench/fargate_stages.py` runs the fixed
 64-probe batch (10 frames each, YOLOX-S) as `blindspot bench-stages` on both
 Batch queues, same image, 2 vCPU / 4 GiB tasks, three runs per side
-(`bench/out/cool/`). Per-frame medians:
+(`bench/out/cool/`). Times are total work per frame (the mean): stage times
+are skewed by a few expensive conditions, and the median frame understates
+the work -- on one comparison below it even reverses the sign.
 
 | | Graviton (arm64) | x86 |
 |---|---|---|
 | CPU | Neoverse V2 (Graviton4), all 3 runs | 1 × Cascade Lake 8259CL, 2 × Sapphire Rapids 8488C |
-| Degrade | 3.10 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_median_ms.degrade--> ms | 3.62 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_median_ms.degrade--> ms |
-| Measure | 14.8 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_median_ms.measure--> ms | 19.6 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_median_ms.measure--> ms |
-| Infer (`cv::dnn`) | 470.9 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_median_ms.infer--> ms | 401.3 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_median_ms.infer--> ms |
-| Frame total | 497.4 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_frame_total_median_ms--> ms | 432.1 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_frame_total_median_ms--> ms |
-| Cost per 1,000 frames | $0.01091 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.usd_per_1000_frames--> | $0.01185 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.usd_per_1000_frames--> |
+| Degrade | 19.1 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_mean_ms.degrade--> | 21.4 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_mean_ms.degrade--> |
+| Measure | 15.7 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_mean_ms.measure--> | 20.9 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_mean_ms.measure--> |
+| Infer (`cv::dnn`) | 473.0 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_stage_mean_ms.infer--> | 401.1 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_stage_mean_ms.infer--> |
+| Frame (mean) | 507.8 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.mean_ms_per_frame--> | 443.4 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.mean_ms_per_frame--> |
+| Cost per 1,000 frames | $0.01114 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.usd_per_1000_frames--> | $0.01216 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.usd_per_1000_frames--> |
 
-x86 is faster per frame and Graviton is cheaper per frame; the OpenCV stages
-are faster on Graviton and the DNN is faster on x86. The x86 side is not one
-CPU: Fargate placed the three tasks on two generations, 571.4
-<!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[0].per_frame_total_median_ms--> ms per frame on Cascade Lake
-against 387.2 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[1].per_frame_total_median_ms--> and 432.1
-<!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[2].per_frame_total_median_ms--> ms on Sapphire Rapids, so
-"x86 on Fargate" is a distribution, not a number. 59
-<!--bench:cool/fargate_x86_vs_arm64.map50_identical_probes--> of 64 <!--bench:cool/fargate_x86_vs_arm64.map50_probes_compared--> probes gave
-identical mAP across architectures (at most 0.000246
-<!--bench:cool/fargate_x86_vs_arm64.map50_max_abs_difference--> apart); each side's three runs were
-bit-identical to each other.
+x86 is faster per frame and Graviton is cheaper per frame on Fargate. The x86
+side is not one CPU: Fargate placed the three tasks on two generations,
+584.8 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[0].mean_ms_per_frame--> ms per frame on Cascade Lake against
+397.8 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[1].mean_ms_per_frame--> and 443.4 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[2].mean_ms_per_frame--> ms on Sapphire Rapids,
+so "x86 on Fargate" is a distribution, not a number.
+59 <!--bench:cool/fargate_x86_vs_arm64.map50_identical_probes--> of 64 <!--bench:cool/fargate_x86_vs_arm64.map50_probes_compared--> probes gave
+identical mAP across architectures; each side's three runs were bit-identical.
 
-**COOL as a third arm (EC2)** -- `bench/ec2_cool.py` launches c7i.large
-(x86) and c8g.large (Graviton4) from code, runs the same batch three times per
-arm, and has both instances terminate themselves; arm 3 is the Cloud Optimized
-OpenCV build (`5.1.0-dev`) on the same c8g.large as arm 2
-(`bench/out/cool/ec2_three_way.json`). Per-frame medians:
+**COOL as a third arm (EC2)** -- `bench/ec2_cool.py` launches the instances
+from code, runs the same batch three times per arm, and every instance
+terminates itself; none was left running. Arm 3 is the Cloud Optimized
+OpenCV build (`5.1.0-dev`) on the same instance as arm 2. Arms 2 and 3 ran on
+c8g.large (2 vCPU) and on the vendor-recommended m8g.4xlarge (16 vCPU)
+(`bench/out/cool/ec2_three_way.json`, `bench/out/cool/m8g-4xlarge/`). Mean
+time per frame:
 
-| | Arm 1: x86, stock | Arm 2: Graviton4, stock | Arm 3: Graviton4, COOL |
-|---|---|---|---|
-| Measure | 15.4 <!--bench:cool/ec2_three_way.arms.x86_stock.per_stage_median_ms.measure--> ms | 13.8 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_stage_median_ms.measure--> ms | 13.6 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_stage_median_ms.measure--> ms |
-| Infer (`cv::dnn`) | 331.8 <!--bench:cool/ec2_three_way.arms.x86_stock.per_stage_median_ms.infer--> ms | 467.8 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_stage_median_ms.infer--> ms | 511.7 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_stage_median_ms.infer--> ms |
-| Frame total | 358.6 <!--bench:cool/ec2_three_way.arms.x86_stock.per_frame_total_median_ms--> ms | 492.7 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_frame_total_median_ms--> ms | 530.7 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_frame_total_median_ms--> ms |
-| Cost per 1,000 frames | $0.00889 <!--bench:cool/ec2_three_way.arms.x86_stock.usd_per_1000_frames--> | $0.01091 <!--bench:cool/ec2_three_way.arms.graviton_stock.usd_per_1000_frames--> | $0.01323 <!--bench:cool/ec2_three_way.arms.graviton_cool.usd_per_1000_frames--> |
+| | x86 stock (c7i.large) | Graviton4 stock (c8g.large) | Graviton4 COOL (c8g.large) | Graviton4 stock (m8g.4xlarge) | Graviton4 COOL (m8g.4xlarge) |
+|---|---|---|---|---|---|
+| Measure | 16.6 <!--bench:cool/ec2_three_way.arms.x86_stock.per_stage_mean_ms.measure--> ms | 14.8 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_stage_mean_ms.measure--> ms | 14.7 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_stage_mean_ms.measure--> ms | 12.8 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_stock.per_stage_mean_ms.measure--> ms | 12.8 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_cool.per_stage_mean_ms.measure--> ms |
+| Infer (`cv::dnn`) | 332.6 <!--bench:cool/ec2_three_way.arms.x86_stock.per_stage_mean_ms.infer--> ms | 468.6 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_stage_mean_ms.infer--> ms | 513.8 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_stage_mean_ms.infer--> ms | 61.4 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_stock.per_stage_mean_ms.infer--> ms | 67.9 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_cool.per_stage_mean_ms.infer--> ms |
+| Frame (mean) | 368.2 <!--bench:cool/ec2_three_way.arms.x86_stock.mean_ms_per_frame--> ms | 502.3 <!--bench:cool/ec2_three_way.arms.graviton_stock.mean_ms_per_frame--> ms | 546.2 <!--bench:cool/ec2_three_way.arms.graviton_cool.mean_ms_per_frame--> ms | 93.1 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_stock.mean_ms_per_frame--> ms | 97.8 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_cool.mean_ms_per_frame--> ms |
+| Cost per 1,000 frames | $0.00913 <!--bench:cool/ec2_three_way.arms.x86_stock.usd_per_1000_frames--> | $0.01113 <!--bench:cool/ec2_three_way.arms.graviton_stock.usd_per_1000_frames--> | $0.01362 <!--bench:cool/ec2_three_way.arms.graviton_cool.usd_per_1000_frames--> | $0.01857 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_stock.usd_per_1000_frames--> | $0.02060 <!--bench:cool/m8g-4xlarge/ec2_three_way.arms.graviton_cool.usd_per_1000_frames--> |
 
-The chip effect (arm 1 vs 2) and the COOL effect (arm 2 vs 3) are reported
-separately. Graviton4 ran at 0.728 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of x86's speed
-and, at EC2 prices, cost more per frame -- unlike on Fargate. COOL ran at
-0.928 <!--bench:cool/ec2_three_way.cool_effect.speedup--> of the stock wheel's speed on the same
-machine: image measurement 1.018 <!--bench:cool/ec2_three_way.cool_effect.stage_speedup.measure-->x,
-inference 0.914 <!--bench:cool/ec2_three_way.cool_effect.stage_speedup.infer-->x. Arm 3's cost includes
-COOL's list software fee (zero during the trial). mAP agreed on
-63 <!--bench:cool/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes between arms 2 and 3.
+The two effects are reported separately. **Chip effect** (x86 vs Graviton4,
+both stock, c8g.large): Graviton4 ran at 0.733 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of x86's
+speed and, at EC2 prices, cost more per frame -- unlike on Fargate. **COOL
+effect** (stock vs COOL on the same machine): 0.920 <!--bench:cool/ec2_three_way.cool_effect.speedup--> on
+c8g.large and 0.952 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.speedup--> on m8g.4xlarge; inference
+0.912 <!--bench:cool/ec2_three_way.cool_effect.stage_speedup.infer-->x and 0.905 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.stage_speedup.infer-->x, image
+measurement 1.006 <!--bench:cool/ec2_three_way.cool_effect.stage_speedup.measure-->x and 1.001 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.stage_speedup.measure-->x.
+By the median frame alone COOL would have looked marginally faster on
+m8g.4xlarge (1.007 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.median_frame_ratio-->); total work says it was slower.
+COOL arms' cost includes its list software fee (zero during the trial). mAP
+agreed between stock and COOL on 63 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes.
 Only our measurements and COOL's version string are published.
-
 
 ## Known limitations
 

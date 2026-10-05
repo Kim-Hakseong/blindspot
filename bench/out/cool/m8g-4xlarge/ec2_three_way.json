@@ -1,0 +1,122 @@
+{
+ "arms": {
+  "graviton_stock": {
+   "cpu_model": "0xd4f",
+   "cpu_models": {
+    "0xd4f": 3
+   },
+   "runs": [
+    {
+     "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 93.43819519374996,
+     "per_frame_total_median_ms": 84.66106500000592
+    },
+    {
+     "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 92.88776485937515,
+     "per_frame_total_median_ms": 84.80021200000465
+    },
+    {
+     "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 93.1172150624997,
+     "per_frame_total_median_ms": 84.97257400000535
+    }
+   ],
+   "kleidicv": true,
+   "opencv_version": "5.0.0",
+   "repeats": 3,
+   "mean_ms_per_frame": 93.1172150624997,
+   "per_frame_total_median_ms": 84.80021200000465,
+   "per_stage_mean_ms": {
+    "degrade": 18.920120545312802,
+    "measure": 12.787996529686385,
+    "infer": 61.409097987500516
+   },
+   "per_stage_median_ms": {
+    "degrade": 3.067087499999843,
+    "measure": 11.80094250000252,
+    "infer": 61.32953799999541
+   },
+   "usd_per_task_hour": 0.71808,
+   "usd_per_1000_frames": 0.01857378049779994,
+   "repeats_bit_identical": true
+  },
+  "graviton_cool": {
+   "cpu_model": "0xd4f",
+   "cpu_models": {
+    "0xd4f": 3
+   },
+   "runs": [
+    {
+     "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 97.80576382500068,
+     "per_frame_total_median_ms": 84.10338400001649
+    },
+    {
+     "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 97.7368449593757,
+     "per_frame_total_median_ms": 84.25042350000922
+    },
+    {
+     "cpu_model": "0xd4f",
+     "mean_ms_per_frame": 97.91434407968734,
+     "per_frame_total_median_ms": 84.49274699998455
+    }
+   ],
+   "opencv_version": "5.1.0-dev",
+   "repeats": 3,
+   "mean_ms_per_frame": 97.80576382500068,
+   "per_frame_total_median_ms": 84.25042350000922,
+   "per_stage_mean_ms": {
+    "degrade": 17.202553831249556,
+    "measure": 12.776286314062357,
+    "infer": 67.85806425468782
+   },
+   "per_stage_median_ms": {
+    "degrade": 3.165580999990425,
+    "measure": 11.730656499992165,
+    "infer": 67.76240550001944
+   },
+   "usd_per_task_hour": 0.7580800000000001,
+   "usd_per_1000_frames": 0.020595720400126815,
+   "repeats_bit_identical": true
+  }
+ },
+ "cool_effect": {
+  "baseline": "graviton_stock",
+  "candidate": "graviton_cool",
+  "speedup": 0.9520626537829612,
+  "stage_speedup": {
+   "degrade": 1.0998437052377172,
+   "measure": 1.0009165586412336,
+   "infer": 0.9049638928251362
+  },
+  "median_frame_ratio": 1.0065256467226587,
+  "cost_ratio": 1.1088599007922146,
+  "map50_identical_probes": 63,
+  "map50_probes_compared": 64,
+  "map50_max_abs_difference": 5.2904963447508724e-05
+ },
+ "instances": {
+  "graviton": {
+   "instance_type": "m8g.4xlarge",
+   "image_id": "ami-033e481a24f94c8cb",
+   "cpu_arch": "arm64"
+  }
+ },
+ "exit_codes": {
+  "graviton": 0
+ },
+ "guard_terminated": [],
+ "ec2_seconds_observed_upper_bound": {
+  "graviton": 504.394807100296
+ },
+ "ec2_usd_observed_upper_bound": 0.10060995085627239,
+ "cool_software_usd": "0 during the 7-day trial",
+ "cool_cv2_method": "pth",
+ "repo_commit": "14c579128b962ad6208e60ef15821e82a376201e",
+ "dataset_manifest": "f28484951393",
+ "instances_left_running": 0,
+ "command": "uv run --group cloud python bench/ec2_cool.py --ami <COOL AMI id> --graviton-type m8g.4xlarge --no-x86",
+ "cool_opencv_version": "5.1.0-dev"
+}

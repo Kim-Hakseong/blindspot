@@ -216,21 +216,23 @@ test, under the operator's name, not by a person deciding. Redeployed from a fre
 the README, it reproduced the same boundaries for
 $0.0752 <!--bench:cloud_runs/20261005-165654-d03e9b-cost.total_usd-->.
 
-**x86 vs Graviton.** On the same image and probe batch, x86 Fargate tasks were
-faster per frame (432.1 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.per_frame_total_median_ms--> ms against
-497.4 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.per_frame_total_median_ms--> ms on Graviton4) and Graviton
-was cheaper per frame ($0.01091 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.usd_per_1000_frames--> against
-$0.01185 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.usd_per_1000_frames--> per 1,000). OpenCV's own stages
-were faster on Graviton; inference was faster on x86. Fargate placed the x86
-tasks on two CPU generations, so the x86 figure is a median over different
-hardware (`docs/results.md`).
+**x86 vs Graviton.** On the same image and probe batch, x86 Fargate tasks did
+more work per second (443.4 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.mean_ms_per_frame--> ms per frame against
+507.8 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.mean_ms_per_frame--> ms on Graviton4, mean) and Graviton was
+cheaper per frame ($0.01114 <!--bench:cool/fargate_x86_vs_arm64.arms.arm64.usd_per_1000_frames--> against
+$0.01216 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.usd_per_1000_frames--> per 1,000). OpenCV's own stages were
+faster on Graviton; inference was faster on x86. Fargate placed the x86 tasks
+on two CPU generations, so the x86 figure is a median over different hardware
+(`docs/results.md`). Speed and cost are computed from total work per frame,
+not the median frame, which a few expensive conditions skew.
 
-**COOL.** On the same c8g.large and the same probe batch, the Cloud Optimized
-OpenCV build (`5.1.0-dev`) ran at 0.928 <!--bench:cool/ec2_three_way.cool_effect.speedup--> of the
-stock OpenCV 5 wheel's speed: slightly faster image measurement, slower DNN
-inference, same mAP on 63 <!--bench:cool/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes.
-The chip effect is separate: x86 (c7i) ran Graviton4 at
-0.728 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of its speed (`docs/results.md`).
+**COOL.** On the same Graviton4 instance and probe batch, the Cloud Optimized
+OpenCV build (`5.1.0-dev`) ran at 0.920 <!--bench:cool/ec2_three_way.cool_effect.speedup--> of the stock
+OpenCV 5 wheel's speed on c8g.large and 0.952 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.speedup--> on the
+vendor-recommended m8g.4xlarge: slower DNN inference, about equal image
+measurement, same mAP on 63 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes. The chip effect is
+separate: Graviton4 ran at 0.733 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of x86 (c7i) speed
+(`docs/results.md`).
 
 **Not measured:** the sim-to-real gap (section 7).
 

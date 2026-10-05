@@ -1,0 +1,300 @@
+{
+ "label": "ec2-graviton-stock-r2",
+ "fingerprint": {
+  "machine": "aarch64",
+  "cpu_model": "0xd4f",
+  "logical_cpus": 16,
+  "opencv_threads": 16,
+  "opencv_version": "5.0.0",
+  "cv2_module": "/opt/bs/.venv/lib/python3.12/site-packages/cv2/__init__.py",
+  "build_info_sha256": "4460ffe25568d7f496997f0593f568f4d91ee4740c97f057b2986c237e8a386c",
+  "kleidicv": true,
+  "python": "3.12.3",
+  "numpy_version": "2.2.6"
+ },
+ "pipeline": "yolox_s",
+ "frames_per_probe": 10,
+ "probes": 64,
+ "seed": 20260906,
+ "wall_seconds": 59.582749568,
+ "per_frame": {
+  "degrade": {
+   "median_ms": 3.446637999985569,
+   "p95_ms": 63.74783310000537,
+   "total_s": 12.075329484999825,
+   "n": 640
+  },
+  "measure": {
+   "median_ms": 11.525376999998116,
+   "p95_ms": 22.887789099983987,
+   "total_s": 8.063458303000147,
+   "n": 640
+  },
+  "infer": {
+   "median_ms": 61.34139949999451,
+   "p95_ms": 62.09200465000464,
+   "total_s": 39.30938172200012,
+   "n": 640
+  }
+ },
+ "per_frame_total_median_ms": 84.80021200000465,
+ "results": [
+  {
+   "probe_id": "motion_blur.exposure_ms#00",
+   "map50": 0.6322231517738343
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#01",
+   "map50": 0.7195120817678508
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#02",
+   "map50": 0.6471948127781656
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#03",
+   "map50": 0.5372044618844197
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#04",
+   "map50": 0.4074829368596642
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#05",
+   "map50": 0.2843066138080034
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#06",
+   "map50": 0.27406163965753383
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#07",
+   "map50": 0.25591648174500975
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#08",
+   "map50": 0.23840946850616657
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#09",
+   "map50": 0.1909378555642106
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#10",
+   "map50": 0.14517233389221995
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#11",
+   "map50": 0.08962937606095821
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#12",
+   "map50": 0.07845214389332036
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#13",
+   "map50": 0.05348900892570358
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#14",
+   "map50": 0.05239287898637151
+  },
+  {
+   "probe_id": "motion_blur.exposure_ms#15",
+   "map50": 0.03560986341439231
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#00",
+   "map50": 0.0
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#01",
+   "map50": 0.4789760599927801
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#02",
+   "map50": 0.6922163127366813
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#03",
+   "map50": 0.615488143587716
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#04",
+   "map50": 0.6140732134556479
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#05",
+   "map50": 0.6597428364437784
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#06",
+   "map50": 0.6161938969965491
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#07",
+   "map50": 0.6107221326912372
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#08",
+   "map50": 0.6328963381720472
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#09",
+   "map50": 0.6551638852052943
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#10",
+   "map50": 0.6349096690811943
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#11",
+   "map50": 0.6422698703917534
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#12",
+   "map50": 0.6341618031056518
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#13",
+   "map50": 0.6394515149222687
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#14",
+   "map50": 0.6395515028323869
+  },
+  {
+   "probe_id": "low_light.illuminance_lux#15",
+   "map50": 0.6576334429538598
+  },
+  {
+   "probe_id": "fog.beta_per_m#00",
+   "map50": 0.6322231517738343
+  },
+  {
+   "probe_id": "fog.beta_per_m#01",
+   "map50": 0.6246694378490109
+  },
+  {
+   "probe_id": "fog.beta_per_m#02",
+   "map50": 0.6358848821752874
+  },
+  {
+   "probe_id": "fog.beta_per_m#03",
+   "map50": 0.5467758469525545
+  },
+  {
+   "probe_id": "fog.beta_per_m#04",
+   "map50": 0.48146755336811176
+  },
+  {
+   "probe_id": "fog.beta_per_m#05",
+   "map50": 0.4325426537816259
+  },
+  {
+   "probe_id": "fog.beta_per_m#06",
+   "map50": 0.4206181738779587
+  },
+  {
+   "probe_id": "fog.beta_per_m#07",
+   "map50": 0.3701105224617391
+  },
+  {
+   "probe_id": "fog.beta_per_m#08",
+   "map50": 0.2820939409635304
+  },
+  {
+   "probe_id": "fog.beta_per_m#09",
+   "map50": 0.26270746505566994
+  },
+  {
+   "probe_id": "fog.beta_per_m#10",
+   "map50": 0.2352365712399059
+  },
+  {
+   "probe_id": "fog.beta_per_m#11",
+   "map50": 0.2106845607473256
+  },
+  {
+   "probe_id": "fog.beta_per_m#12",
+   "map50": 0.1326476651826592
+  },
+  {
+   "probe_id": "fog.beta_per_m#13",
+   "map50": 0.12350348762274022
+  },
+  {
+   "probe_id": "fog.beta_per_m#14",
+   "map50": 0.09622321977865966
+  },
+  {
+   "probe_id": "fog.beta_per_m#15",
+   "map50": 0.08732117427379862
+  },
+  {
+   "probe_id": "jpeg.quality#00",
+   "map50": 0.03201208340204108
+  },
+  {
+   "probe_id": "jpeg.quality#01",
+   "map50": 0.3465502017896083
+  },
+  {
+   "probe_id": "jpeg.quality#02",
+   "map50": 0.5542666400353441
+  },
+  {
+   "probe_id": "jpeg.quality#03",
+   "map50": 0.5614409405198465
+  },
+  {
+   "probe_id": "jpeg.quality#04",
+   "map50": 0.6332826534286291
+  },
+  {
+   "probe_id": "jpeg.quality#05",
+   "map50": 0.5904490676575345
+  },
+  {
+   "probe_id": "jpeg.quality#06",
+   "map50": 0.6015911039171462
+  },
+  {
+   "probe_id": "jpeg.quality#07",
+   "map50": 0.6314418393575347
+  },
+  {
+   "probe_id": "jpeg.quality#08",
+   "map50": 0.6211609152504626
+  },
+  {
+   "probe_id": "jpeg.quality#09",
+   "map50": 0.6041151930858403
+  },
+  {
+   "probe_id": "jpeg.quality#10",
+   "map50": 0.6188126673207092
+  },
+  {
+   "probe_id": "jpeg.quality#11",
+   "map50": 0.5888174799909363
+  },
+  {
+   "probe_id": "jpeg.quality#12",
+   "map50": 0.6150909765526762
+  },
+  {
+   "probe_id": "jpeg.quality#13",
+   "map50": 0.6225143740560792
+  },
+  {
+   "probe_id": "jpeg.quality#14",
+   "map50": 0.615798427620533
+  },
+  {
+   "probe_id": "jpeg.quality#15",
+   "map50": 0.6205139114078577
+  }
+ ],
+ "command": "blindspot bench-stages --label ec2-graviton-stock-r2 --frames 10  # bench/ec2_cool.py, EC2 m8g.4xlarge"
+}
