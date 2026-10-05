@@ -81,3 +81,19 @@ def test_exif_estimate_can_be_corrected_for_a_deliberately_dark_exposure():
     base = exif_illuminance_lux(1 / 30, 2.0, 800)
     assert exif_illuminance_lux(1 / 30, 2.0, 800, mean_linear=0.045) == pytest.approx(base / 4)
     assert exif_illuminance_lux(1 / 30, 2.0, 800, mean_linear=0.18) == pytest.approx(base)
+
+
+def test_the_gap_states_the_direction_and_a_bound_when_real_never_fails():
+    # Real photos never cross the threshold, even in the darkest bin: the real
+    # failure point is not observed, so only a bound on the gap can be given.
+    from blindspot.sim2real import gap_summary
+    compared = compare_bins(
+        [{"lux_median": 1.0, "real_map50": 0.40, "synthetic_map50": 0.0},
+         {"lux_median": 30.0, "real_map50": 0.65, "synthetic_map50": 0.45}],
+        [{"value": 1.0, "map50": 0.0}], threshold_map50=0.367)
+    g = gap_summary(compared, synthetic_boundary_lux=(13.0, 25.0))
+    assert g["real_failure_observed"] is False
+    assert g["direction"] == "synthetic predicts failure where real photos pass"
+    assert g["darkest_bin_lux_median"] == 1.0
+    assert g["synthetic_boundary_overstates_failure_illuminance_by_at_least"] == pytest.approx(13.0)
+    assert g["bins_synthetic_fail_real_pass"] == 1 and g["bins_real_fail_synthetic_pass"] == 0

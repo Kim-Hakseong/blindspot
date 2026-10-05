@@ -268,6 +268,51 @@ COOL arms' cost includes its list software fee (zero during the trial). mAP
 agreed between stock and COOL on 63 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes.
 Only our measurements and COOL's version string are published.
 
+## Sim-to-real (third-party real photos, estimated illuminance)
+
+No first-party capture was made. Real photos: NOD (Night Object Detection), I. Morawski, Y.-A. Chen, Y.-S. Lin, W. H. Hsu, BMVC 2021, <https://github.com/igor-morawski/NOD>; images licensed `CC BY-NC-SA 2.0` (as declared in NOD's annotation files), used as a non-commercial research benchmark. Only aggregate metrics are published; no NOD image or derived image appears in this repository, the viewer, the video or the Devpost gallery.
+
+`bench/sim2real.py` runs YOLOX-S on 286 <!--bench:sim2real.selection.measured--> NOD night photos
+(668 <!--bench:sim2real.objects--> labelled cars; test and validation splits; images whose
+largest object is a person excluded) and compares each bin of estimated
+illuminance with Blindspot's synthetic prediction: the low-light degradation
+applied to road100 at the bin's median estimated lux and the median exposure
+time the cameras recorded, scored against the same threshold as the boundary
+(0.367 <!--bench:sim2real.threshold_map50-->).
+
+**What is measured and what is estimated.** Exposure time, aperture and ISO
+are values the cameras recorded (EXIF). Illuminance is **estimated, not
+measured**: the incident-light exposure equation, scaled by each photo's mean
+linear brightness relative to mid-grey (the photos are deliberately dark, so
+the unscaled equation overstates the light).
+
+| Estimated lux (range) | Images | Recorded exposure, median (ms) | Real mAP@50 | Synthetic mAP@50 | Real / synthetic |
+|---|---|---|---|---|---|
+| 0.0574 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[0].lux_min-->–1.94 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[0].lux_max--> | 58 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[0].images--> | 12.5 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[0].exposure_ms_median_recorded--> | 0.400 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[0].real_map50--> | 0.00021 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[0].synthetic_map50--> | pass / fail |
+| 1.99 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[1].lux_min-->–4.91 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[1].lux_max--> | 57 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[1].images--> | 12.5 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[1].exposure_ms_median_recorded--> | 0.576 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[1].real_map50--> | 0.120 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[1].synthetic_map50--> | pass / fail |
+| 5.01 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[2].lux_min-->–10.2 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[2].lux_max--> | 57 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[2].images--> | 12.5 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[2].exposure_ms_median_recorded--> | 0.639 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[2].real_map50--> | 0.271 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[2].synthetic_map50--> | pass / fail |
+| 10.2 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[3].lux_min-->–18.2 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[3].lux_max--> | 57 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[3].images--> | 10.0 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[3].exposure_ms_median_recorded--> | 0.591 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[3].real_map50--> | 0.337 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[3].synthetic_map50--> | pass / fail |
+| 18.4 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[4].lux_min-->–193 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[4].lux_max--> | 57 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[4].images--> | 8.0 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[4].exposure_ms_median_recorded--> | 0.656 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[4].real_map50--> | 0.426 <!--bench:sim2real.estimators.exif_brightness_corrected.bins[4].synthetic_map50--> | pass / pass |
+
+The synthetic model is **too pessimistic**: it predicts failure in
+4 <!--bench:sim2real.gap.bins_synthetic_fail_real_pass--> of 5 bins where the real photos pass, and the real
+photos never fail, even in the darkest bin (median 1.08 <!--bench:sim2real.gap.darkest_bin_lux_median--> lux,
+mAP 0.400 <!--bench:sim2real.gap.darkest_bin_real_map50-->). The real failure point lies below the data, so the
+gap is a bound: the synthetic boundary's lower edge (12.98 <!--bench:sim2real.synthetic_boundary_lux[0]--> lux)
+overstates the failure illuminance by at least
+12.0 <!--bench:sim2real.gap.synthetic_boundary_overstates_failure_illuminance_by_at_least-->×.
+
+Two other estimators are reported and not used for the conclusion. The
+unscaled EXIF equation puts every photo at 3.75 <!--bench:sim2real.estimators.exif.bins[0].lux_min--> lux or more,
+where real and synthetic trivially agree. The image-statistics estimator
+(SNR inverted through the synthetic sweep) saturates at the axis maximum for
+most photos, because in-camera noise reduction makes real night photos look
+cleaner than the synthetic sensor -- it is not usable on real camera output,
+and Blindspot's coverage report, which uses it, inherits that limitation.
+
+Limits: one axis (low light), one detector, different scenes on the real and
+synthetic sides, and a threshold taken from the road-scene baseline.
+
 ## Known limitations
 
 1. **Synthetic degradation is not real degradation.** This is the central

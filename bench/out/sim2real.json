@@ -1,0 +1,354 @@
+{
+ "first_party_capture": false,
+ "dataset": {
+  "name": "NOD (Night Object Detection) dataset",
+  "citation": "I. Morawski, Y.-A. Chen, Y.-S. Lin, W. H. Hsu, \"NOD: Taking a Closer Look at Detection under Extreme Low-Light Conditions with Night Object Detection Dataset\", BMVC 2021, arXiv:2110.10364",
+  "repository": "https://github.com/igor-morawski/NOD",
+  "licence": "CC BY-NC-SA 2.0 (as declared in the NOD annotation files)",
+  "use": "non-commercial research benchmark; aggregate metrics only; no NOD image or derived image is published"
+ },
+ "pipeline": "yolox_s",
+ "threshold_map50": 0.36664403500645115,
+ "threshold_rule": "mAP@50 below 60% of the road100 baseline (the same criterion as the boundary)",
+ "synthetic_boundary_lux": [
+  12.984375,
+  25.46875
+ ],
+ "synthetic_boundary_note": "located at the model's default exposure time, 10 ms",
+ "selection": {
+  "candidates": 286,
+  "measured": 286,
+  "rule": "vehicle-labelled images; largest annotated object not a person"
+ },
+ "objects": 668,
+ "pooled_real_map50": 0.5758845998887826,
+ "pooled_real_map50_car_prediction_only": 0.5885078596959965,
+ "images_with_exif_exposure": 286,
+ "recorded_exposure_ms": {
+  "median": 12.5,
+  "label": "camera-recorded EXIF value (a setting, not an estimate)"
+ },
+ "primary_estimator": "exif_brightness_corrected",
+ "estimators": {
+  "exif_brightness_corrected": {
+   "method": "estimated, not measured: E = 250 * N^2 / (t * ISO) from EXIF, scaled by the photo's mean linear luminance / 0.18 (the equation assumes exposure to mid-grey)",
+   "synthetic": "matched: bin's estimated lux and recorded exposure",
+   "images": 286,
+   "bins": [
+    {
+     "images": 58,
+     "objects": 120,
+     "lux_min": 0.057371592750617616,
+     "lux_max": 1.940528782142792,
+     "lux_median": 1.0819166627091668,
+     "real_map50": 0.40023486269514086,
+     "real_map50_car_prediction_only": 0.400621189667221,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 12.5,
+     "synthetic_condition": {
+      "illuminance_lux": 1.0819166627091668,
+      "exposure_ms": 12.5
+     },
+     "synthetic_map50": 0.00020938023450586265,
+     "curve_map50": 0.016814015124700026,
+     "gap_map50": 0.400025482460635,
+     "synthetic_failed": true,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 130,
+     "lux_min": 1.986741455685761,
+     "lux_max": 4.907636557618389,
+     "lux_median": 3.381442373026649,
+     "real_map50": 0.5762794079809771,
+     "real_map50_car_prediction_only": 0.5778448814875282,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 12.5,
+     "synthetic_condition": {
+      "illuminance_lux": 3.381442373026649,
+      "exposure_ms": 12.5
+     },
+     "synthetic_map50": 0.11971431092570717,
+     "curve_map50": 0.08325696572334705,
+     "gap_map50": 0.45656509705526993,
+     "synthetic_failed": true,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 130,
+     "lux_min": 5.011895053838897,
+     "lux_max": 10.187762600253336,
+     "lux_median": 7.5479574501514435,
+     "real_map50": 0.6389690630140471,
+     "real_map50_car_prediction_only": 0.6482797297080319,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 12.5,
+     "synthetic_condition": {
+      "illuminance_lux": 7.5479574501514435,
+      "exposure_ms": 12.5
+     },
+     "synthetic_map50": 0.2706403913165177,
+     "curve_map50": 0.20364507627841438,
+     "gap_map50": 0.3683286716975294,
+     "synthetic_failed": true,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 125,
+     "lux_min": 10.214246932365413,
+     "lux_max": 18.241598529534205,
+     "lux_median": 12.334190309047697,
+     "real_map50": 0.5912111251131409,
+     "real_map50_car_prediction_only": 0.6120306102353285,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 10.0,
+     "synthetic_condition": {
+      "illuminance_lux": 12.334190309047697,
+      "exposure_ms": 10.0
+     },
+     "synthetic_map50": 0.3370117595067996,
+     "curve_map50": 0.34193943496743245,
+     "gap_map50": 0.25419936560634127,
+     "synthetic_failed": true,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 163,
+     "lux_min": 18.399345051112043,
+     "lux_max": 192.65480041503906,
+     "lux_median": 33.90950730540175,
+     "real_map50": 0.6561759863801123,
+     "real_map50_car_prediction_only": 0.6715465897192051,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 8.0,
+     "synthetic_condition": {
+      "illuminance_lux": 33.90950730540175,
+      "exposure_ms": 8.0
+     },
+     "synthetic_map50": 0.42601883479496916,
+     "curve_map50": 0.4510910954515046,
+     "gap_map50": 0.23015715158514316,
+     "synthetic_failed": false,
+     "real_failed": false
+    }
+   ],
+   "agree": 1,
+   "disagree": 4,
+   "threshold_map50": 0.36664403500645115
+  },
+  "exif": {
+   "method": "estimated, not measured: E = 250 * N^2 / (t * ISO) from EXIF aperture, exposure time and ISO (incident-light exposure equation)",
+   "synthetic": "matched: bin's estimated lux and recorded exposure",
+   "images": 286,
+   "bins": [
+    {
+     "images": 58,
+     "objects": 135,
+     "lux_min": 3.7500000000000004,
+     "lux_max": 38.28125,
+     "lux_median": 31.25,
+     "real_map50": 0.4690884367071753,
+     "real_map50_car_prediction_only": 0.470675896999903,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 16.666666666666668,
+     "synthetic_condition": {
+      "illuminance_lux": 31.25,
+      "exposure_ms": 16.666666666666668
+     },
+     "synthetic_map50": 0.4945559484544244,
+     "curve_map50": 0.44630438172715897,
+     "gap_map50": -0.025467511747249094,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 121,
+     "lux_min": 38.28125,
+     "lux_max": 50.0,
+     "lux_median": 47.4609375,
+     "real_map50": 0.5035200982944822,
+     "real_map50_car_prediction_only": 0.5108730618064606,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 12.5,
+     "synthetic_condition": {
+      "illuminance_lux": 47.4609375,
+      "exposure_ms": 12.5
+     },
+     "synthetic_map50": 0.5084859486662389,
+     "curve_map50": 0.4715739831038799,
+     "gap_map50": -0.004965850371756675,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 106,
+     "lux_min": 50.0,
+     "lux_max": 63.28125,
+     "lux_median": 61.24999999999999,
+     "real_map50": 0.704277770913023,
+     "real_map50_car_prediction_only": 0.7263539908628495,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 12.5,
+     "synthetic_condition": {
+      "illuminance_lux": 61.24999999999999,
+      "exposure_ms": 12.5
+     },
+     "synthetic_map50": 0.5263486653037447,
+     "curve_map50": 0.49878390488110136,
+     "gap_map50": 0.17792910560927833,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 155,
+     "lux_min": 63.28125,
+     "lux_max": 91.875,
+     "lux_median": 76.56249999999999,
+     "real_map50": 0.6181768042502526,
+     "real_map50_car_prediction_only": 0.6275539818762959,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 8.0,
+     "synthetic_condition": {
+      "illuminance_lux": 76.56249999999999,
+      "exposure_ms": 8.0
+     },
+     "synthetic_map50": 0.501099241444772,
+     "curve_map50": 0.5210656971214017,
+     "gap_map50": 0.11707756280548054,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 151,
+     "lux_min": 96.0,
+     "lux_max": 405.0,
+     "lux_median": 125.0,
+     "real_map50": 0.6045961782119327,
+     "real_map50_car_prediction_only": 0.6200323050244446,
+     "outside_synthetic_axis": false,
+     "exposure_ms_median_recorded": 8.0,
+     "synthetic_condition": {
+      "illuminance_lux": 125.0,
+      "exposure_ms": 8.0
+     },
+     "synthetic_map50": 0.5366990284085055,
+     "curve_map50": 0.5637456433041301,
+     "gap_map50": 0.0678971498034272,
+     "synthetic_failed": false,
+     "real_failed": false
+    }
+   ],
+   "agree": 5,
+   "disagree": 0,
+   "threshold_map50": 0.36664403500645115
+  },
+  "image_statistics": {
+   "method": "estimated, not measured: image SNR inverted through Blindspot's synthetic low-light population sweep",
+   "synthetic": "default-exposure curve",
+   "images": 286,
+   "bins": [
+    {
+     "images": 58,
+     "objects": 146,
+     "lux_min": 24.921068582212513,
+     "lux_max": 211.9225998891533,
+     "lux_median": 101.39357402261066,
+     "real_map50": 0.3747998497872012,
+     "real_map50_car_prediction_only": 0.3752631334943689,
+     "outside_synthetic_axis": false,
+     "synthetic_map50": 0.5275515263050697,
+     "curve_map50": 0.5275515263050697,
+     "gap_map50": -0.15275167651786853,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 127,
+     "lux_min": 233.2220332192525,
+     "lux_max": 400.0,
+     "lux_median": 400.0,
+     "real_map50": 0.6460608569324043,
+     "real_map50_car_prediction_only": 0.6568594742572478,
+     "outside_synthetic_axis": false,
+     "synthetic_map50": 0.58635,
+     "curve_map50": 0.58635,
+     "gap_map50": 0.0597108569324043,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 127,
+     "lux_min": 400.0,
+     "lux_max": 400.0,
+     "lux_median": 400.0,
+     "real_map50": 0.6427586131005747,
+     "real_map50_car_prediction_only": 0.6514511358892521,
+     "outside_synthetic_axis": false,
+     "synthetic_map50": 0.58635,
+     "curve_map50": 0.58635,
+     "gap_map50": 0.056408613100574656,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 128,
+     "lux_min": 400.0,
+     "lux_max": 400.0,
+     "lux_median": 400.0,
+     "real_map50": 0.6530893286840804,
+     "real_map50_car_prediction_only": 0.6754277923645954,
+     "outside_synthetic_axis": false,
+     "synthetic_map50": 0.58635,
+     "curve_map50": 0.58635,
+     "gap_map50": 0.06673932868408039,
+     "synthetic_failed": false,
+     "real_failed": false
+    },
+    {
+     "images": 57,
+     "objects": 140,
+     "lux_min": 400.0,
+     "lux_max": 400.0,
+     "lux_median": 400.0,
+     "real_map50": 0.604051609926418,
+     "real_map50_car_prediction_only": 0.6153274909567156,
+     "outside_synthetic_axis": false,
+     "synthetic_map50": 0.58635,
+     "curve_map50": 0.58635,
+     "gap_map50": 0.017701609926418005,
+     "synthetic_failed": false,
+     "real_failed": false
+    }
+   ],
+   "agree": 5,
+   "disagree": 0,
+   "threshold_map50": 0.36664403500645115
+  }
+ },
+ "command": "uv run --group dev python bench/sim2real.py --dataset nod",
+ "gap": {
+  "estimator": "exif_brightness_corrected",
+  "real_failure_observed": false,
+  "darkest_bin_lux_median": 1.0819166627091668,
+  "darkest_bin_real_map50": 0.40023486269514086,
+  "synthetic_boundary_lux": [
+   12.984375,
+   25.46875
+  ],
+  "bins_synthetic_fail_real_pass": 4,
+  "bins_real_fail_synthetic_pass": 0,
+  "direction": "synthetic predicts failure where real photos pass",
+  "synthetic_boundary_overstates_failure_illuminance_by_at_least": 12.001270936604817
+ }
+}

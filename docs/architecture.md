@@ -117,7 +117,7 @@ sequenceDiagram
 | Report schema and static viewer | **Hosted** on CloudFront from a private S3 bucket (https://d18du1w0ii5yhw.cloudfront.net/); opens without credentials, independent of the control plane |
 | COOL on Graviton comparison | **Measured** on EC2 (three arms, `bench/ec2_cool.py`); not part of the workers |
 | MCP agent + decision ledger (agent side) | **Deployed path**: `cloud-run --agent` on Bedrock (Haiku), decisions in `bs-decisions`, model cost charged to the contract; three live runs |
-| sim-to-real gap | **Not measured** |
+| sim-to-real gap | **Measured** for low light on third-party NOD photos (`CC BY-NC-SA 2.0`, non-commercial research use) with estimated illuminance; other axes not measured |
 
 Rows marked not deployed, not hosted, not built or not measured are not
 described anywhere in this repository as though they exist.

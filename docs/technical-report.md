@@ -234,13 +234,24 @@ measurement, same mAP on 63 <!--bench:cool/m8g-4xlarge/ec2_three_way.cool_effect
 separate: Graviton4 ran at 0.733 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of x86 (c7i) speed
 (`docs/results.md`).
 
-**Not measured:** the sim-to-real gap (section 7).
+**Sim-to-real.** No first-party capture was made. Real photos: NOD (Night Object Detection), I. Morawski, Y.-A. Chen, Y.-S. Lin, W. H. Hsu, BMVC 2021, <https://github.com/igor-morawski/NOD>; images licensed `CC BY-NC-SA 2.0` (as declared in NOD's annotation files), used as a non-commercial research benchmark. Only aggregate metrics are published; no NOD image or derived image appears in this repository, the viewer, the video or the Devpost gallery.
+On 286 <!--bench:sim2real.selection.measured--> NOD night photos the real detector never crossed the failure
+threshold, even in the darkest fifth (estimated median 1.08 <!--bench:sim2real.gap.darkest_bin_lux_median--> lux,
+mAP 0.400 <!--bench:sim2real.gap.darkest_bin_real_map50-->), while the synthetic model at the same estimated
+light and the cameras' recorded exposure time predicted failure in
+4 <!--bench:sim2real.gap.bins_synthetic_fail_real_pass--> of 5 bins. The synthetic boundary therefore overstates
+the failure illuminance for these cameras by at least
+12.0 <!--bench:sim2real.gap.synthetic_boundary_overstates_failure_illuminance_by_at_least-->×. Illuminance is
+estimated, not measured (EXIF exposure equation scaled by photo brightness;
+`docs/results.md`).
 
 ## 7. Limitations
 
-1. **Synthetic degradation is not real degradation, and the gap is not
-   measured.** A real low-light, hand-shake and recompression capture set is
-   needed; until then boundaries describe modelled conditions only.
+1. **Sim-to-real is measured for low light only, on third-party photos with
+   estimated illuminance.** No first-party capture with a light meter was
+   made. On NOD night photos the synthetic low-light model proved too
+   pessimistic; motion blur, fog and JPEG have no real-world comparison, so
+   their boundaries describe modelled conditions only.
 2. **Bit-identity holds within a CPU family, not across.** x86 and Graviton
    agree on every decision measured so far but differ in the low decimal
    places of mAP; a condition sitting on the threshold could be classified

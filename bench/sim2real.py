@@ -49,7 +49,7 @@ from blindspot.runner.dataset import ValidationSet  # noqa: E402
 from blindspot.runner.registry import load_pipeline  # noqa: E402
 from blindspot.runner.yolox import COCO_CLASSES  # noqa: E402
 from blindspot.sim2real import (  # noqa: E402
-    EXIF_CORRECTED_METHOD, EXIF_METHOD, STATS_METHOD, compare_bins, exif_illuminance_lux, parse_exdark,
+    EXIF_CORRECTED_METHOD, EXIF_METHOD, STATS_METHOD, compare_bins, gap_summary, exif_illuminance_lux, parse_exdark,
     person_is_main_subject,
 )
 
@@ -226,6 +226,10 @@ def main() -> int:
         },
         "command": f"uv run --group dev python bench/sim2real.py --dataset {args.dataset}",
     }
+    primary = report["estimators"][report["primary_estimator"]]
+    if primary.get("bins"):
+        report["gap"] = {"estimator": report["primary_estimator"],
+                         **gap_summary(primary, tuple(report["synthetic_boundary_lux"]))}
     out_path.write_text(json.dumps(report, indent=1, default=str) + "\n")
     print(json.dumps({k: v for k, v in report.items() if k not in ("estimators", "dataset")}, indent=1, default=str))
     for name, est in report["estimators"].items():

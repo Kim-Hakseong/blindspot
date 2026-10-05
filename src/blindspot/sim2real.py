@@ -83,3 +83,30 @@ def compare_bins(bins: list[dict], curve: list[dict], threshold_map50: float) ->
     agree = sum(b["synthetic_failed"] == b["real_failed"] for b in out)
     return {"bins": out, "agree": agree, "disagree": len(out) - agree,
             "threshold_map50": threshold_map50}
+
+
+def gap_summary(compared: dict, synthetic_boundary_lux: tuple[float, float]) -> dict:
+    """The sim-to-real gap in illuminance, or a bound on it.
+
+    If no real bin fails, the real failure point lies below the darkest bin and
+    only a lower bound on how far the synthetic boundary overstates it exists:
+    the boundary's lower edge over the darkest bin's median estimate.
+    """
+    bins = sorted(compared["bins"], key=lambda b: b["lux_median"])
+    real_fail = [b for b in bins if b["real_failed"]]
+    s_only = sum(b["synthetic_failed"] and not b["real_failed"] for b in bins)
+    r_only = sum(b["real_failed"] and not b["synthetic_failed"] for b in bins)
+    out = {"real_failure_observed": bool(real_fail),
+           "darkest_bin_lux_median": bins[0]["lux_median"],
+           "darkest_bin_real_map50": bins[0]["real_map50"],
+           "synthetic_boundary_lux": list(synthetic_boundary_lux),
+           "bins_synthetic_fail_real_pass": s_only, "bins_real_fail_synthetic_pass": r_only,
+           "direction": ("synthetic predicts failure where real photos pass" if s_only > r_only else
+                         "real photos fail where synthetic predicts a pass" if r_only > s_only else
+                         "no net direction")}
+    if not real_fail:
+        out["synthetic_boundary_overstates_failure_illuminance_by_at_least"] = (
+            synthetic_boundary_lux[0] / bins[0]["lux_median"])
+    else:
+        out["brightest_real_failing_bin_lux_median"] = max(b["lux_median"] for b in real_fail)
+    return out
