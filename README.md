@@ -6,18 +6,25 @@
 
 ## Reproduce path A — full AWS deployment
 
+Needs: an AWS profile for this project, Docker with `buildx`, Node 20+, `uv`.
+
 ```bash
+export AWS_PROFILE=blindspot AWS_REGION=us-east-1     # every AWS call uses this profile
 git clone https://github.com/Kim-Hakseong/blindspot.git && cd blindspot
-uv sync --frozen --group infra --group cloud          # pinned via uv.lock
+uv sync --frozen --group infra --group cloud --group dev   # pinned via uv.lock
 sh tools/fetch_models.sh                              # SHA-256 verified
 uv run python tools/fetch_dataset.py --name road100   # licence-filtered COCO
-cd infra && npm ci && npx cdk bootstrap --qualifier bspot --toolkit-stack-name CDKToolkit-blindspot \
-  && npx cdk deploy Blindspot -c budget_email=YOU@EXAMPLE.COM && cd ..
-uv run blindspot cloud-run --dataset val/road100 --budget 0.40
+uv run python bench/build_report.py                   # report data for the viewer
+(cd viewer && npm ci && npm run build)                # static report viewer
+cd infra && npm ci
+npx cdk bootstrap --qualifier bspot --toolkit-stack-name CDKToolkit-blindspot --tags project=blindspot
+npx cdk deploy Blindspot --require-approval never     # optional: -c budget_email=you@example.com
+cd .. && uv run --group cloud blindspot cloud-run --dataset val/road100 --budget 0.40
 ```
 
-Uses an AWS profile named `blindspot` (override with `--profile`). Everything
-created is tagged `project=blindspot`; `sh tools/teardown.sh` removes it all.
+`cdk deploy` prints `ReportUrl` — the public report, served from S3 by
+CloudFront with no credentials and no server. Everything created is tagged
+`project=blindspot`; `sh tools/teardown.sh` removes it all.
 
 ## Reproduce path B — local, no AWS credentials, no network
 

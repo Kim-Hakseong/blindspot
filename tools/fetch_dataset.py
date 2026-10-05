@@ -53,15 +53,23 @@ MIN_OBJECTS = 3
 MIN_BOX_AREA = 32 * 32  # Ignore objects too small to survive any degradation.
 
 
+ANNOTATIONS_URL = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+
+
 def load_coco(path: pathlib.Path) -> dict:
+    """Read COCO val2017 instances, downloading the official archive if absent."""
     if not path.is_file():
-        sys.exit(
-            f"missing {path}\n"
-            "Fetch it first:\n"
-            "  curl -o .cache/ann.zip "
-            "http://images.cocodataset.org/annotations/annotations_trainval2017.zip\n"
-            "  cd .cache && unzip -o ann.zip annotations/instances_val2017.json"
-        )
+        import zipfile
+
+        archive = path.parents[1] / "annotations_trainval2017.zip"
+        archive.parent.mkdir(parents=True, exist_ok=True)
+        if not archive.is_file():
+            print(f"downloading COCO annotations (~240 MB) from {ANNOTATIONS_URL}")
+            tmp = archive.with_suffix(".part")
+            urllib.request.urlretrieve(ANNOTATIONS_URL, tmp)
+            tmp.rename(archive)
+        with zipfile.ZipFile(archive) as z:
+            z.extract("annotations/instances_val2017.json", path.parents[1])
     return json.loads(path.read_text(encoding="utf-8"))
 
 
