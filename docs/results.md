@@ -178,6 +178,35 @@ indoors against 0.06 /m on roads, and NanoDet's blur edge drops to
 8.75 <!--bench:efficiency_matrix.rows[4].boundary[0]--> ms indoors. Full
 per-axis table: `bench/out/efficiency_matrix.json`.
 
+## On AWS
+
+Deployed with `cdk deploy` to a dedicated account profile; every run below went
+through Step Functions, AWS Batch on Fargate (Graviton, arm64) and the DynamoDB
+ledgers. Costs are **measured** by `tools/cost_report.py` from each ECS task's
+billed time, not estimated.
+
+**Full run** -- road100, 100 frames, four axes, $0.40 contract
+(`bench/out/cloud_runs/20261005-132343-667165-*.json`):
+
+| | |
+|---|---|
+| Wall time | 14 min 41 s |
+| Probes (Fargate tasks) | 33 <!--bench:cloud_runs/20261005-132343-667165-cost.fargate_tasks--> |
+| Measured cost | $0.0749 <!--bench:cloud_runs/20261005-132343-667165-cost.total_usd--> |
+| Motion-blur boundary | 12.50 <!--bench:cloud_runs/20261005-132343-667165-envelope.findings[0].lower-->–13.75 <!--bench:cloud_runs/20261005-132343-667165-envelope.findings[0].upper--> ms |
+| Illuminance boundary | 12.98 <!--bench:cloud_runs/20261005-132343-667165-envelope.findings[1].lower-->–25.47 <!--bench:cloud_runs/20261005-132343-667165-envelope.findings[1].upper--> lux |
+
+All four boundaries and per-axis probe counts are identical to the local
+benchmark above: the cloud planner replays the local search, and the
+degradations are deterministic, so Graviton/Linux and macOS agree exactly.
+
+**Budget halt and human approval** -- a deliberately starved $0.02 contract
+(`bench/out/cloud_runs/20261005-134003-56d2f0-*.json`). The run stopped after
+four probes in `AWAITING_APPROVAL`; `blindspot approve`, with a named approver
+and a reason, resumed it under contract version 2 and it completed. Both the
+halt reasons and the approval are in the decision ledger. Measured cost across
+both halves: $0.0464 <!--bench:cloud_runs/20261005-134003-56d2f0-cost.total_usd-->.
+
 ## Known limitations
 
 1. **Synthetic degradation is not real degradation.** This is the central

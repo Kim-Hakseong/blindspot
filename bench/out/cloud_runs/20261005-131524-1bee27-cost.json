@@ -1,0 +1,27 @@
+{
+ "run_id": "20261005-131524-1bee27",
+ "executions": [
+  {
+   "name": "20261005-131524-1bee27",
+   "status": "SUCCEEDED",
+   "start": "2026-10-05T13:15:26.092000+09:00",
+   "stop": "2026-10-05T13:22:04.615000+09:00"
+  }
+ ],
+ "batch_jobs": 8,
+ "tasks_unaccounted": [],
+ "fargate_usd": 0.01641407138888889,
+ "fargate_tasks": 8,
+ "fargate_billed_seconds": 747.983,
+ "lambda_usd": 2.1970103849999995e-05,
+ "sfn_usd": 0.000575,
+ "total_usd": 0.01701104149273889,
+ "excluded": [
+  "DynamoDB on-demand requests (fractions of a cent per run)",
+  "S3 requests and storage",
+  "CloudWatch Logs ingestion",
+  "public IPv4 address-hours during tasks",
+  "ECR storage (monthly, not per run)"
+ ],
+ "command": "AWS_PROFILE=blindspot uv run --group cloud python tools/cost_report.py --run-id 20261005-131524-1bee27"
+}

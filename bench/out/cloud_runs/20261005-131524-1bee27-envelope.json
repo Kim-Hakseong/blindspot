@@ -1,0 +1,22 @@
+{
+ "action": "done",
+ "findings": [
+  {
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "status": "located",
+   "lower": 10.0,
+   "upper": 12.5,
+   "probes_used": 7,
+   "reproduce": "uv run blindspot probe --set motion_blur.exposure_ms=12.5 --seed 20260906"
+  }
+ ],
+ "criterion": {
+  "rule": "mAP@50 below a fraction of the undegraded baseline",
+  "baseline_map50": 0.6322231517738343,
+  "fraction": 0.6,
+  "threshold_map50": 0.37933389106430054
+ },
+ "spent_usd": 0.016,
+ "remaining_usd": 0.034
+}

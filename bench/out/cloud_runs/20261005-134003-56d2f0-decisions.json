@@ -1,0 +1,239 @@
+[
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-134003-56d2f0",
+  "output": {
+   "action": "probe",
+   "remaining_usd": 0.02,
+   "spent_usd": 0.0,
+   "probe_ids": [
+    "baseline"
+   ],
+   "truncated": false
+  },
+  "input": {
+   "ledger_size": 0.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0001-plan"
+ },
+ {
+  "run_id": "20261005-134003-56d2f0",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "action": "probe",
+   "probe_ids": [
+    "motion_blur.exposure_ms@0.0",
+    "motion_blur.exposure_ms@10.0",
+    "motion_blur.exposure_ms@20.0"
+   ],
+   "truncated": true,
+   "spent_usd": 0.005,
+   "remaining_usd": 0.015
+  },
+  "input": {
+   "ledger_size": 1.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0002-plan"
+ },
+ {
+  "run_id": "20261005-134003-56d2f0",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "remaining_usd": 0.0,
+   "findings": [],
+   "requested_probes": 17.0,
+   "action": "halted",
+   "spent_usd": 0.02,
+   "probe_ids": [],
+   "state": "AWAITING_APPROVAL",
+   "reason": "exceeds budget contract: 17 probes cost 0.0850 USD but only 0.0000 USD remains of a 0.0200 USD limit"
+  },
+  "input": {
+   "ledger_size": 4.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0003-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-134003-56d2f0",
+  "output": {
+   "spent_usd": 0.02,
+   "truncated": false,
+   "action": "probe",
+   "remaining_usd": 0.15,
+   "probe_ids": [
+    "motion_blur.exposure_ms@30.0",
+    "motion_blur.exposure_ms@40.0",
+    "low_light.illuminance_lux@400.0",
+    "low_light.illuminance_lux@300.125",
+    "low_light.illuminance_lux@200.25",
+    "low_light.illuminance_lux@100.375",
+    "low_light.illuminance_lux@0.5",
+    "fog.beta_per_m@0.0",
+    "fog.beta_per_m@0.03",
+    "fog.beta_per_m@0.06",
+    "fog.beta_per_m@0.09",
+    "fog.beta_per_m@0.12",
+    "jpeg.quality@100.0",
+    "jpeg.quality@76.25",
+    "jpeg.quality@52.5",
+    "jpeg.quality@28.75",
+    "jpeg.quality@5.0"
+   ]
+  },
+  "input": {
+   "ledger_size": 4.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0004-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-134003-56d2f0",
+  "output": {
+   "spent_usd": 0.105,
+   "probe_ids": [
+    "motion_blur.exposure_ms@15.0",
+    "low_light.illuminance_lux@50.4375",
+    "fog.beta_per_m@0.045",
+    "jpeg.quality@16.875"
+   ],
+   "action": "probe",
+   "truncated": false,
+   "remaining_usd": 0.065
+  },
+  "input": {
+   "ledger_size": 21.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0005-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-134003-56d2f0",
+  "output": {
+   "truncated": false,
+   "remaining_usd": 0.045,
+   "spent_usd": 0.125,
+   "action": "probe",
+   "probe_ids": [
+    "motion_blur.exposure_ms@12.5",
+    "low_light.illuminance_lux@25.46875",
+    "fog.beta_per_m@0.0525",
+    "jpeg.quality@10.9375"
+   ]
+  },
+  "input": {
+   "ledger_size": 25.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0006-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-134003-56d2f0",
+  "output": {
+   "spent_usd": 0.145,
+   "action": "probe",
+   "probe_ids": [
+    "motion_blur.exposure_ms@11.25",
+    "low_light.illuminance_lux@12.984375",
+    "fog.beta_per_m@0.056249999999999994",
+    "jpeg.quality@13.90625"
+   ],
+   "remaining_usd": 0.025,
+   "truncated": false
+  },
+  "input": {
+   "ledger_size": 29.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0007-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261005-134003-56d2f0",
+  "output": {
+   "findings": [
+    {
+     "probes_used": 8.0,
+     "reproduce": "uv run blindspot probe --set motion_blur.exposure_ms=11.25 --seed 20260906",
+     "axis": "motion_blur.exposure_ms",
+     "unit": "ms",
+     "status": "located",
+     "lower": 10.0,
+     "upper": 11.25
+    },
+    {
+     "reproduce": "uv run blindspot probe --set low_light.illuminance_lux=0.5 --seed 20260906",
+     "axis": "low_light.illuminance_lux",
+     "status": "located",
+     "unit": "lux",
+     "lower": 0.5,
+     "upper": 12.984375,
+     "probes_used": 8.0
+    },
+    {
+     "unit": "1/m",
+     "axis": "fog.beta_per_m",
+     "lower": 0.0525,
+     "upper": 0.056249999999999994,
+     "probes_used": 8.0,
+     "reproduce": "uv run blindspot probe --set fog.beta_per_m=0.056249999999999994 --seed 20260906",
+     "status": "located"
+    },
+    {
+     "status": "located",
+     "probes_used": 8.0,
+     "reproduce": "uv run blindspot probe --set jpeg.quality=10.9375 --seed 20260906",
+     "unit": "jpeg-q",
+     "axis": "jpeg.quality",
+     "upper": 13.90625,
+     "lower": 10.9375
+    }
+   ],
+   "spent_usd": 0.165,
+   "remaining_usd": 0.005,
+   "action": "done",
+   "probe_ids": [],
+   "criterion": {
+    "rule": "mAP@50 below a fraction of the undegraded baseline",
+    "fraction": 0.6,
+    "threshold_map50": 0.37933389106430054,
+    "baseline_map50": 0.6322231517738343
+   }
+  },
+  "input": {
+   "ledger_size": 33.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0008-plan"
+ },
+ {
+  "run_id": "20261005-134003-56d2f0",
+  "rationale": "W6-4 live check: resume after deliberate budget halt",
+  "output": {
+   "budget_after_usd": 0.17,
+   "budget_before_usd": 0.02,
+   "contract_version": 2.0
+  },
+  "input": {
+   "additional_usd": 0.15,
+   "approver": "haku"
+  },
+  "tool": "human.approve",
+  "accepted_by_scheduler": true,
+  "decision_id": "approve-v02-1791175383"
+ }
+]

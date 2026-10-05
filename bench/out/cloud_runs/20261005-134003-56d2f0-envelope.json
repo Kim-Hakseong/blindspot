@@ -1,0 +1,49 @@
+{
+ "action": "done",
+ "findings": [
+  {
+   "axis": "motion_blur.exposure_ms",
+   "unit": "ms",
+   "status": "located",
+   "lower": 10.0,
+   "upper": 11.25,
+   "probes_used": 8,
+   "reproduce": "uv run blindspot probe --set motion_blur.exposure_ms=11.25 --seed 20260906"
+  },
+  {
+   "axis": "low_light.illuminance_lux",
+   "unit": "lux",
+   "status": "located",
+   "lower": 0.5,
+   "upper": 12.984375,
+   "probes_used": 8,
+   "reproduce": "uv run blindspot probe --set low_light.illuminance_lux=0.5 --seed 20260906"
+  },
+  {
+   "axis": "fog.beta_per_m",
+   "unit": "1/m",
+   "status": "located",
+   "lower": 0.0525,
+   "upper": 0.056249999999999994,
+   "probes_used": 8,
+   "reproduce": "uv run blindspot probe --set fog.beta_per_m=0.056249999999999994 --seed 20260906"
+  },
+  {
+   "axis": "jpeg.quality",
+   "unit": "jpeg-q",
+   "status": "located",
+   "lower": 10.9375,
+   "upper": 13.90625,
+   "probes_used": 8,
+   "reproduce": "uv run blindspot probe --set jpeg.quality=10.9375 --seed 20260906"
+  }
+ ],
+ "criterion": {
+  "rule": "mAP@50 below a fraction of the undegraded baseline",
+  "baseline_map50": 0.6322231517738343,
+  "fraction": 0.6,
+  "threshold_map50": 0.37933389106430054
+ },
+ "spent_usd": 0.165,
+ "remaining_usd": 0.005
+}
