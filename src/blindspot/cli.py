@@ -414,6 +414,40 @@ def approve(
                f"{out['budget_usd']:.2f} USD")
 
 
+@app.command("bench-stages")
+def bench_stages(
+    label: str = typer.Option(..., help="Arm name, e.g. fargate-arm64 / fargate-x86 / cool-c8g"),
+    dataset: str = typer.Option("val/road100", help="Local path or s3://bucket/datasets/<name>"),
+    frames: int = typer.Option(10),
+    out: str = typer.Option("bench/out/cool", help="Local directory or s3://bucket/prefix"),
+):
+    """Time each stage of the fixed 64-probe batch (CPU / build comparison)."""
+    from .stages import fixture_probes, run_stage_bench
+
+    if dataset.startswith("s3://"):
+        from .cloud.worker import fetch_dataset
+
+        dataset = str(fetch_dataset(dataset, pathlib.Path("/tmp/datasets")))
+    report = run_stage_bench(dataset, frames, fixture_probes(), label)
+    report["command"] = f"blindspot bench-stages --label {label} --frames {frames}"
+    body = json.dumps(report, indent=1) + "\n"
+    name = f"{label}.json"
+    if out.startswith("s3://"):
+        import boto3
+
+        bucket, _, prefix = out[len("s3://"):].partition("/")
+        boto3.client("s3").put_object(Bucket=bucket, Key=f"{prefix.rstrip('/')}/{name}",
+                                      Body=body, ContentType="application/json")
+    else:
+        pathlib.Path(out).mkdir(parents=True, exist_ok=True)
+        (pathlib.Path(out) / name).write_text(body)
+    fp = report["fingerprint"]
+    typer.echo(f"{label}: {fp['cpu_model']} ({fp['machine']}), OpenCV {fp['opencv_version']}, "
+               f"kleidicv={fp['kleidicv']}")
+    for stage, s in report["per_frame"].items():
+        typer.echo(f"  {stage:<8} median {s['median_ms']:.2f} ms  p95 {s['p95_ms']:.2f} ms")
+
+
 @app.command()
 def check(
     against: pathlib.Path = typer.Option(..., help="A previous report to compare with"),
