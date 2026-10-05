@@ -32,19 +32,11 @@ if [ "$ROLE" = x86 ]; then
 fi
 
 # --- COOL: our code and pinned dependencies, with only cv2 taken from COOL ---
-# The listing names /opt/cool/venvs/python_3.12; search in case the AMI differs.
-COOL_PY=""
-for py in /opt/cool/venvs/python_3.12/bin/python /opt/cool/venvs/*/bin/python /opt/cool/*/bin/python3; do
-  if [ -x "$py" ] && "$py" -c "import cv2" 2>/dev/null; then COOL_PY=$py; break; fi
-done
-if [ -z "$COOL_PY" ]; then
-  # Without COOL, still measure arm 2 so the chip comparison is not lost.
-  echo "cool_cv2_method=none (no Python under /opt/cool imports cv2)"
-  for r in $(seq 1 "$REPEATS"); do stock "ec2-graviton-stock-r$r"; done
-  exit 3
-fi
-echo "cool_python=$COOL_PY"
-COOL_SITE=$("$COOL_PY" -c "import cv2, os; print(os.path.dirname(os.path.dirname(os.path.realpath(cv2.__file__))))")
+# The vendor's documented "system Python" setup: COOL's libraries on
+# LD_LIBRARY_PATH and its Python package directory on the import path. (Its
+# venvs set these only when activated; calling their python directly does not.)
+COOL_LIB=/opt/cool/cpp_sdk/lib
+COOL_SITE=/opt/cool/python_3.12/site-packages
 uv export --frozen --no-dev --group cloud --no-hashes --no-emit-project \
   | grep -v '^opencv-python-headless' > /tmp/req-no-opencv.txt
 uv venv /opt/bs-cool --python 3.12
@@ -53,23 +45,37 @@ uv pip install --python /opt/bs-cool/bin/python --no-deps .
 # Appended after our own site-packages: our pinned numpy wins, cv2 exists only in COOL's.
 echo "$COOL_SITE" > /opt/bs-cool/lib/python3.12/site-packages/zz_cool_cv2.pth
 METHOD=pth
-if ! /opt/bs-cool/bin/python - "$COOL_SITE" <<'EOF'
+if ! LD_LIBRARY_PATH="$COOL_LIB" /opt/bs-cool/bin/python - "$COOL_SITE" <<'EOF'
 import os, sys, cv2
-assert os.path.realpath(cv2.__file__).startswith(sys.argv[1]), cv2.__file__
+print("cool cv2", cv2.__version__, "from", os.path.realpath(cv2.__file__))
+assert os.path.realpath(cv2.__file__).startswith(os.path.realpath(sys.argv[1])), cv2.__file__
 EOF
 then
-  # Fallback: run inside COOL's own environment with our package added. COOL's
-  # numpy is then used too; the report's fingerprint records which numpy ran.
-  grep -v '^numpy' /tmp/req-no-opencv.txt > /tmp/req-no-opencv-numpy.txt
-  uv pip install --python "$COOL_PY" -r /tmp/req-no-opencv-numpy.txt
-  uv pip install --python "$COOL_PY" --no-deps .
-  ln -sf "$(dirname "$COOL_PY")/blindspot" /opt/bs-cool/bin/blindspot
-  METHOD=cool-venv
+  # Fallback: COOL's own activated venv with our package added; COOL's numpy
+  # is then used too, and the report's fingerprint records which numpy ran.
+  if ( source /opt/cool/venvs/python_3.12/bin/activate && python -c "import cv2" ); then
+    ( source /opt/cool/venvs/python_3.12/bin/activate
+      grep -v '^numpy' /tmp/req-no-opencv.txt > /tmp/req-no-opencv-numpy.txt
+      uv pip install --python "$(command -v python)" -r /tmp/req-no-opencv-numpy.txt
+      uv pip install --python "$(command -v python)" --no-deps . )
+    METHOD=cool-venv
+  else
+    # Without COOL, still measure arm 2 so the chip comparison is not lost.
+    echo "cool_cv2_method=none (COOL cv2 did not import; errors above)"
+    for r in $(seq 1 "$REPEATS"); do stock "ec2-graviton-stock-r$r"; done
+    exit 3
+  fi
 fi
 echo "cool_cv2_method=$METHOD"
 
 cool() {
-  /opt/bs-cool/bin/blindspot bench-stages --label "$1" --dataset val/road100 --frames 10 --out "$OUT"
+  if [ "$METHOD" = pth ]; then
+    LD_LIBRARY_PATH="$COOL_LIB" /opt/bs-cool/bin/blindspot bench-stages --label "$1" \
+      --dataset val/road100 --frames 10 --out "$OUT"
+  else
+    ( source /opt/cool/venvs/python_3.12/bin/activate
+      blindspot bench-stages --label "$1" --dataset val/road100 --frames 10 --out "$OUT" )
+  fi
 }
 for r in $(seq 1 "$REPEATS"); do
   stock "ec2-graviton-stock-r$r"
