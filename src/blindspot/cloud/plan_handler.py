@@ -45,6 +45,28 @@ def _ledger(probes_table, run_id: str) -> list[dict]:
             for i in items]
 
 
+def _emit_metrics(arch: str, ledger_size: int, step: dict) -> None:
+    """CloudWatch Embedded Metric Format: one structured log line per round.
+
+    CloudWatch extracts the metrics from the Lambda's log, so the function
+    needs no PutMetricData permission and no metrics client.
+    """
+    located = sum(1 for f in step.get("findings", []) if f.get("status") == "located")
+    print(json.dumps({
+        "_aws": {"Timestamp": int(time.time() * 1000), "CloudWatchMetrics": [{
+            "Namespace": "Blindspot", "Dimensions": [["Arch"]],
+            "Metrics": [{"Name": "ProbesCompleted", "Unit": "Count"},
+                        {"Name": "SpentUSD", "Unit": "None"},
+                        {"Name": "AxesLocated", "Unit": "Count"},
+                        {"Name": "WaveSize", "Unit": "Count"},
+                        {"Name": "RunHalted", "Unit": "Count"}]}]},
+        "Arch": arch, "ProbesCompleted": ledger_size,
+        "SpentUSD": step.get("spent_usd", 0.0), "AxesLocated": located,
+        "WaveSize": len(step.get("probes", [])),
+        "RunHalted": 1 if step.get("action") == "halted" else 0,
+    }))
+
+
 def _decimalise(obj):
     return json.loads(json.dumps(obj), parse_float=Decimal)
 
@@ -60,7 +82,10 @@ def handler(event, context):
         runs.put_item(Item={**run_item, "status": "AWAITING_APPROVAL", "updated": int(time.time())})
         return {**base, "action": "halted"}
 
-    step = plan_round(run, _ledger(probes, run_id))
+    ledger = _ledger(probes, run_id)
+    step = plan_round(run, ledger)
+    if mode == "plan":
+        _emit_metrics(arch, len(ledger), step)
 
     if mode == "finalize":
         key = f"runs/{run_id}/envelope.json"
@@ -74,7 +99,7 @@ def handler(event, context):
     decisions.put_item(Item=_decimalise({
         "run_id": run_id, "decision_id": f"{round_no:04d}-plan",
         "tool": "scheduler.plan_round",
-        "input": {"ledger_size": len(_ledger(probes, run_id))},
+        "input": {"ledger_size": len(ledger)},
         "output": {k: v for k, v in step.items() if k != "probes"} | {
             "probe_ids": [p["probe_id"] for p in step.get("probes", [])]},
         "rationale": "deterministic replay of the local search under the budget contract",

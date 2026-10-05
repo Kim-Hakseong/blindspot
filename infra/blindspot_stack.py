@@ -21,6 +21,7 @@ import aws_cdk as cdk
 from aws_cdk import (
     aws_batch as batch,
     aws_budgets as budgets,
+    aws_cloudwatch as cloudwatch,
     aws_dynamodb as ddb,
     aws_ec2 as ec2,
     aws_ecr_assets as ecr_assets,
@@ -205,6 +206,32 @@ class BlindspotStack(cdk.Stack):
             timeout=cdk.Duration.hours(1),
             logs=sfn.LogOptions(destination=sm_log, level=sfn.LogLevel.ERROR),
             tracing_enabled=True,
+        )
+
+        # ---- observability (W4-6): planner metrics + run outcomes ----
+        def bs_metric(name, stat="Maximum"):
+            return cloudwatch.Metric(namespace="Blindspot", metric_name=name,
+                                     dimensions_map={"Arch": "arm64"}, statistic=stat,
+                                     period=cdk.Duration.minutes(1))
+
+        cloudwatch.Dashboard(
+            self, "Dashboard", dashboard_name="bs-runs",
+            widgets=[
+                [cloudwatch.GraphWidget(title="Probes completed (ledger size)",
+                                        left=[bs_metric("ProbesCompleted")], width=12),
+                 cloudwatch.GraphWidget(title="Contract spent (USD)",
+                                        left=[bs_metric("SpentUSD")], width=12)],
+                [cloudwatch.GraphWidget(title="Axes with a located boundary",
+                                        left=[bs_metric("AxesLocated")], width=8),
+                 cloudwatch.GraphWidget(title="Wave size (probes fanned out)",
+                                        left=[bs_metric("WaveSize")], width=8),
+                 cloudwatch.GraphWidget(title="Runs halted on the contract",
+                                        left=[bs_metric("RunHalted", "Sum")], width=8)],
+                [cloudwatch.GraphWidget(title="Run outcomes", width=24, left=[
+                    self.state_machine.metric_succeeded(statistic="Sum"),
+                    self.state_machine.metric_failed(statistic="Sum"),
+                    self.state_machine.metric_timed_out(statistic="Sum")])],
+            ],
         )
 
         # ---- cost guard (rule C3): alarm on this project's tag only ----

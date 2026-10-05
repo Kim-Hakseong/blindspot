@@ -76,3 +76,17 @@ def test_halt_marks_the_run_awaiting_approval(monkeypatch):
     assert out["action"] == "halted"
     plan_handler.handler({"mode": "halt", "run_id": "r1", "arch": "arm64"}, None)
     assert runs.items[("r1", "")]["status"] == "AWAITING_APPROVAL"
+
+
+def test_each_plan_emits_cloudwatch_metrics(monkeypatch, capsys):
+    """W4-6: Embedded Metric Format on stdout -- CloudWatch turns it into
+    metrics without the function needing PutMetricData permission."""
+    wire(monkeypatch)
+    plan_handler.handler({"mode": "plan", "run_id": "r1", "arch": "arm64"}, None)
+    lines = [json.loads(l) for l in capsys.readouterr().out.splitlines() if l.startswith("{")]
+    emf = next(l for l in lines if "_aws" in l)
+    directive = emf["_aws"]["CloudWatchMetrics"][0]
+    assert directive["Namespace"] == "Blindspot"
+    names = {m["Name"] for m in directive["Metrics"]}
+    assert {"ProbesCompleted", "SpentUSD", "AxesLocated", "WaveSize"} <= names
+    assert emf["Arch"] == "arm64" and emf["ProbesCompleted"] == 0

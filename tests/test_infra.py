@@ -172,3 +172,11 @@ def test_state_machine_has_plan_submit_and_halt(template):
     definition = json.dumps(sm["Properties"]["DefinitionString"])
     for state in ("Plan", "SubmitWave", "Finalize", "Halt"):
         assert state in definition
+
+
+def test_dashboard_shows_planner_metrics_and_run_outcomes(template):
+    dashboards = resources(template, "AWS::CloudWatch::Dashboard")
+    assert len(dashboards) == 1
+    body = json.dumps(next(iter(dashboards.values()))["Properties"]["DashboardBody"])
+    for metric in ("ProbesCompleted", "SpentUSD", "AxesLocated", "RunHalted", "ExecutionsFailed"):
+        assert metric in body
