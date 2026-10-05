@@ -69,7 +69,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ami", required=True, help="COOL AMI id in us-east-1")
     parser.add_argument("--keep-stack", action="store_true", help="skip the destroy (debugging)")
+    parser.add_argument("--out", type=pathlib.Path, default=OUT,
+                        help="where reports go (a smoke test writes outside bench/out)")
     args = parser.parse_args()
+    out_dir = args.out
     if not re.fullmatch(r"ami-[0-9a-f]{8,17}", args.ami):
         parser.error("not an AMI id")
 
@@ -113,7 +116,7 @@ def main() -> int:
                 guard_fired.append(role)
 
     # Collect: reports into the repo, logs and done-markers into .cache only.
-    OUT.mkdir(parents=True, exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
     LOGS.mkdir(parents=True, exist_ok=True)
     arms: dict[str, list[dict]] = {k: [] for k in ARMS}
     keys = [o["Key"] for p in s3.get_paginator("list_objects_v2").paginate(Bucket=bucket)
@@ -130,7 +133,7 @@ def main() -> int:
         for arm, (label_prefix, _, _) in ARMS.items():
             if report["label"].startswith(label_prefix):
                 report["command"] += "  # bench/ec2_cool.py, EC2 " + ARMS[arm][1]
-                (OUT / name).write_text(json.dumps(report, indent=1) + "\n")
+                (out_dir / name).write_text(json.dumps(report, indent=1) + "\n")
                 arms[arm].append(report)
     method = None
     log = LOGS / "graviton.log"
@@ -159,14 +162,14 @@ def main() -> int:
     missing = [a for a, runs in arms.items() if not runs]
     if missing:
         summary["missing_arms"] = missing
-        (OUT / "ec2_three_way.json").write_text(json.dumps(summary, indent=1) + "\n")
+        (out_dir / "ec2_three_way.json").write_text(json.dumps(summary, indent=1) + "\n")
         print(json.dumps(summary, indent=1), file=sys.stderr)
         return 1
     rates = {a: EC2_USD_H[t] + fee for a, (_, t, fee) in ARMS.items()}
     result = compare_three_way(arms, rates)
     result.update(summary)
     result["cool_opencv_version"] = arms["graviton_cool"][0]["fingerprint"]["opencv_version"]
-    (OUT / "ec2_three_way.json").write_text(json.dumps(result, indent=1) + "\n")
+    (out_dir / "ec2_three_way.json").write_text(json.dumps(result, indent=1) + "\n")
     for arm, a in result["arms"].items():
         print(f"{arm}: {a['cpu_models']} OpenCV {a['opencv_version']} kleidicv={a['kleidicv']} "
               f"{a['per_frame_total_median_ms']:.1f} ms/frame ${a['usd_per_1000_frames']:.5f}/1000")
