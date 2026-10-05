@@ -61,6 +61,7 @@ def fingerprint() -> dict:
         "build_info_sha256": hashlib.sha256(info.encode()).hexdigest(),
         "kleidicv": "kleidicv" in info.lower(),
         "python": platform.python_version(),
+        "numpy_version": np.__version__,
     }
 
 
@@ -154,4 +155,33 @@ def compare_arms(arms: dict[str, list[dict]], usd_per_task_hour: dict[str, float
         out["map50_identical_probes"] = sum(d == 0.0 for d in diffs)
         out["map50_probes_compared"] = len(diffs)
         out["map50_max_abs_difference"] = max(diffs)
+    return out
+
+
+def _map_agreement(a: list[dict], b: list[dict]) -> dict:
+    diffs = [abs(p["map50"] - q["map50"]) for p, q in zip(a[0]["results"], b[0]["results"])]
+    return {"map50_identical_probes": sum(d == 0.0 for d in diffs),
+            "map50_probes_compared": len(diffs), "map50_max_abs_difference": max(diffs)}
+
+
+def compare_three_way(arms: dict[str, list[dict]], usd_per_hour: dict[str, float]) -> dict:
+    """x86 stock / Graviton stock / Graviton COOL, with each effect isolated.
+
+    The chip effect compares two arms that differ only in CPU (same stock
+    OpenCV wheel); the COOL effect compares two arms on the same instance that
+    differ only in the OpenCV build. A speedup above 1 means the candidate is
+    faster; a cost ratio below 1 means it is cheaper per frame.
+    """
+    out = compare_arms(arms, usd_per_hour)
+    for name, base, cand in (("chip_effect", "x86_stock", "graviton_stock"),
+                             ("cool_effect", "graviton_stock", "graviton_cool")):
+        b, c = out["arms"][base], out["arms"][cand]
+        out[name] = {
+            "baseline": base, "candidate": cand,
+            "speedup": b["per_frame_total_median_ms"] / c["per_frame_total_median_ms"],
+            "stage_speedup": {s: b["per_stage_median_ms"][s] / c["per_stage_median_ms"][s]
+                              for s in b["per_stage_median_ms"]},
+            "cost_ratio": c["usd_per_1000_frames"] / b["usd_per_1000_frames"],
+            **_map_agreement(arms[base], arms[cand]),
+        }
     return out

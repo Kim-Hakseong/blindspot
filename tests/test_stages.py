@@ -76,3 +76,29 @@ def test_compare_arms_exposes_mixed_cpus_within_an_arm():
     assert out["arms"]["x86"]["runs"] == [{"cpu_model": "old", "per_frame_total_median_ms": 24},
                                           {"cpu_model": "new", "per_frame_total_median_ms": 12}]
     assert out["arms"]["arm64"]["cpu_models"] == {"v2": 1}
+
+
+def test_three_way_separates_the_chip_effect_from_the_cool_effect():
+    # arm 1 vs arm 2 differ only in CPU; arm 2 vs arm 3 differ only in OpenCV build.
+    from blindspot.stages import compare_three_way
+    arms = {"x86_stock": [_report("spr", (4, 20, 400), [0.5, 0.3])],
+            "graviton_stock": [_report("v2", (3, 15, 470), [0.5, 0.3])],
+            "graviton_cool": [_report("v2", (2, 10, 470), [0.5, 0.3001])]}
+    rates = {"x86_stock": 0.09, "graviton_stock": 0.08, "graviton_cool": 0.09}
+    out = compare_three_way(arms, rates)
+    chip, cool = out["chip_effect"], out["cool_effect"]
+    assert (chip["baseline"], chip["candidate"]) == ("x86_stock", "graviton_stock")
+    assert (cool["baseline"], cool["candidate"]) == ("graviton_stock", "graviton_cool")
+    # speedup > 1 means the candidate is faster
+    assert chip["speedup"] == pytest.approx(424 / 488)
+    assert cool["speedup"] == pytest.approx(488 / 482)
+    assert cool["stage_speedup"]["measure"] == pytest.approx(1.5)
+    assert cool["stage_speedup"]["infer"] == pytest.approx(1.0)
+    assert cool["cost_ratio"] == pytest.approx((482 * 0.09) / (488 * 0.08))
+    assert chip["map50_identical_probes"] == 2 and cool["map50_identical_probes"] == 1
+    assert out["arms"]["graviton_cool"]["per_frame_total_median_ms"] == 482
+
+
+def test_fingerprint_records_numpy_version():
+    # COOL may bring its own numpy; a changed numpy must be visible in the result.
+    assert "numpy_version" in fingerprint()
