@@ -97,3 +97,13 @@ URL, retrieval date, image count, a SHA-256 manifest committed under
 - **Citation**: Loh, Y. P., Chan, C. S. "Getting to Know Low-light Images with
   The Exclusively Dark Dataset", *Computer Vision and Image Understanding* 178
   (2019) 30–42, doi:10.1016/j.cviu.2018.10.010.
+
+## Candidates checked for sim-to-real (2026-10-05)
+
+| Dataset | Real conditions | Labels | Images: licence as found | Access | Assessment |
+|---|---|---|---|---|---|
+| NOD (Night Object Detection, BMVC 2021) | Night street photos, Sony RX100 VII and Nikon D750 (authors' own captures) | person, bicycle, car (COCO JSON, in the MIT-licensed GitHub repo) | Annotation file declares **CC BY-NC-SA 2.0** for every image (`licenses[0]`; identical to COCO's licence #1, so possibly a copied template). The "CC BY-NC-ND 4.0" seen in search results is the arXiv *paper*'s licence, not the dataset's. No for-profit or sponsorship clause; no publication restriction stated | Request form asking name and academic affiliation **or company name**, then a Google Drive link | **Preferred.** Non-commercial clause → DECISION_NEEDED. Form submission is a human act |
+| LOD (Crafting Object Detection in Very Low Light, BMVC 2021) | Paired long/short exposure, Canon EOS 5D Mark IV | 8 classes incl. car, bus | **No licence file** (all rights reserved by default); README asks for citation "if you use our dataset or code for research" | Baidu Pan (account needed) | Not usable without the authors' permission and a human download |
+| ExDark | Low-light photos from many sources | 12 classes incl. car, bus | Annotations: research-use terms (non-commercial, no redistribution, §3 written confirmation for for-profit-sponsored projects). Images: third-party rights, not licensed | Google Drive (quota-limited) | Fallback only; numbers stay unpublished pending §3 |
+
+None of the three is redistributed by this repository.
