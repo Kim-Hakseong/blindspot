@@ -12,6 +12,8 @@ import json
 import time
 from decimal import Decimal
 
+from ..cost.contract import BudgetContract
+
 
 def approve(runs, decisions, start_execution, run_id: str, additional_usd: float,
             approver: str, reason: str) -> dict:
@@ -30,12 +32,24 @@ def approve(runs, decisions, start_execution, run_id: str, additional_usd: float
     definition["budget_usd"] = round(before + additional_usd, 6)
     version = int(item.get("contract_version", 1)) + 1
 
+    # An agent allocation that halted the run is applied once the new contract
+    # can pay for it; otherwise it stays pending and the run continues without it.
+    applied = None
+    pending = definition.get("pending_allocation")
+    if pending:
+        contract = BudgetContract(definition["budget_usd"], definition["cost_per_probe_usd"])
+        if definition.get("prepaid_usd"):
+            contract.charge_usd(definition["prepaid_usd"], "agent model calls before the run")
+        if contract.request(sum(pending.values())).approved:
+            definition["probes_per_axis"] = definition.pop("pending_allocation")
+            applied = pending
+
     decisions.put_item(Item=json.loads(json.dumps({
         "run_id": run_id, "decision_id": f"approve-v{version:02d}-{int(time.time())}",
         "tool": "human.approve",
         "input": {"additional_usd": additional_usd, "approver": approver},
         "output": {"budget_before_usd": before, "budget_after_usd": definition["budget_usd"],
-                   "contract_version": version},
+                   "contract_version": version, "applied_allocation": applied},
         "rationale": reason, "accepted_by_scheduler": True,
     }), parse_float=Decimal))
     runs.put_item(Item={**item, "status": "RUNNING", "contract_version": version,

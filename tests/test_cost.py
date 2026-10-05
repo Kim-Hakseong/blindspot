@@ -135,3 +135,13 @@ def test_describe_is_serialisable():
     assert described["limit_usd"] == pytest.approx(0.40)
     assert described["spent_usd"] == pytest.approx(0.02)
     assert described["probes_charged"] == 2
+
+
+def test_a_usd_charge_counts_against_the_same_limit():
+    from blindspot.cost.contract import BudgetContract, BudgetExceeded
+    c = BudgetContract(0.05, 0.01)
+    c.charge_usd(0.02, "agent model calls")
+    assert c.probes_remaining == 3 and c.ledger[-1]["what"] == "agent model calls"
+    with pytest.raises(BudgetExceeded):
+        c.charge_usd(0.04, "too much")
+    assert c.spent_usd == pytest.approx(0.02)

@@ -147,6 +147,18 @@ class BudgetContract:
         object.__setattr__(self, "_probes", self._probes + probes)
         return self._spent_usd
 
+    def charge_usd(self, amount_usd: float, what: str) -> float:
+        """Spend a measured amount that is not a probe (e.g. the agent's model
+        calls) against the same limit. Raises rather than exceeding it."""
+        granted = self._spent_usd + amount_usd <= self._limit_usd + 1e-9
+        self._ledger.append({"event": "charge_usd", "what": what, "cost_usd": amount_usd,
+                             "granted": granted})
+        if not granted:
+            raise BudgetExceeded(
+                f"{what}: {amount_usd:.4f} USD exceeds the {self.remaining_usd:.4f} USD remaining")
+        object.__setattr__(self, "_spent_usd", self._spent_usd + amount_usd)
+        return self._spent_usd
+
     def describe(self) -> dict:
         return {
             "limit_usd": self._limit_usd,

@@ -36,6 +36,8 @@ def _command(axis_id: str, value: float, seed: int) -> str:
 
 def plan_round(run: dict, ledger: list[dict]) -> dict:
     contract = BudgetContract(run["budget_usd"], run["cost_per_probe_usd"])
+    if run.get("prepaid_usd"):
+        contract.charge_usd(run["prepaid_usd"], "agent model calls before the run")
     if ledger:
         contract.charge(len(ledger))  # already paid for
 
@@ -46,6 +48,7 @@ def plan_round(run: dict, ledger: list[dict]) -> dict:
     criterion = Criterion(baseline_map50=by_id[BASELINE_ID]["map50"])
 
     wanted, findings = [], []
+    caps = run.get("probes_per_axis") or {}
     for spec in run["axes"]:
         axis = _axis(spec)
         observed = {}
@@ -54,6 +57,14 @@ def plan_round(run: dict, ledger: list[dict]) -> dict:
                 observed[float(r["set"][spec["axis"]])] = criterion.failed(r["map50"])
         step = plan_axis(axis, observed, spec["target_width"],
                          verify_samples=run.get("verify_samples", 0))
+        cap = caps.get(spec["axis"])
+        if not step.done and cap is not None and len(observed) >= cap:
+            # The accepted allocation is spent before the search converged:
+            # unresolved, so no bracket and nothing to reproduce.
+            findings.append({"axis": spec["axis"], "unit": spec["unit"], "status": "capped",
+                             "lower": None, "upper": None, "probes_used": len(observed),
+                             "reproduce": None})
+            continue
         if step.done:
             fail_value = None
             if step.lower is not None:
@@ -64,8 +75,9 @@ def plan_round(run: dict, ledger: list[dict]) -> dict:
                 "reproduce": _command(spec["axis"], fail_value, run["seed"]) if fail_value is not None else None,
             })
         else:
+            values = step.next_values if cap is None else step.next_values[: cap - len(observed)]
             wanted += [{"probe_id": _probe_id(spec["axis"], v), "set": {spec["axis"]: v}}
-                       for v in step.next_values]
+                       for v in values]
 
     if not wanted:
         return {"action": "done", "findings": findings, "criterion": criterion.describe(),

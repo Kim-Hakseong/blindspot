@@ -112,3 +112,25 @@ def test_findings_carry_reproduction_commands():
         if f["status"] == "located":
             assert f["reproduce"].startswith("uv run blindspot probe --set ")
             assert "--seed 7" in f["reproduce"]
+
+
+def test_an_axis_cap_stops_that_axis_as_capped_never_as_a_boundary():
+    # An agent's accepted allocation caps probes per axis. A capped axis is
+    # unresolved: it is reported, but with no bracket and no reproduce command.
+    run = run_def() | {"probes_per_axis": {"motion_blur.exposure_ms": 3}}
+    step, ledger, _ = simulate(run)
+    blur = [r for r in ledger if list(r["set"]) == ["motion_blur.exposure_ms"]]
+    assert len(blur) == 3
+    f = next(x for x in step["findings"] if x["axis"] == "motion_blur.exposure_ms")
+    assert f["status"] == "capped" and f["lower"] is None and f["upper"] is None
+    assert f["reproduce"] is None and f["probes_used"] == 3
+    other = next(x for x in step["findings"] if x["axis"] == "low_light.illuminance_lux")
+    assert other["status"] == "located"
+
+
+def test_prepaid_agent_cost_is_charged_before_any_probe():
+    # 0.05 USD at 0.01/probe: 0.02 spent on the agent and 0.01 on the baseline leave 2.
+    run = run_def(budget=0.05) | {"prepaid_usd": 0.02}
+    step = plan_round(run, [{"probe_id": "baseline", "set": {}, "map50": BASELINE}])
+    assert len(step["probes"]) == 2 and step["truncated"]
+    assert step["spent_usd"] == pytest.approx(0.03)

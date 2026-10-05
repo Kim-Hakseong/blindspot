@@ -62,3 +62,28 @@ def test_approval_needs_a_named_approver_and_a_reason():
         approve(halted_run(), Table(), lambda **kw: None, "r1", 0.1, "", "x")
     with pytest.raises(ValueError):
         approve(halted_run(), Table(), lambda **kw: None, "r1", 0.1, "haku", "  ")
+
+
+def test_approval_applies_a_pending_agent_allocation_once_it_fits():
+    # The agent proposed 12 probes; the 0.08 contract at 0.01/probe could not pay,
+    # so the run waited. Approval that makes it affordable applies it.
+    d = {"budget_usd": 0.08, "cost_per_probe_usd": 0.01, "run_id": "r1",
+         "pending_allocation": {"a": 7, "b": 5}}
+    runs = Table({("r1", ""): {"run_id": "r1", "status": "AWAITING_APPROVAL", "arch": "arm64",
+                               "definition": json.dumps(d)}})
+    decisions = Table()
+    approve(runs, decisions, lambda **kw: None, "r1", 0.05, "haku", "agent split is sensible")
+    after = json.loads(runs.items[("r1", "")]["definition"])
+    assert after["probes_per_axis"] == {"a": 7, "b": 5} and "pending_allocation" not in after
+    rec = next(v for (r, k), v in decisions.items.items() if k)
+    assert rec["output"]["applied_allocation"] == {"a": 7, "b": 5}
+
+
+def test_approval_too_small_for_the_pending_allocation_keeps_it_pending():
+    d = {"budget_usd": 0.08, "cost_per_probe_usd": 0.01, "run_id": "r1",
+         "pending_allocation": {"a": 20}}
+    runs = Table({("r1", ""): {"run_id": "r1", "status": "AWAITING_APPROVAL", "arch": "arm64",
+                               "definition": json.dumps(d)}})
+    approve(runs, Table(), lambda **kw: None, "r1", 0.02, "haku", "partial")
+    after = json.loads(runs.items[("r1", "")]["definition"])
+    assert "probes_per_axis" not in after and after["pending_allocation"] == {"a": 20}
