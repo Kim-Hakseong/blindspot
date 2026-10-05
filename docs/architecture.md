@@ -74,7 +74,7 @@ remaining budget, and the gate accepts or rejects each proposal, recording
 both. Nothing that runs under the budget contract can raise it; only a
 recorded human approval can.
 
-The stack is defined and synth-tested in `infra/`; it is not deployed yet.
+The stack is defined in `infra/`, synth-tested, and deployed; runs so far used the Graviton queue.
 
 ## Probe lifecycle
 
@@ -114,7 +114,7 @@ sequenceDiagram
 | Budget contract, round planner, planner Lambda adapter | Implemented, tested |
 | Probe worker, local JSONL and DynamoDB ledgers | Implemented, tested |
 | Worker image, arm64 and x86-64 | Built locally; arm64 reproduces native results exactly |
-| CDK stack (VPC, S3, DynamoDB, Batch x2, Step Functions, Lambda, Budgets) | Synthesised and tested; **not deployed** |
+| CDK stack (VPC, S3, DynamoDB, Batch x2, Step Functions, Lambda, dashboard) | **Deployed**; full run, budget halt and human approval verified on AWS (Graviton queue) |
 | Report schema and static viewer | Implemented, rendered locally; **not hosted** |
 | COOL on Graviton comparison | Not built |
 | MCP agent + decision ledger (agent side) | Not built |

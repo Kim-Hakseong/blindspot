@@ -97,10 +97,12 @@ hardware is not yet shown.
 
 ## 5. AWS deployment
 
-Defined in CDK (`infra/`) and tested at synth time; **not yet deployed.** The
-only local AWS credentials belong to another project's IAM user, which is also
-not permitted to use CloudFormation; deploying through it would mix resources
-between projects, so it was not used.
+Defined in CDK (`infra/`), tested at synth time, and **deployed** to a
+dedicated account profile with its own CDK bootstrap qualifier. A full
+four-axis run on 100 frames took 14 min 41 s on the Graviton queue and cost
+$0.0749 <!--bench:cloud_runs/20261005-132343-667165-cost.total_usd--> measured
+from ECS's billed task time, against a $0.40 contract; its boundaries are
+identical to the local benchmark's.
 
 - **Step Functions** loop: Plan (Lambda) → Decide → SubmitWave → Plan; Finalize
   writes the envelope; Halt marks the run `AWAITING_APPROVAL`.
@@ -113,7 +115,13 @@ between projects, so it was not used.
   enforced.
 - **Cost shape**: public subnets only, no NAT gateway and no interface
   endpoints; on-demand tables; one-week logs; a 25 USD Budgets alarm filtered
-  to the project tag. Estimated fixed cost is under 1 USD a month.
+  to the project tag (the alarm is created when a notification address is
+  supplied at deploy time; it has not been yet). Estimated fixed cost is under
+  1 USD a month.
+- **Observability**: the planner publishes per-round metrics (probes
+  completed, contract spent, axes located, wave size, halts) in CloudWatch
+  Embedded Metric Format, graphed on the `bs-runs` dashboard with run
+  outcomes.
 - **Hygiene**: every resource tagged `project=blindspot`, named `bs-*`, and
   bootstrapped with its own CDK qualifier. Synth tests fail on an untagged
   resource, a NAT gateway, or an IAM statement on `Resource: "*"` beyond a
@@ -162,17 +170,22 @@ motion-blur range, 30.1% <!--bench:coverage.by_axis.fog:beta_per_m--> of fog,
 88.4% <!--bench:coverage.by_axis.low_light:illuminance_lux--> of illuminance,
 inferred from image statistics against the population's response.
 
-**Not measured:** the sim-to-real gap (section 7), COOL versus stock OpenCV on
-Graviton, and any run on AWS.
+**On AWS.** The deployed run reproduced all four boundaries exactly, and a
+deliberately starved $0.02 contract stopped after four probes in
+`AWAITING_APPROVAL`; a recorded human approval resumed it under contract
+version 2 and it completed.
+
+**Not measured:** the sim-to-real gap (section 7) and COOL versus stock OpenCV
+on Graviton.
 
 ## 7. Limitations
 
 1. **Synthetic degradation is not real degradation, and the gap is not
    measured.** A real low-light, hand-shake and recompression capture set is
    needed; until then boundaries describe modelled conditions only.
-2. **The cloud path is not deployed.** Everything up to `cdk deploy` is built
-   and tested, including the worker image for both architectures, but no run
-   has executed on AWS.
+2. **The cloud path has run on Graviton only.** The x86 queue is deployed and
+   uses the same image, but no cloud run has used it yet, and the Budgets alarm
+   awaits a notification address.
 3. **COOL is not yet measured.** It ships as a Graviton4 AMI rather than a
    container, so it needs EC2 rather than the Fargate workers; a three-arm
    benchmark is written and not run.
