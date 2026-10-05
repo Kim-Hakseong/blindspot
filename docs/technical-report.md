@@ -87,13 +87,19 @@ with YuNet via `FaceDetectorYN` and blurred at render time, after scoring.
 
 **Determinism** is enforced by a registry-driven test suite: same seed gives
 byte-identical output, no kernel reads or writes numpy's global RNG, and
-results match across processes and under a changed `PYTHONHASHSEED`. The same
-probe (`probe --degradation motion_blur --axis exposure_ms --value 13.75
---frames 5 --seed 20260906`) returns an identical mAP to every printed digit
-natively on macOS, in the linux/arm64 worker image, and in the linux/amd64
-worker image. The amd64 run was Rosetta-translated on Apple silicon; a real x86
-host can take different SIMD paths inside OpenCV, so bit-identity on x86
-hardware is not yet shown.
+results match across processes and under a changed `PYTHONHASHSEED`. Across
+operating systems on the same CPU family the results are bit-identical: the
+Graviton cloud run reproduced the macOS run's numbers exactly. Across CPU
+families they are not. Running the same full search on x86 and on Graviton
+Fargate tasks, 18 <!--bench:cloud_runs/cross_arch.identical_map50_full_precision-->
+of 33 probes matched to full precision and the rest differed by at most
+0.000142 <!--bench:cloud_runs/cross_arch.max_abs_map50_difference--> mAP --
+floating-point paths in OpenCV and `cv::dnn` differ between the two CPUs. Every
+pass/fail decision agreed, so both runs chose the same probes and reported the
+same boundaries; the closest probe was
+0.0058 <!--bench:cloud_runs/cross_arch.smallest_margin_to_threshold--> from the
+threshold. A probe nearer to the threshold than that gap could fall on
+different sides on the two CPUs.
 
 ## 5. AWS deployment
 
@@ -183,9 +189,10 @@ on Graviton.
 1. **Synthetic degradation is not real degradation, and the gap is not
    measured.** A real low-light, hand-shake and recompression capture set is
    needed; until then boundaries describe modelled conditions only.
-2. **The cloud path has run on Graviton only.** The x86 queue is deployed and
-   uses the same image, but no cloud run has used it yet, and the Budgets alarm
-   awaits a notification address.
+2. **Bit-identity holds within a CPU family, not across.** x86 and Graviton
+   agree on every decision measured so far but differ in the low decimal
+   places of mAP; a condition sitting on the threshold could be classified
+   differently on each. The Budgets alarm also awaits a notification address.
 3. **COOL is not yet measured.** It ships as a Graviton4 AMI rather than a
    container, so it needs EC2 rather than the Fargate workers; a three-arm
    benchmark is written and not run.

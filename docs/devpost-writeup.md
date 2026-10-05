@@ -47,5 +47,5 @@ A speedup without a stated precision is a number without a meaning. Writing the 
 
 - Sim-to-real gap not yet measured [update after W6].
 - H.264 recompression not implemented (no rate control in the OpenCV 5 wheel).
-- x86 parity was verified under emulation on Apple Silicon [update after W4 on real x86].
+- Results are not bit-identical across CPUs. On real x86 and Graviton Fargate tasks, 18 <!--bench:cloud_runs/cross_arch.identical_map50_full_precision--> of 33 <!--bench:cloud_runs/cross_arch.probes_in_common--> probes matched to full precision and the rest differed by at most 0.000142 <!--bench:cloud_runs/cross_arch.max_abs_map50_difference--> mAP. Every pass/fail decision, and so every boundary, agreed; the closest probe was 0.0058 <!--bench:cloud_runs/cross_arch.smallest_margin_to_threshold--> from the threshold, but a probe nearer than the gap could flip.
 - Two detectors tested; independence of the method from the model is shown on two, not proven in general.

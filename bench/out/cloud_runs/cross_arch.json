@@ -1,0 +1,98 @@
+{
+ "command": "compare bs-probes ledgers of the two runs (see LOG 2026-10-05)",
+ "arm64_run": "20261005-132343-667165",
+ "x86_run": "20261005-145647-4d08ff",
+ "arm64_cpu": [
+  "aarch64"
+ ],
+ "x86_cpu": [
+  "x86_64"
+ ],
+ "probes_arm64": 33,
+ "probes_x86": 33,
+ "probes_in_common": 33,
+ "identical_map50_full_precision": 18,
+ "differing": [
+  {
+   "probe": "fog.beta_per_m@0.03",
+   "arm64": "0.5426217312109586",
+   "x86": "0.5426214856254066"
+  },
+  {
+   "probe": "fog.beta_per_m@0.075",
+   "arm64": "0.27648811242781157",
+   "x86": "0.2764862982178387"
+  },
+  {
+   "probe": "low_light.illuminance_lux@100.375",
+   "arm64": "0.5246040739259531",
+   "x86": "0.5246211078209156"
+  },
+  {
+   "probe": "low_light.illuminance_lux@12.984375",
+   "arm64": "0.3607264614699808",
+   "x86": "0.3608681822703554"
+  },
+  {
+   "probe": "low_light.illuminance_lux@200.25",
+   "arm64": "0.5695326766305892",
+   "x86": "0.5695319534603188"
+  },
+  {
+   "probe": "low_light.illuminance_lux@25.46875",
+   "arm64": "0.43589914475499164",
+   "x86": "0.4358988319737336"
+  },
+  {
+   "probe": "low_light.illuminance_lux@300.125",
+   "arm64": "0.5857347556559159",
+   "x86": "0.5857384941878713"
+  },
+  {
+   "probe": "low_light.illuminance_lux@400.0",
+   "arm64": "0.5863499945166801",
+   "x86": "0.5863430519777237"
+  },
+  {
+   "probe": "low_light.illuminance_lux@50.4375",
+   "arm64": "0.475708466340294",
+   "x86": "0.47571822263085034"
+  },
+  {
+   "probe": "motion_blur.exposure_ms@10.0",
+   "arm64": "0.4260386936587361",
+   "x86": "0.4260384355655941"
+  },
+  {
+   "probe": "motion_blur.exposure_ms@12.5",
+   "arm64": "0.37837218152855684",
+   "x86": "0.3783721213187983"
+  },
+  {
+   "probe": "motion_blur.exposure_ms@13.75",
+   "arm64": "0.3446059546386174",
+   "x86": "0.3446432338211644"
+  },
+  {
+   "probe": "motion_blur.exposure_ms@15.0",
+   "arm64": "0.32528914466430536",
+   "x86": "0.32529051811708304"
+  },
+  {
+   "probe": "motion_blur.exposure_ms@20.0",
+   "arm64": "0.27058226581675365",
+   "x86": "0.2705819092195089"
+  },
+  {
+   "probe": "motion_blur.exposure_ms@40.0",
+   "arm64": "0.06577923651948987",
+   "x86": "0.06577820013465256"
+  }
+ ],
+ "boundaries_identical": true,
+ "max_abs_map50_difference": 0.00014172080037461177,
+ "threshold_map50": 0.36664403500645115,
+ "smallest_margin_to_threshold": 0.005775852736095766,
+ "pass_fail_decisions_identical": true,
+ "note": "Not bit-identical across CPUs: floating-point paths differ. Every pass/fail decision agreed, so both runs chose the same probes and boundaries; a probe within max_abs_map50_difference of the threshold could flip."
+}

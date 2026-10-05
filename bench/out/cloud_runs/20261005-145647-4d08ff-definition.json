@@ -1,0 +1,50 @@
+{
+ "run_id": "20261005-145647-4d08ff",
+ "arch": "x86",
+ "status": "DONE",
+ "contract_version": 1,
+ "definition": {
+  "run_id": "20261005-145647-4d08ff",
+  "seed": 20260906,
+  "verify_samples": 5,
+  "budget_usd": 0.4,
+  "cost_per_probe_usd": 0.005,
+  "dataset": "road100-f28484951393",
+  "pipeline": "yolox_s",
+  "frames": null,
+  "axes": [
+   {
+    "axis": "motion_blur.exposure_ms",
+    "unit": "ms",
+    "lo": 0.0,
+    "hi": 40.0,
+    "severe_end": "hi",
+    "target_width": 1.25
+   },
+   {
+    "axis": "low_light.illuminance_lux",
+    "unit": "lux",
+    "lo": 0.5,
+    "hi": 400.0,
+    "severe_end": "lo",
+    "target_width": 12.484375
+   },
+   {
+    "axis": "fog.beta_per_m",
+    "unit": "1/m",
+    "lo": 0.0,
+    "hi": 0.12,
+    "severe_end": "hi",
+    "target_width": 0.00375
+   },
+   {
+    "axis": "jpeg.quality",
+    "unit": "jpeg-q",
+    "lo": 5.0,
+    "hi": 100.0,
+    "severe_end": "lo",
+    "target_width": 2.96875
+   }
+  ]
+ }
+}
