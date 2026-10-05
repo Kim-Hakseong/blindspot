@@ -115,3 +115,12 @@ def test_a_licensed_builds_fingerprint_keeps_only_our_measurements_and_its_versi
     assert out["opencv_version"] == "5.1.0-dev" and out["cpu_model"] == "0xd4f"
     assert not {"cv2_module", "build_info_sha256", "kleidicv"} & set(out)
     assert public_fingerprint(fp, licensed_build=False) == fp
+
+
+def test_three_way_reports_only_the_effects_whose_arms_ran():
+    # A larger-instance rerun of arms 2 and 3 alone has a COOL effect, no chip effect.
+    from blindspot.stages import compare_three_way
+    arms = {"graviton_stock": [_report("v2", (3, 15, 470), [0.5])],
+            "graviton_cool": [_report("v2", (2, 10, 470), [0.5])]}
+    out = compare_three_way(arms, {"graviton_stock": 0.7, "graviton_cool": 0.74})
+    assert "chip_effect" not in out and out["cool_effect"]["speedup"] == pytest.approx(488 / 482)

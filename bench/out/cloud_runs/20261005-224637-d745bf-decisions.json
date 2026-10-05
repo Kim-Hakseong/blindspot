@@ -346,5 +346,21 @@
   "tool": "agent.summary",
   "accepted_by_scheduler": false,
   "decision_id": "0000-agent-014"
+ },
+ {
+  "rationale": "Halted correctly by the contract, then abandoned: the agent's accepted 188-probe split stopped fitting after its final model call was charged, and the project owner chose not to approve it. Not a bug; kept as evidence of per-call charging.",
+  "run_id": "20261005-224637-d745bf",
+  "output": {
+   "status": "CANCELLED"
+  },
+  "input": {
+   "channel": "non-interactive",
+   "operator_claimed": "automation",
+   "status_before": "AWAITING_APPROVAL",
+   "operator": "automation"
+  },
+  "tool": "operator.cancel",
+  "accepted_by_scheduler": true,
+  "decision_id": "cancel-1791211846"
  }
 ]

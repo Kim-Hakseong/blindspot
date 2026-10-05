@@ -95,3 +95,16 @@ def test_results_bucket_is_private(template):
         cfg = b["Properties"]["PublicAccessBlockConfiguration"]
         assert all(cfg[k] for k in ("BlockPublicAcls", "BlockPublicPolicy",
                                     "IgnorePublicAcls", "RestrictPublicBuckets"))
+
+
+def test_a_larger_graviton_instance_can_run_alone():
+    app = cdk.App()
+    stack = CoolBenchStack(app, "BlindspotCoolBench", cool_ami="ami-0123456789abcdef0",
+                           repo_commit="0" * 40, manifest_digest="f28484951393",
+                           graviton_instance_type="m8g.4xlarge", include_x86=False,
+                           env=cdk.Environment(account="123456789012", region="us-east-1"))
+    instances = of_type(assertions.Template.from_stack(stack), "AWS::EC2::Instance")
+    assert [i["Properties"]["InstanceType"] for i in instances.values()] == ["m8g.4xlarge"]
+    only = next(iter(instances.values()))
+    assert only["Properties"]["InstanceInitiatedShutdownBehavior"] == "terminate"
+    assert "shutdown -h +60" in user_data(only)

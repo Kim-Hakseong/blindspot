@@ -7,6 +7,8 @@ commit, upload their reports to a private bucket, and terminate themselves:
 
   x86       c7i.large, stock Ubuntu 24.04  -> arm 1: stock OpenCV 5 wheel
   graviton  c8g.large, the COOL AMI        -> arm 2: stock wheel, arm 3: COOL
+  (the Graviton size is selectable, and the x86 arm can be left out, for a
+  rerun of arms 2 and 3 on a larger instance)
 
 Arms 2 and 3 share one machine so the COOL effect is measured without a
 hardware difference. Nothing is built locally. The stack exists only for the
@@ -59,7 +61,8 @@ bash bench/ec2/run_arms.sh "$ROLE" "$BUCKET" "$PREFIX" {digest}
 
 class CoolBenchStack(cdk.Stack):
     def __init__(self, scope: Construct, construct_id: str, *, cool_ami: str, repo_commit: str,
-                 manifest_digest: str, prefix: str = "bench", **kwargs) -> None:
+                 manifest_digest: str, prefix: str = "bench", graviton_instance_type: str = "c8g.large",
+                 include_x86: bool = True, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
         cdk.Tags.of(self).add("project", "blindspot")
 
@@ -76,8 +79,9 @@ class CoolBenchStack(cdk.Stack):
         role.add_to_policy(iam.PolicyStatement(actions=["s3:PutObject"],
                                                resources=[results.arn_for_objects(f"{prefix}/*")]))
 
-        arms = (("x86", "c7i.large", ec2.MachineImage.from_ssm_parameter(UBUNTU_AMD64)),
-                ("graviton", "c8g.large", ec2.MachineImage.generic_linux({"us-east-1": cool_ami})))
+        arms = ((("x86", "c7i.large", ec2.MachineImage.from_ssm_parameter(UBUNTU_AMD64)),)
+                if include_x86 else ()) + (
+            ("graviton", graviton_instance_type, ec2.MachineImage.generic_linux({"us-east-1": cool_ami})),)
         for name, instance_type, image in arms:
             script = BOOTSTRAP.format(lifetime=LIFETIME_MINUTES, role=name, bucket=results.bucket_name,
                                       prefix=prefix, uv=UV_VERSION, repo=REPO, commit=repo_commit,

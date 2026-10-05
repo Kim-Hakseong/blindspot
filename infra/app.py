@@ -19,6 +19,8 @@ if app.node.try_get_context("cool_ami"):
         cool_ami=app.node.try_get_context("cool_ami"),
         repo_commit=app.node.try_get_context("repo_commit"),
         manifest_digest=app.node.try_get_context("manifest_digest") or "f28484951393",
+        graviton_instance_type=app.node.try_get_context("graviton_type") or "c8g.large",
+        include_x86=app.node.try_get_context("include_x86") != "0",
         env=cdk.Environment(region="us-east-1"),
         synthesizer=cdk.DefaultStackSynthesizer(qualifier="bspot"),
         description="Blindspot: temporary COOL benchmark instances (project=blindspot)",

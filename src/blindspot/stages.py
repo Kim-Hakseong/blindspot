@@ -175,6 +175,8 @@ def compare_three_way(arms: dict[str, list[dict]], usd_per_hour: dict[str, float
     out = compare_arms(arms, usd_per_hour)
     for name, base, cand in (("chip_effect", "x86_stock", "graviton_stock"),
                              ("cool_effect", "graviton_stock", "graviton_cool")):
+        if base not in out["arms"] or cand not in out["arms"]:
+            continue  # e.g. a larger-instance rerun of arms 2 and 3 only
         b, c = out["arms"][base], out["arms"][cand]
         out[name] = {
             "baseline": base, "candidate": cand,

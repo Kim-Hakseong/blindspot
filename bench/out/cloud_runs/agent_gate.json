@@ -169,7 +169,9 @@
    ],
    "per_call_charges_sum_usd": 0.025892,
    "approvals": [],
-   "cancelled": []
+   "cancelled": [
+    "Halted correctly by the contract, then abandoned: the agent's accepted 188-probe split stopped fitting after its final model call was charged, and the project owner chose not to approve it. Not a bug; kept as evidence of per-call charging."
+   ]
   }
  },
  "totals": {

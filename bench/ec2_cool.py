@@ -43,13 +43,17 @@ LOGS = ROOT / ".cache" / "cool-bench"
 GUARD_MINUTES = 65
 
 #: On-demand Linux, us-east-1, AWS Price List API, read 2026-10-05.
-EC2_USD_H = {"c7i.large": 0.08925, "c8g.large": 0.07976}
-#: COOL software fee for c8g.large from the Marketplace listing. Zero during
-#: the 7-day trial; the list price is used so the figure holds after it.
-COOL_USD_H = 0.01
-ARMS = {"x86_stock": ("ec2-x86-stock-", "c7i.large", 0.0),
-        "graviton_stock": ("ec2-graviton-stock-", "c8g.large", 0.0),
-        "graviton_cool": ("ec2-graviton-cool-", "c8g.large", COOL_USD_H)}
+EC2_USD_H = {"c7i.large": 0.08925, "c8g.large": 0.07976, "m8g.4xlarge": 0.71808}
+#: COOL software fee per instance type, from the Marketplace offer terms (read
+#: 2026-10-05). Zero during the 7-day trial; the list price is used so the
+#: figure holds after it.
+COOL_USD_H = {"c8g.large": 0.01, "m8g.4xlarge": 0.04}
+
+
+def arm_table(graviton_type: str, include_x86: bool) -> dict:
+    arms = {"x86_stock": ("ec2-x86-stock-", "c7i.large", 0.0)} if include_x86 else {}
+    return arms | {"graviton_stock": ("ec2-graviton-stock-", graviton_type, 0.0),
+                   "graviton_cool": ("ec2-graviton-cool-", graviton_type, COOL_USD_H[graviton_type])}
 
 
 def sh(*cmd, cwd=ROOT):
@@ -69,10 +73,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ami", required=True, help="COOL AMI id in us-east-1")
     parser.add_argument("--keep-stack", action="store_true", help="skip the destroy (debugging)")
+    parser.add_argument("--graviton-type", default="c8g.large", choices=sorted(COOL_USD_H))
+    parser.add_argument("--no-x86", action="store_true", help="arms 2 and 3 only")
     parser.add_argument("--out", type=pathlib.Path, default=OUT,
                         help="where reports go (a smoke test writes outside bench/out)")
     args = parser.parse_args()
     out_dir = args.out
+    ARMS = arm_table(args.graviton_type, not args.no_x86)
+    shape = ["-c", f"graviton_type={args.graviton_type}", "-c", f"include_x86={'0' if args.no_x86 else '1'}"]
     if not re.fullmatch(r"ami-[0-9a-f]{8,17}", args.ami):
         parser.error("not an AMI id")
 
@@ -84,7 +92,7 @@ def main() -> int:
 
     os.environ["JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION"] = "1"
     sh("npx", "cdk", "deploy", STACK, "--require-approval", "never",
-       "-c", f"cool_ami={args.ami}", "-c", f"repo_commit={commit}", "-c", f"manifest_digest={digest}",
+       "-c", f"cool_ami={args.ami}", "-c", f"repo_commit={commit}", "-c", f"manifest_digest={digest}", *shape,
        cwd=ROOT / "infra")
     deployed = time.time()
 
@@ -92,7 +100,8 @@ def main() -> int:
     outputs = {o["OutputKey"]: o["OutputValue"] for o in
                cfn.describe_stacks(StackName=STACK)["Stacks"][0]["Outputs"]}
     bucket = outputs["ResultsBucket"]
-    ids = {"x86": outputs["InstanceIdX86"], "graviton": outputs["InstanceIdGraviton"]}
+    ids = {role: outputs[key] for role, key in (("x86", "InstanceIdX86"), ("graviton", "InstanceIdGraviton"))
+           if key in outputs}
 
     seen_end: dict[str, float] = {}
     launched: dict[str, dt.datetime] = {}
@@ -148,20 +157,22 @@ def main() -> int:
         for key in keys:
             s3.delete_object(Bucket=bucket, Key=key)
         sh("npx", "cdk", "destroy", STACK, "--force", "-c", f"cool_ami={args.ami}",
-           "-c", f"repo_commit={commit}", cwd=ROOT / "infra")
+           "-c", f"repo_commit={commit}", *shape, cwd=ROOT / "infra")
     left = live_instances(ec2)
     print(f"project=blindspot instances not terminated: {len(left)}", flush=True)
 
     ec2_seconds = {r: seen_end[r] - launched[r].timestamp() for r in seen_end}
     run_usd = (ec2_seconds.get("x86", 0) / 3600 * EC2_USD_H["c7i.large"]
-               + ec2_seconds.get("graviton", 0) / 3600 * EC2_USD_H["c8g.large"])
+               + ec2_seconds.get("graviton", 0) / 3600 * EC2_USD_H[args.graviton_type])
     summary = {"instances": meta, "exit_codes": exits, "guard_terminated": guard_fired,
                "ec2_seconds_observed_upper_bound": ec2_seconds,
                "ec2_usd_observed_upper_bound": run_usd,
                "cool_software_usd": "0 during the 7-day trial",
                "cool_cv2_method": method, "repo_commit": commit, "dataset_manifest": digest,
                "instances_left_running": len(left),
-               "command": "uv run --group cloud python bench/ec2_cool.py --ami <COOL AMI id>"}
+               "command": "uv run --group cloud python bench/ec2_cool.py --ami <COOL AMI id>"
+                          + ("" if args.graviton_type == "c8g.large" else f" --graviton-type {args.graviton_type}")
+                          + (" --no-x86" if args.no_x86 else "")}
     missing = [a for a, runs in arms.items() if not runs]
     if missing:
         summary["missing_arms"] = missing
@@ -175,9 +186,11 @@ def main() -> int:
     result["cool_opencv_version"] = arms["graviton_cool"][0]["fingerprint"]["opencv_version"]
     (out_dir / "ec2_three_way.json").write_text(json.dumps(result, indent=1) + "\n")
     for arm, a in result["arms"].items():
-        print(f"{arm}: {a['cpu_models']} OpenCV {a['opencv_version']} kleidicv={a['kleidicv']} "
+        print(f"{arm}: {a['cpu_models']} OpenCV {a['opencv_version']} "
               f"{a['per_frame_total_median_ms']:.1f} ms/frame ${a['usd_per_1000_frames']:.5f}/1000")
     for eff in ("chip_effect", "cool_effect"):
+        if eff not in result:
+            continue
         e = result[eff]
         print(f"{eff}: speedup {e['speedup']:.3f} stages "
               + " ".join(f"{s}={v:.3f}" for s, v in e["stage_speedup"].items())
