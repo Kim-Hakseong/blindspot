@@ -135,7 +135,7 @@ def compare_arms(arms: dict[str, list[dict]], usd_per_task_hour: dict[str, float
             "cpu_models": dict(Counter(r["fingerprint"]["cpu_model"] for r in runs)),
             "runs": [{"cpu_model": r["fingerprint"]["cpu_model"],
                       "per_frame_total_median_ms": r["per_frame_total_median_ms"]} for r in runs],
-            "kleidicv": runs[0]["fingerprint"]["kleidicv"],
+            "kleidicv": runs[0]["fingerprint"].get("kleidicv"),
             "opencv_version": runs[0]["fingerprint"]["opencv_version"],
             "repeats": len(runs),
             "per_frame_total_median_ms": ms,
@@ -185,3 +185,19 @@ def compare_three_way(arms: dict[str, list[dict]], usd_per_hour: dict[str, float
             **_map_agreement(arms[base], arms[cand]),
         }
     return out
+
+
+#: Fingerprint fields derived from a build's own files or build information.
+BUILD_DERIVED = ("cv2_module", "build_info_sha256", "kleidicv")
+
+
+def public_fingerprint(fp: dict, licensed_build: bool) -> dict:
+    """What may be published about the OpenCV build a report ran on.
+
+    For a licensed build (COOL, whose materials its licence treats as
+    confidential) only the version string and our own measurements of the
+    machine are kept; anything read from the build itself is dropped.
+    """
+    if not licensed_build:
+        return fp
+    return {k: v for k, v in fp.items() if k not in BUILD_DERIVED}

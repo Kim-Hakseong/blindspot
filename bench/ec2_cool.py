@@ -35,7 +35,7 @@ import boto3
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from blindspot.stages import compare_three_way  # noqa: E402
+from blindspot.stages import compare_three_way, public_fingerprint  # noqa: E402
 
 STACK = "BlindspotCoolBench"
 OUT = ROOT / "bench" / "out" / "cool"
@@ -133,6 +133,9 @@ def main() -> int:
         for arm, (label_prefix, _, _) in ARMS.items():
             if report["label"].startswith(label_prefix):
                 report["command"] += "  # bench/ec2_cool.py, EC2 " + ARMS[arm][1]
+                # Licence clause 6.1: nothing read from COOL's build is published.
+                report["fingerprint"] = public_fingerprint(report["fingerprint"],
+                                                           licensed_build=arm == "graviton_cool")
                 (out_dir / name).write_text(json.dumps(report, indent=1) + "\n")
                 arms[arm].append(report)
     method = None
@@ -167,6 +170,7 @@ def main() -> int:
         return 1
     rates = {a: EC2_USD_H[t] + fee for a, (_, t, fee) in ARMS.items()}
     result = compare_three_way(arms, rates)
+    result["arms"]["graviton_cool"].pop("kleidicv", None)
     result.update(summary)
     result["cool_opencv_version"] = arms["graviton_cool"][0]["fingerprint"]["opencv_version"]
     (out_dir / "ec2_three_way.json").write_text(json.dumps(result, indent=1) + "\n")

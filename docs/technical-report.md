@@ -225,8 +225,14 @@ were faster on Graviton; inference was faster on x86. Fargate placed the x86
 tasks on two CPU generations, so the x86 figure is a median over different
 hardware (`docs/results.md`).
 
-**Not measured:** the sim-to-real gap (section 7) and COOL versus stock OpenCV
-on Graviton.
+**COOL.** On the same c8g.large and the same probe batch, the Cloud Optimized
+OpenCV build (`5.1.0-dev`) ran at 0.928 <!--bench:cool/ec2_three_way.cool_effect.speedup--> of the
+stock OpenCV 5 wheel's speed: slightly faster image measurement, slower DNN
+inference, same mAP on 63 <!--bench:cool/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes.
+The chip effect is separate: x86 (c7i) ran Graviton4 at
+0.728 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of its speed (`docs/results.md`).
+
+**Not measured:** the sim-to-real gap (section 7).
 
 ## 7. Limitations
 
@@ -236,10 +242,11 @@ on Graviton.
 2. **Bit-identity holds within a CPU family, not across.** x86 and Graviton
    agree on every decision measured so far but differ in the low decimal
    places of mAP; a condition sitting on the threshold could be classified
-   differently on each. The Budgets alarm also awaits a notification address.
-3. **COOL is not yet measured.** It ships as a Graviton4 AMI rather than a
-   container, so it needs EC2 rather than the Fargate workers; a three-arm
-   benchmark is written and not run.
+   differently on each.
+3. **COOL is measured on one workload only.** One detector, one instance size,
+   one probe batch; COOL was slower here, which says nothing about the image
+   operations it targets in isolation. It runs as an EC2 AMI, outside the
+   Fargate workers.
 4. **Bisection assumes monotonicity.** Verified mode scans first and reports
    `NOT_MONOTONE`, but a failure band narrower than the scan spacing can be
    missed; the cheap mode misses interior bands entirely, which a test pins.

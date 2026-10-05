@@ -240,7 +240,31 @@ against 387.2 <!--bench:cool/fargate_x86_vs_arm64.arms.x86.runs[1].per_frame_tot
 <!--bench:cool/fargate_x86_vs_arm64.map50_identical_probes--> of 64 <!--bench:cool/fargate_x86_vs_arm64.map50_probes_compared--> probes gave
 identical mAP across architectures (at most 0.000246
 <!--bench:cool/fargate_x86_vs_arm64.map50_max_abs_difference--> apart); each side's three runs were
-bit-identical to each other. COOL is the third arm, not yet run.
+bit-identical to each other.
+
+**COOL as a third arm (EC2)** -- `bench/ec2_cool.py` launches c7i.large
+(x86) and c8g.large (Graviton4) from code, runs the same batch three times per
+arm, and has both instances terminate themselves; arm 3 is the Cloud Optimized
+OpenCV build (`5.1.0-dev`) on the same c8g.large as arm 2
+(`bench/out/cool/ec2_three_way.json`). Per-frame medians:
+
+| | Arm 1: x86, stock | Arm 2: Graviton4, stock | Arm 3: Graviton4, COOL |
+|---|---|---|---|
+| Measure | 15.4 <!--bench:cool/ec2_three_way.arms.x86_stock.per_stage_median_ms.measure--> ms | 13.8 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_stage_median_ms.measure--> ms | 13.6 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_stage_median_ms.measure--> ms |
+| Infer (`cv::dnn`) | 331.8 <!--bench:cool/ec2_three_way.arms.x86_stock.per_stage_median_ms.infer--> ms | 467.8 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_stage_median_ms.infer--> ms | 511.7 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_stage_median_ms.infer--> ms |
+| Frame total | 358.6 <!--bench:cool/ec2_three_way.arms.x86_stock.per_frame_total_median_ms--> ms | 492.7 <!--bench:cool/ec2_three_way.arms.graviton_stock.per_frame_total_median_ms--> ms | 530.7 <!--bench:cool/ec2_three_way.arms.graviton_cool.per_frame_total_median_ms--> ms |
+| Cost per 1,000 frames | $0.00889 <!--bench:cool/ec2_three_way.arms.x86_stock.usd_per_1000_frames--> | $0.01091 <!--bench:cool/ec2_three_way.arms.graviton_stock.usd_per_1000_frames--> | $0.01323 <!--bench:cool/ec2_three_way.arms.graviton_cool.usd_per_1000_frames--> |
+
+The chip effect (arm 1 vs 2) and the COOL effect (arm 2 vs 3) are reported
+separately. Graviton4 ran at 0.728 <!--bench:cool/ec2_three_way.chip_effect.speedup--> of x86's speed
+and, at EC2 prices, cost more per frame -- unlike on Fargate. COOL ran at
+0.928 <!--bench:cool/ec2_three_way.cool_effect.speedup--> of the stock wheel's speed on the same
+machine: image measurement 1.018 <!--bench:cool/ec2_three_way.cool_effect.stage_speedup.measure-->x,
+inference 0.914 <!--bench:cool/ec2_three_way.cool_effect.stage_speedup.infer-->x. Arm 3's cost includes
+COOL's list software fee (zero during the trial). mAP agreed on
+63 <!--bench:cool/ec2_three_way.cool_effect.map50_identical_probes--> of 64 probes between arms 2 and 3.
+Only our measurements and COOL's version string are published.
+
 
 ## Known limitations
 

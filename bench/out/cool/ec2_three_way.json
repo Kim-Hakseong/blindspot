@@ -1,0 +1,156 @@
+{
+ "arms": {
+  "x86_stock": {
+   "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+   "cpu_models": {
+    "Intel(R) Xeon(R) Platinum 8488C": 3
+   },
+   "runs": [
+    {
+     "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "per_frame_total_median_ms": 362.5612490000094
+    },
+    {
+     "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "per_frame_total_median_ms": 358.62471949997143
+    },
+    {
+     "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+     "per_frame_total_median_ms": 354.19982349998236
+    }
+   ],
+   "kleidicv": false,
+   "opencv_version": "5.0.0",
+   "repeats": 3,
+   "per_frame_total_median_ms": 358.62471949997143,
+   "per_stage_median_ms": {
+    "degrade": 3.166815500009079,
+    "measure": 15.422551499995052,
+    "infer": 331.7505539999672
+   },
+   "usd_per_task_hour": 0.08925,
+   "usd_per_1000_frames": 0.008890904504270125,
+   "repeats_bit_identical": true
+  },
+  "graviton_stock": {
+   "cpu_model": "0xd4f",
+   "cpu_models": {
+    "0xd4f": 3
+   },
+   "runs": [
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 492.61618949999786
+    },
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 492.6521440000329
+    },
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 494.1052544999138
+    }
+   ],
+   "kleidicv": true,
+   "opencv_version": "5.0.0",
+   "repeats": 3,
+   "per_frame_total_median_ms": 492.6521440000329,
+   "per_stage_median_ms": {
+    "degrade": 3.104332000020804,
+    "measure": 13.807105999944724,
+    "infer": 467.74627250005096
+   },
+   "usd_per_task_hour": 0.07976,
+   "usd_per_1000_frames": 0.010914981945956283,
+   "repeats_bit_identical": true
+  },
+  "graviton_cool": {
+   "cpu_model": "0xd4f",
+   "cpu_models": {
+    "0xd4f": 3
+   },
+   "runs": [
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 530.5935824999892
+    },
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 534.9303829999599
+    },
+    {
+     "cpu_model": "0xd4f",
+     "per_frame_total_median_ms": 530.7474295000247
+    }
+   ],
+   "opencv_version": "5.1.0-dev",
+   "repeats": 3,
+   "per_frame_total_median_ms": 530.7474295000247,
+   "per_stage_median_ms": {
+    "degrade": 3.1450894999807133,
+    "measure": 13.565876500024387,
+    "infer": 511.7255160000127
+   },
+   "usd_per_task_hour": 0.08975999999999999,
+   "usd_per_1000_frames": 0.01323330257553395,
+   "repeats_bit_identical": true
+  }
+ },
+ "chip_effect": {
+  "baseline": "x86_stock",
+  "candidate": "graviton_stock",
+  "speedup": 0.7279471405283228,
+  "stage_speedup": {
+   "degrade": 1.0201278407038474,
+   "measure": 1.11700102107254,
+   "infer": 0.709253228736165
+  },
+  "cost_ratio": 1.2276570894124477,
+  "map50_identical_probes": 59,
+  "map50_probes_compared": 64,
+  "map50_max_abs_difference": 0.00024553608060873255
+ },
+ "cool_effect": {
+  "baseline": "graviton_stock",
+  "candidate": "graviton_cool",
+  "speedup": 0.9282233254791673,
+  "stage_speedup": {
+   "degrade": 0.987040909341321,
+   "measure": 1.0177820799061457,
+   "infer": 0.9140569658442425
+  },
+  "cost_ratio": 1.212398026955651,
+  "map50_identical_probes": 63,
+  "map50_probes_compared": 64,
+  "map50_max_abs_difference": 5.2904963447508724e-05
+ },
+ "instances": {
+  "x86": {
+   "instance_type": "c7i.large",
+   "image_id": "ami-0045d7fc2ad003464",
+   "cpu_arch": "x86_64"
+  },
+  "graviton": {
+   "instance_type": "c8g.large",
+   "image_id": "ami-033e481a24f94c8cb",
+   "cpu_arch": "arm64"
+  }
+ },
+ "exit_codes": {
+  "graviton": 0,
+  "x86": 0
+ },
+ "guard_terminated": [],
+ "ec2_seconds_observed_upper_bound": {
+  "x86": 783.349447965622,
+  "graviton": 2187.0807440280914
+ },
+ "ec2_usd_observed_upper_bound": 0.0678765273262812,
+ "cool_software_usd": "0 during the 7-day trial",
+ "cool_cv2_method": "pth",
+ "repo_commit": "705859eaeab7f733be4ee02726bef50800c1ee4a",
+ "dataset_manifest": "f28484951393",
+ "instances_left_running": 0,
+ "command": "uv run --group cloud python bench/ec2_cool.py --ami <COOL AMI id>",
+ "cool_opencv_version": "5.1.0-dev"
+}

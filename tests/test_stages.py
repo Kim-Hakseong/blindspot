@@ -102,3 +102,16 @@ def test_three_way_separates_the_chip_effect_from_the_cool_effect():
 def test_fingerprint_records_numpy_version():
     # COOL may bring its own numpy; a changed numpy must be visible in the result.
     assert "numpy_version" in fingerprint()
+
+
+def test_a_licensed_builds_fingerprint_keeps_only_our_measurements_and_its_version():
+    # COOL's licence treats its materials as confidential: publish the version
+    # string and what we measured, nothing derived from its build information.
+    from blindspot.stages import public_fingerprint
+    fp = {"machine": "aarch64", "cpu_model": "0xd4f", "logical_cpus": 2, "opencv_threads": 2,
+          "opencv_version": "5.1.0-dev", "cv2_module": "/opt/x/cv2/__init__.py",
+          "build_info_sha256": "ab", "kleidicv": True, "python": "3.12.13", "numpy_version": "2.2.6"}
+    out = public_fingerprint(fp, licensed_build=True)
+    assert out["opencv_version"] == "5.1.0-dev" and out["cpu_model"] == "0xd4f"
+    assert not {"cv2_module", "build_info_sha256", "kleidicv"} & set(out)
+    assert public_fingerprint(fp, licensed_build=False) == fp
