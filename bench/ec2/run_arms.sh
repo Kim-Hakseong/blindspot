@@ -32,7 +32,18 @@ if [ "$ROLE" = x86 ]; then
 fi
 
 # --- COOL: our code and pinned dependencies, with only cv2 taken from COOL ---
-COOL_PY=/opt/cool/venvs/python_3.12/bin/python
+# The listing names /opt/cool/venvs/python_3.12; search in case the AMI differs.
+COOL_PY=""
+for py in /opt/cool/venvs/python_3.12/bin/python /opt/cool/venvs/*/bin/python /opt/cool/*/bin/python3; do
+  if [ -x "$py" ] && "$py" -c "import cv2" 2>/dev/null; then COOL_PY=$py; break; fi
+done
+if [ -z "$COOL_PY" ]; then
+  # Without COOL, still measure arm 2 so the chip comparison is not lost.
+  echo "cool_cv2_method=none (no Python under /opt/cool imports cv2)"
+  for r in $(seq 1 "$REPEATS"); do stock "ec2-graviton-stock-r$r"; done
+  exit 3
+fi
+echo "cool_python=$COOL_PY"
 COOL_SITE=$("$COOL_PY" -c "import cv2, os; print(os.path.dirname(os.path.dirname(os.path.realpath(cv2.__file__))))")
 uv export --frozen --no-dev --group cloud --no-hashes --no-emit-project \
   | grep -v '^opencv-python-headless' > /tmp/req-no-opencv.txt
@@ -52,7 +63,7 @@ then
   grep -v '^numpy' /tmp/req-no-opencv.txt > /tmp/req-no-opencv-numpy.txt
   uv pip install --python "$COOL_PY" -r /tmp/req-no-opencv-numpy.txt
   uv pip install --python "$COOL_PY" --no-deps .
-  ln -sf /opt/cool/venvs/python_3.12/bin/blindspot /opt/bs-cool/bin/blindspot
+  ln -sf "$(dirname "$COOL_PY")/blindspot" /opt/bs-cool/bin/blindspot
   METHOD=cool-venv
 fi
 echo "cool_cv2_method=$METHOD"
