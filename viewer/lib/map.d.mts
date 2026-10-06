@@ -8,3 +8,4 @@ export function uncoveredMask(
 export function viridis(t: number): string;
 export function reproduceCommand(exposureMs: number, lux: number, seed: number): string;
 export function fmt(value: number, unit: string, digits?: number): string;
+export function loadOrder(cells: { i: number; j: number; image: string | null }[][], i: number, j: number): string[];

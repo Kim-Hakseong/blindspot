@@ -4,7 +4,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  boundaryEdges, imageStops, uncoveredMask, viridis, reproduceCommand, fmt,
+  boundaryEdges, imageStops, uncoveredMask, viridis, reproduceCommand, fmt, loadOrder,
 } from "../lib/map.mjs";
 
 const F = true, P = false;
@@ -88,4 +88,16 @@ test("reproduce command carries the exact scored value, not a rounded one", () =
   const cmd = reproduceCommand(3.4375, lux, 1);
   const printed = Number(cmd.match(/illuminance_lux=([^ ]+)/)[1]);
   assert.equal(printed, lux);
+});
+
+test("images load nearest-first from the selected cell, each name once", () => {
+  const cells = [
+    [{ i: 0, j: 0, image: "a" }, { i: 1, j: 0, image: null }, { i: 2, j: 0, image: "c" }],
+    [{ i: 0, j: 1, image: "d" }, { i: 1, j: 1, image: "e" }, { i: 2, j: 1, image: "f" }],
+  ];
+  const order = loadOrder(cells, 2, 1);
+  assert.equal(order[0], "f");                 // the cell on screen first
+  assert.deepEqual(new Set(order), new Set(["a", "c", "d", "e", "f"]));
+  assert.equal(order.length, 5);
+  assert.ok(order.indexOf("e") < order.indexOf("a"));  // nearer before farther
 });

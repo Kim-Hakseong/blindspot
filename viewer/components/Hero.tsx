@@ -7,7 +7,7 @@
 // interpolates, re-renders or animates between them.
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { boundaryEdges, fmt, imageStops, reproduceCommand, uncoveredMask, viridis } from "../lib/map.mjs";
+import { boundaryEdges, fmt, imageStops, loadOrder, reproduceCommand, uncoveredMask, viridis } from "../lib/map.mjs";
 import type { Cell, Map2D, Report } from "../lib/types";
 
 const FRAME_W = 640;
@@ -20,17 +20,16 @@ function token(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
-function useImages(map: Map2D) {
+// Each frame is shown as soon as it arrives, nearest the selected cell first.
+// (Waiting for all 81 left the panel on "loading" for 15 s on a cold cache.)
+function useImages(map: Map2D, i: number, j: number) {
   const [images, setImages] = useState<Record<string, HTMLImageElement>>({});
+  const start = useRef({ i, j });
   useEffect(() => {
-    const out: Record<string, HTMLImageElement> = {};
-    let pending = 0;
-    for (const row of map.cells) for (const c of row) {
-      if (!c.image) continue;
-      pending++;
+    for (const name of loadOrder(map.cells, start.current.i, start.current.j)) {
       const img = new Image();
-      img.onload = () => { out[c.image!] = img; if (--pending === 0) setImages({ ...out }); };
-      img.src = `data/cells/${c.image}`;
+      img.onload = () => setImages((prev) => ({ ...prev, [name]: img }));
+      img.src = `data/cells/${name}`;
     }
   }, [map]);
   return images;
@@ -154,7 +153,6 @@ export default function Hero({ report }: { report: Report }) {
   const map = report.map2d!;
   const stops = useMemo(() => imageStops(map.cells), [map]);
   const uncovered = useMemo(() => uncoveredMask(map, report.uncovered_regions), [map, report]);
-  const images = useImages(map);
   // ?x=&y= select slider stops, so a given view can be linked and reproduced.
   const initial = (key: string, n: number) => {
     if (typeof window === "undefined") return 0;
@@ -164,6 +162,7 @@ export default function Hero({ report }: { report: Report }) {
   const [xi, setXi] = useState(() => initial("x", stops.xs.length));
   const [yi, setYi] = useState(() => initial("y", stops.ys.length));
   const cell = map.cells[stops.ys[yi]][stops.xs[xi]];
+  const images = useImages(map, cell.i, cell.j);
   const frameRef = useRef<HTMLCanvasElement>(null);
   const mapRef = useRef<HTMLCanvasElement>(null);
   const baseline = report.run.baseline_map50;

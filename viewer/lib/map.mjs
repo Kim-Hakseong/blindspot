@@ -79,3 +79,15 @@ export function fmt(value, unit, digits = 4) {
   if (!unit) throw new Error("a number without a unit is not displayed");
   return `${+Number(value).toPrecision(digits)} ${unit}`;
 }
+
+/** Cell images in the order to fetch them: the cell on screen first, then
+ * outward by grid distance, so the frame a user is looking at never waits
+ * behind 80 others. */
+export function loadOrder(cells, i, j) {
+  const seen = new Set();
+  return cells.flat()
+    .filter((c) => c.image)
+    .sort((a, b) => Math.hypot(a.i - i, a.j - j) - Math.hypot(b.i - i, b.j - j))
+    .map((c) => c.image)
+    .filter((name) => !seen.has(name) && seen.add(name));
+}
