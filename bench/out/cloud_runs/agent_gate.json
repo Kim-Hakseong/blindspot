@@ -172,13 +172,170 @@
    "cancelled": [
     "Halted correctly by the contract, then abandoned: the agent's accepted 188-probe split stopped fitting after its final model call was charged, and the project owner chose not to approve it. Not a bug; kept as evidence of per-call charging."
    ]
+  },
+  "20261006-124813-169181": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "model_calls": 7,
+   "model_usd": 0.025903000000000002,
+   "run_status_after_agent": "RUNNING",
+   "proposals": [
+    {
+     "tool": "reallocate_budget",
+     "accepted": false,
+     "probes": 199.0,
+     "reason": "exceeds budget contract: 199 probes cost 0.3980 USD but only 0.3929 USD remains of a 0.4000 USD limit",
+     "rationale": "Prioritize axes with lowest validation set coverage. motion_blur.exposure_ms (17.4% coverage) receives the most probes to improve understanding of this critical failure mode. fog.beta_per_m (30.07%) and jpeg.quality (23.85%) receive secondary allocation. low_light.illuminance_lux (88.42% coverage) receives minimal additional probes as it's already well-characterized."
+    },
+    {
+     "tool": "reallocate_budget",
+     "accepted": false,
+     "probes": 198.0,
+     "reason": "exceeds budget contract: 198 probes cost 0.3960 USD but only 0.3891 USD remains of a 0.4000 USD limit",
+     "rationale": "Prioritize axes with lowest validation set coverage. motion_blur.exposure_ms (17.4% coverage) receives the most probes to improve understanding of this critical failure mode. fog.beta_per_m (30.07%) and jpeg.quality (23.85%) receive secondary allocation. low_light.illuminance_lux (88.42% coverage) receives minimal additional probes as it's already well-characterized. Total: 198 probes stays within budget."
+    },
+    {
+     "tool": "reallocate_budget",
+     "accepted": false,
+     "probes": 196.0,
+     "reason": "exceeds budget contract: 196 probes cost 0.3920 USD but only 0.3847 USD remains of a 0.4000 USD limit",
+     "rationale": "Prioritize axes with lowest validation set coverage. motion_blur.exposure_ms (17.4% coverage) receives the most probes to improve understanding of this critical failure mode. fog.beta_per_m (30.07%) and jpeg.quality (23.85%) receive secondary allocation. low_light.illuminance_lux (88.42% coverage) receives minimal probes as it's already well-characterized. Total: 196 probes stays within budget."
+    },
+    {
+     "tool": "reallocate_budget",
+     "accepted": true,
+     "probes": 170.0,
+     "reason": "allocation applied",
+     "rationale": "Prioritize axes with lowest validation set coverage. motion_blur.exposure_ms (17.4% coverage) receives the most probes to improve understanding of this critical failure mode where mAP@50 falls below 0.367. fog.beta_per_m (30.07%) and jpeg.quality (23.85%) receive secondary allocation. low_light.illuminance_lux (88.42% coverage) receives the least as it's already well-characterized. Total: 170 probes."
+    }
+   ],
+   "proposals_accepted": 1,
+   "proposals_refused": 3,
+   "per_call_charges": [
+    {
+     "call": 1,
+     "usd": 0.001409,
+     "charged": true,
+     "contract_spent_after_usd": 0.001409
+    },
+    {
+     "call": 2,
+     "usd": 0.002182,
+     "charged": true,
+     "contract_spent_after_usd": 0.003591
+    },
+    {
+     "call": 3,
+     "usd": 0.003532,
+     "charged": true,
+     "contract_spent_after_usd": 0.007123
+    },
+    {
+     "call": 4,
+     "usd": 0.003762,
+     "charged": true,
+     "contract_spent_after_usd": 0.010885
+    },
+    {
+     "call": 5,
+     "usd": 0.004462,
+     "charged": true,
+     "contract_spent_after_usd": 0.015347
+    },
+    {
+     "call": 6,
+     "usd": 0.004865,
+     "charged": true,
+     "contract_spent_after_usd": 0.020212
+    },
+    {
+     "call": 7,
+     "usd": 0.005691,
+     "charged": true,
+     "contract_spent_after_usd": 0.025903000000000002
+    }
+   ],
+   "per_call_charges_sum_usd": 0.025903,
+   "approvals": [],
+   "cancelled": []
+  },
+  "20261006-125326-d307ab": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "model_calls": 6,
+   "model_usd": 0.021226,
+   "run_status_after_agent": "RUNNING",
+   "proposals": [
+    {
+     "tool": "propose_axis_priority",
+     "accepted": true,
+     "probes": null,
+     "reason": "order applied",
+     "rationale": "Allocate probes inversely to existing coverage. motion_blur.exposure_ms gets the most (90 probes) due to severely low 17.4% coverage, followed by fog.beta_per_m (60 probes) at 30.07% coverage. jpeg.quality gets 30 probes, and low_light.illuminance_lux gets minimal allocation (19 probes) as it's already well-covered at 88.42%.</anionale>\n</invoke>"
+    },
+    {
+     "tool": "reallocate_budget",
+     "accepted": false,
+     "probes": 199.0,
+     "reason": "exceeds budget contract: 199 probes cost 0.3980 USD but only 0.3883 USD remains of a 0.4000 USD limit",
+     "rationale": "Focus resources on the least-covered axes. motion_blur.exposure_ms (17.4% coverage) receives 90 probes to dramatically increase understanding of where failures occur in this critical but poorly-explored dimension. fog.beta_per_m (30.07% coverage) gets 60 probes. jpeg.quality (23.85%) gets 30 probes. low_light.illuminance_lux (88.42% already well-covered) receives only 19 probes. This allocation balances discovering new failure regions with validation set coverage insights.</anionale>\n</invoke>"
+    },
+    {
+     "tool": "reallocate_budget",
+     "accepted": true,
+     "probes": 189.0,
+     "reason": "allocation applied",
+     "rationale": "Adjusted allocation to respect budget constraints while prioritizing discovery. motion_blur.exposure_ms (17.4% coverage) gets 85 probes, fog.beta_per_m (30.07%) gets 56, jpeg.quality (23.85%) gets 30, and low_light.illuminance_lux (88.42%) gets 18. This totals 189 probes, staying within budget while concentrating effort on the severely under-explored motion_blur dimension.</anionale>\n</invoke>"
+    }
+   ],
+   "proposals_accepted": 2,
+   "proposals_refused": 1,
+   "per_call_charges": [
+    {
+     "call": 1,
+     "usd": 0.001329,
+     "charged": true,
+     "contract_spent_after_usd": 0.001329
+    },
+    {
+     "call": 2,
+     "usd": 0.002201,
+     "charged": true,
+     "contract_spent_after_usd": 0.00353
+    },
+    {
+     "call": 3,
+     "usd": 0.004413,
+     "charged": true,
+     "contract_spent_after_usd": 0.007943
+    },
+    {
+     "call": 4,
+     "usd": 0.003747,
+     "charged": true,
+     "contract_spent_after_usd": 0.01169
+    },
+    {
+     "call": 5,
+     "usd": 0.004524,
+     "charged": true,
+     "contract_spent_after_usd": 0.016214
+    },
+    {
+     "call": 6,
+     "usd": 0.005012,
+     "charged": true,
+     "contract_spent_after_usd": 0.021226
+    }
+   ],
+   "per_call_charges_sum_usd": 0.021226000000000002,
+   "approvals": [],
+   "cancelled": []
   }
  },
  "totals": {
-  "runs": 4,
-  "proposals_accepted": 4,
-  "proposals_refused": 5,
-  "model_usd": 0.068266
+  "runs": 6,
+  "proposals_accepted": 7,
+  "proposals_refused": 9,
+  "model_usd": 0.115395
  },
  "command": "uv run python tools/agent_gate_report.py"
 }
