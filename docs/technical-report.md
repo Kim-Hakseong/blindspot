@@ -243,7 +243,7 @@ light and the cameras' recorded exposure time predicted failure in
 the failure illuminance for these cameras by at least
 12.0 <!--bench:sim2real.gap.synthetic_boundary_overstates_failure_illuminance_by_at_least-->×. Illuminance is
 estimated, not measured (EXIF exposure equation scaled by photo brightness;
-`docs/results.md`).
+`docs/results.md`). The tool measured its own blind spot, and the error is on the conservative side: it over-warns rather than misses failures. The model is deliberately **not** calibrated against these photos, because calibrating and validating on the same images would be fitting to the answer. Next step: model the camera's image-signal-processor noise reduction, then validate on a separate real set.
 
 ## 7. Limitations
 

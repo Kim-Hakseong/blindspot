@@ -99,6 +99,82 @@ sequenceDiagram
     end
 ```
 
+## Overview (landscape)
+
+The same system at a glance, for slides and the gallery. Rendered:
+[`architecture-3.png`](architecture-3.png).
+
+```mermaid
+flowchart LR
+    cli["blindspot cloud-run<br/>dataset + budget contract"]
+    subgraph aws["AWS (one cdk deploy, tagged project=blindspot)"]
+        direction LR
+        sfn["Step Functions<br/>plan → probe → finalize"]
+        plan["Plan (Lambda)<br/>deterministic replay<br/>criterion + contract"]
+        batch["AWS Batch on Fargate<br/>Graviton (arm64) + x86"]
+        ddb[("DynamoDB<br/>runs · probes · decisions")]
+        s3[("S3<br/>datasets · envelopes")]
+        cdn["CloudFront<br/>public report viewer"]
+    end
+    subgraph worker["Worker (same image both CPUs)"]
+        direction TB
+        deg["OpenCV 5 degradations<br/>physical units, seeded"]
+        det["cv::dnn detector<br/>YOLOX-S / NanoDet"]
+        map["mAP@50"]
+        deg --> det --> map
+    end
+    agent{{"Agent (opt-in)<br/>Bedrock, MCP tools<br/>proposes only"}}
+    human["Person<br/>blindspot approve"]
+    cli --> s3
+    cli --> ddb
+    cli --> sfn
+    sfn --> plan --> batch --> worker
+    map --> ddb --> plan
+    plan --> s3 --> cdn
+    agent -->|proposal| plan
+    human -->|new contract| ddb
+    classDef judgment fill:#1f6feb,stroke:#0d419d,color:#fff
+    classDef llm fill:#8957e5,stroke:#6639ba,color:#fff
+    class plan,deg,map judgment
+    class agent llm
+```
+
+## Agent workflow (perception → decision → action)
+
+Rendered: [`architecture-4.png`](architecture-4.png). Every arrow out of the
+agent goes through deterministic code; every box writes to `bs-decisions`.
+
+```mermaid
+flowchart LR
+    subgraph perceive["Perception (OpenCV 5)"]
+        direction TB
+        p1["degrade frames<br/>at physical conditions"]
+        p2["cv::dnn detections<br/>→ mAP@50"]
+        p3["boundaries + coverage<br/>(the envelope)"]
+        p1 --> p2 --> p3
+    end
+    subgraph decide["Decision"]
+        direction TB
+        a1{{"Agent on Bedrock<br/>reads envelope via MCP<br/>proposes axis order /<br/>per-axis probe split"}}
+        g1["cost.gate (deterministic)<br/>valid? affordable after<br/>its own model cost?"]
+        a1 --> g1
+    end
+    subgraph act["Action"]
+        direction TB
+        r1["run definition<br/>order + probe caps<br/>→ Step Functions / Batch<br/>(new probes are measured<br/>and perceived again)"]
+        h1["AWAITING_APPROVAL<br/>→ person approves<br/>(typed confirmation)"]
+    end
+    p3 -->|get_envelope| a1
+    g1 -->|accepted| r1
+    g1 -->|refused, reason returned| a1
+    g1 -->|beyond contract| h1
+    h1 -->|contract v2| r1
+    classDef judgment fill:#1f6feb,stroke:#0d419d,color:#fff
+    classDef llm fill:#8957e5,stroke:#6639ba,color:#fff
+    class g1,p2,p3 judgment
+    class a1 llm
+```
+
 ## Current implementation status
 
 | Component | Status |

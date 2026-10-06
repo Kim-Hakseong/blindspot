@@ -1,0 +1,19 @@
+{
+ "voice": "Amazon Polly generative Matthew",
+ "lines": {
+  "n01": "Blindspot finds the exact capture conditions where a vision pipeline starts failing, in physical units, and it reports the conditions your test set never covered.",
+  "n02": "This is the live report. At 5.9 milliseconds of exposure and 400 lux, the YOLOX-S detector passes. Dim the light to 173 lux. Still passing.",
+  "n03": "Lengthen the exposure to 10.8 milliseconds. Each axis alone is inside its own limit, but together, the detector fails. At 15.6 milliseconds it calls a bus a car. mAP falls from 0.611 to 0.259.",
+  "n04": "Every number comes with a command that reproduces it. Here it is, recomputed from scratch: 0.259, exactly.",
+  "n05": "One cdk deploy builds the system. Step Functions runs the search. AWS Batch on Fargate degrades frames with OpenCV 5 and runs the detector, on Graviton or x86. Every probe is a record in DynamoDB. The blue boxes are the judgment path. No language model can be imported into it.",
+  "n06": "Every axis has a sharp boundary. Searching instead of sweeping saved 4.12 times the probes at fine precision, and nothing at coarse precision. We show both.",
+  "n07": "The report leads with what your data never covered, and it lists its own limitations.",
+  "n08": "An optional agent on Amazon Bedrock reads the measured boundaries and proposes how to spend the probe budget. It only proposes.",
+  "n09": "Its first split asked for 199 probes. After charging its own model calls, the contract could not pay, so deterministic code refused it. It proposed 189, which fit. Every call and every verdict is in the ledger.",
+  "n10": "Perception, decision, action. The visual measurements drive the agent's proposal, a gate decides, and anything beyond the budget stops until a person approves it.",
+  "n11": "These rules are tests, not promises.",
+  "n12": "We measured COOL, the Graviton-optimized OpenCV, against the stock wheel on the same machine. On our workload it was slower: 0.92 on 2 cores, 0.95 on 16. Graviton itself ran at 0.73 of x86 speed. We report it as measured.",
+  "n13": "Then we tested our own model against real night photos. The synthetic low-light model is too pessimistic. Real photos at an estimated 1.1 lux still passed, where it predicted failure. It over-warns rather than misses failures, and we did not calibrate it on the same photos.",
+  "n14": "What this does not show yet: real-world checks for blur, fog and compression, identical results across different CPUs, and an H.264 axis."
+ }
+}

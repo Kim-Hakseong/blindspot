@@ -105,28 +105,37 @@ class Rec:
     async def goto(self, url, ready_js, timeout=45):
         await self.call("Page.navigate", url=url)
         end = time.time() + timeout
+        target = url.split("#")[0]
         while time.time() < end:
-            if await self.evaluate(ready_js):
+            # The old page answers until navigation commits: check we are on the new one.
+            here = await self.evaluate("document.URL")
+            if here and here.split("#")[0] == target and await self.evaluate(
+                    f"document.readyState === 'complete' && ({ready_js})"):
                 return True
             await asyncio.sleep(0.3)
         return False
 
 
 async def _render(html: str, out: pathlib.Path, w: int, h: int, port: int, transparent: bool):
-    chrome = Chrome(port, w, h)
+    vh = max(h, 600)                       # Chrome will not render very short viewports; clip instead
+    chrome = Chrome(port, w, vh)
     try:
         async with websockets.connect(chrome.ws_url(), max_size=None) as ws:
             r = Rec(ws)
-            await r.call("Emulation.setDeviceMetricsOverride", width=w, height=h,
+            await r.call("Emulation.setDeviceMetricsOverride", width=w, height=vh,
                          deviceScaleFactor=1, mobile=False)
             if transparent:
                 await r.call("Emulation.setDefaultBackgroundColorOverride",
                              color={"r": 0, "g": 0, "b": 0, "a": 0})
-            page = out.with_suffix(".html")
+            page = OUT / "_render" / f"{out.stem}.html"     # never beside the output (local paths)
+            page.parent.mkdir(parents=True, exist_ok=True)
             page.write_text(html)
             await r.goto(page.as_uri(), "document.fonts.status === 'loaded'")
             await asyncio.sleep(0.6)
-            shot = await r.call("Page.captureScreenshot", format="png")
+            shot = await r.call("Page.captureScreenshot", format="png",
+                                clip={"x": 0, "y": 0, "width": w, "height": h, "scale": 1})
+            if "data" not in shot:
+                raise RuntimeError(f"screenshot failed for {out.name}")
             out.write_bytes(base64.b64decode(shot["data"]))
     finally:
         chrome.close()

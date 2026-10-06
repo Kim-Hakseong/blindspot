@@ -1,0 +1,500 @@
+[
+ {
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "run_id": "20261006-125326-d307ab",
+  "at": 1791258809.0,
+  "output": {
+   "input_tokens": 1069.0,
+   "usd": 0.001329,
+   "contract_remaining_usd": 0.398671,
+   "output_tokens": 52.0,
+   "contract_spent_after_usd": 0.001329
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 1.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-001"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "read-only",
+  "at": 1791258810.0,
+  "output": {
+   "findings": [
+    {
+     "status": "located",
+     "unit": "ms",
+     "axis": "motion_blur.exposure_ms",
+     "lower": 12.5,
+     "upper": 13.75
+    },
+    {
+     "unit": "lux",
+     "lower": 12.984375,
+     "axis": "low_light.illuminance_lux",
+     "status": "located",
+     "upper": 25.46875
+    },
+    {
+     "upper": 0.06375,
+     "axis": "fog.beta_per_m",
+     "unit": "1/m",
+     "status": "located",
+     "lower": 0.06
+    },
+    {
+     "axis": "jpeg.quality",
+     "lower": 7.96875,
+     "unit": "jpeg-q",
+     "status": "located",
+     "upper": 10.9375
+    }
+   ],
+   "allocation": null,
+   "baseline_map50": 0.6110733916774186,
+   "coverage_percent": {
+    "low_light.illuminance_lux": 88.42,
+    "motion_blur.exposure_ms": 17.4,
+    "jpeg.quality": 23.85,
+    "fog.beta_per_m": 30.07
+   },
+   "axis_order": [
+    "motion_blur.exposure_ms",
+    "jpeg.quality",
+    "fog.beta_per_m",
+    "low_light.illuminance_lux"
+   ],
+   "budget": {
+    "probes_remaining": 199.0,
+    "cost_per_probe_usd": 0.002,
+    "probes_charged": 0.0,
+    "limit_usd": 0.4,
+    "spent_usd": 0.001329,
+    "remaining_usd": 0.398671
+   },
+   "threshold_map50": 0.36664403500645115
+  },
+  "input": {},
+  "tool": "get_envelope",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-002"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791258812.0,
+  "output": {
+   "contract_remaining_usd": 0.39647000000000004,
+   "contract_spent_after_usd": 0.00353,
+   "input_tokens": 1626.0,
+   "output_tokens": 115.0,
+   "usd": 0.002201
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 2.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-003"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "read-only",
+  "at": 1791258812.0,
+  "output": {
+   "axis": "motion_blur.exposure_ms",
+   "criterion": "mAP@50 below 0.3666 (60% of baseline 0.6111)",
+   "coverage_percent": 17.4,
+   "boundary": {
+    "lower": 12.5,
+    "upper": 13.75
+   }
+  },
+  "input": {
+   "axis": "motion_blur.exposure_ms"
+  },
+  "tool": "explain_failure",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-004"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791258816.0,
+  "output": {
+   "usd": 0.004413,
+   "input_tokens": 1838.0,
+   "contract_spent_after_usd": 0.007943,
+   "output_tokens": 515.0,
+   "contract_remaining_usd": 0.39205700000000004
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 3.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-005"
+ },
+ {
+  "rationale": "Allocate probes inversely to existing coverage. motion_blur.exposure_ms gets the most (90 probes) due to severely low 17.4% coverage, followed by fog.beta_per_m (60 probes) at 30.07% coverage. jpeg.quality gets 30 probes, and low_light.illuminance_lux gets minimal allocation (19 probes) as it's already well-covered at 88.42%.</anionale>\n</invoke>",
+  "run_id": "20261006-125326-d307ab",
+  "at": 1791258817.0,
+  "output": {
+   "state": "RUNNING",
+   "reason": "order applied",
+   "applied": {
+    "order": [
+     "motion_blur.exposure_ms",
+     "fog.beta_per_m",
+     "jpeg.quality",
+     "low_light.illuminance_lux"
+    ]
+   }
+  },
+  "input": {
+   "order": [
+    "motion_blur.exposure_ms",
+    "fog.beta_per_m",
+    "jpeg.quality",
+    "low_light.illuminance_lux"
+   ]
+  },
+  "tool": "propose_axis_priority",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-006"
+ },
+ {
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "run_id": "20261006-125326-d307ab",
+  "at": 1791258819.0,
+  "output": {
+   "contract_spent_after_usd": 0.01169,
+   "input_tokens": 2492.0,
+   "usd": 0.003747,
+   "output_tokens": 251.0,
+   "contract_remaining_usd": 0.38831000000000004
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 4.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-007"
+ },
+ {
+  "rationale": "Focus resources on the least-covered axes. motion_blur.exposure_ms (17.4% coverage) receives 90 probes to dramatically increase understanding of where failures occur in this critical but poorly-explored dimension. fog.beta_per_m (30.07% coverage) gets 60 probes. jpeg.quality (23.85%) gets 30 probes. low_light.illuminance_lux (88.42% already well-covered) receives only 19 probes. This allocation balances discovering new failure regions with validation set coverage insights.</anionale>\n</invoke>",
+  "run_id": "20261006-125326-d307ab",
+  "at": 1791258820.0,
+  "output": {
+   "applied": null,
+   "reason": "exceeds budget contract: 199 probes cost 0.3980 USD but only 0.3883 USD remains of a 0.4000 USD limit",
+   "state": "AWAITING_APPROVAL"
+  },
+  "input": {
+   "probes_per_axis": {
+    "jpeg.quality": 30.0,
+    "low_light.illuminance_lux": 19.0,
+    "motion_blur.exposure_ms": 90.0,
+    "fog.beta_per_m": 60.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": false,
+  "decision_id": "0000-agent-008"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "at": 1791258822.0,
+  "output": {
+   "usd": 0.004524,
+   "contract_spent_after_usd": 0.016214,
+   "input_tokens": 3064.0,
+   "contract_remaining_usd": 0.383786,
+   "output_tokens": 292.0
+  },
+  "input": {
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+   "call": 5.0
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-009"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "Adjusted allocation to respect budget constraints while prioritizing discovery. motion_blur.exposure_ms (17.4% coverage) gets 85 probes, fog.beta_per_m (30.07%) gets 56, jpeg.quality (23.85%) gets 30, and low_light.illuminance_lux (88.42%) gets 18. This totals 189 probes, staying within budget while concentrating effort on the severely under-explored motion_blur dimension.</anionale>\n</invoke>",
+  "at": 1791258823.0,
+  "output": {
+   "state": "RUNNING",
+   "reason": "allocation applied",
+   "applied": {
+    "probes_per_axis": {
+     "motion_blur.exposure_ms": 85.0,
+     "jpeg.quality": 30.0,
+     "fog.beta_per_m": 56.0,
+     "low_light.illuminance_lux": 18.0
+    }
+   }
+  },
+  "input": {
+   "probes_per_axis": {
+    "motion_blur.exposure_ms": 85.0,
+    "fog.beta_per_m": 56.0,
+    "jpeg.quality": 30.0,
+    "low_light.illuminance_lux": 18.0
+   }
+  },
+  "tool": "reallocate_budget",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-010"
+ },
+ {
+  "rationale": "model call priced from its token usage and charged to the run contract",
+  "run_id": "20261006-125326-d307ab",
+  "at": 1791258826.0,
+  "output": {
+   "output_tokens": 264.0,
+   "contract_spent_after_usd": 0.021226,
+   "contract_remaining_usd": 0.378774,
+   "usd": 0.005012,
+   "input_tokens": 3692.0
+  },
+  "input": {
+   "call": 6.0,
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "tool": "agent.model_call",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-011"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "## Summary\n\n**Most Important Failure: Motion Blur Exposure**\nThe vision pipeline fails when motion blur exposure reaches 12.5\u201313.75 ms, causing mAP@50 to drop below 0.367 (60% of the 0.611 baseline). This is the most critical failure because it's the **least explored axis** with only 17.4% coverage\u2014meaning the validation data provides minimal guidance here.\n\n**Proposed Budget Allocation:**\nI've proposed concentrating the remaining 189 probes on the poorest-coverage axes:\n- **motion_blur.exposure_ms**: 85 probes (addresses 17.4% coverage gap)\n- **fog.beta_per_m**: 56 probes (addresses 30.07% coverage gap)\n- **jpeg.quality**: 30 probes (addresses 23.85% coverage gap)\n- **low_light.illuminance_lux**: 18 probes (already well-explored at 88.42%)\n\nThis allocation inverts coverage\u2014putting the most probes where the validation set is weakest\u2014to maximize discovery of failure boundary details in undiscovered regions.",
+  "at": 1791258827.0,
+  "output": {
+   "model_calls": 6.0,
+   "allocation": {
+    "jpeg.quality": 30.0,
+    "motion_blur.exposure_ms": 85.0,
+    "fog.beta_per_m": 56.0,
+    "low_light.illuminance_lux": 18.0
+   },
+   "pending_allocation": null,
+   "run_status": "RUNNING",
+   "model_usd": 0.021226,
+   "held_for_approval": null,
+   "status": "completed",
+   "input_tokens": 13781.0,
+   "output_tokens": 1489.0,
+   "applied_probes_per_axis": {
+    "jpeg.quality": 30.0,
+    "low_light.illuminance_lux": 18.0,
+    "motion_blur.exposure_ms": 85.0,
+    "fog.beta_per_m": 56.0
+   },
+   "axis_order": [
+    "motion_blur.exposure_ms",
+    "fog.beta_per_m",
+    "jpeg.quality",
+    "low_light.illuminance_lux"
+   ],
+   "model": "global.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "input": {
+   "budget_usd": 0.4
+  },
+  "tool": "agent.summary",
+  "accepted_by_scheduler": true,
+  "decision_id": "0000-agent-012"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261006-125326-d307ab",
+  "output": {
+   "probe_ids": [
+    "baseline"
+   ],
+   "truncated": false,
+   "spent_usd": 0.021226,
+   "remaining_usd": 0.378774,
+   "action": "probe"
+  },
+  "input": {
+   "ledger_size": 0.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0001-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261006-125326-d307ab",
+  "output": {
+   "spent_usd": 0.023226,
+   "action": "probe",
+   "truncated": false,
+   "remaining_usd": 0.376774,
+   "probe_ids": [
+    "motion_blur.exposure_ms@0.0",
+    "motion_blur.exposure_ms@10.0",
+    "motion_blur.exposure_ms@20.0",
+    "motion_blur.exposure_ms@30.0",
+    "motion_blur.exposure_ms@40.0",
+    "fog.beta_per_m@0.0",
+    "fog.beta_per_m@0.03",
+    "fog.beta_per_m@0.06",
+    "fog.beta_per_m@0.09",
+    "fog.beta_per_m@0.12",
+    "jpeg.quality@100.0",
+    "jpeg.quality@76.25",
+    "jpeg.quality@52.5",
+    "jpeg.quality@28.75",
+    "jpeg.quality@5.0",
+    "low_light.illuminance_lux@400.0",
+    "low_light.illuminance_lux@300.125",
+    "low_light.illuminance_lux@200.25",
+    "low_light.illuminance_lux@100.375",
+    "low_light.illuminance_lux@0.5"
+   ]
+  },
+  "input": {
+   "ledger_size": 1.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0002-plan"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "probe_ids": [
+    "motion_blur.exposure_ms@15.0",
+    "fog.beta_per_m@0.075",
+    "jpeg.quality@16.875",
+    "low_light.illuminance_lux@50.4375"
+   ],
+   "truncated": false,
+   "action": "probe",
+   "spent_usd": 0.063226,
+   "remaining_usd": 0.336774
+  },
+  "input": {
+   "ledger_size": 21.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0003-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261006-125326-d307ab",
+  "output": {
+   "action": "probe",
+   "truncated": false,
+   "remaining_usd": 0.328774,
+   "probe_ids": [
+    "motion_blur.exposure_ms@12.5",
+    "fog.beta_per_m@0.0675",
+    "jpeg.quality@10.9375",
+    "low_light.illuminance_lux@25.46875"
+   ],
+   "spent_usd": 0.071226
+  },
+  "input": {
+   "ledger_size": 25.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0004-plan"
+ },
+ {
+  "run_id": "20261006-125326-d307ab",
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "output": {
+   "probe_ids": [
+    "motion_blur.exposure_ms@13.75",
+    "fog.beta_per_m@0.06375",
+    "jpeg.quality@7.96875",
+    "low_light.illuminance_lux@12.984375"
+   ],
+   "spent_usd": 0.079226,
+   "truncated": false,
+   "action": "probe",
+   "remaining_usd": 0.320774
+  },
+  "input": {
+   "ledger_size": 29.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0005-plan"
+ },
+ {
+  "rationale": "deterministic replay of the local search under the budget contract",
+  "run_id": "20261006-125326-d307ab",
+  "output": {
+   "spent_usd": 0.087226,
+   "probe_ids": [],
+   "action": "done",
+   "findings": [
+    {
+     "upper": 13.75,
+     "axis": "motion_blur.exposure_ms",
+     "reproduce": "uv run blindspot probe --set motion_blur.exposure_ms=13.75 --seed 20260906",
+     "probes_used": 8.0,
+     "unit": "ms",
+     "status": "located",
+     "lower": 12.5
+    },
+    {
+     "status": "located",
+     "upper": 0.06375,
+     "axis": "fog.beta_per_m",
+     "lower": 0.06,
+     "reproduce": "uv run blindspot probe --set fog.beta_per_m=0.06375 --seed 20260906",
+     "probes_used": 8.0,
+     "unit": "1/m"
+    },
+    {
+     "axis": "jpeg.quality",
+     "reproduce": "uv run blindspot probe --set jpeg.quality=7.96875 --seed 20260906",
+     "unit": "jpeg-q",
+     "status": "located",
+     "probes_used": 8.0,
+     "lower": 7.96875,
+     "upper": 10.9375
+    },
+    {
+     "status": "located",
+     "reproduce": "uv run blindspot probe --set low_light.illuminance_lux=12.984375 --seed 20260906",
+     "probes_used": 8.0,
+     "axis": "low_light.illuminance_lux",
+     "lower": 12.984375,
+     "upper": 25.46875,
+     "unit": "lux"
+    }
+   ],
+   "remaining_usd": 0.312774,
+   "criterion": {
+    "rule": "mAP@50 below a fraction of the undegraded baseline",
+    "fraction": 0.6,
+    "baseline_map50": 0.6110733916774186,
+    "threshold_map50": 0.36664403500645115
+   }
+  },
+  "input": {
+   "ledger_size": 33.0
+  },
+  "tool": "scheduler.plan_round",
+  "accepted_by_scheduler": true,
+  "decision_id": "0006-plan"
+ }
+]

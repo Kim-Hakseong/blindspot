@@ -7,6 +7,7 @@ chunk is stored with its real timestamp. render_terminal.py replays it exactly.
     uv run python video/tools/record_shell.py reproduce
     uv run python video/tools/record_shell.py agent       # starts a real cloud run (~$0.09)
     uv run python video/tools/record_shell.py rules
+    uv run python video/tools/record_shell.py trace
 """
 
 from __future__ import annotations
@@ -38,8 +39,12 @@ COMMANDS = {
     ],
     # The rules that keep a model out of the judgment path, enforced as tests.
     "rules": [
-        "uv run pytest -q -p no:warnings tests/test_no_llm_in_judgment.py tests/test_determinism.py "
-        "tests/test_gate.py tests/test_approve.py 2>&1 | tail -3",
+        "uv run pytest -p no:warnings tests/test_no_llm_in_judgment.py tests/test_determinism.py "
+        "tests/test_gate.py tests/test_approve.py 2>&1 | tail -1",
+    ],
+    # The ledger of the agent run recorded above: what it read, what it cost, what was refused.
+    "trace": [
+        "uv run --group cloud python tools/show_decisions.py --run-id 20261006-125326-d307ab --limit 12",
     ],
 }[SESSION]
 

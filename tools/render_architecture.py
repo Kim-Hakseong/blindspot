@@ -17,7 +17,7 @@ import tempfile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 MERMAID = "https://cdn.jsdelivr.net/npm/mermaid@12.0.0/dist/mermaid.min.js"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-SIZES = [(1700, 2600), (1400, 1100)]
+SIZES = [(1700, 2600), (1400, 1100), (2200, 1100), (2200, 1100)]
 
 
 def _trim(path: pathlib.Path, pad: int = 24) -> None:
