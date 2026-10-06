@@ -6,7 +6,7 @@
 - The 64 px caption bar on top is an obvious editing overlay naming the source
   of what is on screen (URL or command, and whether it is live, recorded or
   measured). It never imitates browser UI.
-- Subtitles are the narration lines, burned in. Narration is Amazon Polly.
+- Subtitles are the narration lines, burned into each segment. Narration is Amazon Polly.
 - The presenter segment is the entrant's own recording (.cache/video/human/
   intro.mp4). Until it exists a clearly marked placeholder card stands in and
   the output is named *_DRAFT.mp4.
@@ -126,9 +126,19 @@ def build(name, kind, src, cuts, cap, narration, min_len):
         hold = max(0.0, want - frames[-1][0])
         vf = SCALE + (f",tpad=stop_mode=clone:stop_duration={hold:.2f}" if hold > 0.01 else "")
         run("-f", "concat", "-safe", "0", "-i", str(lst), "-vf", vf, "-c:v", "libx264", "-crf", "20", str(seg))
+    # Subtitles burned per segment (one or two overlays per graph; a single graph
+    # with every overlay deadlocked ffmpeg on a long video).
+    inputs, chain, last = ["-i", str(seg), "-i", str(OUT / "cap" / f"{cap}.png")], [], "[0:v]"
+    for k, (lid, off) in enumerate(narration, 2):
+        inputs += ["-i", str(OUT / "cap" / f"sub_{lid}.png")]
+        # Bottoms carry the viewer's measure bar and the cards' source and licence
+        # footers, so subtitles go to the top except over a terminal session.
+        y = "H-h-24" if kind == "term" else "70"
+        chain.append(f"{last}[{k}:v]overlay=0:{y}:enable='between(t,{off:.2f},{off + DUR[lid]:.2f})'[s{k}]")
+        last = f"[s{k}]"
+    chain.append(f"[1:v]{last}vstack=inputs=2,format=yuv420p[out]")
     capped = OUT / "seg" / f"{name}_cap.mp4"
-    run("-i", str(seg), "-i", str(OUT / "cap" / f"{cap}.png"),
-        "-filter_complex", "[1:v][0:v]vstack=inputs=2,format=yuv420p", "-c:v", "libx264", "-crf", "20", str(capped))
+    run(*inputs, "-filter_complex", ";".join(chain), "-map", "[out]", "-c:v", "libx264", "-crf", "20", str(capped))
     return capped
 
 
@@ -140,13 +150,12 @@ def main():
     for lid, text in NARR.items():
         render(SUB_HTML.format(text=text), OUT / "cap" / f"sub_{lid}.png", 1920, 120, port=9462, transparent=True)
 
-    parts, audio, subs, t = [], [], [], 0.0
+    parts, audio, t = [], [], 0.0
     for name, kind, src, cuts, cap, narration, min_len in SEGMENTS:
         seg = build(name, kind, src, cuts, cap, narration, min_len)
         d = dur(seg)
         for lid, off in narration:
             audio.append((lid, t + off))
-            subs.append((lid, t + off, t + off + DUR[lid]))
         print(f"  {name:<10} {d:5.1f}s @ {t:6.1f}")
         parts.append(seg)
         t += d
@@ -157,13 +166,7 @@ def main():
     run("-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(silent))
     total = dur(silent)
 
-    inputs, chain, last = ["-i", str(silent)], [], "[0:v]"
-    for i, (lid, a, b) in enumerate(subs, 1):
-        inputs += ["-loop", "1", "-t", f"{b + 1:.2f}", "-i", str(OUT / "cap" / f"sub_{lid}.png")]
-        chain.append(f"{last}[{i}:v]overlay=0:H-h-24:enable='between(t,{a:.2f},{b:.2f})'[v{i}]")
-        last = f"[v{i}]"
-    subbed = OUT / "seg" / "subbed.mp4"
-    run(*inputs, "-filter_complex", ";".join(chain), "-map", last, "-c:v", "libx264", "-crf", "20", str(subbed))
+    subbed = silent
 
     ain, fc = [], []
     for i, (lid, at) in enumerate(audio):
@@ -171,7 +174,7 @@ def main():
         fc.append(f"[{i}:a]adelay={int(at * 1000)}|{int(at * 1000)}[a{i}]")
     mix = "".join(f"[a{i}]" for i in range(len(audio)))
     narr = OUT / "seg" / "narration.m4a"
-    run(*ain, "-filter_complex", ";".join(fc) + f";{mix}amix=inputs={len(audio)}:normalize=0,apad[out]",
+    run(*ain, "-filter_complex", ";".join(fc) + f";{mix}amix=inputs={len(audio)}:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11,apad[out]",
         "-map", "[out]", "-c:a", "aac", "-b:a", "192k", "-t", f"{total:.2f}", str(narr))
 
     final = OUT / ("blindspot_video.mp4" if HUMAN.is_file() else "blindspot_video_DRAFT.mp4")
