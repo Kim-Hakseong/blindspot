@@ -35,6 +35,6 @@ export type Report = {
   evidence_frames: { axis: string; unit: string; condition_value: number; png: string; selection_mode: string;
                      frame: { image_id: string; max_fp_score: number; baseline_tp: number; fail_tp: number };
                      attribution: { source: string; license: string; license_url: string }; reproduce: string }[];
-  measurements: { sim2real_gap: Measured; cool_vs_x86: Measured };
+  measurements: { sim2real_gap: Measured; cool_vs_stock: Measured; graviton_vs_x86: Measured };
   limitations: string[];
 };

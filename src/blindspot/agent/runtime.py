@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 
 import anthropic
 
@@ -57,6 +58,9 @@ SYSTEM = (
 
 
 def default_client(region: str = "us-east-1", profile: str = "blindspot"):  # pragma: no cover - AWS
+    # A library sets up INFO logging; per-request HTTP lines would bury the CLI's own output.
+    for name in ("httpx", "httpx2", "botocore.credentials"):
+        logging.getLogger(name).setLevel(logging.WARNING)
     return anthropic.AnthropicBedrock(aws_region=region, aws_profile=profile, max_retries=0)
 
 

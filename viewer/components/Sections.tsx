@@ -128,8 +128,9 @@ export default function Sections({ report }: { report: Report }) {
         <section className="panel">
           <h2>Known limitations</h2>
           <ul className="list">
-            <li>sim-to-real gap: {measured(report.measurements.sim2real_gap)}</li>
-            <li>COOL on Graviton vs x86: {measured(report.measurements.cool_vs_x86)}</li>
+            <li>sim-to-real gap, low light (third-party NOD photos, illuminance estimated): the synthetic boundary is too pessimistic by at least {measured(report.measurements.sim2real_gap)}</li>
+            <li>COOL vs stock OpenCV 5 on the same Graviton4: relative speed {measured(report.measurements.cool_vs_stock)}</li>
+            <li>Graviton4 vs x86, stock OpenCV 5: relative speed {measured(report.measurements.graviton_vs_x86)}</li>
             {report.limitations.map((l) => <li key={l}>{l}</li>)}
           </ul>
         </section>
@@ -140,11 +141,11 @@ export default function Sections({ report }: { report: Report }) {
         <h2>Reproduce</h2>
         <div className="grid-2">
           <div><div className="label">A. full (AWS)</div>
-            <pre>{`uv run cdk deploy --all\nuv run blindspot run \\\n    --dataset ./val/road100 \\\n    --budget 0.40`}</pre></div>
+            <pre>{`cd infra && npm ci\nnpx cdk bootstrap --qualifier bspot \\\n    --toolkit-stack-name CDKToolkit-blindspot\nnpx cdk deploy Blindspot\ncd .. && uv run --group cloud blindspot cloud-run \\\n    --dataset val/road100 --budget 0.40`}</pre></div>
           <div><div className="label">B. local (no AWS)</div>
-            <pre>{`docker run --rm -v "$PWD/val:/val" \\\n    blindspot:local run \\\n    --dataset /val/road100 --probes 8`}</pre></div>
+            <pre>{`docker build -t blindspot:local .\ndocker run --rm --network none \\\n    -v "$PWD/val:/val:ro" blindspot:local \\\n    run --dataset /val/road100 --probes 8 \\\n    --axis motion_blur.exposure_ms --grid-steps 17`}</pre></div>
         </div>
-        <p className="caption">Screens narrower than 768 px are not supported.</p>
+        <p className="caption">Full steps in the repository README. Screens narrower than 768 px are not supported.</p>
       </section>
     </>
   );

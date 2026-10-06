@@ -38,7 +38,7 @@ def minimal(**overrides):
         "curves": [],
         "efficiency": None,
         "evidence_frames": [],
-        "measurements": {"sim2real_gap": NOT_MEASURED, "cool_vs_x86": NOT_MEASURED},
+        "measurements": {"sim2real_gap": NOT_MEASURED, "cool_vs_stock": NOT_MEASURED, "graviton_vs_x86": NOT_MEASURED},
         "limitations": ["a", "b", "c", "d", "e"],
     }
     doc.update(overrides)
@@ -85,7 +85,7 @@ def test_interval_must_be_ordered():
 
 @pytest.mark.parametrize("bad", [0, 0.0, None, "", "n/a", "-"])
 def test_an_unmeasured_quantity_cannot_be_zero_or_blank(bad):
-    doc = minimal(measurements={"sim2real_gap": bad, "cool_vs_x86": NOT_MEASURED})
+    doc = minimal(measurements={"sim2real_gap": bad, "cool_vs_stock": NOT_MEASURED, "graviton_vs_x86": NOT_MEASURED})
     with pytest.raises(ValidationError):
         Report.model_validate(doc)
 
@@ -93,7 +93,7 @@ def test_an_unmeasured_quantity_cannot_be_zero_or_blank(bad):
 def test_a_measured_quantity_carries_value_unit_and_source():
     doc = minimal(measurements={
         "sim2real_gap": {"value": 3.2, "unit": "ms", "source": "bench/out/sim2real.json"},
-        "cool_vs_x86": NOT_MEASURED,
+        "cool_vs_stock": NOT_MEASURED, "graviton_vs_x86": NOT_MEASURED,
     })
     Report.model_validate(doc)
 
@@ -106,3 +106,26 @@ def test_fewer_than_five_limitations_is_rejected():
 def test_unknown_top_level_fields_are_rejected():
     with pytest.raises(ValidationError):
         Report.model_validate(minimal(passed_conditions=[]))
+
+
+def test_measurements_are_read_from_the_benchmark_outputs(tmp_path):
+    # The viewer's "measured" items come from bench/out, never typed in.
+    import json
+    from blindspot.report import measurements_from_bench
+    (tmp_path / "cool" / "m8g-4xlarge").mkdir(parents=True)
+    (tmp_path / "sim2real.json").write_text(json.dumps({"gap": {
+        "synthetic_boundary_overstates_failure_illuminance_by_at_least": 12.0}}))
+    (tmp_path / "cool" / "m8g-4xlarge" / "ec2_three_way.json").write_text(json.dumps(
+        {"cool_effect": {"speedup": 0.952}}))
+    (tmp_path / "cool" / "ec2_three_way.json").write_text(json.dumps(
+        {"chip_effect": {"speedup": 0.733}}))
+    m = measurements_from_bench(tmp_path)
+    assert m["sim2real_gap"]["value"] == 12.0 and "sim2real.json" in m["sim2real_gap"]["source"]
+    assert m["cool_vs_stock"]["value"] == 0.952 and m["graviton_vs_x86"]["value"] == 0.733
+    Report.model_validate(minimal(measurements=m))
+
+
+def test_a_missing_benchmark_output_reads_as_not_measured(tmp_path):
+    from blindspot.report import measurements_from_bench
+    assert measurements_from_bench(tmp_path) == {
+        "sim2real_gap": NOT_MEASURED, "cool_vs_stock": NOT_MEASURED, "graviton_vs_x86": NOT_MEASURED}

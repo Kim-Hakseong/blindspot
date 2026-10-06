@@ -310,16 +310,20 @@ most photos, because in-camera noise reduction makes real night photos look
 cleaner than the synthetic sensor -- it is not usable on real camera output,
 and Blindspot's coverage report, which uses it, inherits that limitation.
 
+**Reading.** The tool measured its own blind spot, and the error is on the conservative side: it over-warns rather than misses failures. The model is deliberately **not** calibrated against these photos, because calibrating and validating on the same images would be fitting to the answer. Next step: model the camera's image-signal-processor noise reduction, then validate on a separate real set.
+
 Limits: one axis (low light), one detector, different scenes on the real and
 synthetic sides, and a threshold taken from the road-scene baseline.
 
 ## Known limitations
 
-1. **Synthetic degradation is not real degradation.** This is the central
-   limitation and it is not yet quantified. A sim-to-real gap measurement
-   against a real low-light, hand-shake and recompression capture set is
-   **not measured**. Until it is, boundaries here predict where a pipeline
-   fails under *modelled* conditions.
+1. **Synthetic degradation is not real degradation; on low light it errs pessimistic.**
+   Measured on third-party night photos (NOD) with estimated
+   illuminance, the synthetic low-light boundary overstates the failure
+   illuminance by at least 12.0 <!--bench:sim2real.gap.synthetic_boundary_overstates_failure_illuminance_by_at_least-->×
+   -- it over-warns rather than misses failures. It is deliberately not
+   calibrated on those photos; modelling in-camera noise reduction is next.
+   Motion blur, fog and JPEG have no real-world comparison yet.
 
 2. **Bisection assumes monotonicity.** Verified mode scans before refining and
    reports `NOT_MONOTONE` rather than guessing, but a failure band narrower
@@ -335,8 +339,10 @@ synthetic sides, and a threshold taken from the road-scene baseline.
    it get mis-graded fog.
 
 5. **Coverage is inferred from image statistics, not capture metadata.** A
-   scene that is intrinsically low-contrast reads as foggier than it was shot.
-   EXIF or a capture log would be better and is not yet used.
+   scene that is intrinsically low-contrast reads as foggier than it was shot,
+   and on real night photos the SNR estimate saturates because in-camera noise
+   reduction makes them look clean (measured in the sim-to-real section).
+   EXIF or a capture log would be better and is not yet used for coverage.
 
 6. **`mtf50_cy_px` is a proxy**, not an ISO 12233 measurement. It is comparable
    between degradations of one scene, not across scenes.

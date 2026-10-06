@@ -93,7 +93,39 @@ Measurement = Union[Measured, Literal["not measured"]]
 
 class Measurements(_Strict):
     sim2real_gap: Measurement
-    cool_vs_x86: Measurement
+    cool_vs_stock: Measurement
+    graviton_vs_x86: Measurement
+
+
+#: (field, benchmark file under bench/out, dotted key, unit, what the number is)
+_BENCH_MEASUREMENTS = (
+    ("sim2real_gap", "sim2real.json", "gap.synthetic_boundary_overstates_failure_illuminance_by_at_least",
+     "x", "lower bound: synthetic boundary over the darkest passing real bin, illuminance estimated (NOD)"),
+    ("cool_vs_stock", "cool/m8g-4xlarge/ec2_three_way.json", "cool_effect.speedup",
+     "x", "COOL speed relative to the stock OpenCV 5 wheel, same Graviton4 m8g.4xlarge"),
+    ("graviton_vs_x86", "cool/ec2_three_way.json", "chip_effect.speedup",
+     "x", "Graviton4 speed relative to x86, stock wheel, c8g.large vs c7i.large"),
+)
+
+
+def measurements_from_bench(bench_out) -> dict:
+    """The report's measured quantities, read from benchmark outputs only.
+
+    A missing file means the quantity was not measured; nothing is typed in."""
+    import json
+    import pathlib
+
+    out = {}
+    for field, rel, key, unit, what in _BENCH_MEASUREMENTS:
+        path = pathlib.Path(bench_out) / rel
+        if not path.is_file():
+            out[field] = NOT_MEASURED
+            continue
+        node = json.loads(path.read_text())
+        for k in key.split("."):
+            node = node[k]
+        out[field] = {"value": float(node), "unit": unit, "source": f"bench/out/{rel} ({what})"}
+    return out
 
 
 class Report(_Strict):

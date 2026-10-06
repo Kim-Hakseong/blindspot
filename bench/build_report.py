@@ -26,7 +26,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from blindspot.boundary.coverage import axis_coverage, native_measurements, population_sweep  # noqa: E402
 from blindspot.degrade import REGISTRY  # noqa: E402
-from blindspot.report import NOT_MEASURED, Report  # noqa: E402
+from blindspot.report import Report, measurements_from_bench  # noqa: E402
 
 OUT = ROOT / "bench" / "out"
 
@@ -156,7 +156,7 @@ def main() -> int:
                    for e in efficiency["axes"]],
         "efficiency": efficiency["summary"],
         "evidence_frames": frames_index,
-        "measurements": {"sim2real_gap": NOT_MEASURED, "cool_vs_x86": NOT_MEASURED},
+        "measurements": measurements_from_bench(OUT),
         "limitations": limitations_from_results(ROOT / "docs" / "results.md"),
     })
     (args.out / "report.json").write_text(report.dump_json() + "\n", encoding="utf-8")
