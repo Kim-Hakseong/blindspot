@@ -7,9 +7,8 @@
   of what is on screen (URL or command, and whether it is live, recorded or
   measured). It never imitates browser UI.
 - Subtitles are the narration lines, burned into each segment. Narration is Amazon Polly.
-- The presenter segment is the entrant's own recording (.cache/video/human/
-  intro.mp4). Until it exists a clearly marked placeholder card stands in and
-  the output is named *_DRAFT.mp4.
+- The team segment is a card naming the solo builder (the entrant chose a card
+  over a presenter clip); a clip at .cache/video/human/intro.mp4 would replace it.
 
     uv run --with websockets==15.0.1 python video/tools/compose.py
 """
@@ -31,7 +30,7 @@ HUMAN = OUT / "human" / "intro.mp4"
 # name, kind, source, cuts [(from, to)], caption, narration [(line, offset)], minimum length
 SEGMENTS = [
     ("title", "still", "stills/title.png", None, "title", [("n01", 0.5)], 6.0),
-    ("human", "human", None, None, "human", [], 15.0),
+    ("human", "human", None, None, "human", [], 10.0),
     ("hook", "cdp", "hook", None, "viewer", [("n02", 0.3), ("n03", 10.0)], 21.0),
     ("reproduce", "term", "reproduce", None, "reproduce", [("n04", 0.6)], 10.0),
     ("overview", "still", "stills/overview.png", None, "arch", [("n05", 0.5)], 6.0),
@@ -49,7 +48,7 @@ SEGMENTS = [
 
 CAPTIONS = {
     "title": ("Blindspot", "OpenCV 5 · AWS"),
-    "human": ("presenter", "recorded by the entrant"),
+    "human": ("Team", "solo entry"),
     "viewer": (REPORT_URL, "live · S3 + CloudFront · real key presses"),
     "reproduce": ("$ uv run blindspot probe …", "recorded shell · real timing"),
     "arch": ("docs/architecture.md", "diagram rendered from text source"),
@@ -74,10 +73,18 @@ SUB_HTML = FONTS + """<style>html,body{{margin:0;width:1920px;height:120px;backg
 .s{{display:flex;align-items:center;justify-content:center;height:120px;padding:0 140px}}
 .x{{font-family:Inter;font-size:27px;font-weight:500;line-height:1.3;color:#E8ECF2;text-align:center;
  background:rgba(11,14,20,.86);padding:10px 24px;border-radius:8px}}</style><div class="s"><div class="x">{text}</div></div>"""
-HUMAN_CARD = FONTS + """<style>html,body{{margin:0;width:1920px;height:1016px;background:#0B0E14;color:#E8ECF2;font-family:Inter}}
-.c{{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}}
-.k{{font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#F5B54A}}.h{{font-size:44px;font-weight:600}}</style>
-<div class="c"><div class="k">placeholder — not part of the final video</div><div class="h">Presenter segment pending (HUMAN_ACTION)</div></div>"""
+TEAM_CARD = FONTS + """<style>html,body{{margin:0;width:1920px;height:1016px;background:#0B0E14;color:#E8ECF2;font-family:Inter}}
+.c{{height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 140px;gap:22px}}
+.k{{font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#A3AEBF}}
+.n{{font-size:64px;font-weight:600;letter-spacing:-.02em}}.r{{color:#A3AEBF;font-weight:500}}
+.d{{font-size:30px;line-height:1.4;color:#E8ECF2;max-width:1500px}}
+.u{{font-family:'JetBrains Mono';font-size:26px;color:#4C8DFF;line-height:1.7}}.l{{color:#6B7684}}</style>
+<div class="c"><div class="k">Team</div>
+<div class="n">Hakseong Kim <span class="r">— solo builder</span></div>
+<div class="d">Built Blindspot end to end: OpenCV 5 degradations in physical units, the boundary search,
+the AWS deployment, the report viewer, and the opt-in agent with its budget gate.</div>
+<div class="u"><span class="l">code&nbsp;&nbsp;&nbsp;</span>https://github.com/Kim-Hakseong/blindspot<br>
+<span class="l">report&nbsp;</span>{report}</div></div>"""
 
 
 def run(*args):
@@ -113,9 +120,9 @@ def build(name, kind, src, cuts, cap, narration, min_len):
     if kind == "human" and HUMAN.is_file():
         run("-i", str(HUMAN), "-vf", SCALE, "-an", "-c:v", "libx264", "-crf", "20", str(seg))
     elif kind in ("still", "human"):
-        img = OUT / (src if kind == "still" else "stills/human_placeholder.png")
+        img = OUT / (src if kind == "still" else "stills/team.png")
         if kind == "human":
-            render(HUMAN_CARD.format(), img, 1920, 1016, port=9460)
+            render(TEAM_CARD.format(report=REPORT_URL), img, 1920, 1016, port=9460)
         run("-loop", "1", "-t", f"{want:.2f}", "-i", str(img), "-vf", SCALE, "-c:v", "libx264", "-crf", "20", str(seg))
     else:
         frames = frames_for(kind, src, cuts)
@@ -177,7 +184,7 @@ def main():
     run(*ain, "-filter_complex", ";".join(fc) + f";{mix}amix=inputs={len(audio)}:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11,apad[out]",
         "-map", "[out]", "-c:a", "aac", "-b:a", "192k", "-t", f"{total:.2f}", str(narr))
 
-    final = OUT / ("blindspot_video.mp4" if HUMAN.is_file() else "blindspot_video_DRAFT.mp4")
+    final = OUT / "blindspot_video.mp4"
     run("-i", str(subbed), "-i", str(narr), "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", str(final))
     print(f"FINAL {final.name}: {dur(final):.1f}s")
 
