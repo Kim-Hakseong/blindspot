@@ -70,3 +70,4 @@ opencv, python, onnx, yolox, aws, aws-cdk, aws-batch, aws-fargate, aws-step-func
 
 - Report viewer (live, no login): https://d18du1w0ii5yhw.cloudfront.net/
 - Code (MIT): https://github.com/Kim-Hakseong/blindspot
+- Video (3:45, unlisted): https://youtu.be/QwyEL-QrRqk

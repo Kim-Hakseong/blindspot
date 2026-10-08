@@ -26,6 +26,7 @@ BUILT_WITH = [
 LINKS = {
     "Report viewer (live, no login)": "https://d18du1w0ii5yhw.cloudfront.net/",
     "Code (MIT)": "https://github.com/Kim-Hakseong/blindspot",
+    "Video (3:45, unlisted)": "https://youtu.be/QwyEL-QrRqk",
 }
 
 
