@@ -35,7 +35,11 @@ It is a tool that interrogates detectors, not a detector.
 
 ## 3. Architecture
 
-![Architecture](architecture-1.png)
+![Architecture overview](architecture-3.png)
+
+![Agent workflow: perception, decision, action](architecture-4.png)
+
+The detailed system and probe-lifecycle diagrams are in `architecture.md` (`architecture-1.png`, `architecture-2.png`).
 
 Source and design decisions: [`architecture.md`](architecture.md).
 
